@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:outputLabel for="tipoGrafico" value="#{msg.etiquetaTipoGrafico}" />
+				<p:selectOneMenu id="tipoGrafico"
+					value="#{referenciasPreguntaBean.tipoGrafica}">
+					<f:selectItems value="#{referenciasPreguntaBean.tiposGrafica}" />
+					<p:ajax update="grafica"
+						listener="#{referenciasPreguntaBean.onChangeTipoGrafica}" />
+				</p:selectOneMenu>
+			</p:panelGrid>
+		</h:form>
+
+		<p:chart id="grafica" type="#{referenciasPreguntaBean.tipoGrafica}"
+			model="#{referenciasPreguntaBean.model}" style="height:300px" />
+
+		<br />
+		<h:form>
+			<p:dataTable id="tablaDatos" value="#{referenciasPreguntaBean.datos}" var="dato">
+				<f:facet name="header">
+					<h:outputText  value="#{referenciasPreguntaBean.titulo}" />
+				</f:facet>
+				<p:column headerText="#{referenciasPreguntaBean.ejeX}">
+					<h:outputText value="#{dato.etiqueta}" />
+				</p:column>
+				<p:column headerText="#{referenciasPreguntaBean.ejeY}">
+					<h:outputText value="#{dato.valor}" />
+				</p:column>
+
+				<f:facet name="footer">
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/excel.png" width="24" />
+						<p:dataExporter type="xls" target="tablaDatos"
+							fileName="tablaDatos_#{referenciasPreguntaBean.titulo}" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="tablaDatos"
+							fileName="tablaDatos_#{referenciasPreguntaBean.titulo}" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/csv.png" width="24" />
+						<p:dataExporter type="csv" target="tablaDatos"
+							fileName="tablaDatos_#{referenciasPreguntaBean.titulo}" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/xml.png" width="24" />
+						<p:dataExporter type="xml" target="tablaDatos"
+							fileName="tablaDatos_#{referenciasPreguntaBean.titulo}" />
+					</h:commandLink>
+
+				</f:facet>				
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

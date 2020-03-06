@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<head>
+
+
+</head>
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="estilos">
+		<style type="text/css">
+.value {
+	font-weight: bold;
+}
+
+.ui-datatable {
+	margin-bottom: 25px
+}
+
+.ui-datatable .ui-datatable-footer {
+	text-align: left;
+}
+
+.ui-datalist ul {
+	padding: 0 0 0 10px;
+	margin: 5px 0;
+}
+
+.ui-datatable .ui-button-icon-only .ui-button-text {
+	padding: 0;
+	line-height: 1.2;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="content">
+
+
+		<h:form id="tabla">
+
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable 
+				value="#{registroInicialBean.revisiones}" 
+				var="revision"
+				editable="true" 
+				selection="#{registroInicialBean.revision}"
+				rowKey="#{revision.id}" 
+				paginator="true" rows="5"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10">
+
+				<p:ajax event="rowSelectRadio" update=":tabla,:menu" />
+
+				<p:ajax event="rowEdit" listener="#{registroInicialBean.onRowEdit}"
+					update=":tabla:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{registroInicialBean.onRowCancel}" update=":tabla:msgs" />
+
+				<p:column headerText="#{msg.etiquetaNombre}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{revision.nombre}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{revision.nombre}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaObjetivo}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{revision.objetivo}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{revision.objetivo}" />
+						</f:facet>
+
+					</p:cellEditor>
+
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaDescripcion}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{revision.descripcion}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{revision.descripcion}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column selectionMode="single"
+					style="width:16px;text-align:center" />
+
+
+
+				<p:column style="width:35px">
+
+					<p:rowEditor
+						rendered="#{registroInicialBean.revision.id == revision.id}" />
+					<p:commandLink action="#{registroInicialBean.eliminar(revision)}"
+						update=":tabla"
+						rendered="#{revision.equals(registroInicialBean.revision)}">
+						<span class="ui-icon ui-icon-trash"></span>
+						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+							message="#{msg['dialogoConfirmacion.eliminar']}"
+							icon="ui-icon ui-icon-alert" />
+					</p:commandLink>
+
+				</p:column>
+
+
+
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="#{msg.si}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon ui-icon-check" />
+				<p:commandButton value="#{msg.no}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+
+
+		<h:form id="registro">
+			<div class="ui-fluid" style="width: 70%;">
+				<p:panelGrid columns="2" style="width:70%">
+					<p:outputLabel value="#{msg.etiquetaNombre}:" />
+					<p:inputText value="#{registroInicialBean.nombre}" />
+
+					<p:outputLabel value="#{msg.etiquetaObjetivo}:" />
+					<p:inputTextarea id="area" value="#{registroInicialBean.objetivo}" />
+
+					<p:outputLabel for="area2" value="#{msg.etiquetaDescripcion}:" />
+					<p:inputTextarea id="area2"
+						value="#{registroInicialBean.descripcion}" />
+
+
+					<f:facet name="footer">
+						<p:commandButton value="#{msg.botonAceptar}"
+							action="#{registroInicialBean.registrar}"
+							update=":registro,:tabla" />
+					</f:facet>
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

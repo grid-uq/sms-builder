@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>co.edu.utp.gia.sms</groupId>
+	<artifactId>sms</artifactId>
+	<version>0.1</version>
+	<packaging>pom</packaging>
+	<name>Ria Systematic Mapping Study</name>
+	<properties>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>8.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- Establecer la version de EAR a ser usada -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-ear-plugin</artifactId>
+					<version>3.0.1</version>
+					<configuration>
+						<version>7</version>
+						<defaultLibBundleDir>lib</defaultLibBundleDir>
+						<defaultJavaBundleDir>lib/</defaultJavaBundleDir>
+						<skinnyWars>true</skinnyWars>
+						<generateModuleId>true</generateModuleId>
+						<fileNameMapping>no-version</fileNameMapping>
+						<archive>
+							<manifest>
+								<addClasspath>true</addClasspath>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+				<!-- Establecer la version de EJB -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-ejb-plugin</artifactId>
+					<version>3.0.1</version>
+					<configuration>
+						<ejbVersion>3.2</ejbVersion>
+					</configuration>
+				</plugin>
+				<!-- Establecer la version de WAR -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>3.2.3</version>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+	</build>
+	<modules>
+		<module>smsgia-web</module>
+	</modules>
+</project>

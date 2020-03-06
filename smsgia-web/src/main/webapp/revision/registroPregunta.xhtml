@@ -1,0 +1,113 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="formulario">
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="2">
+					<p:outputLabel value="#{msg.etiquetaCodigoPregunta}: " />
+					<p:inputText value="#{registroPreguntaBean.codigo}" maxlength="3" />
+					<p:outputLabel value="#{msg.etiquetaPregunta}: " />
+					<p:inputText value="#{registroPreguntaBean.descripcion}" />
+
+
+					<f:facet name="footer">
+						<p:commandButton value="#{msg.botonAceptar}"
+							action="#{registroPreguntaBean.registrar}"
+							update=":tabla,:formulario" />
+					</f:facet>
+
+				</p:panelGrid>
+
+			</div>
+		</h:form>
+		<h:form id="tabla">
+			<p:growl id="msgs" showDetail="true" />
+			<p:dataTable value="#{registroPreguntaBean.preguntas}" var="pregunta"
+				editable="true">
+				<p:ajax event="rowEdit" listener="#{registroPreguntaBean.onRowEdit}"
+					update=":tabla:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{registroPreguntaBean.onRowCancel}" update=":tabla:msgs" />
+				<p:column headerText="#{msg.etiquetaCodigoPregunta}:">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{pregunta.codigo}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{pregunta.codigo}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg.etiquetaPregunta}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{pregunta.descripcion}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{pregunta.descripcion}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg.etiquetaTopicos}">
+					<p:commandLink
+						action="#{registroPreguntaBean.adicionarTopico(pregunta.id)}">
+						<span class="ui-icon ui-icon-circle-plus"></span>
+						<p:ajax event="dialogReturn"
+							listener="#{registroPreguntaBean.onTopicoCreado}" update=":tabla" />
+					</p:commandLink>
+
+
+					<p:repeat value="#{pregunta.topicos}" var="topico">
+						<p:panelGrid columns="2">
+							<h:outputText value="#{topico.descripcion}" />
+							<p:commandLink
+								action="#{registroPreguntaBean.eliminarTopico(pregunta,topico)}"
+								update=":tabla">
+								<span class="ui-icon ui-icon-trash"></span>
+								<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+									message="#{msg['dialogoConfirmacion.eliminar']}"
+									icon="ui-icon ui-icon-alert" />
+							</p:commandLink>
+						</p:panelGrid>
+
+					</p:repeat>
+				</p:column>
+				<p:column style="width:35px">
+					<p:rowEditor />
+					<p:commandLink action="#{registroPreguntaBean.eliminar(pregunta)}"
+						update=":tabla">
+						<span class="ui-icon ui-icon-trash"></span>
+						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+							message="#{msg['dialogoConfirmacion.eliminar']}"
+							icon="ui-icon ui-icon-alert" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="#{msg.si}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon ui-icon-check" />
+				<p:commandButton value="#{msg.no}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

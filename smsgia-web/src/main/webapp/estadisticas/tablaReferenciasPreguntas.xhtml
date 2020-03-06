@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h:form id="tabla" enctype="multipart/form-data" prependId="false">
+			<p:growl id="mensajes" showDetail="true" />
+
+			<p:dataTable id="resumenReferencias"
+				value="#{tablaReferenciasPreguntasBean.referencias}"
+				var="referencia">
+
+				<f:facet name="footer">
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/excel.png" width="24" />
+						<p:dataExporter type="xls" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/csv.png" width="24" />
+						<p:dataExporter type="csv" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/xml.png" width="24" />
+						<p:dataExporter type="xml" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+				</f:facet>
+				<f:facet name="header">
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/excel.png" width="24" />
+						<p:dataExporter type="xls" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/csv.png" width="24" />
+						<p:dataExporter type="csv" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/xml.png" width="24" />
+						<p:dataExporter type="xml" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+				</f:facet>
+
+				<p:column headerText="#{msg.etiquetaNombre}">
+					<h:outputText value="#{referencia.nombre}" />
+				</p:column>
+
+				<p:columns value="#{tablaReferenciasPreguntasBean.preguntas}" var="pregunta" >
+		            <f:facet name="header">
+		                <h:outputText value="#{pregunta.codigo}" />
+		            </f:facet>
+		            <h:outputText value="#{tablaReferenciasPreguntasBean.tieneRalacion(referencia,pregunta) ? 'X':''}" />
+		        </p:columns>
+				
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

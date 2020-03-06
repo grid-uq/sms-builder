@@ -1,0 +1,142 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>co.edu.utp.gia.sms</groupId>
+		<artifactId>sms</artifactId>
+		<version>0.1</version>
+	</parent>
+	<artifactId>smsgia-web</artifactId>
+	<packaging>war</packaging>
+	<name>Gia SMS Web</name>
+	<properties>
+		<omnifaces.version>1.14.1</omnifaces.version>
+	</properties>
+	
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>fish.payara.maven.plugins</groupId>
+				<artifactId>payara-micro-maven-plugin</artifactId>
+				<version>1.0.5</version>
+				<executions>
+					<execution>
+						<id>bundle</id>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>start</id>
+						<goals>
+							<goal>start</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<useUberJar>true</useUberJar>
+				</configuration>
+
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<!-- persistence <dependency> <groupId>org.eclipse.persistence</groupId> 
+			<artifactId>javax.persistence</artifactId> <version>2.2.1</version> </dependency> -->
+
+		<!-- web -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>8.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>javax.faces-api</artifactId>
+			<version>2.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.2.19</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.8</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>7.0</version>
+		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>7.0.1</version>
+		</dependency>
+		<dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>${omnifaces.version}</version>
+            <scope>compile</scope>
+        </dependency>
+		-->
+		<!-- https://mvnrepository.com/artifact/org.primefaces.themes/all-themes -->
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
+		<!-- Data Exporter -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+			<exclusions>
+				<exclusion>
+					<groupId>bouncycastle</groupId>
+					<artifactId>bcmail-jdk14</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>bouncycastle</groupId>
+					<artifactId>bcprov-jdk14</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.bouncycastle</groupId>
+					<artifactId>bctsp-jdk14</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+		</repository>
+	</repositories>
+</project>

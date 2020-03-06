@@ -1,0 +1,77 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="formulario">
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="2">
+					<p:outputLabel value="#{msg.etiquetaAtributoCalidad}: " />
+					<p:inputText value="#{registroAtributoCalidadBean.descripcion}" />
+
+
+					<f:facet name="footer">
+						<p:commandButton value="#{msg.botonAceptar}"
+							action="#{registroAtributoCalidadBean.registrar}"
+							update=":tabla,:formulario" />
+					</f:facet>
+
+				</p:panelGrid>
+
+			</div>
+		</h:form>
+		<h:form id="tabla">
+			<p:growl id="msgs" showDetail="true" />
+			<p:dataTable value="#{registroAtributoCalidadBean.atributosCalidad}" var="atributoCalidad"
+				editable="true">
+				<p:ajax event="rowEdit" listener="#{registroAtributoCalidadBean.onRowEdit}"
+					update=":tabla:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{registroAtributoCalidadBean.onRowCancel}" update=":tabla:msgs" />
+				<p:column headerText="#{msg.etiquetaAtributoCalidad}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{atributoCalidad.descripcion}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{atributoCalidad.descripcion}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column style="width:35px">
+					<p:rowEditor />
+					<p:commandLink action="#{registroAtributoCalidadBean.eliminar(atributoCalidad)}"
+						update=":tabla">
+						<span class="ui-icon ui-icon-trash"></span>
+						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+							message="#{msg['dialogoConfirmacion.eliminar']}"
+							icon="ui-icon ui-icon-alert" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="#{msg.si}" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon ui-icon-check" />
+				<p:commandButton value="#{msg.no}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>
