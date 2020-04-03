@@ -33,15 +33,23 @@ public abstract class FileMultipleRegisterParse {
 		List<Referencia> references = new ArrayList<Referencia>();
 
 		try (Scanner lector = new Scanner(input)) {
-			lector.nextLine();
+			String linea = "";
+			while( lector.hasNextLine() && "".equals(linea.trim()) ) {
+				linea = lector.nextLine();
+				System.out.println("LINEA - REMOVIDA = "+linea);
+			}
+			
 			while (lector.hasNextLine()) {
-				Referencia reference = referenceParser.parse(lector.nextLine());
+				linea = lector.nextLine();
+				System.out.println("LINEA PROCESADA = "+linea);
+				
+				Referencia reference = referenceParser.parse(linea);
 				if (reference != null) {
 					references.add(reference);
 				}
 			}
 		}
-
+		
 		return references;
 	}
 

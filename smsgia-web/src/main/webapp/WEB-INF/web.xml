@@ -5,7 +5,7 @@
 	version="4.0">
 	<display-name>smsgia-web</display-name>
 	<welcome-file-list>
-		<welcome-file>/revision/seleccionarRevision.xhtml</welcome-file>
+		<welcome-file>revision/seleccionarRevision.xhtml</welcome-file>
 	</welcome-file-list>
 	    <context-param>
         <param-name>primefaces.FONT_AWESOME</param-name>
@@ -24,5 +24,17 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+<!-- 
+Using an entry in web.xml, ejb-jar.xml or application.xml:
 
+
+<data-source>
+  <name>java:app/MyApp/MyDS</name>
+  <class-name>org.h2.jdbcx.JdbcDataSource</class-name>
+  <initial-pool-size>10</initial-pool-size>
+  <max-pool-size>200</max-pool-size> 
+  <min-pool-size>10</min-pool-size>
+  <url>jdbc:h2:mem:test</url>
+</data-source>
+ -->
 </web-app>

@@ -15,6 +15,8 @@ import static javax.persistence.CascadeType.PERSIST;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.FetchType.EAGER;
+import javax.persistence.Lob;
+import javax.persistence.Column;
 
 /**
  * Elemento que representa de forma general una referencia a ser procesada
@@ -104,6 +106,8 @@ public class Referencia implements Serializable {
 	/**
 	 * Variable que representa el atributo resumen de la clase
 	 */
+	@Lob
+	@Column(length = 5)
 	private String resumen;
 
 	/**
