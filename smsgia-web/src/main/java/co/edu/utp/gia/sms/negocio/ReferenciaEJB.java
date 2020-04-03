@@ -33,6 +33,7 @@ public class ReferenciaEJB {
 				referencia.setFiltro(3);
 			}
 		}
+		System.out.println("Year = " + referencia.getYear());
 		entityManager.persist(referencia);
 		return referencia;
 	}

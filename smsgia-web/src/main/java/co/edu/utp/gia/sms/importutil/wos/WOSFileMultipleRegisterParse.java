@@ -22,6 +22,7 @@ public class WOSFileMultipleRegisterParse extends FileMultipleRegisterParse {
 
 			while (lector.hasNextLine()) {
 				String stringRerence = readReference(lector);
+				
 				if (stringRerence != null && !"".equals(stringRerence)) {
 					Referencia reference = getReferenceParser().parse(stringRerence);
 					if (reference != null) {
@@ -37,9 +38,9 @@ public class WOSFileMultipleRegisterParse extends FileMultipleRegisterParse {
 	private String readReference(Scanner lector) {
 		StringBuilder build = new StringBuilder();
 		String linea = null;
-		while (lector.hasNextLine() && !"".equals(linea)) {
-			linea = lector.nextLine();
-			if (!"".equals(linea)) {
+		while (lector.hasNextLine() && !"".equals(linea) && !"EF".equals(linea)) {
+			linea = lector.nextLine().trim();
+			if (!"".equals(linea) && !"EF".equals(linea)) {
 				build.append(linea + "\n");
 			}
 		}

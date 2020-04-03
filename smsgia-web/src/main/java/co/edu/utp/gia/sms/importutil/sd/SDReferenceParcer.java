@@ -1,4 +1,4 @@
-package co.edu.utp.gia.sms.importutil.wos;
+package co.edu.utp.gia.sms.importutil.sd;
 
 import java.io.StringReader;
 import java.util.Scanner;
@@ -20,36 +20,31 @@ import co.edu.utp.gia.sms.importutil.ReferenceParser;
  *
  */
 
-// Formato horizontal clave valor WoS
+/* Esta bases de datos se está tratando para archivos exportados en formato .RIS
+ * */
+public class SDReferenceParcer extends ReferenceParser {
+	private static final String TITULO = "TI"; 				
+	private static final String KEYWORD = "KW";				
+	private static final String YEAR = "PY";				
+	private static final String ABSTRACT = "AB";			
+	private static final String AUTOR = "A1";				
+	private static final String AUTOR2 = "A2";				
+	private static final String AUTOR3 = "A3";				
+	private static final String AUTOR4 = "A4";				
+	private static final String DOI = "DO";					
+	private static final String ISBN = "SN";				
+	private static final String NOMBRE_PUBLICACION = "PP";	//revisar
+	private static final String TIPO_PUBLICACION = "TY";	
 
-public class WOSReferenceParcer extends ReferenceParser {
-	private static final String TITULO = "TI";
-	private static final String KEYWORD = "DE";
-	private static final String YEAR = "PY";
-	private static final String ABSTRACT = "AB";
-	private static final String AUTOR = "AF";
-	private static final String DOI = "DI";
-	private static final String ISBN = "SN";
-	private static final String NOMBRE_PUBLICACION = "PU";
-	private static final String TIPO_PUBLICACION = "DT";
-
-	public WOSReferenceParcer() {
-		super(Fuente.WOS);
+	public SDReferenceParcer() {
+		super(Fuente.SD);
 	}
 
 	protected void procesarTexto(Referencia reference, String texto) {
 
 		try (Scanner lector = new Scanner(new StringReader(texto))) {
-			String key = null;
 			while (lector.hasNextLine()) {
 				String linea = lector.nextLine();
-				// Cuando la línea no inicia con una lleve, se concatena con la llave anterior
-				if ("  ".equals(linea.substring(0, 2))) {
-					linea = key + linea.substring(2);
-				} else {
-					key = linea.substring(0, 2);
-				}
-
 				procesarLinea(reference, linea);
 			}
 		}
@@ -60,6 +55,9 @@ public class WOSReferenceParcer extends ReferenceParser {
 		case TITULO:
 			return TipoMetadato.TITLE;
 		case AUTOR:
+		case AUTOR2:
+		case AUTOR3:
+		case AUTOR4:
 			return TipoMetadato.AUTOR;
 		case NOMBRE_PUBLICACION:
 			return TipoMetadato.PUBLISHER;
@@ -82,7 +80,7 @@ public class WOSReferenceParcer extends ReferenceParser {
 	}
 
 	/**
-	 * Procesa una linea del formato WOS
+	 * Procesa una linea del formato SD
 	 * 
 	 * @param reference Referencia que se esta procesando
 	 * @param nextLine  Linea a ser procesada
@@ -91,21 +89,7 @@ public class WOSReferenceParcer extends ReferenceParser {
 		if (nextLine != null && !nextLine.isEmpty()) {
 			String key = nextLine.substring(0, 2).toUpperCase();
 			String value = nextLine.substring(2).trim().toUpperCase();
-
-			TipoMetadato tipo = identifierOf(key);
-
-			if (TipoMetadato.KEYWORD.equals(tipo)) {
-				addKeywords(reference, value);
-			} else {
-				reference.addElement(tipo, value);
-			}
-		}
-	}
-
-	private void addKeywords(Referencia reference, String value) {
-		String keywords[] = value.split("; ");
-		for (String keyword : keywords) {
-			reference.addElement(TipoMetadato.KEYWORD, keyword);
+			reference.addElement(identifierOf(key), value);
 		}
 	}
 

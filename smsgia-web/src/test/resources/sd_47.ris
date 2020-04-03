@@ -1,0 +1,1368 @@
+TY  - JOUR
+T1  - Managing authentication and authorization in distributed science gateway middleware
+AU  - Christie, Marcus A.
+AU  - Bhandar, Anuj
+AU  - Nakandala, Supun
+AU  - Marru, Suresh
+AU  - Abeysinghe, Eroma
+AU  - Pamidighantam, Sudhakar
+AU  - Pierce, Marlon E.
+JO  - Future Generation Computer Systems
+PY  - 2019
+DA  - 2019/10/10/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2019.07.018
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X18314729
+KW  - Identity and access management
+KW  - Keycloak
+KW  - Apache Airavata
+KW  - Science gateways
+KW  - Authentication and authorization
+KW  - Cyberinfrastructure
+AB  - Establishing users’ identities and determining their permissions before they access research infrastructure resources are key features of science gateways. With many science gateways now relying on general purpose gateway platform services, the challenges of managing identity-derived features have expanded to include network-based authentication and authorization scenarios that connect science gateway tenants, science gateway platform middleware, and third party identity provider services, including campus identity management systems. This paper examines both architectural and implementation considerations for integrating these services. We provide a summary case study that further shows how end-to-end authentication and authorization can be provided between gateways, campus authentication systems, science gateway middleware, and campus computing resources. We conclude with observations on lifecycle management of third party components in science gateway platform services, which is an important consideration for both selection of new technologies and transitioning from older systems.
+ER  - 
+
+TY  - JOUR
+T1  - VIALACTEA science gateway for Milky Way analysis
+AU  - Sciacca, Eva
+AU  - Vitello, Fabio
+AU  - Becciani, Ugo
+AU  - Costa, Alessandro
+AU  - Hajnal, Akos
+AU  - Kacsuk, Peter
+AU  - Farkas, Zoltan
+AU  - Marton, Istvan
+AU  - Molinari, Sergio
+AU  - Di Giorgio, Anna Maria
+AU  - Schisano, Eugenio
+AU  - Liu, Scige John
+AU  - Elia, Davide
+AU  - Cavuoti, Stefano
+AU  - Riccio, Giuseppe
+AU  - Brescia, Massimo
+JO  - Future Generation Computer Systems
+VL  - 94
+SP  - 947
+EP  - 956
+PY  - 2019
+DA  - 2019/05/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2017.08.038
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X17309561
+KW  - Workflow systems
+KW  - Science gateways
+KW  - Collaborative environments
+KW  - Astrophysics
+KW  - DCIs
+KW  - Milky way analysis
+KW  - Infrastructure tests
+KW  - Monitoring
+AB  - This paper presents the latest developments on the VIALACTEA Science Gateway in the context of the FP7 VIALACTEA project. The science gateway operates as a central workbench for the VIALACTEA community in order to allow astronomers to process the new-generation surveys (from Infrared to Radio) of the Galactic Plane to build and deliver a quantitative 3D model of our Milky Way Galaxy. The final model will be used as a template for external galaxies to study star formation across the cosmic time. The adopted agile software development process allowed to fulfill the community needs in terms of required workflows and underlying resource monitoring. Scientific requirements arose during the process highlighted the needs for easy parameter setting, fully embarrassingly parallel computations and large-scale input dataset processing. Therefore the science gateway based on the WS-PGRADE/gUSE framework has been able to fulfill the requirements mainly exploiting the parameter sweep paradigm and parallel job execution of the workflow management system. Moving from development to production environment an efficient resource monitoring system has been implemented to easily analyze and debug sources of potential failures occurred during workflow computations. The results of the resource monitoring system are exploitable not only for IT experts, administrators and workflow developers but also for the end-users of the gateway. The affiliation to the STARnet Gateway Federation ensures the sustainability of the presented products after the end of the project, allowing the usage of the VIALACTEA Science Gateway to all the stakeholders, not only to the community members.
+ER  - 
+
+TY  - JOUR
+T1  - Genesis, goals and achievements of Long-Term Ecological Research at the global scale: A critical review of ILTER and future directions
+AU  - Mirtl, M.
+AU  - T. Borer, E.
+AU  - Djukic, I.
+AU  - Forsius, M.
+AU  - Haubold, H.
+AU  - Hugo, W.
+AU  - Jourdan, J.
+AU  - Lindenmayer, D.
+AU  - McDowell, W.H.
+AU  - Muraoka, H.
+AU  - Orenstein, D.E.
+AU  - Pauw, J.C.
+AU  - Peterseil, J.
+AU  - Shibata, H.
+AU  - Wohner, C.
+AU  - Yu, X.
+AU  - Haase, P.
+JO  - Science of The Total Environment
+VL  - 626
+SP  - 1439
+EP  - 1462
+PY  - 2018
+DA  - 2018/06/01/
+SN  - 0048-9697
+DO  - https://doi.org/10.1016/j.scitotenv.2017.12.001
+UR  - http://www.sciencedirect.com/science/article/pii/S0048969717334204
+KW  - Ecosystems
+KW  - Environment
+KW  - Observation
+KW  - Data management
+KW  - Biodiversity
+KW  - Socio-ecology
+AB  - Since its founding in 1993 the International Long-term Ecological Research Network (ILTER) has gone through pronounced development phases. The current network comprises 44 active member LTER networks representing 700 LTER Sites and ~80 LTSER Platforms across all continents, active in the fields of ecosystem, critical zone and socio-ecological research. The critical challenges and most important achievements of the initial phase have now become state-of-the-art in networking for excellent science. At the same time increasing integration, accelerating technology, networking of resources and a strong pull for more socially relevant scientific information have been modifying the mission and goals of ILTER. This article provides a critical review of ILTER's mission, goals, development and impacts. Major characteristics, tools, services, partnerships and selected examples of relative strengths relevant for advancing ILTER are presented. We elaborate on the tradeoffs between the needs of the scientific community and stakeholder expectations. The embedding of ILTER in an increasingly collaborative landscape of global environmental observation and ecological research networks and infrastructures is also reflected by developments of pioneering regional and national LTER networks such as SAEON in South Africa, CERN/CEOBEX in China, TERN in Australia or eLTER RI in Europe. The primary role of ILTER is currently seen as a mechanism to investigate ecosystem structure, function, and services in response to a wide range of environmental forcings using long-term, place-based research. We suggest four main fields of activities and advancements for the next decade through development/delivery of a: (1) Global multi-disciplinary community of researchers and research institutes; (2) Strategic global framework and strong partnerships in ecosystem observation and research; (3) Global Research Infrastructure (GRI); and (4) a scientific knowledge factory for societally relevant information on sustainable use of natural resources.
+ER  - 
+
+TY  - JOUR
+T1  - New Perspectives for Generating Smart PSS Solutions – Life Cycle, Methodologies and Transformation
+AU  - Kuhlenkötter, Bernd
+AU  - Wilkens, Uta
+AU  - Bender, Beate
+AU  - Abramovici, Michael
+AU  - Süße, Thomas
+AU  - Göbel, Jens
+AU  - Herzog, Michael
+AU  - Hypki, Alfred
+AU  - Lenkenhoff, Kay
+JO  - Procedia CIRP
+VL  - 64
+SP  - 217
+EP  - 222
+PY  - 2017
+DA  - 2017/01/01/
+T2  - 9th CIRP IPSS Conference: Circular Perspectives on PSS
+SN  - 2212-8271
+DO  - https://doi.org/10.1016/j.procir.2017.03.036
+UR  - http://www.sciencedirect.com/science/article/pii/S2212827117301804
+KW  - Smart PSS
+KW  - ecosystem
+KW  - lifecycle management
+KW  - transformation
+KW  - research infrastructure
+AB  - This paper copes with the research challenges of Smart Product-Service Systems (PSS). It conceptualizes Smart PSS as a digital-based ecosystem of value creation characterized by high complexity, dynamics and interconnectedness among stakeholders. Against this background, the paper shows the demands for more integrated engineering methods and raises research questions that call for specific solutions, for example, with respect to IT-security or organizational transformation. Finally, the paper introduces new research infrastructure facilities that are geared to generate specific solutions for Smart PSS. The interdisciplinary research center on smart engineering described at the end of the paper is an invitation to the international PSS community to mutually explore new knowledge and methodologies for the lifecycle management of Smart PSS.
+ER  - 
+
+TY  - JOUR
+T1  - Fostering Open Science at Fraunhofer
+AU  - Küsters, Ulrike
+AU  - Klages, Tina
+JO  - Procedia Computer Science
+VL  - 146
+SP  - 39
+EP  - 52
+PY  - 2019
+DA  - 2019/01/01/
+T2  - 14th International Conference on Current Research Information Systems, CRIS2018, FAIRness of Research Information
+SN  - 1877-0509
+DO  - https://doi.org/10.1016/j.procs.2019.01.078
+UR  - http://www.sciencedirect.com/science/article/pii/S1877050919300833
+KW  - Research Infrastructure
+KW  - Open Science
+KW  - Open Science Infrastruktur
+KW  - applied Science
+KW  - Research
+KW  - Technology Organizations (RTO)
+KW  - Open Innovation
+KW  - Current Research Information System (CRIS)
+KW  - DSpace-CRIS
+KW  - Exploitation
+KW  - Intellectual Property (IP)
+KW  - Research Data Management
+KW  - Data Curation
+KW  - Open Data
+KW  - Open Access
+KW  - Innovation System
+KW  - Technology Readiness Level (TRL)
+KW  - Open Access Rate
+KW  - Publication Output.
+AB  - Open science as a paradigm shift in science concerns university or non-university research organizations from the field of not only basic research but also applied research, i.e., research and technology organizations. However, these have a completely different starting point than the other research organizations for the implementation of open science. This is due to their unique position in the innovation system and their close connection with business. In other words, they must meet the demands of both the scientific and economic systems as well as fulfill their overriding mission of conducting research for society. In the interplay between science and business, Fraunhofer has developed a balanced system of control mechanisms and research management topics as well as an infrastructure specifically adapted to the needs of the organization, which is now subject to considerable challenges and changing tendencies due to digitization. These changes affect control processes and related organizational issues as well as the infrastructure around the core business of Fraunhofer – the generation of research output – and the associated infrastructure. This paper discusses how the Fraunhofer-Gesellschaft deals with these requirements with a special focus on dissemination management. The current activities in the field of the Fraunhofer infrastructure and the introduction of a Current Research Information System (CRIS) as an indicator system to measure scientific excellence will be discussed, along with the activities for the implementation of open science.
+ER  - 
+
+TY  - JOUR
+T1  - National Institutes of Health Hematopoietic Cell Transplantation Late Effects Initiative: Developing Recommendations to Improve Survivorship and Long-Term Outcomes
+AU  - Battiwalla, Minoo
+AU  - Hashmi, Shahrukh
+AU  - Majhail, Navneet
+AU  - Pavletic, Steven
+AU  - Savani, Bipin N.
+AU  - Shelburne, Nonniekaye
+JO  - Biology of Blood and Marrow Transplantation
+VL  - 23
+IS  - 1
+SP  - 6
+EP  - 9
+PY  - 2017
+DA  - 2017/01/01/
+SN  - 1083-8791
+DO  - https://doi.org/10.1016/j.bbmt.2016.10.020
+UR  - http://www.sciencedirect.com/science/article/pii/S1083879116304554
+KW  - Late effects
+KW  - Hematopoietic cell transplantation
+KW  - Survivorship
+AB  - Continual advances in hematopoietic cell transplantation (HCT) have greatly improved early transplantation-related mortality and broadened the applicability of this intense but curative therapy. With growing success there is increasing awareness of late complications, occurring ≥1 year after treatment, and their associated morbidity and mortality in HCT survivors. These late effects occur with a wide spectrum in terms of latency, intensity, reversibility, and lethality. There is a need to understand the biology, surveillance, management, and patient experience of HCT-related effects, as well as the health care and research infrastructure to manage this growing population. To address these needs, the National Cancer Institute and National Heart, Lung and Blood Institute cosponsored a 12-month initiative to identify barriers and knowledge gaps and to formulate research and practice recommendations. Six major areas of interest were identified: research methodology and study design, subsequent neoplasms, patient-centered outcomes, immune dysregulation and pathobiology, cardiovascular disease and associated risk factors, and health care delivery. These findings were presented during the 2016 workshop and revised based on public response. This report provides an overview of the National Institutes of Health HCT Late Effects Initiative process and recommendations.
+ER  - 
+
+TY  - JOUR
+T1  - An integrated workspace for the Cherenkov Telescope Array
+AU  - Costa, Alessandro
+AU  - Sciacca, Eva
+AU  - Vitello, Fabio
+AU  - Becciani, Ugo
+AU  - Massimino, Pietro
+AU  - Riggi, Simone
+AU  - Sanchez, David
+JO  - Future Generation Computer Systems
+VL  - 94
+SP  - 811
+EP  - 819
+PY  - 2019
+DA  - 2019/05/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2018.04.009
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X17309585
+KW  - Workflow systems
+KW  - Science gateways
+KW  - Collaborative environments
+KW  - Astrophysics
+KW  - DCIs
+KW  - Authentication and authorization
+AB  - The Cherenkov Telescope Array (CTA) represents the next generation of ground-based gamma-ray observatories. We present a prototype workspace, developed by INAF, that aims at providing innovative solutions for the CTA community. The workspace is composed of a science gateway and an interactive desktop integrated with a federated authentication and authorization infrastructure. The workspace leverages open source technologies providing web access to a set of tools widely used by the CTA community. The workflow management system, accessed via the science gateway, allows to run applications widely used in astronomy and physics researches into distributed computing infrastructures (ranging from clusters to grids and clouds). These software packages are also available through the interactive virtual desktop environment to exploit their native graphical user interface. The implemented authentication and authorization infrastructure is composed by a Shibboleth Identity Provider and a Grouper authorization solution. The Grouper released attributes are consumed by the science gateway to authorize the access to specific web resources and the role management mechanism provides the attribute-role mapping.
+ER  - 
+
+TY  - JOUR
+T1  - The Bari Manifesto: An interoperability framework for essential biodiversity variables
+AU  - Hardisty, Alex R.
+AU  - Michener, William K.
+AU  - Agosti, Donat
+AU  - Alonso García, Enrique
+AU  - Bastin, Lucy
+AU  - Belbin, Lee
+AU  - Bowser, Anne
+AU  - Buttigieg, Pier Luigi
+AU  - Canhos, Dora A.L.
+AU  - Egloff, Willi
+AU  - De Giovanni, Renato
+AU  - Figueira, Rui
+AU  - Groom, Quentin
+AU  - Guralnick, Robert P.
+AU  - Hobern, Donald
+AU  - Hugo, Wim
+AU  - Koureas, Dimitris
+AU  - Ji, Liqiang
+AU  - Los, Wouter
+AU  - Manuel, Jeffrey
+AU  - Manset, David
+AU  - Poelen, Jorrit
+AU  - Saarenmaa, Hannu
+AU  - Schigel, Dmitry
+AU  - Uhlir, Paul F.
+AU  - Kissling, W. Daniel
+JO  - Ecological Informatics
+VL  - 49
+SP  - 22
+EP  - 31
+PY  - 2019
+DA  - 2019/01/01/
+SN  - 1574-9541
+DO  - https://doi.org/10.1016/j.ecoinf.2018.11.003
+UR  - http://www.sciencedirect.com/science/article/pii/S1574954118301961
+KW  - Essential biodiversity variables
+KW  - Cyberinfrastructure
+KW  - E-infrastructure
+KW  - Data products
+KW  - Informatics
+KW  - Interoperability
+AB  - Essential Biodiversity Variables (EBV) are fundamental variables that can be used for assessing biodiversity change over time, for determining adherence to biodiversity policy, for monitoring progress towards sustainable development goals, and for tracking biodiversity responses to disturbances and management interventions. Data from observations or models that provide measured or estimated EBV values, which we refer to as EBV data products, can help to capture the above processes and trends and can serve as a coherent framework for documenting trends in biodiversity. Using primary biodiversity records and other raw data as sources to produce EBV data products depends on cooperation and interoperability among multiple stakeholders, including those collecting and mobilising data for EBVs and those producing, publishing and preserving EBV data products. Here, we encapsulate ten principles for the current best practice in EBV-focused biodiversity informatics as ‘The Bari Manifesto’, serving as implementation guidelines for data and research infrastructure providers to support the emerging EBV operational framework based on trans-national and cross-infrastructure scientific workflows. The principles provide guidance on how to contribute towards the production of EBV data products that are globally oriented, while remaining appropriate to the producer's own mission, vision and goals. These ten principles cover: data management planning; data structure; metadata; services; data quality; workflows; provenance; ontologies/vocabularies; data preservation; and accessibility. For each principle, desired outcomes and goals have been formulated. Some specific actions related to fulfilling the Bari Manifesto principles are highlighted in the context of each of four groups of organizations contributing to enabling data interoperability - data standards bodies, research data infrastructures, the pertinent research communities, and funders. The Bari Manifesto provides a roadmap enabling support for routine generation of EBV data products, and increases the likelihood of success for a global EBV framework.
+ER  - 
+
+TY  - JOUR
+T1  - The ‘Sustainable Energy Concept’ – making sense of norms and co-evolution within a large research facility's energy strategy
+AU  - Peck, Philip
+AU  - Parker, Thomas
+JO  - Journal of Cleaner Production
+VL  - 123
+SP  - 137
+EP  - 154
+PY  - 2016
+DA  - 2016/06/01/
+T2  - Advancing Sustainable Solutions: An Interdisciplinary and Collaborative Research Agenda
+SN  - 0959-6526
+DO  - https://doi.org/10.1016/j.jclepro.2015.09.121
+UR  - http://www.sciencedirect.com/science/article/pii/S0959652615013499
+KW  - Energy
+KW  - Strategy
+KW  - Co-evolution
+KW  - Agency
+KW  - Energy efficiency
+KW  - Research infrastructure
+AB  - The analysis presents an evolving ‘Energy Concept’ and strategy at an energy-intensive research facility in order to contribute understanding of how organisations may implement renewable energies and improve energy efficiency whilst also delivering broader socio-economic benefits. A framework is developed that infuses institutional perspectives with a micro level view. It facilitates positioning of strategy against instrumental/altruistic and factual/relational extremes and analysis of organisational strategy in the face of internal/external stakeholder, and institutional forces. Applied to a seven-year case this supports understanding of strategy ‘purpose’ and ‘inputs’ as they co-evolve along a project time-line. It is found that the energy strategy evolves from a dominantly instrumental but stakeholder-driven position towards approaches aligned with deliberate public good provision in areas beyond direct organizational interests, and that changes required significant redefinition of the design and operational models. Developments are explained as largely the result of internal agency and culture-building influences from an energy department equipped with concrete management tools and autonomy. At the case level, the study concludes that the Energy Concept implementation has sparked a change in energy management at large global research facilities. The work also demonstrates that longitudinal, multi-level institutional analysis can contribute to deeper understanding of strategy development.
+ER  - 
+
+TY  - JOUR
+T1  - The gCube system: Delivering Virtual Research Environments as-a-Service
+AU  - Assante, Massimiliano
+AU  - Candela, Leonardo
+AU  - Castelli, Donatella
+AU  - Cirillo, Roberto
+AU  - Coro, Gianpaolo
+AU  - Frosini, Luca
+AU  - Lelii, Lucio
+AU  - Mangiacrapa, Francesco
+AU  - Marioli, Valentina
+AU  - Pagano, Pasquale
+AU  - Panichi, Giancarlo
+AU  - Perciante, Costantino
+AU  - Sinibaldi, Fabio
+JO  - Future Generation Computer Systems
+VL  - 95
+SP  - 445
+EP  - 453
+PY  - 2019
+DA  - 2019/06/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2018.10.035
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X17328364
+KW  - Virtual Research Environments
+KW  - Social networking
+KW  - Science gateway
+AB  - Important changes have characterised research and knowledge production in recent decades. These changes are associated with developments in information technologies and infrastructures. The processes characterising research and knowledge production are changing through the digitalisation of science, the virtualisation of research communities and networks, the offering of underlying systems and services by infrastructures. This paper gives an overview of gCube, a software system promoting elastic and seamless access to research assets (data, services, computing) across the boundaries of institutions, disciplines and providers to favour collaboration-oriented research tasks. gCube’s technology is primarily conceived to enable Hybrid Data Infrastructures facilitating the dynamic definition and operation of Virtual Research Environments. To this end, it offers a comprehensive set of data management commodities on various types of data and a rich array of “mediators” to interface well-established Infrastructures and Information Systems from various domains. Its effectiveness has been proved by operating the D4Science.org infrastructure and serving concrete, multidisciplinary, challenging, and large scale scenarios.
+ER  - 
+
+TY  - JOUR
+T1  - Recommending heterogeneous resources for science gateway applications based on custom templates composition
+AU  - Antequera, Ronny Bazan
+AU  - Calyam, Prasad
+AU  - Chandrashekara, Arjun Ankathatti
+AU  - Mitra, Reshmi
+JO  - Future Generation Computer Systems
+VL  - 100
+SP  - 281
+EP  - 297
+PY  - 2019
+DA  - 2019/11/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2019.04.049
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X18314663
+KW  - Federated cloud resources
+KW  - Component abstraction model
+KW  - Custom templates
+KW  - Novice and expert user preferences
+KW  - Cloud resource recommendation scheme
+AB  - Emerging interdisciplinary data-intensive science gateway applications in engineering fields (e.g., bioinformatics, cybermanufacturing) demand the use of high-performance computing resources. However, to mitigate operational costs and management efforts for these science gateway applications, there is a need to effectively deploy them on federated heterogeneous resources managed by external Cloud Service Providers (CSPs). In this paper, we present a novel methodology to deliver fast, automatic and flexible resource provisioning services for such application-owners with limited expertise in composing and deploying suitable cloud architectures. Our methodology features a Component Abstraction Model to implement intelligent resource ‘abstractions’ coupled with ‘reusable’ hardware and software configuration in the form of “custom templates” to simplify heterogeneous resource management efforts. It also features a novel middleware that provides services via a set of recommendation schemes for a context-aware requirement-collection questionnaire. Recommendations match the requirements to available resources and thus assist novice and expert users to make relevant configuration selections with CSP collaboration. To evaluate our middleware, we study the impact of user preferences in requirement collection, jobs execution and resource adaptation for a real-world manufacturing application on Amazon Web Services and the GENI cloud platforms. Our experiment results show that our scheme improves the resource recommendation accuracy in the manufacturing science gateway application by up to 21% compared to the existing schemes. We also show the impact of custom templates knowledgebase maturity at the CSP side for handling novice and expert user preferences in terms of the resource recommendation accuracy.
+ER  - 
+
+TY  - JOUR
+T1  - Semantic privacy-preserving framework for electronic health record linkage
+AU  - Lu, Yang
+AU  - Sinnott, Richard O.
+JO  - Telematics and Informatics
+VL  - 35
+IS  - 4
+SP  - 737
+EP  - 752
+PY  - 2018
+DA  - 2018/07/01/
+SN  - 0736-5853
+DO  - https://doi.org/10.1016/j.tele.2017.06.007
+UR  - http://www.sciencedirect.com/science/article/pii/S0736585316304300
+AB  - The combination of digitized health information and web-based technologies offers many possibilities for data analysis and business intelligence. In the healthcare and biomedical research domain, applications depending on electronic health records (EHRs) identify privacy preservation as a major concern. Existing solutions cannot always satisfy the evolving research demands such as linking patient records across organizational boundaries due to the potential for patient re-identification. In this work, we show how semantic methods can be applied to support the formulation and enforcement of access control policy whilst ensuring that privacy leakage can be detected and prevented. The work is illustrated through a case study associated with the Australasian Diabetes Data Network (ADDN – www.addn.org.au), the national paediatric type-1 diabetes data registry, and the Australian Urban Research Infrastructure Network (AURIN – www.aurin.org.au) platform that supports Australia-wide access to urban and built environment data sets. We demonstrate that through extending the eXtensible Access Control Markup Language (XACML) with semantic capabilities, finer-grained access control encompassing data risk disclosure mechanisms can be supported. We discuss the contributions that can be made using this approach to socio-economic development and political management within business systems, and especially those situations where secure data access and data linkage is required.
+ER  - 
+
+TY  - JOUR
+T1  - Mapping heterogeneous research infrastructure metadata into a unified catalogue for use in a generic virtual research environment
+AU  - Martin, Paul
+AU  - Remy, Laurent
+AU  - Theodoridou, Maria
+AU  - Jeffery, Keith
+AU  - Zhao, Zhiming
+JO  - Future Generation Computer Systems
+VL  - 101
+SP  - 1
+EP  - 13
+PY  - 2019
+DA  - 2019/12/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2019.05.076
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X19302699
+KW  - Virtual research environment
+KW  - Science gateway
+KW  - Research infrastructure
+KW  - Metadata catalogue
+KW  - Metadata mapping
+AB  - Virtual Research Environments (VREs), also known as science gateways or virtual laboratories, assist researchers in data science by integrating tools for data discovery, data retrieval, workflow management and researcher collaboration, often coupled with a specific computing infrastructure. Recently, the push for better open data science has led to the creation of a variety of dedicated research infrastructures (RIs) that gather data and provide services to different research communities, all of which can be used independently of any specific VRE. There is therefore a need for generic VREs that can be coupled with the resources of many different RIs simultaneously, easily customised to the needs of specific communities. The resource metadata produced by these RIs rarely all adhere to any one standard or vocabulary however, making it difficult to search and discover resources independently of their providers without some translation into a common framework. Cross-RI search can be expedited by using mapping services that harvest RI-published metadata to build unified resource catalogues, but the development and operation of such services pose a number of challenges. In this paper, we discuss some of these challenges and look specifically at the VRE4EIC Metadata Portal, which uses X3ML mappings to build a single catalogue for describing data products and other resources provided by multiple RIs. The Metadata Portal was built in accordance to the e-VRE Reference Architecture, a microservice-based architecture for generic modular VREs, and uses the CERIF standard to structure its catalogued metadata. We consider the extent to which it addresses the challenges of cross-RI search, particularly in the environmental and earth science domain, and how it can be further augmented, for example to take advantage of linked vocabularies to provide more intelligent semantic search across multiple domains of discourse.
+ER  - 
+
+TY  - JOUR
+T1  - Ocular blood flow as a clinical observation: Value, limitations and data analysis
+AU  - Harris, Alon
+AU  - Guidoboni, Giovanna
+AU  - Siesky, Brent
+AU  - Mathew, Sunu
+AU  - Verticchio Vercellin, Alice C.
+AU  - Rowe, Lucas
+AU  - Arciero, Julia
+JO  - Progress in Retinal and Eye Research
+SP  - 100841
+PY  - 2020
+DA  - 2020/01/24/
+SN  - 1350-9462
+DO  - https://doi.org/10.1016/j.preteyeres.2020.100841
+UR  - http://www.sciencedirect.com/science/article/pii/S1350946220300136
+KW  - Ocular blood flow
+KW  - Glaucoma
+KW  - Mathematical models
+KW  - Vascular risk factors
+KW  - Artificial intelligence
+AB  - Alterations in ocular blood flow have been identified as important risk factors for the onset and progression of numerous diseases of the eye. In particular, several population-based and longitudinal-based studies have provided compelling evidence of hemodynamic biomarkers as independent risk factors for ocular disease throughout several different geographic regions. Despite this evidence, the relative contribution of blood flow to ocular physiology and pathology in synergy with other risk factors and comorbidities (e.g., age, gender, race, diabetes and hypertension) remains uncertain. There is currently no gold standard for assessing all relevant vascular beds in the eye, and the heterogeneous vascular biomarkers derived from multiple ocular imaging technologies are non-interchangeable and difficult to interpret as a whole. As a result of these disease complexities and imaging limitations, standard statistical methods often yield inconsistent results across studies and are unable to quantify or explain a patient's overall risk for ocular disease. Combining mathematical modeling with artificial intelligence holds great promise for advancing data analysis in ophthalmology and enabling individualized risk assessment from diverse, multi-input clinical and demographic biomarkers. Mechanism-driven mathematical modeling makes virtual laboratories available to investigate pathogenic mechanisms, advance diagnostic ability and improve disease management. Artificial intelligence provides a novel method for utilizing a vast amount of data from a wide range of patient types to diagnose and monitor ocular disease. This article reviews the state of the art and major unanswered questions related to ocular vascular anatomy and physiology, ocular imaging techniques, clinical findings in glaucoma and other eye diseases, and mechanistic modeling predictions, while laying a path for integrating clinical observations with mathematical models and artificial intelligence. Viable alternatives for integrated data analysis are proposed that aim to overcome the limitations of standard statistical approaches and enable individually tailored precision medicine in ophthalmology.
+ER  - 
+
+TY  - JOUR
+T1  - Investigator-initiated clinical trials conducted by the Portuguese Clinical Research Infrastructure Network (PtCRIN)
+AU  - Madeira, C.
+AU  - Pais, A.
+AU  - Kubiak, C.
+AU  - Demotes, J.
+AU  - Monteiro, E.C.
+JO  - Contemporary Clinical Trials Communications
+VL  - 4
+SP  - 141
+EP  - 148
+PY  - 2016
+DA  - 2016/12/15/
+SN  - 2451-8654
+DO  - https://doi.org/10.1016/j.conctc.2016.08.002
+UR  - http://www.sciencedirect.com/science/article/pii/S2451865416300321
+KW  - Academic clinical trials
+KW  - Investigator-initiated clinical trials
+KW  - Clinical trial unit
+KW  - ECRIN
+KW  - PtCRIN
+KW  - Infrastructure
+AB  - Interventional clinical studies can provide the highest levels of evidence and generate significant results on specific investigational medicinal products or medical devices. In order to have powerful studies, attain unquestionable results and make significant discoveries, the number of patients enrolled must be high. Therefore, multinational, randomised clinical trials are necessary. The multicentre, multinational recruitment of subjects in investigator-initiated clinical trials (IICTs) increases their logistical burden, justifying the need for specific infrastructures to ease implementation. Herein, we provide for the first time an overview of the facts and figures concerning IICTs, existing infrastructures' capacity for interventional clinical research, and scientific performance of investigators in a European country, Portugal. We aim to highlight the relevance and need for investing in European infrastructures such as the European Clinical Research Infrastructure Network (ECRIN) for multinational IICTs. A public, non-profit organisation, ECRIN facilitates the conduct of multinational clinical trials in Europe by coordinating scientific partners and their networks, and providing advice, management services and tools to enhance collaboration. Currently in Portugal, few multinational randomised IICTs are coordinated by national investigators. This is most likely due to the lack of human resources dedicated to clinical trials in clinical research centres (CRCs) as well as the scarcity of professional academic clinical trial units (CTUs) providing logistics and management services at non-profit rates. With the data shown, we expect to trigger the development of similar studies in other European countries and stress the impact of government support for IICTs.
+ER  - 
+
+TY  - JOUR
+T1  - Référentiel ECRIN pour la conformité aux bonnes pratiques de gestion des données des essais cliniques multinationaux
+AU  - Cornu, Catherine
+AU  - Donche, Anne
+AU  - Coffre, Carine
+AU  - Le Gouge, Amélie
+AU  - Rym, Boulkedid
+AU  - Vaugier, Isabelle
+AU  - Barbot, Frédéric
+AU  - Leizorovicz, Alain
+AU  - Juge, Nadine
+AU  - Giraud, Céline
+AU  - Gueyffier, François
+AU  - Félin, Alexandra
+AU  - Mura, Thibault
+AU  - Chevassus, Hugues
+AU  - Binquet, Christine
+JO  - Thérapie
+PY  - 2016
+DA  - 2016/10/13/
+SN  - 0040-5957
+DO  - https://doi.org/10.2515/therapie/2015042
+UR  - http://www.sciencedirect.com/science/article/pii/S0040595716311374
+KW  - Gestion de données
+KW  - Études cliniques institutionnelles
+KW  - Systèmes d’information
+KW  - Référentiel qualité
+KW  - Data management
+KW  - Information technology
+KW  - Quality reference
+KW  - Academic studies
+AB  - Résumé
+Contexte
+Les études cliniques génèrent une quantité croissante de données, mais il n’y a pas de standard de qualité suffisamment pratique, réaliste et en accès libre pour leur traitement par les structures académiques. European Clinical Research Infrastructures Network (ECRIN) a publié un référentiel pour la certification de centres de gestion de données. Nous publions une version française du référentiel.
+Méthodes
+Un groupe d’experts a produit ce référentiel par consensus, révisé après son utilisation lors d’audits pilotes pour la certification ECRIN.
+Résultats
+Le référentiel comporte 21 listes de 5 à 10 exigences, divisées en trois groupes : technologies de l’information, gestion de données (data management [DM]) et « généralités ».
+Conclusions
+Ce référentiel offre une description claire des bonnes pratiques en informatique et en DM. Initialement créé pour servir de référentiel de certification des centres de gestion de données ECRIN, il peut être utile à de nombreuses structures académiques développant ce type d’activités.
+Summary
+Context
+Clinical studies involve an increasing amount of data collection and management. However, there is no specific quality standard sufficiently practical, in free access, and open for data management and the underlying IT-infrastructure in academic units. European Clinical Research Infrastructures Network (ECRIN) published standard requirements for certified data management units. We present a French version of these standards.
+Methods
+A group of experts produced the standards, by consensus. The first version was revised after two pilot audits for data centre certification were performed.
+Results
+The revised version includes 21 lists of five to ten standards, in three groups: information technologies, data management (DM) and “general”.
+Conclusions
+These standards offer a clear description of DM and IT requirements for clinical studies. Initially created for ECRIN certification purposes, they offer a very useful reference for academic DM structures.
+ER  - 
+
+TY  - JOUR
+T1  - Design of a pragmatic trial in minority children presenting to the emergency department with uncontrolled asthma: The CHICAGO Plan
+AU  - Krishnan, Jerry A.
+AU  - Martin, Molly A.
+AU  - Lohff, Cortland
+AU  - Mosnaim, Giselle S.
+AU  - Margellos-Anast, Helen
+AU  - DeLisa, Julie A.
+AU  - McMahon, Kate
+AU  - Erwin, Kim
+AU  - Zun, Leslie S.
+AU  - Berbaum, Michael L.
+AU  - McDermott, Michael
+AU  - Bracken, Nina E.
+AU  - Kumar, Rajesh
+AU  - Margaret Paik, S.
+AU  - Nyenhuis, Sharmilee M.
+AU  - Ignoffo, Stacy
+AU  - Press, Valerie G.
+AU  - Pittsenbarger, Zachary E.
+AU  - Thompson, Trevonne M.
+JO  - Contemporary Clinical Trials
+VL  - 57
+SP  - 10
+EP  - 22
+PY  - 2017
+DA  - 2017/06/01/
+SN  - 1551-7144
+DO  - https://doi.org/10.1016/j.cct.2017.03.015
+UR  - http://www.sciencedirect.com/science/article/pii/S1551714416303421
+KW  - Pragmatic clinical trial
+KW  - Health disparities
+KW  - Uncontrolled asthma
+KW  - Stakeholder engagement
+KW  - Quality of asthma care
+KW  - Community health worker
+AB  - Among children with asthma, black children are two to four times as likely to have an emergency department (ED) visit and die from asthma, respectively, compared to white children in the United States. Despite the availability of evidence-based asthma management guidelines, minority children are less likely than white children to receive or use effective options for asthma care. The CHICAGO Plan is a three-arm multi-center randomized pragmatic trial of children 5 to 11years old presenting to the ED with uncontrolled asthma that compares: [1] an ED-focused intervention to improve the quality of care on discharge to home, [2] the same ED-focused intervention together with a home-based community health worker (CHW)-led intervention, and [3] enhanced usual care. All children receive spacers for the metered dose inhaler and teaching about its use. The Patient-Reported Outcomes Measurement Information System (PROMIS) Asthma Impact Scale and Satisfaction with Participation in Social Roles at 6months are the primary outcomes in children and in caregivers, respectively. Other patient-reported outcomes and indicators of healthcare utilization are assessed as secondary outcomes. Innovative features of the CHICAGO Plan include early and continuous engagement of children, caregivers, the Chicago Department of Public Health, and other stakeholders to inform the design and implementation of the study and a shared research infrastructure to coordinate study activities. The objective of this report is to describe the development of the CHICAGO Plan, including the methods and rationale for engaging stakeholders, the shared research infrastructure, and other features of the pragmatic clinical trial design.
+ER  - 
+
+TY  - JOUR
+T1  - Educating for action: Aligning skills with policies for sustainable development in the Danube river basin
+AU  - Irvine, Kenneth
+AU  - Weigelhofer, Gabriele
+AU  - Popescu, Ioana
+AU  - Pfeiffer, Ellen
+AU  - Păun, Andrei
+AU  - Drobot, Radu
+AU  - Gettel, Gretchen
+AU  - Staska, Bernadette
+AU  - Stanica, Adrian
+AU  - Hein, Thomas
+AU  - Habersack, Helmut
+JO  - Science of The Total Environment
+VL  - 543
+SP  - 765
+EP  - 777
+PY  - 2016
+DA  - 2016/02/01/
+SN  - 0048-9697
+DO  - https://doi.org/10.1016/j.scitotenv.2015.09.072
+UR  - http://www.sciencedirect.com/science/article/pii/S0048969715307324
+KW  - Danube
+KW  - Sustainable development
+KW  - Integrated river basin management
+KW  - Skill development
+KW  - Bologna process
+KW  - EU policy
+AB  - ABSTRACT
+Sustainable river basin management depends on knowledge, skills and education. The DANCERS project set out to identify feasible options for achieving education for sustainable water management across the Danube river basin, and its integration with broader education and economic development. The study traced the historic, regulatory and educational landscape of water management in the basin, contrasting it with the complex political decision-making, data-heavy decision support, learning-centred collaboration, and information-based participation that are all inherent components of Integrated Water Resource Management (IWRM). While there is a wide range of educational opportunities and mobility schemes available to individuals, there is no coherent network related to training in water management and sustainable development in the study region. Progress in addressing the multi-layered environmental challenges within the basin requires further aligning of economic, environmental and educational policies, advancing the EU Bologna Process across the region, and the development of dedicated training programmes that combine technical and relational skills. The DANCERS project identified key short and medium term needs for education and research to support progressive adoption of sustainable development, and the necessary dialogue across the public and private sectors to align policies. These include the development of new education networks for masters and PhD programmes, including joint programmes; improved access to technical training and life-long learning programmes for skills development; developing formalized and certified competency structures and associated accreditation of institutions where such skilled individuals work; and developing a co-ordinated research infrastructure and pan-basin programme for research for water management and sustainable development.
+ER  - 
+
+TY  - JOUR
+T1  - BioClimate: A Science Gateway for Climate Change and Biodiversity research in the EUBrazilCloudConnect project
+AU  - Fiore, Sandro
+AU  - Elia, Donatello
+AU  - Blanquer, Ignacio
+AU  - Brasileiro, Francisco V.
+AU  - Nuzzo, Alessandra
+AU  - Nassisi, Paola
+AU  - Rufino, Iana A.A.
+AU  - Seijmonsbergen, Arie C.
+AU  - Anders, Niels S.
+AU  - de O. Galvão, Carlos
+AU  - de B.L. Cunha, John E.
+AU  - Caballer, Miguel
+AU  - Sousa-Baena, Mariane S.
+AU  - Canhos, Vanderlei P.
+AU  - Aloisio, Giovanni
+JO  - Future Generation Computer Systems
+VL  - 94
+SP  - 895
+EP  - 909
+PY  - 2019
+DA  - 2019/05/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2017.11.034
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X17312591
+KW  - Science gateways
+KW  - Scientific data management and analytics
+KW  - Biodiversity and climate research
+AB  - Climate and biodiversity systems are closely linked across a wide range of scales. To better understand the mutual interaction between climate change and biodiversity there is a strong need for multidisciplinary skills, scientific tools, and access to a large variety of heterogeneous, often distributed, data sources. Related to that, the EUBrazilCloudConnect project provides a user-oriented research environment built on top of a federated cloud infrastructure across Europe and Brazil, to serve key needs in different scientific domains, which is validated through a set of use cases. Among them, the most data-centric one is focused on climate change and biodiversity research. As part of this use case, the BioClimate Science Gateway has been implemented to provide end-users transparent access to (i) a highly integrated user-friendly environment, (ii) a large variety of data sources, and (iii) different analytics & visualization tools to serve a large spectrum of users needs and requirements. This paper presents a complete overview of BioClimate and the related scientific environment, in particular its Science Gateway, delivered to the end-user community at the end of the project.
+ER  - 
+
+TY  - JOUR
+T1  - Laboratorio Web SCORM de Control PID con Integración Avanzada
+AU  - Ruano Ruano, Ildefonso
+AU  - Gámez García, Javier
+AU  - Gómez Ortega, Juan
+JO  - Revista Iberoamericana de Automática e Informática Industrial RIAI
+VL  - 13
+IS  - 4
+SP  - 472
+EP  - 483
+PY  - 2016
+DA  - 2016/10/01/
+SN  - 1697-7912
+DO  - https://doi.org/10.1016/j.riai.2016.05.007
+UR  - http://www.sciencedirect.com/science/article/pii/S1697791216300309
+KW  - Herramientas interactivas
+KW  - laboratorios virtuales y remotos
+KW  - Educación en automática
+KW  - Control PID
+KW  - E-learning
+KW  - educación a distancia y sistemas de gestión del aprendizaje (LMS)
+KW  - Entornos de experimentación
+KW  - Evaluación automática
+KW  - Interactive tools
+KW  - virtual and remote laboratories
+KW  - Automation Education
+KW  - E-learning
+KW  - distance education and Learning Management Systems (LMS)
+KW  - Experimentation environment
+KW  - Automatic evaluation
+AB  - Resumen
+Los laboratorios Web (WebLabs) son recursos cada vez más utilizados en las carreras técnicas universitarias. Cuando se presentan integrados en un sistema de gestión de aprendizaje (LMS, Learning Management System) se obtienen una serie de ventajas para alumnos y docentes entre las que destaca el hecho de mostrarse en un entorno conocido y la posibilidad de personalizar la experiencia gracias a la identificación de usuarios que realiza el LMS. Este trabajo muestra un WebLab sobre control Proporcional-Integral-Derivativo (PID), un contenido fundamental de las asignaturas de Automática que se encuentra en todos los grados de Ingeniería Industrial. Este WebLab ha sido desarrollado mediante una metodología innovadora con la que se obtiene un recurso de aprendizaje eficaz basado en un paquete SCORM (Shared Content Object Reference Model). SCORM es el estándar de contenidos de e-learning más utilizado y es compatible con la mayoría de los LMS del mercado, esto permite que el WebLab pueda ser reutilizado fácilmente en diferentes entornos LMS. El WebLab contiene un plan de aprendizaje que incluye una serie de recursos de utilidad docente como teoría de control PID, pruebas de evaluación, un laboratorio virtual de control PID de un motor de corriente continua y experimentos personalizados para cada alumno cuyos resultados son almacenados en el LMS. Este WebLab se ha presentado en el LMS institucional de la Universidad de Jaén a 340 alumnos de la asignatura “Automática Industrial” en el curso 2014-15. Los datos de uso han permitido realizar diversas evaluaciones que demuestran que los alumnos que lo han completado han obtenido un rendimiento excelente en el propio WebLab, han conseguido unos resultados muy superiores al resto de alumnos en la evaluación final de la asignatura y lo han valorado muy positivamente. También se ha demostrado la reusabilidad del WebLab en diferentes LMS compatibles con SCORM (ILIAS y Moodle) analizando los problemas que se han planteado en este sentido.
+Web laboratories (WebLabs) are education resources that are increasingly used in university technical grades. When they are presented integrated into a learning management system (LMS) several advantages for students and teachers are obtained, e.g. laboratories are shown in a familiar environment and the experience can be customized thanks to the user identification performed by the LMS. A Proportional-Integral-Derivative (PID) control WebLab has been created in this work, PID control is a fundamental content of the Automatic subjects found in all grades of Industrial Engineering. This WebLab was developed through an innovative methodology that generates an effective learning resource based on Shared Content Object Reference Model (SCORM). SCORM is the more used standard for e-learning contents; it is compatible with most LMS market, this way the WebLab can be easily reused in different LMS environments. The WebLab presented in this paper is based on a learning path that includes a series of useful learning resources such as PID control theory, assessment tests, a PID control virtual laboratory (VL) of a DC motor and customized experiments for each student whose results are stored in the LMS. This WebLab has been presented in the institutional LMS of the University of Jaén to 340 students of the subject “Industrial Automation” in the 2014-15 course. Several evaluations have been performed from the data obtained in the WebLab. Evaluations have shown that students who completed the WebLab have achieved excellent performance in the WebLab itself, they have achieved higher results than remaining students in the final evaluation of the course and they have highly positively valued the WebLab. It has also demonstrated the reusability of the WebLab in different SCORM-compliant LMS (Moodle and ILIAS) analyzing the problems that have arisen in this regard.
+ER  - 
+
+TY  - JOUR
+T1  - The Symptoms Self-Management Center (SSMC): Methods for developing and implementing technology-enhanced self-management interventions for pain and fatigue
+AU  - Phillips, Shannon
+AU  - Barroso, Julie
+AU  - Acierno, Ronald
+AU  - Kelechi, Teresa
+JO  - Applied Nursing Research
+VL  - 50
+SP  - 151194
+PY  - 2019
+DA  - 2019/12/01/
+SN  - 0897-1897
+DO  - https://doi.org/10.1016/j.apnr.2019.151194
+UR  - http://www.sciencedirect.com/science/article/pii/S0897189719305518
+AB  - The National Institutes of Nursing Research provides funding via the P20 grant mechanism for research infrastructure and resources to develop nurse scientists with expertise in symptom self-management. The Medical University of South Carolina College of Nursing was awarded a P20 grant in 2016 to build the Symptoms Self-Management Center for technology-enhanced interventions to address pain and fatigue in individuals with chronic health conditions. Resources were derived from three key subcores: bioinformatics, mHealth and eHealth consultative services, and community engagement. This paper describes methods for deriving specific resources within each subcore, the application of subcore resources in two pilot studies, and lessons learned during the early phases of our Symptoms Self-Management Center implementation.
+ER  - 
+
+TY  - JOUR
+T1  - A conceptual framework for cloud-based integration of Virtual laboratories as a multi-agent system approach
+AU  - Erdem, Mehmet Bilgehan
+AU  - Kiraz, Alper
+AU  - Eski, Hüseyin
+AU  - Çiftçi, Özgür
+AU  - Kubat, Cemalettin
+JO  - Computers & Industrial Engineering
+VL  - 102
+SP  - 452
+EP  - 457
+PY  - 2016
+DA  - 2016/12/01/
+SN  - 0360-8352
+DO  - https://doi.org/10.1016/j.cie.2016.04.011
+UR  - http://www.sciencedirect.com/science/article/pii/S0360835216301140
+KW  - Virtual laboratory
+KW  - Conceptual modeling
+KW  - Multi-agent system
+KW  - Cloud computing
+AB  - With the rapid development in information technologies, numerous Virtual laboratory (VL) studies are being conducted in various fields such as material science, computer science, chemistry and education. While the number of VL studies are rising, possible interactions between these VLs have not been studied yet. The aim of this study is to create a framework in order to gather all VLs in a common base by building interactions between VLs via a multi-agent system (MAS) approach. Cloud-Based Integrated Virtual Laboratories (CIVIL) model has been proposed as a conceptual framework of collaborative networks of a cloud system with the help of MAS. The boundaries of the integrated problem are determined and schematized within the scope of conceptual modeling. Thereafter probable entities that may interact in the framework are included in the MAS model. Communications and interactions between these entities, aims and performance indicators of defined agents are also listed.
+ER  - 
+
+TY  - JOUR
+T1  - Leveraging electronic health records for clinical research
+AU  - Raman, Sudha R.
+AU  - Curtis, Lesley H.
+AU  - Temple, Robert
+AU  - Andersson, Tomas
+AU  - Ezekowitz, Justin
+AU  - Ford, Ian
+AU  - James, Stefan
+AU  - Marsolo, Keith
+AU  - Mirhaji, Parsa
+AU  - Rocca, Mitra
+AU  - Rothman, Russell L.
+AU  - Sethuraman, Barathi
+AU  - Stockbridge, Norman
+AU  - Terry, Sharon
+AU  - Wasserman, Scott M.
+AU  - Peterson, Eric D.
+AU  - Hernandez, Adrian F.
+JO  - American Heart Journal
+VL  - 202
+SP  - 13
+EP  - 19
+PY  - 2018
+DA  - 2018/08/01/
+SN  - 0002-8703
+DO  - https://doi.org/10.1016/j.ahj.2018.04.015
+UR  - http://www.sciencedirect.com/science/article/pii/S0002870318301388
+AB  - Electronic health records (EHRs) can be a major tool in the quest to decrease costs and timelines of clinical trial research, generate better evidence for clinical decision making, and advance health care. Over the past decade, EHRs have increasingly offered opportunities to speed up, streamline, and enhance clinical research. EHRs offer a wide range of possible uses in clinical trials, including assisting with prestudy feasibility assessment, patient recruitment, and data capture in care delivery. To fully appreciate these opportunities, health care stakeholders must come together to face critical challenges in leveraging EHR data, including data quality/completeness, information security, stakeholder engagement, and increasing the scale of research infrastructure and related governance. Leaders from academia, government, industry, and professional societies representing patient, provider, researcher, industry, and regulator perspectives convened the Leveraging EHR for Clinical Research Now! Think Tank in Washington, DC (February 18-19, 2016), to identify barriers to using EHRs in clinical research and to generate potential solutions. Think tank members identified a broad range of issues surrounding the use of EHRs in research and proposed a variety of solutions. Recognizing the challenges, the participants identified the urgent need to look more deeply at previous efforts to use these data, share lessons learned, and develop a multidisciplinary agenda for best practices for using EHRs in clinical research. We report the proceedings from this think tank meeting in the following paper.
+ER  - 
+
+TY  - JOUR
+T1  - Enabling FAIR research in Earth Science through research objects
+AU  - Garcia-Silva, Andres
+AU  - Gomez-Perez, Jose Manuel
+AU  - Palma, Raul
+AU  - Krystek, Marcin
+AU  - Mantovani, Simone
+AU  - Foglini, Federica
+AU  - Grande, Valentina
+AU  - De Leo, Francesco
+AU  - Salvi, Stefano
+AU  - Trasatti, Elisa
+AU  - Romaniello, Vito
+AU  - Albani, Mirko
+AU  - Silvagni, Cristiano
+AU  - Leone, Rosemarie
+AU  - Marelli, Fulvio
+AU  - Albani, Sergio
+AU  - Lazzarini, Michele
+AU  - Napier, Hazel J.
+AU  - Glaves, Helen M.
+AU  - Aldridge, Timothy
+AU  - Meertens, Charles
+AU  - Boler, Fran
+AU  - Loescher, Henry W.
+AU  - Laney, Christine
+AU  - Genazzio, Melissa A.
+AU  - Crawl, Daniel
+AU  - Altintas, Ilkay
+JO  - Future Generation Computer Systems
+VL  - 98
+SP  - 550
+EP  - 564
+PY  - 2019
+DA  - 2019/09/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2019.03.046
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X18314638
+KW  - FAIR principles
+KW  - Research objects
+KW  - Research infrastructure
+KW  - Semantic technologies
+KW  - Earth Science
+AB  - Data-intensive science communities are progressively adopting FAIR practices that enhance the visibility of scientific breakthroughs and enable reuse. At the core of this movement, research objects contain and describe scientific information and resources in a way compliant with the FAIR principles and sustain the development of key infrastructure and tools. This paper provides an account of the challenges, experiences and solutions involved in the adoption of FAIR around research objects over several Earth Science disciplines. During this journey, our work has been comprehensive, with outcomes including: an extended research object model adapted to the needs of earth scientists; the provisioning of digital object identifiers (DOI) to enable persistent identification and to give due credit to authors; the generation of content-based, semantically rich, research object metadata through natural language processing, enhancing visibility and reuse through recommendation systems and third-party search engines; and various types of checklists that provide a compact representation of research object quality as a key enabler of scientific reuse. All these results have been integrated in ROHub, a platform that provides research object management functionality to a wealth of applications and interfaces across different scientific communities. To monitor and quantify the community uptake of research objects, we have defined indicators and obtained measures via ROHub that are also discussed herein.
+ER  - 
+
+TY  - JOUR
+T1  - EU-SOLARIS: The European Infrastructure for Concentrated Solar Thermal and Solar Chemistry Technologies
+AU  - Blanco, M.
+AU  - Oikonomou, Th. I.
+AU  - Drosou, V.
+JO  - Procedia Environmental Sciences
+VL  - 38
+SP  - 485
+EP  - 491
+PY  - 2017
+DA  - 2017/01/01/
+T2  - Sustainable synergies from Buildings to the Urban Scale
+SN  - 1878-0296
+DO  - https://doi.org/10.1016/j.proenv.2017.03.111
+UR  - http://www.sciencedirect.com/science/article/pii/S1878029617301159
+KW  - Concentrating solar thermal
+KW  - solar chemistry
+KW  - research infrastructure
+KW  - research and technology development
+KW  - solar thermal electricity
+AB  - EU-SOLARIS project is a European project, co-funded by the 7th framework programme of the European Union. It is a Research Infrastructure (RI) initiative aimed to foster and promote the scientific and technological development of Concentrating Solar Thermal (CST) and Solar Chemistry technologies. EU-SOLARIS aims to create a new legal entity to explore and implement new and improved rules and procedures for the overall coordination and join exploitation of the main European RI for CST and Solar Chemistry technologies, in order to optimize RI development and Research and technology Development (R&D) coordination. It is expected to be the first of its kind, where industrial needs and private funding will play a significant role. The success of the EU-SOLARIS initiative will be the establishment of a new governance body, aided by sustainable financial models for this unique European large and distributed research infrastructure in the CST and Solar Chemistry fields. EU-SOLARIS is expected to be an important tool in consolidating Europe's leadership in these areas. This will be accomplished by linking the research community and the industry involved in the CST sector and providing them the research infrastructures needed to innovate and advance the state of the art of CST and Solar Chemistry technologies. EU-SOLARIS is also expected to increase the efficient use of the economic and human resources required throughout the European research context and to provide efficient resource management to complement research and to avoid unnecessary technological duplication and repetition. This article presents the vision, objectives, activities and current status of the EU-SOLARIS project and discusses the most important - expected to be achieved - outcomes of the project, which is currently at its last year of its preparatory phase.
+ER  - 
+
+TY  - JOUR
+T1  - GenApp: Extensible tool for rapid generation of web and native GUI applications
+AU  - Savelyev, Alexey
+AU  - Brookes, Emre
+JO  - Future Generation Computer Systems
+VL  - 94
+SP  - 929
+EP  - 936
+PY  - 2019
+DA  - 2019/05/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2017.09.069
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X17310063
+KW  - Science gateway
+KW  - Middleware
+KW  - CASE tools
+KW  - OAuth 2.0 protocol
+AB  - GenApp is a general tool for rapid deployment of applications in an extensible set of target languages. GenApp builds fully functioning science gateways and standalone GUI applications from collections of definition files and libraries of code fragments. Existing and new GenApp capabilities can be modified and implemented by using special defined GenApp macros. We demonstrate how this strategy works by integration of the OAuth2 user credential management into GenApp framework. Among the main GenApp features are the minimal technical expertise requirement for the end user and an open-end design ensuring sustainability of generated applications. Because of the conceptual simplicity of use, GenApp is ideally suited to scientists who are not professional developers, to disseminate their theoretical and experimental expertise as embodied in their code to their communities by rapidly deploying advanced applications.
+ER  - 
+
+TY  - JOUR
+T1  - Species distribution models can be highly sensitive to algorithm configuration
+AU  - Hallgren, W.
+AU  - Santana, F.
+AU  - Low-Choy, S.
+AU  - Zhao, Y.
+AU  - Mackey, B.
+JO  - Ecological Modelling
+VL  - 408
+SP  - 108719
+PY  - 2019
+DA  - 2019/09/15/
+SN  - 0304-3800
+DO  - https://doi.org/10.1016/j.ecolmodel.2019.108719
+UR  - http://www.sciencedirect.com/science/article/pii/S0304380019302194
+KW  - Configuration option settings
+KW  - Provenance
+KW  - Transparency
+KW  - Koala
+KW  - Thorny devil
+KW  - MaxEnt
+KW  - ANN GLM
+KW  - GAM
+KW  - MARS
+KW  - FDA
+KW  - SRE
+KW  - CTA
+AB  - In pursuit of a more robust provenance in the field of species distribution modelling, an extensive literature search was undertaken to find the typical default values, and the range of values, for configuration settings of a large number of the most commonly used statistical algorithms available for constructing species distribution models (SDM), as implemented in the R script packages (such as Dismo and Biomod2) or other species distribution modelling programs like MaxEnt. We found that documentation of SDM algorithm configuration option settings in the SDM literature is, overall, very uncommon, and the justifications for these settings were minimal, when present. Such settings were often the R default values, or were the result of trial and error. This is potentially concerning since: (i) it detracts from the robustness of the provenance for such SDM studies; (ii) a lack of documentation of configuration option settings in a paper prevents the replication of an experiment, which contravenes one of the main tenets of the scientific method; (iii) inappropriate or uninformed configuration option settings are particularly concerning if they represent a poorly understood ecological variable or process, and if the algorithm is sensitive to such settings, this could result in erroneous and/or unrealistic SDMs. Therefore, this study sets out to comprehensively test the sensitivity of eight widely used SDM algorithms to variation in configuration options settings: MaxEnt, Artificial Neural Network (ANN), Generalized Linear Model (GLM), Generalized Additive Model (GAM), Multivariate Adaptive Regression Splines (MARS), Flexible Discriminant Analysis (FDA), Surface Range Envelope (SRE) and Classification tree analysis (CTA). A process of expert elicitation was used to derive a range of appropriate values with which to test the sensitivity of our algorithms. We chose to use species occurrence records for two species - Koala (Phascolartos cinereus) and Thorny Devil (Moloch horridus) - in order to investigate how algorithm sensitivity depends on the species being modelled. Results were assessed by comparing the modelled distribution of the control SDM (default settings) to the modelled distribution from each sensitivity test SDM (i.e. non-default configuration settings). This was done using the visual and statistical measures of predictive performance available in the Biodiversity and Climate Change Virtual Laboratory (BCCVL), including the area under the (receiver operating characteristic) curve. The aim of our study was to be able to draw conclusions as to how the sensitivity of SDM algorithms to their configuration option settings may detract from the reliability of SDM results, given the often unjustified and unscrutinized use of the default settings, and generally infrequent and largely perfunctory attendance to this issue in most of the published SDM literature. Our results indicate that all of the algorithms tested showed sensitivity to alternative (non-default) values for some of their configuration settings and that often this sensitivity is species-dependent. Therefore we can conclude that the choice of configuration settings in these widely used SDM algorithms can have a large impact on the resulting projected distribution. This has important ramifications for decision-making and policy outcomes wherever SDMs are used to inform species and biodiversity management plans and policy settings. This study demonstrates that assigning suitable values for these settings is a very important consideration and as such should always be published along with the model. Documenting all configuration settings is necessary to increase the scientific robustness, transparency and reproducibility of species distribution modelling studies.
+ER  - 
+
+TY  - JOUR
+T1  - Geodetic measurements to control a large research infrastructure: The Virgo detector at the European Gravitational Observatory
+AU  - Marsella, Maria
+AU  - Nardinocchi, Carla
+AU  - Paoli, Andrea
+AU  - Tini, Maria Alessandra
+AU  - Vittuari, Luca
+AU  - Zanutta, Antonio
+JO  - Measurement
+VL  - 151
+SP  - 107154
+PY  - 2020
+DA  - 2020/02/01/
+SN  - 0263-2241
+DO  - https://doi.org/10.1016/j.measurement.2019.107154
+UR  - http://www.sciencedirect.com/science/article/pii/S0263224119310206
+KW  - Monitoring
+KW  - Surveying
+KW  - Interferometer
+KW  - DInSAR
+KW  - Large research infrastructure
+KW  - Ground settlements
+KW  - Control network
+AB  - The Advanced Virgo (AdV) detector is a 3 km long arms Michelson interferometer for gravitational waves detection. The management of a complex and large research infrastructure requires high-precision geodetic surveying for positioning and rearrangement of instruments. This paper describes the establishment of Virgo Reference System (VRS) consisting in a wide-scale high precision geodetic network based on GPS and Total Station measurements, that support the positioning and the alignment of the different elements forming the interferometer. Ground settlement monitoring is strictly required to verify and adapt the interferometer vertical alignment in presence of a steady subsidence process due to infrastructures overloads. The paper describes also the monitoring activity conducted over the years by means of periodic high precision levelling, that was compared with the results with those obtained using differential interferometry based on satellite Synthetic Aperture Radar (SAR) data.
+ER  - 
+
+TY  - JOUR
+T1  - MyGeoHub—A sustainable and evolving geospatial science gateway
+AU  - Kalyanam, Rajesh
+AU  - Zhao, Lan
+AU  - Song, Carol
+AU  - Biehl, Larry
+AU  - Kearney, Derrick
+AU  - Kim, I. Luk
+AU  - Shin, Jaewoo
+AU  - Villoria, Nelson
+AU  - Merwade, Venkatesh
+JO  - Future Generation Computer Systems
+VL  - 94
+SP  - 820
+EP  - 832
+PY  - 2019
+DA  - 2019/05/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2018.02.005
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X17310087
+KW  - Science gateways
+KW  - Cyberinfrastructure
+KW  - Geospatial
+KW  - Sustainability
+AB  - Science gateways are an integral component of modern collaborative research. They find widespread adoption by research groups to share data, code and tools both amongst collaborators on a project and the broader community. However, not unlike research groups, gateways too, face the vagaries of research funding often resulting in a bleak outlook for their maintenance beyond the original project’s conclusion. We present a sustainability model based on the HUBzero cyberinfrastructure platform that enables multiple research projects to share a single science gateway allowing for their maintenance even after the original funding source has run out. This model brings with it certain other advantages as well; general improvements to the gateway apply to all hosted projects, similar requirements across projects can often be abstracted into new general purpose capabilities for the gateway which feed back into all hosted projects. Such newly developed capabilities can also foster additional research aiding in new funding proposals that can revitalize and jumpstart hosted dormant projects. We describe a specific instance of a HUBzero science gateway, MyGeoHub, that successfully employs this sustainability model to host several geospatial research projects. We also illustrate the specific advantages of this sustainability model in the case of the MyGeoHub gateway that have led to the development of general-purpose data management and visualization software modules that have found use beyond MyGeoHub.
+ER  - 
+
+TY  - JOUR
+T1  - Spatiotemporal data as the foundation of an archaeological stratigraphy extraction and management system
+AU  - De Roo, Berdien
+AU  - Stal, Cornelis
+AU  - Lonneville, Britt
+AU  - De Wulf, Alain
+AU  - Bourgeois, Jean
+AU  - De Maeyer, Philippe
+JO  - Journal of Cultural Heritage
+VL  - 19
+SP  - 522
+EP  - 530
+PY  - 2016
+DA  - 2016/05/01/
+SN  - 1296-2074
+DO  - https://doi.org/10.1016/j.culher.2015.12.001
+UR  - http://www.sciencedirect.com/science/article/pii/S1296207415001880
+KW  - Stratigraphy
+KW  - Spatial information
+KW  - Harris Matrix
+KW  - Geodatabases
+KW  - GIS
+KW  - Data management
+AB  - Transforming relations between stratigraphic units of an archaeological excavation to a formal model like the Harris Matrix is a challenging task. Especially when the number of stratigraphic units is large or when spatiotemporal relations are complex, such models are difficult to generate. This paper describes a novel procedure for the automated construction of Harris Matrices involving the use of open source database software programs and tools. The procedure is based on an algorithm for the detection of spatial relations between stratigraphic units. For each stratigraphic unit (represented by commonly available 2D polygons), all possible top-down spatial relations are defined. These large series of relations are then iteratively validated, retaining a limited number of topological coherent sequences. These relations are required for the definition of stratigraphic sequences. To facilitate the presentation of resulting sequences, a stratigraphic diagram is incorporated into a graphical user interface on top of a geodatabase management system and web feature service (WFS). This interface is supplemented with attributes of each stratigraphic unit and with a virtual representation in an embedded 2D map viewer and 3D viewer. The link between sequences and cartographic representations of stratigraphic units by the underlying system enables interactions between various elements of the dataset while taking into account 2D and 3D spatial information, stratigraphic relations and attribute displays. Three theoretical datasets are used to develop and test the workflow. Furthermore, a reference dataset is used to validate this workflow. We find that expert knowledge remains indispensable for the interpretation and validation of both data sources and results. Nevertheless, the robustness of the results of this study illustrate the potential of the proposed procedure for use in automated Harris Matrix construction based on sequences of stratigraphic unit polygons. In employing this procedure, systems may facilitate the management of archaeological (spatiotemporal) data in cost- and time-efficient research infrastructures.
+ER  - 
+
+TY  - JOUR
+T1  - Some remarks concerning the cost/benefit analysis applied to LHC at CERN
+AU  - Schopper, Herwig
+JO  - Technological Forecasting and Social Change
+VL  - 112
+SP  - 54
+EP  - 64
+PY  - 2016
+DA  - 2016/11/01/
+SN  - 0040-1625
+DO  - https://doi.org/10.1016/j.techfore.2016.02.007
+UR  - http://www.sciencedirect.com/science/article/pii/S0040162516000482
+KW  - Scientific research infrastructures
+KW  - Cost–benefit analysis
+KW  - CERN
+KW  - LHC
+KW  - Management of global projects
+AB  - The cost/benefit analysis originally developed for infrastructures in the economic sector has recently been extended by Florio et al. to infrastructures of basic research. As a case study the large accelerator LHC at CERN and its experiments have been selected since as a paradigmatic example of frontier research they offer an excellent case to test the CBA model. It will be shown that in spite of this improved method the LHC poses serious difficulties for such an analysis. Some principle difficulties are due to the special character of scientific projects. Their main result is the production of new basic scientific knowledge whose net social value cannot be easily expressed in monetary terms. Other problems are related to the very strong integration of LHC into the general activities of CERN providing however, interesting observations concerning a new management style for global projects. Finally the mission of CERN (including LHC) is unique since it was founded with two tasks—promote science and bring nations together. No way has yet been developed to assess in economic terms success for the second objective. The main conclusion is that the overall result of the CB analysis, the Net Present Value, although positive for LHC, has a large uncertainty and if used to assess a project needs a detailed discussion. On the other hand partial results can be very useful, for example for the results of education or technology transfer.
+ER  - 
+
+TY  - JOUR
+T1  - Towards a sustainable EU health information system infrastructure: A consensus driven approach
+AU  - Bogaert, Petronille
+AU  - van Oers, Hans
+AU  - Van Oyen, Herman
+JO  - Health Policy
+VL  - 122
+IS  - 12
+SP  - 1340
+EP  - 1347
+PY  - 2018
+DA  - 2018/12/01/
+SN  - 0168-8510
+DO  - https://doi.org/10.1016/j.healthpol.2018.10.009
+UR  - http://www.sciencedirect.com/science/article/pii/S0168851018305943
+KW  - European Union
+KW  - Health information system
+KW  - Health and health system monitoring
+KW  - BRIDGE health
+KW  - Joint Action on Health Information
+KW  - InfAct
+AB  - Background
+Health information in the EU is characterised by diversity and fragmentation of health information infrastructures. A well-defined and sustainable EU health information system infrastructure is lacking. The potential of a European Research Infrastructure Consortium on Health Information for Research and Evidence-based Policy (HIREP-ERIC) to take up this role is investigated.
+Methods
+Two working groups, a BRIDGE Health Steering Committee and the European Commission’s Drafting Group of the Expert Group on Health Information, discussed the technical and scientific description of the HIREP-ERIC through a consensus-driven modified Delphi technique.
+Results
+Consensus was reached on three aspects of the HIREP-ERIC. First, it was defined as an infrastructure that facilitates interaction of networks and experts in health information by providing central governance and a more permanent collaboration. Second, the infrastructure should be distributed, with a central hub coordinating the operation of distributed networks. Third, it should provide easy access to high quality and comparable data for purposes of research and policy making, and focus its activities around generating, managing, exchanging and translating health information.
+Conclusion
+A momentum has been created where representatives from 16 European countries agreed on the HIREP-ERIC as a pragmatic bottom-up approach to strengthen the current EU health information landscape. A Member States’ commitment is needed at senior political level to make this consensus operational.
+ER  - 
+
+TY  - JOUR
+T1  - A cloud-agnostic queuing system to support the implementation of deadline-based application execution policies
+AU  - Kiss, Tamas
+AU  - DesLauriers, James
+AU  - Gesmier, Gregoire
+AU  - Terstyanszky, Gabor
+AU  - Pierantoni, Gabriele
+AU  - Oun, Osama Abu
+AU  - Taylor, Simon J.E.
+AU  - Anagnostou, Anastasia
+AU  - Kovacs, Jozsef
+JO  - Future Generation Computer Systems
+VL  - 101
+SP  - 99
+EP  - 111
+PY  - 2019
+DA  - 2019/12/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2019.05.062
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X19303814
+KW  - Cloud computing
+KW  - Container technologies
+KW  - Deadline-based auto-scaling
+KW  - JQueuer
+KW  - MiCADO
+KW  - Agent-based simulation
+AB  - There are many scientific and commercial applications that require the execution of a large number of independent jobs resulting in significant overall execution time. Therefore, such applications typically require distributed computing infrastructures and science gateways to run efficiently and to be easily accessible for end-users. Optimising the execution of such applications in a cloud computing environment by keeping resource utilisation at minimum but still completing the experiment by a set deadline has paramount importance. As container-based technologies are becoming more widespread, support for job-queuing and auto-scaling in such environments is becoming important. Current container management technologies, such as Docker Swarm or Kubernetes, while provide auto-scaling based on resource consumption, do not support job queuing and deadline-based execution policies directly. This paper presents JQueuer, a cloud-agnostic queuing system that supports the scheduling of a large number of jobs in containerised cloud environments. The paper also demonstrates how JQueuer, when integrated with a cloud application-level orchestrator and auto-scaling framework, called MiCADO, can be used to implement deadline-based execution policies. This novel technical solution provides an important step towards the cost-optimisation of batch processing and job submission applications. In order to test and prove the effectiveness of the solution, the paper presents experimental results when executing an agent-based simulation application using the open source REPAST simulation framework.
+ER  - 
+
+TY  - JOUR
+T1  - Medical Image Processor and Repository – MIPAR
+AU  - Aribisala, Benjamin
+AU  - Olabanjo, Olusola
+JO  - Informatics in Medicine Unlocked
+VL  - 12
+SP  - 75
+EP  - 80
+PY  - 2018
+DA  - 2018/01/01/
+SN  - 2352-9148
+DO  - https://doi.org/10.1016/j.imu.2018.06.005
+UR  - http://www.sciencedirect.com/science/article/pii/S2352914818300340
+KW  - Medical image
+KW  - Image analysis
+KW  - Repository
+KW  - E-infrastructure
+KW  - Open source
+AB  - Background and Objectives
+The recent progress in medical image analysis has given birth to image-guided therapy, virtual reality and augmented reality. These among other innovations have greatly improved healthcare delivery, improved quality of life and also saved lives.. The advances in Internet and network technology have produced web technologies which make it possible to offer platform or software as a service via the web, making it possible for end users to access computer resources or specialized computer tools remotely. However, the high cost of image acquisition, the limited availability of medical image analysts, and the limited collaborative efforts between medical experts and scientists are major challenges for medical image analysis in the developing world. The aim of this project was to develop a medical image e-infrastructure called Medical Image Processor and Analysis (MIPAR) to contain a repository of medical images acquired from Africa and a platform for processing medical images.
+Methods
+The backend of MIPAR which is resident on a High-Performance Computing infrastructure was built using FutureGateway, a framework for building science gateway. The image upload and download module was built upon the framework of Open Access Repository with the front end developed using HTML, CSS and BootStrap. JavaScript and JQuery were used for scripting. User's access to the server is controlled with HTTP response and a Client-Server Architecture, while the image processing tools on the server side communicate with PHP using Representational State Architecture (REST) API.
+Results
+MIPAR was tested using brain MRI images. Images were submitted remotely via MIPAR's web interface and kept in the repository. Image processing facility of MIPAR was tested using the brain extraction module, a 3D image of approximately 43MB was successfully brain extracted within 60 s.
+Conclusion
+MIPAR allows users to donate, download and process medical images at no cost. It is our hope that such useful and unique tool will encourage collaboration, improve diagnosis, improve patient management, and promote open science in Africa.
+ER  - 
+
+TY  - JOUR
+T1  - Towards better traceability of field sampling data
+AU  - Plumejeaud-Perreau, 
+AU  - Quinton, Eric
+AU  - Pignol, Cécile
+AU  - Linyer, Hector
+AU  - Ancelin, Julin
+AU  - Cipière, Sébastien
+AU  - Heintz, Wilfried
+AU  - Rouan, Mathias
+AU  - Damy, Sylvie
+AU  - Bretagnolle, Vincent
+JO  - Computers & Geosciences
+VL  - 129
+SP  - 82
+EP  - 91
+PY  - 2019
+DA  - 2019/08/01/
+SN  - 0098-3004
+DO  - https://doi.org/10.1016/j.cageo.2019.04.009
+UR  - http://www.sciencedirect.com/science/article/pii/S0098300417310622
+KW  - Data traceability
+KW  - QR code
+KW  - Labels printing
+KW  - Samples management
+AB  - Ensuring traceability of both field experimental data and laboratory sampling data for a reproducible research remains a challenge nowadays. Between the time when geolocalized specimens are taken, and the time the resulting data ends up in analysis published within a study, many manual operations take place that are prone to generate errors. The French nodes of the European Long-Term Socio-Ecological Research Infrastructure called ”Zones Ateliers” propose a solution as generic as possible to this problem of monitoring of the samples and the data associated with them. Compared to existing solutions such as Laboratory Information Management Systems, we target a robust solution for labelling adapted to outdoor working conditions, with the management of storages and movements of samples. We designed and realized a software package tested from end to end, using open source licenses and cheap hardware, including small printers (mobile or not) and Raspberry Pis. This system provides sufficient flexibility so that it can facilitate working with a wide variety of existing protocols. One of the most interesting feature consists to record all contextual data associated with the samples, which constitute important parameters of the subsequent analyses. Furthermore, not only traceability is thus guaranteed, but also we can expect a reduced handling times and an increased streamlining of the storage of samples that will improve the return on investment.
+ER  - 
+
+TY  - JOUR
+T1  - West-Life: A Virtual Research Environment for structural biology
+AU  - Morris, Chris
+AU  - Andreetto, Paolo
+AU  - Banci, Lucia
+AU  - Bonvin, Alexandre M.J.J.
+AU  - Chojnowski, Grzegorz
+AU  - Cano, Laura del
+AU  - Carazo, José Marıa
+AU  - Conesa, Pablo
+AU  - Daenke, Susan
+AU  - Damaskos, George
+AU  - Giachetti, Andrea
+AU  - Haley, Natalie E.C.
+AU  - Hekkelman, Maarten L.
+AU  - Heuser, Philipp
+AU  - Joosten, Robbie P.
+AU  - Kouřil, Daniel
+AU  - Křenek, Aleš
+AU  - Kulhánek, Tomáš
+AU  - Lamzin, Victor S.
+AU  - Nadzirin, Nurul
+AU  - Perrakis, Anastassis
+AU  - Rosato, Antonio
+AU  - Sanderson, Fiona
+AU  - Segura, Joan
+AU  - Schaarschmidt, Joerg
+AU  - Sobolev, Egor
+AU  - Traldi, Sergio
+AU  - Trellet, Mikael E.
+AU  - Velankar, Sameer
+AU  - Verlato, Marco
+AU  - Winn, Martyn
+JO  - Journal of Structural Biology: X
+VL  - 1
+SP  - 100006
+PY  - 2019
+DA  - 2019/01/01/
+SN  - 2590-1524
+DO  - https://doi.org/10.1016/j.yjsbx.2019.100006
+UR  - http://www.sciencedirect.com/science/article/pii/S2590152419300042
+KW  - Structural biology
+KW  - Virtual Research Environment
+KW  - Cloud computing
+KW  - Grid computing
+KW  - Data management
+AB  - The West-Life project (https://about.west-life.eu/) is a Horizon 2020 project funded by the European Commission to provide data processing and data management services for the international community of structural biologists, and in particular to support integrative experimental approaches within the field of structural biology. It has developed enhancements to existing web services for structure solution and analysis, created new pipelines to link these services into more complex higher-level workflows, and added new data management facilities. Through this work it has striven to make the benefits of European e-Infrastructures more accessible to life-science researchers in general and structural biologists in particular.
+ER  - 
+
+TY  - JOUR
+T1  - What are the prospects for deploying advanced biofuels in Canada?
+AU  - Mondou, Matthieu
+AU  - Skogstad, Grace
+AU  - Bognar, Julia
+JO  - Biomass and Bioenergy
+VL  - 116
+SP  - 171
+EP  - 179
+PY  - 2018
+DA  - 2018/09/01/
+SN  - 0961-9534
+DO  - https://doi.org/10.1016/j.biombioe.2018.06.014
+UR  - http://www.sciencedirect.com/science/article/pii/S0961953418301569
+KW  - Advanced biofuels
+KW  - Innovation policy
+KW  - Governance
+KW  - Canada
+KW  - GHG reduction
+KW  - Policy uncertainty
+AB  - This article addresses the prospects for advanced biofuels in Canada by examining whether recommendations of two literatures for overcoming the unfavourable market conditions and policy uncertainty facing advanced biofuels are met in Canada. Our empirical analyses demonstrate the presence of conditions posited by the innovation policy literature. That is, Canadian governments provide financial support for biofuels research infrastructure and private R&D, invest in training highly qualified personnel, and support knowledge creation and mobilization across industry, academia and government. However, our analyses indicate deficiencies in the conditions posited by the policy network and governance literature for policy innovation. The Canadian state's policy analytical capacity, autonomy from industry, and coordination capabilities are low, as is the organizational development of industry actors. Consistent with the recommendations of the policy network and governance literature, we conclude that improving the prospects for the Canadian advanced biofuels sector requires the Canadian government augment its personnel, expertise and budgetary resources for advanced biofuels policymaking, and strengthen its interdepartmental and intergovernmental coordination mechanisms. Greater cooperation between the two organizations representing Canada's advanced biofuels sector is also recommended.
+ER  - 
+
+TY  - JOUR
+T1  - Multicenter data sharing for collaboration in sleep medicine
+AU  - Beier, Maximilian
+AU  - Jansen, Christoph
+AU  - Mayer, Geert
+AU  - Penzel, Thomas
+AU  - Rodenbeck, Andrea
+AU  - Siewert, René
+AU  - Witt, Michael
+AU  - Wu, Jie
+AU  - Krefting, Dagmar
+JO  - Future Generation Computer Systems
+VL  - 67
+SP  - 466
+EP  - 480
+PY  - 2017
+DA  - 2017/02/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2016.03.025
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X16300693
+KW  - Biosignal
+KW  - Polysomnography
+KW  - EDF
+KW  - XNAT
+KW  - OpenStack
+KW  - Docker
+AB  - Sleep is a fundamental biological process crucial for survival and health of (not only) humans. But many circumstances like physiological and mental disorders, environment and lifestyle may affect healthy sleep. To date, 88 different sleep disorders are internationally recognized. They cover a broad field of medical areas. Analysis of human sleep is typically based on multidimensional biosignal recordings, so called polysomnographies (PSG). Therefore research often includes digital signal processing. Clinical sleep research is an inherent multidisciplinary field. Inter-institutional and interdisciplinary collaborations are required to address the complexity of sleep regulation and disturbance. But to date, collaborative sleep research is poorly supported by IT systems. In particular, the management and processing of PSGs is challenging. A large variety of PSG devices, data formats, measurement procedures and quality variations impedes consistent biosignal data processing. In this manuscript we introduce a virtual research platform supporting inter-institutional data sharing and processing. The infrastructure is based on XNAT—a free and open source neuroimaging research platform, a loosely coupled service oriented architecture and scalable virtualization in the back end. The system is capable of local pseudonymization of biosignal data, mapping to a standardized set of parameters and automatic quality assessment. Terms and quality measures are derived from the “Manual for the Scoring of Sleep and Associated Events” of the American Academy of Sleep Medicine (AASM), the de facto standard for diagnostic biosignal analysis in sleep medicine.
+ER  - 
+
+TY  - JOUR
+T1  - The Trigger and Data Acquisition System for the 8 tower subsystem of the KM3NeT detector
+AU  - Manzali, M.
+AU  - Chiarusi, T.
+AU  - Favaro, M.
+AU  - Giacomini, F.
+AU  - Margiotta, A.
+AU  - Pellegrino, C.
+JO  - Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment
+VL  - 824
+SP  - 316
+EP  - 318
+PY  - 2016
+DA  - 2016/07/11/
+T2  - Frontier Detectors for Frontier Physics: Proceedings of the 13th Pisa Meeting on Advanced Detectors
+SN  - 0168-9002
+DO  - https://doi.org/10.1016/j.nima.2015.11.061
+UR  - http://www.sciencedirect.com/science/article/pii/S0168900215014266
+KW  - Front end
+KW  - Trigger
+KW  - DAQ
+KW  - Data Management
+AB  - KM3NeT is a deep-sea research infrastructure being constructed in the Mediterranean Sea. It will host a large Cherenkov neutrino telescope that will collect photons emitted along the path of the charged particles produced in neutrino interactions in the vicinity of the detector. The philosophy of the DAQ system of the detector foresees that all data are sent to shore after a proper sampling of the photomultiplier signals. No off-shore hardware trigger is implemented and a software selection of the data is performed with an on-line Trigger and Data Acquisition System (TriDAS) to reduce the large throughput due to the environmental light background. A first version of the TriDAS has been developed to operate a prototype detection unit deployed in March 2013 in the abyssal site of Capo Passero (Sicily, Italy), about 3500m deep. A revised and improved version has been developed to meet the requirements of the final detector, using new tools and modern design solutions. First installation and scalability tests have been performed at the Bologna Common Infrastructure and results comparable to what expected have been observed.
+ER  - 
+
+TY  - JOUR
+T1  - Virtual Metrology Laboratory for e-Learning
+AU  - Ballu, A.
+AU  - Yan, X.
+AU  - Blanchard, A.
+AU  - Clet, T.
+AU  - Mouton, S.
+AU  - Niandou, H.
+JO  - Procedia CIRP
+VL  - 43
+SP  - 148
+EP  - 153
+PY  - 2016
+DA  - 2016/01/01/
+T2  - 14th CIRP CAT 2016 - CIRP Conference on Computer Aided Tolerancing
+SN  - 2212-8271
+DO  - https://doi.org/10.1016/j.procir.2016.02.110
+UR  - http://www.sciencedirect.com/science/article/pii/S2212827116003929
+KW  - ISO GPS
+KW  - e-learning
+KW  - virtual laboratory
+KW  - hands-on laboratory
+KW  - skin model shape
+AB  - Understanding geometrical specifications is becoming more and more difficult due to the latest developments in ISO GPS (Geometrical Product Specification) Standards, and at the same time, students’ learning habits are evolving and theoretical courses on standardized specifications are not attractive. Metrology laboratory work is much more appealing and highlights the difficulties encountered in interpreting specifications and the inherent method uncertainties. Nevertheless, metrology activities require an expensive metrology laboratory equipped with CMMs. In order to carry out real hands-on experiments, Bordeaux University is designing a virtual laboratory framework. It is integrated into Moodle (an L.M.S., Learning Management System) as a new activity to establish a link with other Moodle learning activities (courses, tests, etc.) and to ensure student tracking. A first prototype of the virtual laboratory is dedicated to dimensional and geometrical metrology with simulated traditional measuring devices (gauge, micrometer, dial indicator, etc.) and Coordinate Measuring Machines. Measurement simulation is in a three-dimensional environment and is based on models of parts with dimensions, orientation, position and form errors (skin model shapes) and on models of measuring devices with measurement uncertainties.
+ER  - 
+
+TY  - JOUR
+T1  - A programmable policy engine to facilitate time-efficient science DMZ management
+AU  - Xu, Chen
+AU  - Li, Peilong
+AU  - Luo, Yan
+JO  - Future Generation Computer Systems
+VL  - 89
+SP  - 515
+EP  - 524
+PY  - 2018
+DA  - 2018/12/01/
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2018.07.016
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X18302279
+KW  - Science DMZ
+KW  - Software defined networking
+KW  - Policy engine
+KW  - Fast service delivery
+KW  - Network automation
+AB  - The Science DMZ model employs dedicated network infrastructures and advanced software techniques for large-volume scientific research traffic flows targeting high-throughput and low-latency data transfer. However, current Science DMZ framework lacks of efficient means of user-intent expression and suffers from slow service-delivery due to the manual work involved in the management loop. As a result, a programmable interface that facilitates user–administrator communication in a time-efficient manner is highly demanded. In this paper, we introduce FLowell, an enhanced SDN-powered Science DMZ model deployed on our campus network. Moreover, we propose a programmable policy engine atop the SDN controller that allows network administrators to implement configuration policies in order to manage the network, while simultaneously offering rapid response time network resource request policies for end users. Our experiment results show that user intent in FLowell can be responded and serviced within 1 s. In addition, FLowell reduces the network latency for the research network path by 35%, and boost the disk-to-disk throughput by up to the 10 Gbps line rate.
+ER  - 
+
+TY  - JOUR
+T1  - Resolving complex research data management issues in biomedical laboratories: Qualitative study of an industry–academia collaboration
+AU  - Myneni, Sahiti
+AU  - Patel, Vimla L.
+AU  - Bova, G. Steven
+AU  - Wang, Jian
+AU  - Ackerman, Christopher F.
+AU  - Berlinicke, Cynthia A.
+AU  - Chen, Steve H.
+AU  - Lindvall, Mikael
+AU  - Zack, Donald J.
+JO  - Computer Methods and Programs in Biomedicine
+VL  - 126
+SP  - 160
+EP  - 170
+PY  - 2016
+DA  - 2016/04/01/
+SN  - 0169-2607
+DO  - https://doi.org/10.1016/j.cmpb.2015.11.001
+UR  - http://www.sciencedirect.com/science/article/pii/S0169260715002941
+KW  - Information management
+KW  - Industry–academia collaboration
+KW  - Cognition
+KW  - Biomedical laboratory
+KW  - Informatics implementation
+KW  - Virtual research environment
+AB  - This paper describes a distributed collaborative effort between industry and academia to systematize data management in an academic biomedical laboratory. Heterogeneous and voluminous nature of research data created in biomedical laboratories make information management difficult and research unproductive. One such collaborative effort was evaluated over a period of four years using data collection methods including ethnographic observations, semi-structured interviews, web-based surveys, progress reports, conference call summaries, and face-to-face group discussions. Data were analyzed using qualitative methods of data analysis to (1) characterize specific problems faced by biomedical researchers with traditional information management practices, (2) identify intervention areas to introduce a new research information management system called Labmatrix, and finally to (3) evaluate and delineate important general collaboration (intervention) characteristics that can optimize outcomes of an implementation process in biomedical laboratories. Results emphasize the importance of end user perseverance, human-centric interoperability evaluation, and demonstration of return on investment of effort and time of laboratory members and industry personnel for success of implementation process. In addition, there is an intrinsic learning component associated with the implementation process of an information management system. Technology transfer experience in a complex environment such as the biomedical laboratory can be eased with use of information systems that support human and cognitive interoperability. Such informatics features can also contribute to successful collaboration and hopefully to scientific productivity.
+ER  - 
+
+TY  - JOUR
+T1  - Methodology of a multispecialty outpatient Obesity Treatment Research Program
+AU  - Mikhail, Dalia S.
+AU  - Jensen, Teresa B.
+AU  - Wade, Todd W.
+AU  - Myers, Jane F.
+AU  - Frank, Jennifer M.
+AU  - Wieland, Mark
+AU  - Hensrud, Don
+AU  - McMahon, M. Molly
+AU  - Collazo-Clavell, Maria L.
+AU  - Abu-Lebdeh, Haitham
+AU  - Kennel, Kurt A.
+AU  - Hurley, Daniel L.
+AU  - Grothe, Karen
+AU  - Jensen, Michael D.
+JO  - Contemporary Clinical Trials Communications
+VL  - 10
+SP  - 36
+EP  - 41
+PY  - 2018
+DA  - 2018/06/01/
+SN  - 2451-8654
+DO  - https://doi.org/10.1016/j.conctc.2018.03.004
+UR  - http://www.sciencedirect.com/science/article/pii/S2451865417302004
+KW  - Obesity
+KW  - Weight loss
+KW  - Intensive lifestyle program
+KW  - Exercise prescription
+KW  - Intensive lifestyle intervention
+KW  - Individualized obesity treatment
+AB  - Despite the large number of U.S. adults who overweight or obese, few providers have ready access to comprehensive lifestyle interventions, the cornerstone of medical obesity management. Our goal was to establish a research infrastructure embedded in a comprehensive lifestyle intervention treatment for obesity. The Obesity Treatment Research Program (OTRP) is a multi-specialty project at Mayo Clinic in Rochester, Minnesota designed to provide a high intensity, year-long, comprehensive lifestyle obesity treatment. The program includes a nutritional intervention designed to reduce energy intake, a physical activity program and a cognitive behavioral approach to increase the likelihood of long-term adherence. The behavioral intervention template incorporated the Diabetes Prevention Program and the Look AHEAD trial materials. The OTRP is consistent with national recommendations for the management of overweight and obesity in adults, but with embedded features designed to identify patient characteristics that might help predict outcomes, assure long-term follow up and support various research initiatives. Our goal was to develop approaches to understand whether there are patient characteristics that predict treatment outcomes.
+ER  - 
+
+TY  - JOUR
+T1  - Accompanying technology development in the Human Brain Project: From foresight to ethics management
+AU  - Aicardi, Christine
+AU  - Fothergill, B. Tyr
+AU  - Rainey, Stephen
+AU  - Stahl, Bernd Carsten
+AU  - Harris, Emma
+JO  - Futures
+VL  - 102
+SP  - 114
+EP  - 124
+PY  - 2018
+DA  - 2018/09/01/
+T2  - Futures of research in catastrophic and existential risk
+SN  - 0016-3287
+DO  - https://doi.org/10.1016/j.futures.2018.01.005
+UR  - http://www.sciencedirect.com/science/article/pii/S0016328717301064
+KW  - Responsible research and innovation
+KW  - Human Brain Project
+KW  - Foresight
+KW  - Ethics management
+KW  - Artificial intelligence
+AB  - This paper addresses the question of managing the existential risk potential of general Artificial Intelligence (AI), as well as the more near-term yet hazardous and disruptive implications of specialised AI, from the perspective of a particular research project that could make a significant contribution to the development of Artificial Intelligence (AI): the Human Brain Project (HBP), a ten-year Future and Emerging Technologies Flagship of the European Commission. The HBP aims to create a digital research infrastructure for brain science, cognitive neuroscience, and brain-inspired computing. This paper builds on work undertaken in the HBP’s Ethics and Society subproject (SP12). Collaborators from two activities in SP12, Foresight and Researcher Awareness on the one hand, and Ethics Management on the other, use the case of machine intelligence to illustrate key aspects of the dynamic processes through which questions of ethics and society, including existential risks, are approached in the organisational context of the HBP. The overall aim of the paper is to provide practice-based evidence, enriched by self-reflexive assessment of the approach used and its limitations, for guiding policy makers and communities who are, and will be, engaging with such questions.
+ER  - 
+
+TY  - JOUR
+T1  - Native Seeds in the Marketplace: Meeting Restoration Needs in the Intermountain West, United States
+AU  - Jones, Thomas A.
+JO  - Rangeland Ecology & Management
+VL  - 72
+IS  - 6
+SP  - 1017
+EP  - 1029
+PY  - 2019
+DA  - 2019/11/01/
+SN  - 1550-7424
+DO  - https://doi.org/10.1016/j.rama.2019.07.009
+UR  - http://www.sciencedirect.com/science/article/pii/S1550742419300557
+KW  - Conservation Reserve Program
+KW  - ecological restoration
+KW  - native plant materials
+KW  - native seeds
+KW  - seed production area
+KW  - wildland seed harvest
+AB  - The scale of ecological restoration in the Intermountain West (IW), United States is likely greater than anywhere else in the world. This is largely driven by response to accelerating ecological disturbances and government programs that divert privately owned cropland into soil, water, and wildlife conservation use. While restoration in the IW is challenging due to the region’s aridity, over the past few decades considerable improvement in restoration seeding success has been achieved using native plants instead of the exotic species that have predominated previously. The IW is blessed with an extensive research infrastructure for native plant material development through the Natural Resources Conservation Service, the Agricultural Research Service, and the US Forest Service. A high demand for native seeds in the IW allows for a large and diverse product base of grasses, shrubs, and forbs in the form of cultivars, selected-class prevariety germplasms, and source-identified populations. Two sister native seed industries, one based on field cultivation and another based on collection from public wildlands, are likely the largest of their kind in the world. Seed is offered, mostly on a speculative basis, to major markets (e.g., Bureau of Land Management consolidated seed buy, Utah Division of Wildlife Resources seed buy, Conservation Reserve Program). Elements of the IW native seed marketplace (e.g., plant material development and cultivated seed production), may be instructive for the development of broadscale-restoration models appropriate for other parts of the world.
+ER  - 
+
+TY  - JOUR
+T1  - Harmonized outcome measures for use in asthma patient registries and clinical practice
+AU  - Gliklich, Richard E.
+AU  - Castro, Mario
+AU  - Leavy, Michelle B.
+AU  - Press, Valerie G.
+AU  - Barochia, Amisha
+AU  - Carroll, Christopher L.
+AU  - Harris, Julie
+AU  - Rittner, Sarah S.
+AU  - Freishtat, Robert
+AU  - Panettieri, Reynold A.
+AU  - Mosnaim, Giselle S.
+JO  - Journal of Allergy and Clinical Immunology
+VL  - 144
+IS  - 3
+SP  - 671
+EP  - 681.e1
+PY  - 2019
+DA  - 2019/09/01/
+SN  - 0091-6749
+DO  - https://doi.org/10.1016/j.jaci.2019.02.025
+UR  - http://www.sciencedirect.com/science/article/pii/S0091674919303422
+KW  - Asthma
+KW  - patient registry
+KW  - outcome measure
+KW  - patient outcome
+KW  - data standard
+KW  - common data element
+KW  - harmonization
+AB  - Background
+Asthma, a common chronic airway disorder, affects an estimated 25 million persons in the United States and 330 million persons worldwide. Although many asthma patient registries exist, the ability to link and compare data across registries is hindered by a lack of harmonization in the outcome measures collected by each registry.
+Objectives
+The purpose of this project was to develop a minimum set of patient- and provider-relevant standardized outcome measures that could be collected in asthma patient registries and clinical practice.
+Methods
+Asthma registries were identified through multiple sources and invited to join the workgroup and submit outcome measures. Additional measures were identified through literature searches and reviews of quality measures and consensus statements. Outcome measures were categorized by using the Agency for Healthcare Research and Quality's supported Outcome Measures Framework. A minimum set of broadly relevant measures was identified. Measure definitions were harmonized through in-person and virtual meetings.
+Results
+Forty-six outcome measures, including those identified from 13 registries, were curated and harmonized into a minimum set of 21 measures in the Outcome Measures Framework categories of survival, clinical response, events of interest, patient-reported outcomes, resource utilization, and experience of care. The harmonized definitions build on existing consensus statements and are appropriate for adult and pediatric patients.
+Conclusions
+The harmonized measures represent a minimum set of outcomes that are relevant in asthma research and clinical practice. Routine and consistent collection of these measures in registries and other systems would support creation of a national research infrastructure to efficiently address new questions and improve patient management and outcomes.
+ER  - 
+
+TY  - JOUR
+T1  - Grenoble–GIANT Territorial Innovation Models: Are investments in research infrastructures worthwhile?
+AU  - Scaringella, Laurent
+AU  - Chanaron, Jean-Jacques
+JO  - Technological Forecasting and Social Change
+VL  - 112
+SP  - 92
+EP  - 101
+PY  - 2016
+DA  - 2016/11/01/
+SN  - 0040-1625
+DO  - https://doi.org/10.1016/j.techfore.2016.05.026
+UR  - http://www.sciencedirect.com/science/article/pii/S0040162516300956
+KW  - Territorial Innovation Models
+KW  - Research infrastructure
+KW  - University
+KW  - Socioeconomic impact
+KW  - Start-up
+KW  - Return on investment
+AB  - Over the past decades, the EU heavily invested in Research Infrastructures (RI). What are the expected returns of such investments? In the present article we address the question of returns on public funds/public infrastructures. We consider the role of RI and universities from an economic, social, and entrepreneurial perspective from various Territorial Innovation Models (TIMs): (1) Italian industrial districts, (2) innovative milieus, (3) regional innovation systems, (4) new industrial spaces, and (5) regional clusters. We conducted our empirical study on Grenoble Isère Alpes Nanotechnologies (GIANT), which is composed of large scientific instruments, universities, and engineering and management schools. Our microeconomic methodology measured the socioeconomic and entrepreneurial effects of GIANT with respect to budget, employment, and spin-off generation. We contribute to the existing body of knowledge on TIMs by (1) comparing the long-term investments to the generation of wealth, the creation of employment, and the development of start-ups; (2) adding new insights to the debate opposing positive and negative impacts empirical studies; and (3) offering recommendations for the use of public resources. In our discussion, we compare the GIANT model as a very localized RI-university club to the Grenoble model as localized cluster.
+ER  - 

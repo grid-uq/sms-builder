@@ -12,7 +12,7 @@ package co.edu.utp.gia.sms.importutil;
  *
  */
 public enum Fuente {
-	ACM,IEEE,WOS,
+	ACM,IEEE,SCOPUS,SD,SPRINGER,WOS,
 	MANUAL,
 	SNOWBALLING, INCLUSION_DIRECTA
 }

@@ -36,6 +36,11 @@ public abstract class ReferenceParser {
 	 * @return
 	 */
 	public final Referencia parse(String texto) {
+		
+		if ("".equals(texto.trim())) {
+			return null;
+		}
+		
 		Referencia referencia = new Referencia();
 		referencia.addElement(TipoMetadato.FUENTE, fuente.toString());
 		procesarTexto(referencia, texto);

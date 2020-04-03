@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -100,10 +102,12 @@ public class Referencia implements Serializable {
 	/**
 	 * Variable que representa el atributo year de la clase
 	 */
+	@Column(length = 4)
 	private String year;
 	/**
 	 * Variable que representa el atributo resumen de la clase
 	 */
+	@Lob
 	private String resumen;
 
 	/**

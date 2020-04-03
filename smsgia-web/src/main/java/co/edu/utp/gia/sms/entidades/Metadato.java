@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -59,6 +60,7 @@ public class Metadato implements Serializable {
 	/**
 	 * Variable que representa el valor asiciado al elemento
 	 */
+	@Lob
 	private String value;
 
 	@ManyToOne

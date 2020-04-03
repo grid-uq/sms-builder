@@ -1,4 +1,4 @@
-package co.edu.utp.gia.sms.importutil.acm;
+package co.edu.utp.gia.sms.importutil.sd;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,14 +8,11 @@ import java.util.Scanner;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParse;
 
+public class SDFileMultipleRegisterParse extends FileMultipleRegisterParse {
 
-public class ACMFileMultipleRegisterParse
-		extends FileMultipleRegisterParse {
-
-	public ACMFileMultipleRegisterParse() {
-		super(new ACMReferenceParcer());
+	public SDFileMultipleRegisterParse() {
+		super(new SDReferenceParcer());
 	}
-	
 
 	@Override
 	public List<Referencia> parse(InputStream input) {
@@ -48,10 +45,4 @@ public class ACMFileMultipleRegisterParse
 		}
 		return build.toString();
 	}
-	
-	
-	
-	
-	
-	
 }

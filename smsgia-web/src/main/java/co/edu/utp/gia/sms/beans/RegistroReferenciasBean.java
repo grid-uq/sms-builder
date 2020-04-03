@@ -43,8 +43,7 @@ public class RegistroReferenciasBean implements Serializable {
 	private void procesarArchivo() {
 		try (Scanner reader = new Scanner( file.getInputstream() )){
 			
-			
-			FileMultipleRegisterParse parser = FileMultipleRegisterParseFactory.getInstance(Fuente.ACM);
+			FileMultipleRegisterParse parser = FileMultipleRegisterParseFactory.getInstance(fuente);
 			List<Referencia> referencias = parser.parse(file.getInputstream());
 			referenciaEJB.registrar(referencias, revision.getId());
 			FacesMessage message = new FacesMessage("Se adicionaron ", referencias.size() + " referencias");

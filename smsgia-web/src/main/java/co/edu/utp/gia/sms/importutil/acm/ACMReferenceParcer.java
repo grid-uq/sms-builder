@@ -1,5 +1,8 @@
 package co.edu.utp.gia.sms.importutil.acm;
 
+import java.io.StringReader;
+import java.util.Scanner;
+
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.importutil.Fuente;
@@ -18,40 +21,77 @@ import co.edu.utp.gia.sms.importutil.ReferenceParser;
  */
 public class ACMReferenceParcer extends ReferenceParser {
 
+	private static final String TITULO = "T"; 				
+	private static final String KEYWORD = "K";				
+	private static final String YEAR = "D";				
+	//private static final String ABSTRACT = "";			
+	private static final String AUTOR = "A";				
+	private static final String DOI = "R";					
+	private static final String ISBN = "@";				
+	private static final String NOMBRE_PUBLICACION = "J";
+	private static final String TIPO_PUBLICACION = "0";		
+	
+	
 	public ACMReferenceParcer() {
 		super(Fuente.ACM);
 	}
 
+
 	protected void procesarTexto(Referencia reference, String texto) {
 
-		String elementos[] = texto.split("\",\"");
-
-		if (elementos != null && elementos.length >= 25) {
-
-			for (int i = 0; i < elementos.length; i++) {
-				if (elementos[i] != null && !elementos[i].isEmpty()) {
-					
-					String value = elementos[i].indexOf(",") == 0 ? elementos[i].substring(1) : elementos[i];
-					if (!"".equals(value)) {
-						TipoMetadato identifier = identifierOf(i);
-						if (TipoMetadato.AUTOR.equals(identifier)) {
-							addAutors(reference, value);
-						} else if (TipoMetadato.KEYWORD.equals(identifier)) {
-							addKeywords(reference, value);
-						} else {
-							reference.addElement(identifier, value);
-						}
-					}
-				}
+		try (Scanner lector = new Scanner(new StringReader(texto))) {
+			while (lector.hasNextLine()) {
+				String linea = lector.nextLine();
+				procesarLinea(reference, linea);
 			}
+		}
+	}
+
+	private TipoMetadato identifierOf(String key) {
+		switch (key) {
+		case TITULO:
+			return TipoMetadato.TITLE;
+		case AUTOR:
+			return TipoMetadato.AUTOR;
+		case NOMBRE_PUBLICACION:
+			return TipoMetadato.PUBLISHER;
+		case YEAR:
+			return TipoMetadato.YEAR;
+//		case ABSTRACT:
+//			return TipoMetadato.ABSTRACT;
+		case ISBN:
+			return TipoMetadato.ISBN;
+		case DOI:
+			return TipoMetadato.DOI;
+		case KEYWORD:
+			return TipoMetadato.KEYWORD;
+		case TIPO_PUBLICACION:
+			return TipoMetadato.TYPE;
+		default:
+			return TipoMetadato.NOT_SUPORT;
 		}
 
 	}
 
-	private void addAutors(Referencia reference, String value) {
-		String autors[] = value.split(" and ");
-		for (String autor : autors) {
-			reference.addElement(TipoMetadato.AUTOR, autor);
+	/**
+	 * Procesa una revisión de ACM en formato tipo EndNote (formato vertical)
+	 * 
+	 * @param reference Referencia que se esta procesando
+	 * @param nextLine  Linea a ser procesada
+	 */
+	private void procesarLinea(Referencia reference, String nextLine) {
+		
+		
+		
+		if (nextLine != null && !nextLine.isEmpty()) {
+			TipoMetadato key = identifierOf(nextLine.substring(1, 2).toUpperCase()) ;
+			String value = nextLine.substring(2).trim().toUpperCase();
+			
+			if (TipoMetadato.KEYWORD.equals(key)) {
+				addKeywords(reference, value);
+			} else {
+				reference.addElement(key, value);
+			}			
 		}
 	}
 

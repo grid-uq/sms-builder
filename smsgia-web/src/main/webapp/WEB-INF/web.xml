@@ -5,7 +5,7 @@
 	version="4.0">
 	<display-name>smsgia-web</display-name>
 	<welcome-file-list>
-		<welcome-file>/revision/seleccionarRevision.xhtml</welcome-file>
+		<welcome-file>revision/seleccionarRevision.xhtml</welcome-file>
 	</welcome-file-list>
 	    <context-param>
         <param-name>primefaces.FONT_AWESOME</param-name>
