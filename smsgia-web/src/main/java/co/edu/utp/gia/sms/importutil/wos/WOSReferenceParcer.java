@@ -26,6 +26,7 @@ public class WOSReferenceParcer extends ReferenceParser {
 	private static final String TITULO = "TI";
 	private static final String KEYWORD = "DE";
 	private static final String YEAR = "PY";
+	private static final String YEAR2 = "EA";
 	private static final String ABSTRACT = "AB";
 	private static final String AUTOR = "AF";
 	private static final String DOI = "DI";
@@ -64,6 +65,7 @@ public class WOSReferenceParcer extends ReferenceParser {
 		case NOMBRE_PUBLICACION:
 			return TipoMetadato.PUBLISHER;
 		case YEAR:
+		case YEAR2:
 			return TipoMetadato.YEAR;
 		case ABSTRACT:
 			return TipoMetadato.ABSTRACT;
@@ -97,6 +99,9 @@ public class WOSReferenceParcer extends ReferenceParser {
 			if (TipoMetadato.KEYWORD.equals(tipo)) {
 				addKeywords(reference, value);
 			} else {
+				if(TipoMetadato.YEAR.equals(tipo)) {
+					value = value.length() > 4 ? value.substring(4).trim() : value;
+				}
 				reference.addElement(tipo, value);
 			}
 		}

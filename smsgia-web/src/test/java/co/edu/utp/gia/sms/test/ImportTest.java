@@ -57,8 +57,6 @@ class ImportTest {
 		Assert.assertEquals(cantidadReferencias, datos.size());
 
 		datos.stream().forEach((referencia) -> {
-			
-			System.out.println("YEAR= " + referencia.getYear());
 			Assert.assertTrue(referencia.getYear().length() < 5);
 		});
 

@@ -9,7 +9,6 @@ import co.edu.utp.gia.sms.importutil.wos.WOSFileMultipleRegisterParse;
 
 public class FileMultipleRegisterParseFactory {
 	public static final FileMultipleRegisterParse getInstance(Fuente fuente) {
-		System.out.println("Fuente= " + fuente);
 		switch (fuente) {
 		case ACM:
 			return new ACMFileMultipleRegisterParse();

@@ -16,6 +16,7 @@ import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.importutil.Fuente;
+import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
 public class ReferenciaEJB {
@@ -33,7 +34,6 @@ public class ReferenciaEJB {
 				referencia.setFiltro(3);
 			}
 		}
-		System.out.println("Year = " + referencia.getYear());
 		entityManager.persist(referencia);
 		return referencia;
 	}
@@ -67,7 +67,7 @@ public class ReferenciaEJB {
 	 */
 	public List<ReferenciaDTO> obtenerTodas(int idRevision, int filtro) {
 		List<ReferenciaDTO> referencias = entityManager
-				.createNamedQuery(Referencia.REFERENCIA_GET_ALL, ReferenciaDTO.class)
+				.createNamedQuery(Queries.REFERENCIA_GET_ALL, ReferenciaDTO.class)
 				.setParameter("idRevision", idRevision).setParameter("filtro", filtro).getResultList();
 		referencias.parallelStream().forEach((referencia) -> {
 			referencia.setAutores(obtenerAutores(referencia.getId()));
@@ -96,7 +96,7 @@ public class ReferenciaEJB {
 	}
 
 	public List<EvaluacionCalidad> obtenerEvaluaciones(Integer id) {
-		return entityManager.createNamedQuery(EvaluacionCalidad.EVALUACION_CALIDAD_GET_ALL, EvaluacionCalidad.class)
+		return entityManager.createNamedQuery(Queries.EVALUACION_CALIDAD_GET_ALL, EvaluacionCalidad.class)
 				.setParameter("id", id).getResultList();
 	}
 
@@ -137,7 +137,7 @@ public class ReferenciaEJB {
 	}
 
 	public List<Metadato> obtenerListMetadatoByTipo(Integer idReferencia, TipoMetadato tipoMetadato) {
-		return entityManager.createNamedQuery(Metadato.METADATO_GET_ALL, Metadato.class)
+		return entityManager.createNamedQuery(Queries.METADATO_GET_ALL, Metadato.class)
 				.setParameter("id", idReferencia).setParameter("tipo", tipoMetadato).getResultList();
 	}
 
@@ -156,7 +156,7 @@ public class ReferenciaEJB {
 	}
 
 	private Double calcularTotalEvaluacionCalidad(Integer id) {
-		return entityManager.createNamedQuery(EvaluacionCalidad.EVALUACION_TOTAL_CALIDAD, Double.class)
+		return entityManager.createNamedQuery(Queries.EVALUACION_TOTAL_CALIDAD, Double.class)
 				.setParameter("id", id).getSingleResult();
 	}
 

@@ -24,13 +24,13 @@ import javax.persistence.NamedQuery;
  *
  */
 @Entity
-@NamedQueries({
-
-		@NamedQuery(name = EvaluacionCalidad.EVALUACION_CALIDAD_GET_ALL, query = "select e from EvaluacionCalidad e where e.referencia.id = :id"),
-		@NamedQuery(name = EvaluacionCalidad.EVALUACION_TOTAL_CALIDAD, query = "select SUM(e.evaluacionCuantitativa) from EvaluacionCalidad e where e.referencia.id = :id")
-		
-
-})
+//@NamedQueries({
+//
+//		@NamedQuery(name = EvaluacionCalidad.EVALUACION_CALIDAD_GET_ALL, query = "select e from EvaluacionCalidad e where e.referencia.id = :id"),
+//		@NamedQuery(name = EvaluacionCalidad.EVALUACION_TOTAL_CALIDAD, query = "select SUM(e.evaluacionCuantitativa) from EvaluacionCalidad e where e.referencia.id = :id")
+//		
+//
+//})
 
 public class EvaluacionCalidad implements Serializable {
 
@@ -45,14 +45,14 @@ public class EvaluacionCalidad implements Serializable {
 	 * <code>select e from EvaluacionCalidad e where e.referencia.id = :id </code>
 	 * 
 	 */
-	public static final String EVALUACION_CALIDAD_GET_ALL = "EvaluacionCalidad.getAll";
+//	public static final String EVALUACION_CALIDAD_GET_ALL = "EvaluacionCalidad.getAll";
 	/**
 	 * Consulta que permite obtener el total de las evaluaciones de calidad registradas en el
 	 * sistema para una referencia <br />
 	 * <code>select SUM(e.evaluacionCuantitativa) from EvaluacionCalidad e where e.referencia.id = :id </code>
 	 * 
 	 */
-	public static final String EVALUACION_TOTAL_CALIDAD = "EvaluacionCalidad.totalCalidad";
+//	public static final String EVALUACION_TOTAL_CALIDAD = "EvaluacionCalidad.totalCalidad";
 
 	@EmbeddedId
 	private EvaluacionCalidadPK id;

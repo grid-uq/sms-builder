@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
 public class RevisionEJB {
@@ -37,7 +38,7 @@ public class RevisionEJB {
 	 *         el id dado
 	 */
 	public List<Pregunta> obtenerPreguntas(Integer id) {
-		return entityManager.createNamedQuery(Pregunta.PREGUNTA_GET_ALL, Pregunta.class).setParameter("id", id)
+		return entityManager.createNamedQuery(Queries.PREGUNTA_GET_ALL, Pregunta.class).setParameter("id", id)
 				.getResultList();
 	}
 
@@ -58,7 +59,7 @@ public class RevisionEJB {
 	 * @return Listado de las {@link Revision} registradas
 	 */
 	public List<Revision> obtenerTodas() {
-		return entityManager.createNamedQuery(Revision.REVISION_GET_ALL, Revision.class).getResultList();
+		return entityManager.createNamedQuery(Queries.REVISION_GET_ALL, Revision.class).getResultList();
 	}
 
 	/**
@@ -108,7 +109,7 @@ public class RevisionEJB {
 	 *         id dado
 	 */
 	public List<Topico> obtenerTopicos(Integer id) {
-		return entityManager.createNamedQuery(Topico.TOPICO_REVISION_GET_ALL, Topico.class).setParameter("id", id)
+		return entityManager.createNamedQuery(Queries.TOPICO_REVISION_GET_ALL, Topico.class).setParameter("id", id)
 				.getResultList();
 	}
 

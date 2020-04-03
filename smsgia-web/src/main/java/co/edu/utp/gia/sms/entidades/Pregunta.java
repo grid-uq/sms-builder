@@ -27,11 +27,11 @@ import static javax.persistence.FetchType.EAGER;
  *
  */
 @Entity
-@NamedQueries({
-
-		@NamedQuery(name = Pregunta.PREGUNTA_GET_ALL, query = "select p from Pregunta p where p.revision.id = :id")
-
-})
+//@NamedQueries({
+//
+//		@NamedQuery(name = Pregunta.PREGUNTA_GET_ALL, query = "select p from Pregunta p where p.revision.id = :id")
+//
+//})
 
 public class Pregunta implements Serializable {
 	/**
@@ -45,7 +45,7 @@ public class Pregunta implements Serializable {
 	 * <code>select p from Pregunta p where p.revision.id = :id </code>
 	 * 
 	 */
-	public static final String PREGUNTA_GET_ALL = "Pregunta.getAll";
+//	public static final String PREGUNTA_GET_ALL = "Pregunta.getAll";
 
 	/**
 	 * Variable que representa el atributo id de la clase

@@ -56,8 +56,7 @@ public class ScopusReferenceParcer extends ReferenceParser {
 	private void procesarLinea(Referencia reference, String nextLine) {
 		if (nextLine != null && !nextLine.isEmpty()) {
 			String key = nextLine.substring(0, 2).toUpperCase();
-			String value = nextLine.substring(4).trim().toUpperCase();
-			System.out.println(value);
+			String value = nextLine.substring(5).trim().toUpperCase();
 			reference.addElement(identifierOf(key), value);
 		}
 	}
