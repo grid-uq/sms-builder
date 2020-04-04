@@ -69,7 +69,7 @@ public class ReferenciaEJB {
 		List<ReferenciaDTO> referencias = entityManager
 				.createNamedQuery(Referencia.REFERENCIA_GET_ALL, ReferenciaDTO.class)
 				.setParameter("idRevision", idRevision).setParameter("filtro", filtro).getResultList();
-		referencias.parallelStream().forEach((referencia) -> {
+		referencias.stream().forEach((referencia) -> {
 			referencia.setAutores(obtenerAutores(referencia.getId()));
 			referencia.setAbstracts(obtenerAbstract(referencia.getId()));
 			referencia.setKeywords(obtenerKeywords(referencia.getId()));
