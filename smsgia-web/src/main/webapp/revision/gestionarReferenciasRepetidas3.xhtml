@@ -25,39 +25,34 @@
 						action="#{gestionarReferenciasRepetidasBean.sugerir}" />
 				</f:facet>
 
-				<p:column>
-					<p:panelGrid>
-						<p:row>
-							<p:column style="width:20px">
-								<p:selectBooleanCheckbox value="#{referencia.seleccionada}">
-									<p:ajax update=":tabla" />
-								</p:selectBooleanCheckbox>
-							</p:column>
 
-							<p:column headerText="#{msg.etiquetaNombre}">
-								<h:outputText value="#{referencia.nombre}" />
-							</p:column>
-							<p:column headerText="#{msg.etiquetaAutores}">
-								<h:outputText value="#{referencia.autores}" />
-							</p:column>
-
-						</p:row>
-
-						<p:row>
-							<p:column colspan="3">
-								<h:outputText value="#{referencia.keywords}" />
-
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column colspan="3">
-								<h:outputText value="#{referencia.resumen}" />
-							</p:column>
-						</p:row>
-
-					</p:panelGrid>
+				<p:column width="20">
+					<p:selectBooleanCheckbox value="#{referencia.seleccionada}">
+						<p:ajax update=":tabla" />
+					</p:selectBooleanCheckbox>
+				</p:column>
+				<p:column style="width:16px">
+					<p:rowToggler />
+				</p:column>
+				<p:column headerText="#{msg.etiquetaNombre}">
+					<h:outputText value="#{referencia.nombre}" />
+				</p:column>
+				<p:column headerText="#{msg.etiquetaAutores}">
+					<h:outputText value="#{referencia.autores}" />
+				</p:column>
+				<p:column headerText="#{msg.etiquetaKeywords}">
+					<h:outputText value="#{referencia.keywords}" />
 				</p:column>
 
+				<p:rowExpansion>
+					<p:panelGrid>
+						<f:facet name="header">
+							<h:outputText value="#{msg.etiquetaAbstract}"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{referencia.resumen}" />
+					</p:panelGrid>
+
+				</p:rowExpansion>
 
 
 

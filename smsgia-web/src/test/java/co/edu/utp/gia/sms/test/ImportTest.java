@@ -25,14 +25,16 @@ class ImportTest {
 	}
 
 	@Test
+	void testParseSCIENCEDIRECT() {
+		testParse(Fuente.SCIENCEDIRECT, "/sd_47.ris", 47);
+	}
+	
+	@Test
 	void testParseScopus() {
 		testParse(Fuente.SCOPUS, "/scopus_30.ris", 30);
 	}
 
-	@Test
-	void testParseSD() {
-		testParse(Fuente.SD, "/sd_47.ris", 47);
-	}
+
 
 	@Test
 	void testParseSpringer() {
@@ -45,6 +47,31 @@ class ImportTest {
 
 		testParse(Fuente.WOS, "/wos_138.ciw", 138);
 	}
+	
+
+	@Test
+	void testParseACM_MENDELEY() {
+		testParse(Fuente.ACM_MENDELEY, "/acm_3_mendeleyris.ris", 3);
+	}
+	
+	@Test
+	void testParseIEEE_MENDELEY() {
+		testParse(Fuente.IEEE_MENDELEY, "/ieee_6_mendeleyris.ris", 6);
+	}
+
+	@Test
+	void testParseSCIENCEDIRECT_MENDELEY() {
+		testParse(Fuente.SCIENCEDIRECT_MENDELEY, "/sciecedirect_47_mendeleyris.ris", 47);
+	}	
+	
+	
+//	@Test
+//	void testFuente() {
+//		Fuente [] fuente = Fuente.values();
+//		for (Fuente f : fuente) {
+//			System.out.println(f);
+//		}
+//	}
 
 	void testParse(Fuente fuente, String nombreArchivo, int cantidadReferencias) {
 
@@ -58,7 +85,10 @@ class ImportTest {
 
 		datos.stream().forEach((referencia) -> {
 			Assert.assertTrue(referencia.getYear().length() < 5);
+			Assert.assertTrue(referencia.getResumen() == null || referencia.getResumen().length()>5);
 		});
+		
+		
 
 	}
 
