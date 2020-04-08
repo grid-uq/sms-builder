@@ -2,54 +2,67 @@ package co.edu.utp.gia.sms.entidades;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 /**
- * Entity implementation class for Entity: Topico, el cual hace referencia a un
- * tema o aspecto particular de una {@link Pregunta}
+ * @author Christian A. Candela
+ * @author Luis Eduardo Sepúlveda
+ * @author Julio Cesar Chavarro
+ * @author Grupo de Investigacion en Inteligencia Artificial - GIA
+ * @author Universidad Tecnológica de Pereira
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 8 abr. 2020
  *
  */
 @Entity
-public class Topico implements Serializable {
+public class Objetivo {
 	/**
-	 * Variable que representa el identificador unico del topico
+	 * Variable que representa el identificador unico del Objetivo
 	 */
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
 	/**
-	 * Variable que representa el atributo descripcion de la clase
+	 * Variable que representa la escripcion del objetivo
 	 */
 	private String descripcion;
-	/**
-	 * Variable que representa la {@link Pregunta} a la que pertence el
-	 * {@link Topico}
-	 */
-	@ManyToOne
-	private Pregunta pregunta;
-	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Metodo que permite inicializar los elementos de la clase Topico
+	 * Variable que representa la {@link Revision} a la que pertenece el objetivo
 	 */
-	public Topico() {
-		super();
+	@ManyToOne
+	private Revision revision;
+
+	/**
+	 * Variable que representa las preguntas que se relacionan con el
+	 * {@link Objetivo}
+	 */
+	@ManyToMany(mappedBy = "objetivos")
+	private List<Pregunta> preguntas;
+
+	/**
+	 * Metodo que permite inicializar los elementos de la clase Objetivo
+	 */
+	public Objetivo() {
 	}
 
 	/**
-	 * Metodo que permite inicializar los elementos de la clase Topico
+	 * Metodo que permite inicializar los elementos de la clase Objetivo
 	 * 
-	 * @param descripcion
-	 * @param pregunta
+	 * @param revision    Revision a la que pertenece el objetivo
+	 * @param descripcion Descripcion del objetivo
 	 */
-	public Topico(String descripcion, Pregunta pregunta) {
+	public Objetivo(Revision revision, String descripcion) {
+		this.revision = revision;
 		this.descripcion = descripcion;
-		this.pregunta = pregunta;
 	}
 
 	/**
@@ -89,21 +102,21 @@ public class Topico implements Serializable {
 	}
 
 	/**
-	 * Metodo que permite obtener el valor del atributo pregunta
+	 * Metodo que permite obtener el valor del atributo revision
 	 * 
-	 * @return El valor del atributo pregunta
+	 * @return El valor del atributo revision
 	 */
-	public Pregunta getPregunta() {
-		return pregunta;
+	public Revision getRevision() {
+		return revision;
 	}
 
 	/**
-	 * Metodo que permite asignar un valor al atributo pregunta
+	 * Metodo que permite asignar un valor al atributo revision
 	 * 
-	 * @param pregunta Valor a ser asignado al atributo pregunta
+	 * @param revision Valor a ser asignado al atributo revision
 	 */
-	public void setPregunta(Pregunta pregunta) {
-		this.pregunta = pregunta;
+	public void setRevision(Revision revision) {
+		this.revision = revision;
 	}
 
 	/*
@@ -132,7 +145,7 @@ public class Topico implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Topico other = (Topico) obj;
+		Objetivo other = (Objetivo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
@@ -24,10 +25,24 @@ public class RevisionEJB {
 	 * @param objetivo    Objetivo de la revision
 	 * @return Revision registrada
 	 */
-	public Revision registrar(String nombre, String descripcion, String objetivo) {
-		Revision revision = new Revision(nombre, descripcion, objetivo);
+	public Revision registrar(String nombre, String descripcion, List<String> objetivos) {
+		Revision revision = new Revision(nombre, descripcion);
 		entityManager.persist(revision);
+		objetivos.stream().forEach((objetivo) -> {
+			addObjetivo(revision, objetivo);
+		});
 		return revision;
+	}
+
+	/**
+	 * Permite adicionar un Objetivo a una Revision
+	 * 
+	 * @param revision    Revision a la que se adicionara un objetivo
+	 * @param descripcion Descricpion del objetivo
+	 */
+	private void addObjetivo(Revision revision, String descripcion) {
+		Objetivo objetivo = new Objetivo(revision, descripcion);
+		entityManager.persist(objetivo);
 	}
 
 	/**
@@ -68,7 +83,7 @@ public class RevisionEJB {
 	 * @param revision Revision a ser actualizada
 	 */
 	public void actualizar(Revision revision) {
-		actualizar(revision.getId(), revision.getNombre(), revision.getDescripcion(), revision.getObjetivo());
+		actualizar(revision.getId(), revision.getNombre(), revision.getDescripcion());
 	}
 
 	/**
@@ -77,14 +92,12 @@ public class RevisionEJB {
 	 * @param id          Id de la {@link Pregunta} a ser actualizada
 	 * @param nombre      Codigo de la pregunta a actualizar
 	 * @param descripcion Descripcion de la pregunta a actulizar
-	 * @param objetivo    Objetivo de la revision
 	 */
-	public void actualizar(Integer id, String nombre, String descripcion, String objetivo) {
+	public void actualizar(Integer id, String nombre, String descripcion) {
 		Revision revision = obtener(id);
 		if (revision != null) {
 			revision.setNombre(nombre);
 			revision.setDescripcion(descripcion);
-			revision.setObjetivo(objetivo);
 		}
 	}
 
@@ -99,8 +112,7 @@ public class RevisionEJB {
 			entityManager.remove(revision);
 		}
 	}
-	
-	
+
 	/**
 	 * Permite obtener el listado de topicos de la revision
 	 * 

@@ -10,6 +10,7 @@ import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.importutil.Fuente;
 
 public class ReferenciaDTO implements Serializable {
 	/**
@@ -23,6 +24,7 @@ public class ReferenciaDTO implements Serializable {
 	private String autores;
 	private String keywords;
 	private String abstracts;
+	private Fuente fuente;
 
 	public ReferenciaDTO(Referencia referencia) {
 		this(referencia, 0);
@@ -385,5 +387,20 @@ public class ReferenciaDTO implements Serializable {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * Metodo que permite obtener el valor del atributo fuente
+	 * @return El valor del atributo fuente
+	 */
+	public Fuente getFuente() {
+		return fuente;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo fuente
+	 * @param fuente Valor a ser asignado al atributo fuente
+	 */
+	public void setFuente(Fuente fuente) {
+		this.fuente = fuente;
+	}
 }
