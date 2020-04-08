@@ -23,21 +23,18 @@ import co.edu.utp.gia.sms.importutil.ReferenceParser;
 /* Esta bases de datos se está tratando para archivos exportados en formato .RIS
  * */
 public class SDReferenceParcer extends ReferenceParser {
-	private static final String TITULO = "TI"; 				
+	private static final String TITULO = "T1"; 				
 	private static final String KEYWORD = "KW";				
 	private static final String YEAR = "PY";				
 	private static final String ABSTRACT = "AB";			
-	private static final String AUTOR = "A1";				
-	private static final String AUTOR2 = "A2";				
-	private static final String AUTOR3 = "A3";				
-	private static final String AUTOR4 = "A4";				
+	private static final String AUTOR = "AU";				
 	private static final String DOI = "DO";					
 	private static final String ISBN = "SN";				
-	private static final String NOMBRE_PUBLICACION = "PP";	//revisar
+	private static final String NOMBRE_PUBLICACION = "JO";	//revisar
 	private static final String TIPO_PUBLICACION = "TY";	
 
 	public SDReferenceParcer() {
-		super(Fuente.SD);
+		super(Fuente.SCIENCEDIRECT);
 	}
 
 	protected void procesarTexto(Referencia reference, String texto) {
@@ -55,9 +52,6 @@ public class SDReferenceParcer extends ReferenceParser {
 		case TITULO:
 			return TipoMetadato.TITLE;
 		case AUTOR:
-		case AUTOR2:
-		case AUTOR3:
-		case AUTOR4:
 			return TipoMetadato.AUTOR;
 		case NOMBRE_PUBLICACION:
 			return TipoMetadato.PUBLISHER;
@@ -88,7 +82,7 @@ public class SDReferenceParcer extends ReferenceParser {
 	private void procesarLinea(Referencia reference, String nextLine) {
 		if (nextLine != null && !nextLine.isEmpty()) {
 			String key = nextLine.substring(0, 2).toUpperCase();
-			String value = nextLine.substring(2).trim().toUpperCase();
+			String value = nextLine.substring(5).trim().toUpperCase();
 			reference.addElement(identifierOf(key), value);
 		}
 	}

@@ -1,4 +1,4 @@
-package co.edu.utp.gia.sms.importutil.scopus;
+package co.edu.utp.gia.sms.importutil.mendeleyris;
 
 import java.io.StringReader;
 import java.util.Scanner;
@@ -20,21 +20,24 @@ import co.edu.utp.gia.sms.importutil.ReferenceParser;
  *
  */
 
-/* Esta bases de datos se está tratando para archivos exportados en formato .RIS
- * */
-public class ScopusReferenceParcer extends ReferenceParser {
-	private static final String TITULO = "TI"; 				
-	private static final String KEYWORD = "KW";				
-	private static final String YEAR = "PY";				
-	private static final String ABSTRACT = "AB";			
-	private static final String AUTOR = "AU";				
-	private static final String DOI = "DO";					
-	private static final String ISBN = "SN";				
-	private static final String NOMBRE_PUBLICACION = "PP"; // PB DB		
+/*
+ * Esta bases de datos se está tratando para archivos exportados en formato .RIS
+ */
+public class MendeleyRisReferenceParcer extends ReferenceParser {
+
+	private static final String TITULO = "T1";
+	private static final String KEYWORD = "KW";
+	private static final String YEAR = "Y1";
+	private static final String ABSTRACT = "N2";
+	private static final String AUTOR = "A1";
+	private static final String DOI = "DO";
+	// private static final String ISBN = "SN";
+	private static final String NOMBRE_PUBLICACION = "JF";
 	private static final String TIPO_PUBLICACION = "TY";
 
-	public ScopusReferenceParcer() {
-		super(Fuente.SCOPUS);
+	public MendeleyRisReferenceParcer(Fuente fuente) {
+		super(fuente);
+
 	}
 
 	protected void procesarTexto(Referencia reference, String texto) {
@@ -55,13 +58,24 @@ public class ScopusReferenceParcer extends ReferenceParser {
 	 */
 	private void procesarLinea(Referencia reference, String nextLine) {
 		if (nextLine != null && !nextLine.isEmpty()) {
+			if (nextLine.indexOf(" - ") != 3) {
+				return;
+			}
 			String key = nextLine.substring(0, 2).toUpperCase();
-			String value = nextLine.substring(5).trim().toUpperCase();
-			reference.addElement(identifierOf(key), value);
+			if (nextLine.length() < 6) {
+				System.out.println(nextLine);
+			}
+			String value = nextLine.substring(5).trim();
+
+			TipoMetadato tipo = identifierOf(key);
+
+			if (TipoMetadato.YEAR.equals(tipo)) {
+				value = value.substring(0,4).trim();
+			}
+			reference.addElement(tipo, value);
 		}
 	}
-	
-	
+
 	private TipoMetadato identifierOf(String key) {
 		switch (key) {
 		case TITULO:
@@ -74,8 +88,8 @@ public class ScopusReferenceParcer extends ReferenceParser {
 			return TipoMetadato.YEAR;
 		case ABSTRACT:
 			return TipoMetadato.ABSTRACT;
-		case ISBN:
-			return TipoMetadato.ISBN;
+//		case ISBN:
+//			return TipoMetadato.ISBN;
 		case DOI:
 			return TipoMetadato.DOI;
 		case KEYWORD:

@@ -1,12 +1,15 @@
 package co.edu.utp.gia.sms.query;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-
-import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-
+@Entity
 @NamedQueries({
 
 	@NamedQuery(name = Queries.PREGUNTA_GET_ALL, query = "select p from Pregunta p where p.revision.id = :id"),
@@ -31,6 +34,11 @@ import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 })
 
 public class Queries implements Serializable{
+	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	private Integer id;
+	
 	
 	/**
 	 * Consulta que permite obtener las preguntas registradas en el sistema para una

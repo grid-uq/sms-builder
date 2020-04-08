@@ -24,11 +24,11 @@ import javax.persistence.NamedQuery;
  *
  */
 @Entity
-@NamedQueries({
-
-		@NamedQuery(name = Termino.TERMINO_GET_ALL, query = "select t from Termino t where t.revision.id = :id")
-
-})
+//@NamedQueries({
+//
+//		@NamedQuery(name = Termino.TERMINO_GET_ALL, query = "select t from Termino t where t.revision.id = :id")
+//
+//})
 
 public class Termino implements Serializable {
 	/**
@@ -42,7 +42,7 @@ public class Termino implements Serializable {
 	 * <code>select t from Termino t where t.revision.id = :id </code>
 	 * 
 	 */
-	public static final String TERMINO_GET_ALL = "Termino.getAll";
+//	public static final String TERMINO_GET_ALL = "Termino.getAll";
 
 	/**
 	 * Variable que representa el atributo id de la clase

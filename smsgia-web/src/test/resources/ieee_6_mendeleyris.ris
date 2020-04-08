@@ -1,0 +1,146 @@
+TY  - JOUR
+T1  - A Science Gateway Cloud With Cost-Adaptive VM Management for Computational Science and Applications
+A1  - Kim, Seong Hwan
+A1  - Kang, Dong Ki
+A1  - Kim, Woo Joong
+A1  - Chen, Min
+A1  - Youn, Chan Hyun
+Y1  - 2017/03//
+KW  - Cost-adaptive policy
+KW  - resource management
+KW  - science gateway
+KW  - service-level agreement (SLA)
+KW  - workflow scheduling
+JF  - IEEE Systems Journal
+VL  - 11
+IS  - 1
+SP  - 173
+EP  - 185
+DO  - 10.1109/JSYST.2015.2501750
+UR  - http://ieeexplore.ieee.org/document/7397885/
+N2  - For the processing of scientific applications in cloud computing, the important challenge is to find an optimized resource scheduling method that guarantees cloud service users' service-level agreement while minimizing the resource management cost. To overcome this problem, in contrast to previous solutions that focus on a few specific applications, we design and implement a unified scientific cloud framework called science gateway cloud, which is a broker between users and providers and is able to process various scientific applications efficiently upon heterogeneous cloud resources. In particular, we design a cost-adaptive resource management scheme that reduces the resource management cost significantly without any degradation of performance based on the long-term payment plans of cloud resource providers. Furthermore, this system allows us to parallelize divisible scientific applications to improve the processing performance. Through the division policy for workflow scheduling, we show that both deadline assurance and cost minimization can be satisfied concurrently. Finally, we demonstrate that our proposed system significantly outperforms conventional cloud systems through various experimental and simulation results.
+ER  - 
+TY  - JOUR
+T1  - MEMS-Based Tunable Fabry-Perot Filters for Adaptive Multispectral Thermal Imaging
+A1  - Mao, Haifeng
+A1  - Silva, K. K.M.B.Dilusha
+A1  - Martyniuk, Mariusz
+A1  - Antoszewski, Jarek
+A1  - Bumgarner, John
+A1  - Nener, Brett D.
+A1  - Dell, John M.
+A1  - Faraone, Lorenzo
+Y1  - 2016///
+KW  - Fabry-Perot
+KW  - LWIR
+KW  - longwave infrared
+KW  - micro-electromechanical systems
+KW  - microelectromechanical systems (MEMS)
+KW  - multispectral
+KW  - thermal imaging.
+JF  - Journal of Microelectromechanical Systems
+VL  - 25
+IS  - 1
+SP  - 227
+EP  - 235
+SN  - 1057-71571941-0158
+DO  - 10.1109/JMEMS.2015.2509058
+N2  - This paper reports on a proof-of-concept micro-electromechanical system-based Fabry-Perot filter that is capable of electrically tuning within the long-wave infrared thermal imaging band of 8-12 μm. The device employs a single-layer quarter-wavelength thick tensile germanium membrane for the suspended top mirror in order to achieve nanometer-scale as-released mirror flatness across an area of several hundred square micrometers without any extraneous stress management techniques. Mechanical and optical characterization of the tunable filters of various sizes are presented and compared. A 200- μm dimension square filter is demonstrated with <100-nm top mirror bowing and near-theoretical spectral characteristics across the entire tuning range of 8.5-11.5 μm, namely, peak transmission above 80%, full-width at half-maximum of spectral passband of approximately 500 nm, and out-of-band rejection greater than 40:1. Optical modeling shows that this filter can achieve a pixel-to-pixel transmission peak wavelength variation of less than 1.2% across the entire 200μm × 200 - μm optical imaging area. These results exceed the optical performance requirements for passive multispectral thermal imaging applications based on large-area focal plane arrays. In comparison, the 500 and 1000- μm dimension filters are shown to exhibit significant mirror bowing with actuation and, thus, for a pixel-to-pixel transmission peak wavelength non-uniformity of < 4%, demonstrate narrower usable spectral tuning ranges of 9.3-11.4 and 10.3- 11.3μm, respectively.
+ER  - 
+TY  - JOUR
+T1  - LayBack: SDN management of multi-access edge computing (MEC) for network access services and radio resource sharing
+A1  - Shantharama, Prateek
+A1  - Thyagaturu, Akhilesh S.
+A1  - Karakoc, Nurullah
+A1  - Ferrari, Lorenzo
+A1  - Reisslein, Martin
+A1  - Scaglione, Anna
+Y1  - 2018///
+KW  - 5G wireless
+KW  - backhaul
+KW  - fronthaul
+KW  - multi-access edge computing (MEC)
+KW  - network function virtualization (NFV)
+KW  - network management
+KW  - radio access network (RAN)
+KW  - software defined networking (SDN)
+JF  - IEEE Access
+VL  - 6
+SP  - 57545
+EP  - 57561
+SN  - 2169-3536
+DO  - 10.1109/ACCESS.2018.2873984
+N2  - Existing radio access networks (RANs) allow only for very limited sharing of the communication and computation resources among wireless operators and heterogeneous wireless technologies. We introduce the LayBack architecture to facilitate communication and computation resource sharing among different wireless operators and technologies. LayBack organizes the RAN communication and multi-access edge computing (MEC) resources into layers, including a devices layer, a radio node (enhanced Node B and access point) layer, and a gateway layer. LayBack positions the coordination point between the different operators and technologies just behind the gateways and thus consistently decouples the fronthaul from the backhaul. The coordination point is implemented through a software defined networking (SDN) switching layer that connects the gateways to the backhaul (core) network layer. A unifying SDN orchestrator implements an SDN-based management framework that centrally manages the fronthaul and backhaul communication and computation resources and coordinates the cooperation between different wireless operators and technologies. We illustrate the capabilities of the introduced LayBack architecture and SDN-based management framework through a case study on a novel fluid cloud RAN (CRAN) function split. The fluid CRAN function split partitions the RAN functions into function blocks that are flexibly assigned to MEC nodes, effectively implementing the RAN functions through network function virtualization. We find that for non-uniform call arrivals, the computation of the function blocks with resource sharing among operators increases a revenue rate measure by more than 25% compared to the conventional CRAN where each operator utilizes only its own resources.
+ER  - 
+TY  - JOUR
+T1  - A Unified Framework for Software Defined Sensing, Transmission and Computing
+A1  - Sun, Jie
+A1  - Liu, Feng
+A1  - Ahmed, Manzoor
+A1  - Li, Yong
+A1  - Zeng, Hao
+Y1  - 2019///
+KW  - SDN
+KW  - architecture design
+KW  - railway sensing
+KW  - space and terrestrial integrated network
+JF  - IEEE Access
+VL  - 7
+SP  - 48923
+EP  - 48934
+SN  - 2169-3536
+DO  - 10.1109/ACCESS.2019.2908823
+N2  - The in-cessation trend of railways ramification calls for railway sensing on an urgent basis. Railway sense is required to keep suspecting potential danger in a large scope and provide a safe transportation environment. The fundamental infrastructure to realize railway sensing comprises of space and terrestrial integrated network (STIN) nodes, such as high-speed railway, trackside equipment, unmanned aerial vehicle, airship, and remote sensing satellite. This architecture needs to support diverse applications flexibly and ensure efficient infrastructure management. Inspired by the philosophy of software-defined network, which attempts to give more flexibility to networks, we propose a software-defined sensing and integrated architecture for such a network. We decouple the railway sensing application from the physical infrastructure. Besides, we designed centralized controllers to manage physical facilities and supply APIs of data processing, including acquisition, transmission, computation, and storage. Various applications can share common infrastructure with such properties, and each of these applications can customize its data acquisition, transmission, and computing by requesting APIs of controllers. This paper includes discussions of the design details of the proposed architecture and benefits. We also proposed some open problems and the potential solutions to solve them, which we hope to provide railway sensing research in a new direction.
+ER  - 
+TY  - JOUR
+T1  - Large-Area MEMS Tunable Fabry-Perot Filters for Multi/Hyperspectral Infrared Imaging
+A1  - Mao, Haifeng
+A1  - Tripathi, Dhirendra Kumar
+A1  - Ren, Yongling
+A1  - Silva, K. K.M.B.Dilusha
+A1  - Martyniuk, Mariusz
+A1  - Antoszewski, Jarek
+A1  - Bumgarner, John
+A1  - Dell, John M.
+A1  - Faraone, Lorenzo
+Y1  - 2017///
+KW  - Fabry-Perot interferometers
+KW  - MEMS
+KW  - hyperspectral/multispectral infrared imaging
+JF  - IEEE Journal of Selected Topics in Quantum Electronics
+VL  - 23
+IS  - 2
+SP  - 45
+EP  - 52
+SN  - 1077-260X1558-4542
+DO  - 10.1109/JSTQE.2016.2643782
+N2  - This paper reports on a MEMS tunable Fabry-Perot filter technology capable of achieving nanometer-scale optical flatness across a large mirror area of up to square centimeters without any extraneous stress management techniques. The device employs a single-layer tensile silicon or germanium membrane for the suspended top mirror. Optical characterization of the fabricated single-membrane-based tunable filters for the SWIR, MWIR, and LWIR is presented. The fabricated 1000-μm dimension Si-membrane-based SWIR and MWIR filters are demonstrated with a wavelength tuning range of 1.77-2.42 and 4.1-4.9 μm, respectively, while the fabricated 200-μm-dimension Ge-membrane-based LWIR filter is demonstrated with a wavelength tuning range of 8.5-11.46 μm. All these filters are shown to achieve transmission characteristics that exceed the optical requirements for multispectral imaging applications. A large-area 1-cm dimension Si membrane-based SWIR tunable Fabry-Perot filter for multispectral imaging is demonstrated as a proof-of-concept, showing an excellent surface flatness in the order of 25 nm and an excellent optical uniformity with transmission peak wavelength variability less than 3% across the entire 1-cm dimension optical imaging area. In addition, the optical transmission behavior of the Fabry-Perot filters based on three-layer Si or Ge-based air-spaced DBRs for SWIR, MWIR, and LWIR is modeled, demonstrating that these filters can achieve a fine spectral resolution of several tens of nanometers suitable for hyperspectral imaging applications.
+ER  - 
+TY  - JOUR
+T1  - BASTet: Shareable and Reproducible Analysis and Visualization of Mass Spectrometry Imaging Data via OpenMSI
+A1  - Rübel, Oliver
+A1  - Bowen, Benjamin P.
+Y1  - 2018///
+KW  - Analysis Workflows
+KW  - Data management
+KW  - Data provenance
+KW  - Data sharing
+KW  - Mass spectrometry imaging
+KW  - Visualization
+JF  - IEEE Transactions on Visualization and Computer Graphics
+VL  - 24
+ET  - 2017/09/04
+IS  - 1
+SP  - 1025
+EP  - 1035
+SN  - 1941-0506 (Electronic)1077-2626 (Linking)
+DO  - 10.1109/TVCG.2017.2744479
+UR  - https://www.ncbi.nlm.nih.gov/pubmed/28866551
+N1  - Rubel, Oliver
+Bowen, Benjamin P
+eng
+Research Support, Non-U.S. Gov't
+Research Support, U.S. Gov't, Non-P.H.S.
+IEEE Trans Vis Comput Graph. 2018 Jan;24(1):1025-1035. doi: 10.1109/TVCG.2017.2744479. Epub 2017 Aug 29.
+N2  - Mass spectrometry imaging (MSI) is a transformative imaging method that supports the untargeted, quantitative measurement of the chemical composition and spatial heterogeneity of complex samples with broad applications in life sciences, bioenergy, and health. While MSI data can be routinely collected, its broad application is currently limited by the lack of easily accessible analysis methods that can process data of the size, volume, diversity, and complexity generated by MSI experiments. The development and application of cutting-edge analytical methods is a core driver in MSI research for new scientific discoveries, medical diagnostics, and commercial-innovation. However, the lack of means to share, apply, and reproduce analyses hinders the broad application, validation, and use of novel MSI analysis methods. To address this central challenge, we introduce the Berkeley Analysis and Storage Toolkit (BASTet), a novel framework for shareable and reproducible data analysis that supports standardized data and analysis interfaces, integrated data storage, data provenance, workflow management, and a broad set of integrated tools. Based on BASTet, we describe the extension of the OpenMSI mass spectrometry imaging science gateway to enable web-based sharing, reuse, analysis, and visualization of data analyses and derived data products. We demonstrate the application of BASTet and OpenMSI in practice to identify and compare characteristic substructures in the mouse brain based on their chemical composition measured via MSI.
+ER  - 

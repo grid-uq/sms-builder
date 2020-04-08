@@ -14,33 +14,101 @@
 
 			<p:dataTable id="revisionRadio"
 				value="#{aplicarCriteriosReferenciasBean.referencias}"
-				var="referencia" paginator="true" rows="10"
-				rowsPerPageTemplate="10,20"
-				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}">
+				var="referencia" paginator="true" rows="50"
+				rowsPerPageTemplate="10,20,50,100"
+				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}"
+				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}">
 
-				<p:column width="20">
-					<p:selectBooleanCheckbox value="#{referencia.seleccionada}">
-						<p:ajax update=":tabla"
-							 />
-					</p:selectBooleanCheckbox>
+
+				<p:column>
+					<p:panelGrid>
+
+						<f:facet name="header">
+							<p:row>
+								<p:column style="width:20px">
+									<h:outputText value="-" />
+								</p:column>
+
+								<p:column style="width:30px">
+									<h:outputText value="#{msg.etiquetaFuente}" />
+								</p:column>
+
+								<p:column>
+									<h:outputText value="#{msg.etiquetaAutores}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{msg.etiquetaNombre}" />
+								</p:column>
+
+							</p:row>
+
+						</f:facet>
+
+						<p:row>
+
+							<p:column>
+								<p:selectBooleanCheckbox value="#{referencia.seleccionada}">
+									<p:ajax update=":tabla" />
+								</p:selectBooleanCheckbox>
+							</p:column>
+							<p:column headerText="#{msg.etiquetaFuente}">
+								<h:outputText value="Fuente" />
+							</p:column>
+
+							<p:column headerText="#{msg.etiquetaNombre}">
+
+								<h:outputText value="#{referencia.nombre}" />
+							</p:column>
+							<p:column headerText="#{msg.etiquetaAutores}">
+								<h:outputText value="#{referencia.autores}" />
+							</p:column>
+
+
+						</p:row>
+
+						<p:row>
+							<p:column colspan="4">
+								<h:outputText value="#{referencia.keywords}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="4">
+
+								<p:accordionPanel activeIndex="-1">
+									<p:tab title="Abstract">
+										<h:panelGrid cellpadding="10">
+											<h:outputText value="#{referencia.resumen}" />
+										</h:panelGrid>
+
+
+									</p:tab>
+								</p:accordionPanel>
+
+							</p:column>
+						</p:row>
+
+					</p:panelGrid>
 				</p:column>
-				<p:column headerText="#{msg.etiquetaNombre}">
-					<h:outputText value="#{referencia.nombre}" />
-				</p:column>
-				<p:column headerText="#{msg.etiquetaAutores}">
-					<h:outputText value="#{referencia.autores}" />
-				</p:column>
-				<p:column headerText="#{msg.etiquetaKeywords}">
-					<h:outputText value="#{referencia.keywords}" />
-				</p:column>
-				<p:column headerText="#{msg.etiquetaAbstract}">
-					<h:outputText value="#{referencia.abstracts}" />
-				</p:column>
-				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				<f:facet name="footer">
-					<p:commandButton  update="mensajes"
-						icon="pi pi-search" value="#{msg.botonGuardar}" action="#{aplicarCriteriosReferenciasBean.guardar}"
-						 />
+					<p:commandButton update="mensajes" icon="pi pi-search"
+						value="#{msg.botonGuardar}"
+						action="#{aplicarCriteriosReferenciasBean.guardar}" />
 				</f:facet>
 			</p:dataTable>
 		</h:form>
