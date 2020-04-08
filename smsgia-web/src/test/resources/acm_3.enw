@@ -1,0 +1,69 @@
+%0 Journal Article
+%T The European Holocaust Research Infrastructure Portal
+%V 10
+%@ 1556-4673
+%U https://doi.org/10.1145/3004457
+%R 10.1145/3004457
+%N 1
+%J J. Comput. Cult. Herit.
+%I Association for Computing Machinery
+%A Tobias Blanke
+%A Michael Bryant
+%A Michal Frankl
+%A Conny Kristel
+%A Reto Speck
+%A Veerle Vanden Daelen
+%A René Van Horik
+%D 2017
+%P Article 1
+%K research, History
+  
+%0 Journal Article
+%T ARIADNE: A Research Infrastructure for Archaeology
+%V 10
+%@ 1556-4673
+%U https://doi.org/10.1145/3064527
+%R 10.1145/3064527
+%N 3
+%J J. Comput. Cult. Herit.
+%I Association for Computing Machinery
+%A Carlo Meghini
+%A Roberto Scopigno
+%A Julian Richards
+%A Holly Wright
+%A Guntram Geser
+%A Sebastian Cuy
+%A Johan Fihn
+%A Bruno Fanini
+%A Hella Hollander
+%A Franco Niccolucci
+%A Achille Felicetti
+%A Paola Ronzino
+%A Federico Nurra
+%A Christos Papatheodorou
+%A Dimitris Gavrilis
+%A Maria Theodoridou
+%A Martin Doerr
+%A Douglas Tudhope
+%A Ceri Binding
+%A Andreas Vlachidis
+%D 2017
+%P Article 18
+%K data standards, CIDOC-CRM, cultural heritage, Archaeology, e-infrastructure, SKOS, computer graphics
+  
+%0 Journal Article
+%T Web Portals for High-performance Computing: A Survey
+%V 13
+%@ 1559-1131
+%U https://doi.org/10.1145/3197385
+%R 10.1145/3197385
+%N 1
+%J ACM Trans. Web
+%I Association for Computing Machinery
+%A Patrice Calegari
+%A Marc Levrier
+%A Paweł Balczyński
+%D 2019
+%P Article 5
+%K HPC, science gateway, software-as-a-service, High-performance computing, SaaS, customizable GUI, user interface, application templates, dashboards, web portal, cloud computing, job management, service-oriented architectures, HPC-as-a-service, HPCaaS, RESTful API
+  

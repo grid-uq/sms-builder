@@ -15,12 +15,12 @@ import static javax.persistence.GenerationType.IDENTITY;
  *
  */
 @Entity
-@NamedQueries({
-
-		@NamedQuery(name = Topico.TOPICO_PREGUNTA_GET_ALL, query = "select t from Topico t where t.pregunta.id = :id"),
-		@NamedQuery(name = Topico.TOPICO_REVISION_GET_ALL, query = "select t from Topico t where t.pregunta.revision.id = :id order by t.pregunta.codigo")
-
-})
+//@NamedQueries({
+//
+//		@NamedQuery(name = Topico.TOPICO_PREGUNTA_GET_ALL, query = "select t from Topico t where t.pregunta.id = :id"),
+//		@NamedQuery(name = Topico.TOPICO_REVISION_GET_ALL, query = "select t from Topico t where t.pregunta.revision.id = :id order by t.pregunta.codigo")
+//
+//})
 
 public class Topico implements Serializable {
 
@@ -30,14 +30,14 @@ public class Topico implements Serializable {
 	 * <code>select t from Topico t where t.pregunta.id = :id </code>
 	 * 
 	 */
-	public static final String TOPICO_PREGUNTA_GET_ALL = "Topico.PreguntaGetAll";
+//	public static final String TOPICO_PREGUNTA_GET_ALL = "Topico.PreguntaGetAll";
 	/**
 	 * Consulta que permite obtener los topicos registradas en el sistema para una
 	 * pregunta <br />
 	 * <code>select t from Topico t where t.pregunta.revision.id = :id  order by t.pregunta.codigo</code>
 	 * 
 	 */
-	public static final String TOPICO_REVISION_GET_ALL = "Topico.RevisionGetAll";
+//	public static final String TOPICO_REVISION_GET_ALL = "Topico.RevisionGetAll";
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

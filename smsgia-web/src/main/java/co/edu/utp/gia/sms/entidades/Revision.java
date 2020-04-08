@@ -25,11 +25,11 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-@NamedQueries({
-
-	@NamedQuery(name = Revision.REVISION_GET_ALL, query = "select p from Revision p")
-
-})
+//@NamedQueries({
+//
+//	@NamedQuery(name = Revision.REVISION_GET_ALL, query = "select p from Revision p")
+//
+//})
 
 public class Revision implements Serializable {
 	/**
@@ -41,7 +41,7 @@ public class Revision implements Serializable {
 	 * <code>select p from Revision p  </code>
 	 * 
 	 */
-	public static final String REVISION_GET_ALL = "Revision.getAll";
+//	public static final String REVISION_GET_ALL = "Revision.getAll";
 	
 	/**
 	 * Variable que representa el atributo id de la clase

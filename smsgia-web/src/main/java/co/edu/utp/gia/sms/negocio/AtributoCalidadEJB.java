@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.Revision;
+import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
 public class AtributoCalidadEJB {
@@ -52,7 +53,7 @@ public class AtributoCalidadEJB {
 	 *         el id dado
 	 */
 	public List<AtributoCalidad> obtenerAtributosCalidad(Integer id) {
-		return entityManager.createNamedQuery(AtributoCalidad.ATRIBUTO_CALIDAD_GET_ALL, AtributoCalidad.class).setParameter("id", id)
+		return entityManager.createNamedQuery(Queries.ATRIBUTO_CALIDAD_GET_ALL, AtributoCalidad.class).setParameter("id", id)
 				.getResultList();
 	}
 

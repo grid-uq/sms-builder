@@ -19,10 +19,14 @@ import co.edu.utp.gia.sms.importutil.ReferenceParser;
  * @since 20/06/2019
  *
  */
+
+// Formato horizontal clave valor WoS
+
 public class WOSReferenceParcer extends ReferenceParser {
 	private static final String TITULO = "TI";
 	private static final String KEYWORD = "DE";
 	private static final String YEAR = "PY";
+	private static final String YEAR2 = "EA";
 	private static final String ABSTRACT = "AB";
 	private static final String AUTOR = "AF";
 	private static final String DOI = "DI";
@@ -40,11 +44,13 @@ public class WOSReferenceParcer extends ReferenceParser {
 			String key = null;
 			while (lector.hasNextLine()) {
 				String linea = lector.nextLine();
+				// Cuando la línea no inicia con una lleve, se concatena con la llave anterior
 				if ("  ".equals(linea.substring(0, 2))) {
 					linea = key + linea.substring(2);
 				} else {
 					key = linea.substring(0, 2);
 				}
+
 				procesarLinea(reference, linea);
 			}
 		}
@@ -59,6 +65,7 @@ public class WOSReferenceParcer extends ReferenceParser {
 		case NOMBRE_PUBLICACION:
 			return TipoMetadato.PUBLISHER;
 		case YEAR:
+		case YEAR2:
 			return TipoMetadato.YEAR;
 		case ABSTRACT:
 			return TipoMetadato.ABSTRACT;
@@ -86,7 +93,24 @@ public class WOSReferenceParcer extends ReferenceParser {
 		if (nextLine != null && !nextLine.isEmpty()) {
 			String key = nextLine.substring(0, 2).toUpperCase();
 			String value = nextLine.substring(2).trim().toUpperCase();
-			reference.addElement(identifierOf(key), value);
+
+			TipoMetadato tipo = identifierOf(key);
+
+			if (TipoMetadato.KEYWORD.equals(tipo)) {
+				addKeywords(reference, value);
+			} else {
+				if(TipoMetadato.YEAR.equals(tipo)) {
+					value = value.length() > 4 ? value.substring(4).trim() : value;
+				}
+				reference.addElement(tipo, value);
+			}
+		}
+	}
+
+	private void addKeywords(Referencia reference, String value) {
+		String keywords[] = value.split("; ");
+		for (String keyword : keywords) {
+			reference.addElement(TipoMetadato.KEYWORD, keyword);
 		}
 	}
 

@@ -9,11 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-
 import static javax.persistence.FetchType.EAGER;
+
 
 /**
  * Representa un element del formato RIS
@@ -28,12 +29,13 @@ import static javax.persistence.FetchType.EAGER;
  * @since 5/06/2019
  *
  */
+
 @Entity
-@NamedQueries({
-
-		@NamedQuery(name = Metadato.METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id and m.identifier = :tipo ")
-
-})
+//@NamedQueries({
+//
+//		@NamedQuery(name = Metadato.METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id and m.identifier = :tipo ")
+//
+//})
 public class Metadato implements Serializable {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
@@ -45,7 +47,7 @@ public class Metadato implements Serializable {
 	 * <code>select m from Metadato m where m.referencia.id = :id and m.identifier = :tipo </code>
 	 * 
 	 */
-	public static final String METADATO_GET_ALL = "Metadato.getAll";
+//	public static final String METADATO_GET_ALL = "Metadato.getAll";
 
 	/**
 	 * Variable que representa el atributo id de la clase
@@ -62,9 +64,10 @@ public class Metadato implements Serializable {
 	/**
 	 * Variable que representa el valor asiciado al elemento
 	 */
+	@Lob
 	private String value;
 
-	@ManyToOne(fetch = EAGER)
+	@ManyToOne( fetch = EAGER )
 	private Referencia referencia;
 
 	public Metadato() {

@@ -1,0 +1,91 @@
+TY  - JOUR
+T1  - ARIADNE: A research infrastructure for archaeology
+A1  - Meghini, Carlo
+A1  - Scopigno, Roberto
+A1  - Richards, Julian
+A1  - Wright, Holly
+A1  - Geser, Guntram
+A1  - Cuy, Sebastian
+A1  - Fihn, Johan
+A1  - Fanini, Bruno
+A1  - Hollander, Hella
+A1  - Niccolucci, Franco
+A1  - Felicetti, Achille
+A1  - Ronzino, Paola
+A1  - Nurra, Federico
+A1  - Papatheodorou, Christos
+A1  - Gavrilis, Dimitris
+A1  - Theodoridou, Maria
+A1  - Doerr, Martin
+A1  - Tudhope, Douglas
+A1  - Binding, Ceri
+A1  - Vlachidis, Andreas
+Y1  - 2017/08//
+KW  - Archaeology
+KW  - CIDOC-CRM
+KW  - Computer graphics
+KW  - Cultural heritage
+KW  - Data standards
+KW  - E-infrastructure
+KW  - SKOS
+PB  - Association for Computing Machinery
+JF  - Journal on Computing and Cultural Heritage
+VL  - 10
+IS  - 3
+CY  - New York, NY, USA
+DO  - 10.1145/3064527
+UR  - https://doi.org/10.1145/3064527
+N2  - Research e-infrastructures, digital archives, and data services have become important pillars of scientific enterprise that in recent decades have become ever more collaborative, distributed, and data intensive. The archaeological research community has been an early adopter of digital tools for data acquisition, organization, analysis, and presentation of research results of individual projects. However, the provision of e-infrastructure and services for data sharing, discovery, access, and (re)use have lagged behind. This situation is being addressed by ARIADNE, the Advanced Research Infrastructure for Archaeological Dataset Networking in Europe. This EU-funded network has developed an e-infrastructure that enables data providers to register and provide access to their resources (datasets, collections) through the ARIADNE data portal, facilitating discovery, access, and other services across the integrated resources. This article describes the current landscape of data repositories and services for archaeologists in Europe, and the issues that make interoperability between them difficult to realize. The results of the ARIADNE surveys on users' expectations and requirements are also presented. The main section of the article describes the architecture of the e-infrastructure, core services (data registration, discovery, and access), and various other extant or experimental services. The ongoing evaluation of the data integration and services is also discussed. Finally, the article summarizes lessons learned and outlines the prospects for the wider engagement of the archaeological research community in the sharing of data through ARIADNE.
+ER  - 
+TY  - JOUR
+T1  - The European holocaust research infrastructure portal
+A1  - Blanke, Tobias
+A1  - Bryant, Michael
+A1  - Frankl, Michal
+A1  - Kristel, Conny
+A1  - Speck, Reto
+A1  - Vanden Daelen, Veerle
+A1  - Van Horik, René
+Y1  - 2017/01//
+KW  - History
+KW  - Research
+PB  - Association for Computing Machinery
+JF  - Journal on Computing and Cultural Heritage
+VL  - 10
+IS  - 1
+CY  - New York, NY, USA
+DO  - 10.1145/3004457
+UR  - https://doi.org/10.1145/3004457
+N2  - Over the course of the past century, there have been significant changes in the practices of archives driven by the massive increase in the volume of records for archiving, a larger and more diverse user base, and the digital turn. This paper analyses work undertaken by the European Holocaust Research Infrastructure project (EHRI) to develop heritage archives into research infrastructures by connecting their knowledge and making it relevant for research. In the article, we focus on EHRI's work on an integrated collection portal, acting as a central gateway to the rich information on Holocaust-related sources. At the time of writing, the portal contains over 150,000 descriptions of over 1,850 institutions that hold Holocaust-related archival material in 51 countries. In addition, it hosts concise reports that provide in-depth per-country information about the Holocaust history and archival situation in 47 countries, topic-focused research guides, and a range of other services. The article presents how the EHRI portal work connects to the state of the art of heritage portals and the novel solutions we had to develop to align the portal with the requirements of a research infrastructure.
+ER  - 
+TY  - JOUR
+T1  - Web portals for high-performance computing: A survey
+A1  - Calegari, Patrice
+A1  - Levrier, Marc
+A1  - Balczyński, Paweł
+Y1  - 2019/02//
+KW  - Application templates
+KW  - Cloud computing
+KW  - Customizable GUI
+KW  - Dashboards
+KW  - HPC
+KW  - HPC-as-a-service
+KW  - HPCaaS
+KW  - High-performance computing
+KW  - Job management
+KW  - RESTful API
+KW  - SaaS
+KW  - Science gateway
+KW  - Service-oriented architectures
+KW  - Software-as-a-service
+KW  - User interface
+KW  - Web portal
+PB  - Association for Computing Machinery
+JF  - ACM Transactions on the Web
+VL  - 13
+IS  - 1
+CY  - New York, NY, USA
+DO  - 10.1145/3197385
+UR  - https://doi.org/10.1145/3197385
+N2  - This article addresses web interfaces for High-performance Computing (HPC) simulation software. First, it presents a brief history, starting in the 1990s with Java applets, of web interfaces used for accessing and making best possible use of remote HPC resources. It introduces HPC web-based portal use cases. Then it identifies and discusses the key features, among functional and non-functional requirements, that characterize such portals. A brief state of the art is then presented. The design and development of Bull extreme factory Computing Studio v3 (XCS3) is chosen as a common thread for showing how the identified key features can all be implemented in one software: multi-tenancy, multi-scheduler compatibility, complete control through an HTTP RESTful API, customizable user interface with Responsive Web Design, HPC application template framework, remote visualization, and access through the Authentication, Authorization, and Accounting security framework with the Role-Based Access Control permission model. Non-functional requirements (security, usability, performance, reliability) are discussed, and the article concludes by giving perspective for future work.
+ER  - 

@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Termino;
+import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
 public class TerminoEJB {
@@ -53,7 +54,7 @@ public class TerminoEJB {
 	 *         el id dado
 	 */
 	public List<Termino> obtenerTerminos(Integer id) {
-		return entityManager.createNamedQuery(Termino.TERMINO_GET_ALL, Termino.class).setParameter("id", id)
+		return entityManager.createNamedQuery(Queries.TERMINO_GET_ALL, Termino.class).setParameter("id", id)
 				.getResultList();
 	}
 
