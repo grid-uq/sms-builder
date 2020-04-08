@@ -15,7 +15,7 @@
 			<p:dataTable id="revisionRadio"
 				value="#{gestionarReferenciasRepetidasBean.referencias}"
 				var="referencia" paginator="true" rows="20"
-				rowsPerPageTemplate="10,20,50,100"
+				rowsPerPageTemplate="20,50,100"
 				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}"
 				
 				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"

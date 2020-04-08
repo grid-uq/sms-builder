@@ -13,56 +13,39 @@
 			<p:growl id="mensajes" showDetail="true" />
 
 			<p:dataTable id="revisionRadio"
-				value="#{aplicarCriteriosReferenciasBean.referencias}"
-				var="referencia" paginator="true" rows="50"
-				rowsPerPageTemplate="20,50,100"
-				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}"
-				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
-				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}">
+				value="#{gestionarReferenciasRepetidasBean.referencias}"
+				var="referencia" paginator="true" rows="10"
+				rowsPerPageTemplate="10,20"
+				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}">
 
+				<f:facet name="header">
+					<p:commandButton update=":tabla" icon="pi pi-search"
+						value="#{msg.botonSugerir}"
+						action="#{gestionarReferenciasRepetidasBean.sugerir}" />
+				</f:facet>
 
 				<p:column>
 					<p:panelGrid>
-
-						<f:facet name="header">
-							<p:row>
-								<p:column style="width:20px">
-									<h:outputText value="-" />
-								</p:column>
-
-								<p:column>
-									<h:outputText value="#{msg.etiquetaAutores}" />
-								</p:column>
-								<p:column>
-									<h:outputText value="#{msg.etiquetaNombre}" />
-								</p:column>
-
-							</p:row>
-
-						</f:facet>
-
 						<p:row>
-
-							<p:column>
+							<p:column style="width:20px">
 								<p:selectBooleanCheckbox value="#{referencia.seleccionada}">
 									<p:ajax update=":tabla" />
 								</p:selectBooleanCheckbox>
 							</p:column>
 
 							<p:column headerText="#{msg.etiquetaNombre}">
-
 								<h:outputText value="#{referencia.nombre}" />
 							</p:column>
 							<p:column headerText="#{msg.etiquetaAutores}">
 								<h:outputText value="#{referencia.autores}" />
 							</p:column>
 
-
 						</p:row>
 
 						<p:row>
 							<p:column colspan="3">
 								<h:outputText value="#{referencia.keywords}" />
+
 							</p:column>
 						</p:row>
 						<p:row>
@@ -70,7 +53,7 @@
 
 								<p:accordionPanel activeIndex="-1">
 									<p:tab title="Abstract">
-										<h:panelGrid cellpadding="10">
+										<h:panelGrid columns="2" cellpadding="10">
 											<h:outputText value="#{referencia.resumen}" />
 										</h:panelGrid>
 
@@ -89,20 +72,14 @@
 
 
 
-
-
-
-
-
-
-
-
-
 				<f:facet name="footer">
 					<p:commandButton update="mensajes" icon="pi pi-search"
 						value="#{msg.botonGuardar}"
-						action="#{aplicarCriteriosReferenciasBean.guardar}" />
+						action="#{gestionarReferenciasRepetidasBean.guardar}" />
 				</f:facet>
+
+
+
 			</p:dataTable>
 		</h:form>
 	</ui:define>
