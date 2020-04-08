@@ -74,9 +74,20 @@ public class ReferenciaEJB {
 			referencia.setAutores(obtenerAutores(referencia.getId()));
 			referencia.setAbstracts(obtenerAbstract(referencia.getId()));
 			referencia.setKeywords(obtenerKeywords(referencia.getId()));
-			
+			referencia.setFuente(obtenerFuente(referencia.getId()));
 		}
 		return referencias;
+	}
+
+	/**
+	 * Permite obtener la fuente a la que pertenece una {@link Referencia}
+	 * 
+	 * @param id Id de la referencia de la que se quiere obtener la fuente
+	 * @return {@link Fuente} a la que pertenece la {@link Referencia} que
+	 *         corresponde al id proporcionado
+	 */
+	private Fuente obtenerFuente(Integer id) {
+		return Fuente.valueOf(obtenerStringMetadatoByTipo(id, TipoMetadato.FUENTE));
 	}
 
 	/**
@@ -93,8 +104,8 @@ public class ReferenciaEJB {
 		List<ReferenciaDTO> referencias = obtenerTodas(idRevision, filtro);
 		for (ReferenciaDTO referencia : referencias) {
 			referencia.setEvaluaciones(obtenerEvaluaciones(referencia.getId()));
-		}		
-		
+		}
+
 		return referencias;
 	}
 
@@ -140,8 +151,8 @@ public class ReferenciaEJB {
 	}
 
 	public List<Metadato> obtenerListMetadatoByTipo(Integer idReferencia, TipoMetadato tipoMetadato) {
-		return entityManager.createNamedQuery(Queries.METADATO_GET_ALL, Metadato.class)
-				.setParameter("id", idReferencia).setParameter("tipo", tipoMetadato).getResultList();
+		return entityManager.createNamedQuery(Queries.METADATO_GET_ALL, Metadato.class).setParameter("id", idReferencia)
+				.setParameter("tipo", tipoMetadato).getResultList();
 	}
 
 	public void actualizarFiltro(Integer id, Integer filtro) {
@@ -159,8 +170,8 @@ public class ReferenciaEJB {
 	}
 
 	private Double calcularTotalEvaluacionCalidad(Integer id) {
-		return entityManager.createNamedQuery(Queries.EVALUACION_TOTAL_CALIDAD, Double.class)
-				.setParameter("id", id).getSingleResult();
+		return entityManager.createNamedQuery(Queries.EVALUACION_TOTAL_CALIDAD, Double.class).setParameter("id", id)
+				.getSingleResult();
 	}
 
 	public void adicionarTopico(Integer id, Integer idTopico) {

@@ -1,6 +1,7 @@
 package co.edu.utp.gia.sms.beans;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -25,25 +26,23 @@ public class RegistroInicialBean implements Serializable {
 	private String descripcion;
 	private Integer id;
 	private List<Revision> revisiones;
-	
 
 	@Inject
 	private RevisionEJB revisionEJB;
 
 	@PostConstruct
 	public void inicializar() {
-			revisiones = revisionEJB.obtenerTodas();
+		revisiones = revisionEJB.obtenerTodas();
 	}
-	
+
 	public void registrar() {
-		Revision r = revisionEJB.registrar(nombre, descripcion, objetivo);
+		List<String> objetivos = Arrays.asList(objetivo.split(";"));
+		Revision r = revisionEJB.registrar(nombre, descripcion, objetivos);
 		id = r.getId();
 		revisiones.add(r);
 		limpiarCampos();
 		revision = r;
 	}
-	
-	
 
 	private void limpiarCampos() {
 		nombre = "";
@@ -52,27 +51,27 @@ public class RegistroInicialBean implements Serializable {
 	}
 
 	public String gestionar(int id) {
-		this.id = id;		
+		this.id = id;
 		return "/revision/registroPregunta";
-	}	
-	
+	}
+
 	public void onRowEdit(RowEditEvent event) {
 		Revision revision = ((Revision) event.getObject());
 		revisionEJB.actualizar(revision);
 		FacesMessage msg = new FacesMessage("Registro editado");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
-	
+
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Edición cancelada");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	 public void onRowSelect(SelectEvent event) {
-	        FacesMessage msg = new FacesMessage("Revision Seleccionada", ((Revision) event.getObject()).getNombre());
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
-	    }	
+	public void onRowSelect(SelectEvent event) {
+		FacesMessage msg = new FacesMessage("Revision Seleccionada", ((Revision) event.getObject()).getNombre());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
 	/**
 	 * Permite eliminar una revision a través de su id
 	 * 
@@ -85,9 +84,8 @@ public class RegistroInicialBean implements Serializable {
 		this.revision = null;
 		FacesMessage msg = new FacesMessage("Registro eliminado");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}	
-	
-	
+	}
+
 	/**
 	 * Metodo que permite obtener el valor del atributo nombre
 	 * 
@@ -142,7 +140,6 @@ public class RegistroInicialBean implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	
 	/**
 	 * Metodo que permite obtener el valor del atributo id
 	 * 
@@ -161,21 +158,40 @@ public class RegistroInicialBean implements Serializable {
 		this.id = id;
 	}
 
-	public List<Revision> getRevisiones() {
-		return revisiones;
-	}
-
-	public void setRevisiones(List<Revision> revisiones) {
-		this.revisiones = revisiones;
-	}
-
+	/**
+	 * Metodo que permite obtener el valor del atributo revision
+	 * 
+	 * @return El valor del atributo revision
+	 */
 	public Revision getRevision() {
 		return revision;
 	}
 
+	/**
+	 * Metodo que permite asignar un valor al atributo revision
+	 * 
+	 * @param revision Valor a ser asignado al atributo revision
+	 */
 	public void setRevision(Revision revision) {
 		this.revision = revision;
 	}
 
+	/**
+	 * Metodo que permite obtener el valor del atributo revisiones
+	 * 
+	 * @return El valor del atributo revisiones
+	 */
+	public List<Revision> getRevisiones() {
+		return revisiones;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo revisiones
+	 * 
+	 * @param revisiones Valor a ser asignado al atributo revisiones
+	 */
+	public void setRevisiones(List<Revision> revisiones) {
+		this.revisiones = revisiones;
+	}
 
 }

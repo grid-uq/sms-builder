@@ -1,17 +1,35 @@
 package co.edu.utp.gia.sms.beans;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.negocio.RevisionEJB;
 
 @Named
 @ViewScoped
 public class RevisionBean implements Serializable {
+
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = -4039953830747820815L;
+	private String nombre;
+	private String descripcion;
+	private String objetivo;
+	@Inject
+	private RevisionEJB revisionEJB;
+
+	public void registrar() {
+		
+		List<String> objetivos = Arrays.asList("G1","G2");
+		revisionEJB.registrar("revi", "Des", objetivos);
+	}
+
 	/**
 	 * Metodo que permite obtener el valor del atributo nombre
 	 * 
@@ -82,23 +100,6 @@ public class RevisionBean implements Serializable {
 	 */
 	public void setRevisionEJB(RevisionEJB revisionEJB) {
 		this.revisionEJB = revisionEJB;
-	}
-
-	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	private static final long serialVersionUID = -4039953830747820815L;
-	private String nombre;
-	private String descripcion;
-	private String objetivo;
-	@Inject
-	private RevisionEJB revisionEJB;
-
-	public void registrar() {
-		System.out.println("Se registro :" + nombre);
-		Revision r = revisionEJB.registrar("revi", "Des", "G1");
-
-		System.out.println(r.getId() + " - " + r.getNombre() + " - " + r.getDescripcion() + " - " + r.getObjetivo());
 	}
 
 }

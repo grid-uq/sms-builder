@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.entidades;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
@@ -9,11 +10,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import static javax.persistence.FetchType.EAGER;
 
 /**
  * @author Christian A. Candela
@@ -66,9 +65,18 @@ public class Pregunta implements Serializable {
 
 	@ManyToOne
 	private Revision revision;
-	
-	@OneToMany(mappedBy = "pregunta", fetch = EAGER )
+
+	/**
+	 * Variable que representa los topico de una pregunta
+	 */
+	@OneToMany(mappedBy = "pregunta", fetch = EAGER)
 	private List<Topico> topicos;
+
+	/**
+	 * Variable que representa los objetivos con los que se relaciona una pregunta
+	 */
+	@ManyToMany
+	private List<Objetivo> objetivos;
 
 	/**
 	 * Metodo que permite inicializar los elementos de la clase Pregunta
@@ -163,6 +171,7 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo topicos
+	 * 
 	 * @return El valor del atributo topicos
 	 */
 	public List<Topico> getTopicos() {
@@ -171,13 +180,34 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo topicos
+	 * 
 	 * @param topicos Valor a ser asignado al atributo topicos
 	 */
 	public void setTopicos(List<Topico> topicos) {
 		this.topicos = topicos;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * Metodo que permite obtener el valor del atributo objetivos
+	 * 
+	 * @return El valor del atributo objetivos
+	 */
+	public List<Objetivo> getObjetivos() {
+		return objetivos;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo objetivos
+	 * 
+	 * @param objetivos Valor a ser asignado al atributo objetivos
+	 */
+	public void setObjetivos(List<Objetivo> objetivos) {
+		this.objetivos = objetivos;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -188,7 +218,9 @@ public class Pregunta implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

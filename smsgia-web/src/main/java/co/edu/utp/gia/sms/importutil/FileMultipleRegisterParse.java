@@ -47,9 +47,8 @@ public abstract class FileMultipleRegisterParse {
 					references.add(reference);
 				}
 			}
-
 		}
-
+		
 		return references;
 	}
 
