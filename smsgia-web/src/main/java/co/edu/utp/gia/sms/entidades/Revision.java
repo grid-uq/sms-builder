@@ -52,18 +52,20 @@ public class Revision implements Serializable {
 	 */
 	@OneToMany(mappedBy = "revision")
 	private List<Objetivo> objetivos;
-	/**
-	 * Variable que representa el atributo preguntas de la clase
-	 */
-	@OneToMany(mappedBy = "revision")
-	private List<Pregunta> preguntas;
-
+	
+	
+//	/**
+//	 * Variable que representa el atributo preguntas de la clase
+//	 */
+//	@OneToMany(mappedBy = "revision")
+//	private List<Pregunta> preguntas;
+//
+	
 	/**
 	 * Metodo que permite inicializar los elementos de la clase Revision
 	 * 
 	 * @param nombre
 	 * @param descripcion
-	 * @param objetivo
 	 */
 	public Revision(String nombre, String descripcion) {
 		this.nombre = nombre;
@@ -130,23 +132,23 @@ public class Revision implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	/**
-	 * Metodo que permite obtener el valor del atributo preguntas
-	 * 
-	 * @return El valor del atributo preguntas
-	 */
-	public List<Pregunta> getPreguntas() {
-		return preguntas;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo preguntas
-	 * 
-	 * @param preguntas Valor a ser asignado al atributo preguntas
-	 */
-	public void setPreguntas(List<Pregunta> preguntas) {
-		this.preguntas = preguntas;
-	}
+//	/**
+//	 * Metodo que permite obtener el valor del atributo preguntas
+//	 * 
+//	 * @return El valor del atributo preguntas
+//	 */
+//	public List<Pregunta> getPreguntas() {
+//		return preguntas;
+//	}
+//
+//	/**
+//	 * Metodo que permite asignar un valor al atributo preguntas
+//	 * 
+//	 * @param preguntas Valor a ser asignado al atributo preguntas
+//	 */
+//	public void setPreguntas(List<Pregunta> preguntas) {
+//		this.preguntas = preguntas;
+//	}
 
 	/*
 	 * (non-Javadoc)

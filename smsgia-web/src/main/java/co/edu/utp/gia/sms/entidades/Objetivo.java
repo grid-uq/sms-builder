@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.entidades;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * @author Christian A. Candela
@@ -30,6 +32,12 @@ public class Objetivo {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
+	
+	/**
+	 * Variable que representa el código del objetivo
+	 */
+	private String codigo;
+	
 	/**
 	 * Variable que representa la escripcion del objetivo
 	 */
@@ -40,12 +48,13 @@ public class Objetivo {
 	 */
 	@ManyToOne
 	private Revision revision;
-
+	
+	
 	/**
 	 * Variable que representa las preguntas que se relacionan con el
 	 * {@link Objetivo}
 	 */
-	@ManyToMany(mappedBy = "objetivos")
+	@ManyToMany(mappedBy = "objetivos", fetch = EAGER)
 	private List<Pregunta> preguntas;
 
 	/**
@@ -57,11 +66,13 @@ public class Objetivo {
 	/**
 	 * Metodo que permite inicializar los elementos de la clase Objetivo
 	 * 
-	 * @param revision    Revision a la que pertenece el objetivo
-	 * @param descripcion Descripcion del objetivo
+	 * @param revision   	Revision a la que pertenece el objetivo
+	 * @param codigo		Codigo que representa al objetivo
+	 * @param descripcion	Descripcion del objetivo
 	 */
-	public Objetivo(Revision revision, String descripcion) {
+	public Objetivo(Revision revision, String codigo, String descripcion) {
 		this.revision = revision;
+		this.codigo = codigo;
 		this.descripcion = descripcion;
 	}
 
@@ -83,6 +94,24 @@ public class Objetivo {
 		this.id = id;
 	}
 
+	/**
+	 * Metodo que permite obtener el valor del atributo codigo
+	 * 
+	 * @return El valor del atributo codigo
+	 */
+	public String getCodigo() {
+		return codigo;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo codigo
+	 * 
+	 * @param Descripcion a ser asignado al atributo codigo
+	 */
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}	
+	
 	/**
 	 * Metodo que permite obtener el valor del atributo descripcion
 	 * 
@@ -119,6 +148,31 @@ public class Objetivo {
 		this.revision = revision;
 	}
 
+	
+	
+	/**
+	 * Metodo que permite obtener el valor del atributo preguntas
+	 * 
+	 * @return El valor del atributo preguntas
+	 */
+	public List<Pregunta> getPreguntas() {
+		return preguntas;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo preguntas
+	 * 
+	 * @param pregunas 		Valor a ser asignado al atributo preguntas
+	 */
+	public void setPreguntas(List<Pregunta> preguntas) {
+		this.preguntas = preguntas;
+	}
+
+	
+	
+	
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 

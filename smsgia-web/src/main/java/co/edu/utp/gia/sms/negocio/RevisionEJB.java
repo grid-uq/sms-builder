@@ -20,30 +20,41 @@ public class RevisionEJB {
 	/**
 	 * Permite registrar una revision
 	 * 
-	 * @param nombre      Nombre de la revision
-	 * @param descripcion Descripcion de la revision
-	 * @param objetivo    Objetivo de la revision
-	 * @return Revision registrada
+	 * @param nombre      	Nombre de la revision
+	 * @param descripcion	Descripcion de la revision
+	 * @return Revision 	registrada
 	 */
-	public Revision registrar(String nombre, String descripcion, List<String> objetivos) {
-		Revision revision = new Revision(nombre, descripcion);
-		entityManager.persist(revision);
-		objetivos.stream().forEach((objetivo) -> {
-			addObjetivo(revision, objetivo);
-		});
-		return revision;
-	}
+	
+//	public Revision registrar(String nombre, String descripcion, List<String> objetivos) {
+//		Revision revision = new Revision(nombre, descripcion);
+//		entityManager.persist(revision);
+//		objetivos.stream().forEach((objetivo) -> {
+//			addObjetivo(revision, codigo, objetivo);
+//		});
+//		return revision;
+//	}
 
-	/**
-	 * Permite adicionar un Objetivo a una Revision
-	 * 
-	 * @param revision    Revision a la que se adicionara un objetivo
-	 * @param descripcion Descricpion del objetivo
-	 */
-	private void addObjetivo(Revision revision, String descripcion) {
-		Objetivo objetivo = new Objetivo(revision, descripcion);
-		entityManager.persist(objetivo);
-	}
+	public Revision registrar(String nombre, String descripcion) {
+	Revision revision = new Revision(nombre, descripcion);
+	entityManager.persist(revision);
+//	objetivos.stream().forEach((objetivo) -> {
+//		addObjetivo(revision, objetivo);
+//	});
+	return revision;
+}
+
+	
+//	/**
+//	 * Permite adicionar un Objetivo a una Revision
+//	 * 
+//	 * @param revision		Revision a la que se adicionara un objetivo
+//	 * @param codigo		Código del objetivo 
+//	 * @param descripcion 	Descricpion del objetivo
+//	 */
+//	public void addObjetivo(Revision revision, String codigo,String descripcion) {
+//		Objetivo objetivo = new Objetivo(revision, codigo , descripcion);
+//		entityManager.persist(objetivo);
+//	}
 
 	/**
 	 * Permite obtener el listado de preguntas de una revision

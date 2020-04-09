@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import co.edu.utp.gia.sms.dtos.PreguntaDTO;
+import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
@@ -17,22 +19,22 @@ public class PreguntaEJB {
 	@PersistenceContext
 	private EntityManager entityManager;
 	@Inject
-	private RevisionEJB revisionEJB;
+	private ObjetivoEJB objetivoEJB;
 
 	/**
 	 * Permite registrar una pregunta
 	 * 
 	 * @param codigo      Codigo de la pregunta
 	 * @param descripcion Descripcion de la pregunta
-	 * @param idRevision  Id de la {@link Revision} a la que se desea adicionar la
+	 * @param listaIdObjetivos  Id de la {@link Revision} a la que se desea adicionar la
 	 *                    pregunta
 	 * @return La pregunta registrada
 	 */
-	public Pregunta registrar(String codigo, String descripcion, Integer idRevision) {
+	public Pregunta registrar(String codigo, String descripcion, List<Integer> listaIdObjetivos) {
 		Pregunta pregunta = null;
-		Revision revision = revisionEJB.obtener(idRevision);
-		if (revision != null) {
-			pregunta = new Pregunta(codigo, descripcion, revision);
+		List<Objetivo> objetivos = objetivoEJB.obtenerObjetivo(listaIdObjetivos);
+		if (objetivos.size()>0) {
+			pregunta = new Pregunta(codigo, descripcion, objetivos);
 			entityManager.persist(pregunta);
 		}
 		return pregunta;
@@ -55,11 +57,31 @@ public class PreguntaEJB {
 	 * @return Listado de {@link Pregunta} de la {@link Revision} identificada con
 	 *         el id dado
 	 */
-	public List<Pregunta> obtenerPreguntas(Integer id) {
-		return entityManager.createNamedQuery(Queries.PREGUNTA_GET_ALL, Pregunta.class).setParameter("id", id)
+//	public List<Pregunta> obtenerPreguntas(Integer id) {
+//		
+//		List<Pregunta> preguntas = entityManager.createNamedQuery(Queries.PREGUNTA_GET_ALL, Pregunta.class).setParameter("id", id)
+//				.getResultList();
+//
+//			
+//		for (Pregunta pregunta : preguntas) {
+//			pregunta.getTopicos();
+//		}
+//		
+//		return preguntas;
+//	}
+	public List<PreguntaDTO> obtenerPreguntas(Integer id) {
+		
+		List<PreguntaDTO> preguntas = entityManager.createNamedQuery(Queries.PREGUNTA_GET_ALL, PreguntaDTO.class).setParameter("id", id)
 				.getResultList();
-	}
 
+			
+		for (PreguntaDTO pregunta : preguntas) {
+			pregunta.setTopicos(obtenerTopicos(pregunta.getId()));
+			pregunta.setObjetivos(objetivoEJB.obtenerObjetivosPregunta(pregunta.getId()));
+		}
+		
+		return preguntas;
+	}
 	/**
 	 * Permite obtener el listado de topicos de una pregunta
 	 * 

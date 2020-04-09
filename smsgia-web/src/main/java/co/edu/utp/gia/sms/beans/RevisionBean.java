@@ -20,14 +20,16 @@ public class RevisionBean implements Serializable {
 	private static final long serialVersionUID = -4039953830747820815L;
 	private String nombre;
 	private String descripcion;
-	private String objetivo;
+//	private String objetivo;
 	@Inject
 	private RevisionEJB revisionEJB;
 
 	public void registrar() {
 		
-		List<String> objetivos = Arrays.asList("G1","G2");
-		revisionEJB.registrar("revi", "Des", objetivos);
+//		List<String> objetivos = Arrays.asList("G1","G2");
+//		revisionEJB.registrar("revi", "Des", objetivos);
+		revisionEJB.registrar("revi", "Des");
+		
 	}
 
 	/**
@@ -66,23 +68,23 @@ public class RevisionBean implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	/**
-	 * Metodo que permite obtener el valor del atributo objetivo
-	 * 
-	 * @return El valor del atributo objetivo
-	 */
-	public String getObjetivo() {
-		return objetivo;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo objetivo
-	 * 
-	 * @param objetivo Valor a ser asignado al atributo objetivo
-	 */
-	public void setObjetivo(String objetivo) {
-		this.objetivo = objetivo;
-	}
+//	/**
+//	 * Metodo que permite obtener el valor del atributo objetivo
+//	 * 
+//	 * @return El valor del atributo objetivo
+//	 */
+//	public String getObjetivo() {
+//		return objetivo;
+//	}
+//
+//	/**
+//	 * Metodo que permite asignar un valor al atributo objetivo
+//	 * 
+//	 * @param objetivo Valor a ser asignado al atributo objetivo
+//	 */
+//	public void setObjetivo(String objetivo) {
+//		this.objetivo = objetivo;
+//	}
 
 	/**
 	 * Metodo que permite obtener el valor del atributo revisionEJB

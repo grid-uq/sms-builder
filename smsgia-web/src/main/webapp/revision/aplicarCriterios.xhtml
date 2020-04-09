@@ -29,6 +29,9 @@
 								<p:column style="width:20px">
 									<h:outputText value="-" />
 								</p:column>
+								<p:column style="width:100px">
+									<h:outputText value="#{msg.etiquetaFuente}" />
+								</p:column>
 
 								<p:column>
 									<h:outputText value="#{msg.etiquetaAutores}" />
@@ -48,6 +51,9 @@
 									<p:ajax update=":tabla" />
 								</p:selectBooleanCheckbox>
 							</p:column>
+							<p:column>
+								<h:outputText value="#{referencia.fuente}" />
+							</p:column>
 
 							<p:column headerText="#{msg.etiquetaNombre}">
 
@@ -61,12 +67,12 @@
 						</p:row>
 
 						<p:row>
-							<p:column colspan="3">
+							<p:column colspan="4">
 								<h:outputText value="#{referencia.keywords}" />
 							</p:column>
 						</p:row>
 						<p:row>
-							<p:column colspan="3">
+							<p:column colspan="4">
 
 								<p:accordionPanel activeIndex="-1">
 									<p:tab title="Abstract">

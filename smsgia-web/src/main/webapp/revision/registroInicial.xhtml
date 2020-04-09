@@ -73,18 +73,6 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{msg.etiquetaObjetivo}">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{revision.objetivo}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{revision.objetivo}" />
-						</f:facet>
-
-					</p:cellEditor>
-
-				</p:column>
 
 				<p:column headerText="#{msg.etiquetaDescripcion}">
 					<p:cellEditor>
@@ -135,10 +123,6 @@
 				<p:panelGrid columns="2" style="width:70%">
 					<p:outputLabel value="#{msg.etiquetaNombre}:" />
 					<p:inputText value="#{registroInicialBean.nombre}" />
-
-					<p:outputLabel value="#{msg.etiquetaObjetivo}:" />
-					<p:inputTextarea id="area" value="#{registroInicialBean.objetivo}" />
-
 					<p:outputLabel for="area2" value="#{msg.etiquetaDescripcion}:" />
 					<p:inputTextarea id="area2"
 						value="#{registroInicialBean.descripcion}" />

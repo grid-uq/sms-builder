@@ -36,8 +36,9 @@ public class RegistroInicialBean implements Serializable {
 	}
 
 	public void registrar() {
-		List<String> objetivos = Arrays.asList(objetivo.split(";"));
-		Revision r = revisionEJB.registrar(nombre, descripcion, objetivos);
+//		List<String> objetivos = Arrays.asList(objetivo.split(";"));
+//		Revision r = revisionEJB.registrar(nombre, descripcion, objetivos);
+		Revision r = revisionEJB.registrar(nombre, descripcion);
 		id = r.getId();
 		revisiones.add(r);
 		limpiarCampos();
@@ -47,7 +48,7 @@ public class RegistroInicialBean implements Serializable {
 	private void limpiarCampos() {
 		nombre = "";
 		descripcion = "";
-		objetivo = "";
+//		objetivo = "";
 	}
 
 	public String gestionar(int id) {
@@ -68,7 +69,7 @@ public class RegistroInicialBean implements Serializable {
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		FacesMessage msg = new FacesMessage("Revision Seleccionada", ((Revision) event.getObject()).getNombre());
+		FacesMessage msg = new FacesMessage("Revisión Seleccionada", ((Revision) event.getObject()).getNombre());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 

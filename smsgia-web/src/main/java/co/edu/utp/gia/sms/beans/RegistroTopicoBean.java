@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import org.primefaces.PrimeFaces;
 
+import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.PreguntaEJB;
 
@@ -34,7 +35,8 @@ public class RegistroTopicoBean implements Serializable {
 		id = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPregunta");
 		if (id != null) {
 			topico = preguntaEJB.adicionarTopico(id, descripcion);
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("idPregunta");
+			
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("pregunta");
 		}
 		PrimeFaces.current().dialog().closeDynamic(topico);
 	}

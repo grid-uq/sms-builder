@@ -12,10 +12,19 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
 
-	@NamedQuery(name = Queries.PREGUNTA_GET_ALL, query = "select p from Pregunta p where p.revision.id = :id"),
+//	@NamedQuery(name = Queries.PREGUNTA_GET_ALL, query = "select p from Pregunta p where p.revision.id = :id"),
+	
+//	@NamedQuery(name = Queries.PREGUNTA_GET_ALL, query = "select distinct p from Pregunta p, IN(p.objetivos) o where o.revision.id = :id order by p.codigo"),
+	@NamedQuery(name = Queries.PREGUNTA_GET_ALL, query = "select distinct new co.edu.utp.gia.sms.dtos.PreguntaDTO(p.id, p.codigo, p.descripcion) from Pregunta p, IN(p.objetivos) o where o.revision.id = :id order by p.codigo"),
+	
+	@NamedQuery(name = Queries.PREGUNTA_OBJETIVO_GET_ALL, query = "select o from Pregunta p, IN(p.objetivos) o where p.id = :id"),
+	
 	@NamedQuery(name = Queries.TOPICO_PREGUNTA_GET_ALL, query = "select t from Topico t where t.pregunta.id = :id"),
-	@NamedQuery(name = Queries.TOPICO_REVISION_GET_ALL, query = "select t from Topico t where t.pregunta.revision.id = :id order by t.pregunta.codigo"),
+//	@NamedQuery(name = Queries.TOPICO_REVISION_GET_ALL, query = "select t from Topico t where t.pregunta.revision.id = :id order by t.pregunta.codigo"),
+	@NamedQuery(name = Queries.TOPICO_REVISION_GET_ALL, query = "select t from Topico t , IN(t.pregunta.objetivos) o where o.revision.id = :id order by t.pregunta.codigo"),
 	@NamedQuery(name = Queries.TERMINO_GET_ALL, query = "select t from Termino t where t.revision.id = :id"),
+	@NamedQuery(name = Queries.OBJETIVO_GET_ALL, query = "select o from Objetivo o where o.revision.id = :id"),
+	
 	@NamedQuery(name = Queries.REVISION_GET_ALL, query = "select p from Revision p"),
 	@NamedQuery(name = Queries.REFERENCIA_GET_ALL, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ,  (:filtro + 0 )  ) from Referencia r where r.revision.id = :idRevision and MOD( r.filtro, (:filtro + 1 ) ) = :filtro ORDER BY r.nombre"),
 	@NamedQuery(name = Queries.ESTADISTICA_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, COUNT(1) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year"),
@@ -71,7 +80,15 @@ public class Queries implements Serializable{
 	 * 
 	 */
 	public static final String TERMINO_GET_ALL = "Termino.getAll";
-	
+
+	/**
+	 * Consulta que permite obtener los Objetivos registrados en el sistema para una
+	 * revision <br />
+	 * <code>select o from Objetivo o where o.revision.id = :id </code>
+	 * 
+	 */
+	public static final String OBJETIVO_GET_ALL = "Objetivo.getAll";
+		
 	private static final long serialVersionUID = -7643166662144090738L;
 	
 	/**
@@ -155,5 +172,8 @@ public class Queries implements Serializable{
 	 * 
 	 */
 	public static final String ATRIBUTO_CALIDAD_GET_ALL = "AtributoCalidad.getAll";
+
+
+	public static final String PREGUNTA_OBJETIVO_GET_ALL = "Pregunta.getObjetivos";
 
 }

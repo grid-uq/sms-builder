@@ -38,7 +38,7 @@
 				<!--
 				<p:graphicImage name="/imagenes/logoUtp.png" />
 				-->
-				<h4>ESTUDIO DE MAPEO SISTEMÁTICO</h4>
+				<h5>ESTUDIO DE MAPEO SISTEMÁTICO</h5>
 				<!--  
 				<p:graphicImage name="/imagenes/escudo.png" />
 				-->
@@ -60,6 +60,10 @@
 					<p:menuitem value="#{msg.etiquetaMenuRevisionSeleccionar}"
 						action="/revision/seleccionarRevision" />
 				</p:submenu>
+
+				<p:menuitem value="#{msg.etiquetaMenuObjetivo}"
+					action="/revision/registroObjetivo" update="messages"
+					rendered="#{registroInicialBean.revision != null}" />
 
 				<p:menuitem value="#{msg.etiquetaMenuPregunta}"
 					action="/revision/registroPregunta" update="messages"

@@ -35,6 +35,9 @@
 						<p:ajax update=":tabla" />
 					</p:selectBooleanCheckbox>
 				</p:column>
+				<p:column style="width:100px" headerText="#{msg.etiquetaFuente}">
+					<h:outputText value="#{referencia.fuente}" />
+				</p:column>
 
 				<p:column headerText="#{msg.etiquetaNombre}">
 					<h:outputText value="#{referencia.nombre}" />

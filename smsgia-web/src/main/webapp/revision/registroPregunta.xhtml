@@ -16,12 +16,22 @@
 		<h:form id="formulario">
 
 			<div class="ui-fluid">
-				<p:panelGrid columns="2">
+				<p:panelGrid columns="3">
 					<p:outputLabel value="#{msg.etiquetaCodigoPregunta}: " />
-					<p:inputText value="#{registroPreguntaBean.codigo}" maxlength="3" />
 					<p:outputLabel value="#{msg.etiquetaPregunta}: " />
-					<p:inputText value="#{registroPreguntaBean.descripcion}" />
+					<p:outputLabel value="#{msg.etiquetaObjetivo}: " />
+					
+					<p:inputText value="#{registroPreguntaBean.codigo}" maxlength="3" required="true"/>
+					<p:inputText value="#{registroPreguntaBean.descripcion}" required="true"/>
+					<p:selectManyCheckbox id="basic"
+						value="#{registroPreguntaBean.listaIdObjetivos}" required="true">
 
+
+						<f:selectItems value="#{registroObjetivoBean.objetivos}"
+							var="objetivo" itemLabel="#{objetivo.codigo}" itemValue="#{objetivo.id}" />
+
+
+					</p:selectManyCheckbox>
 
 					<f:facet name="footer">
 						<p:commandButton value="#{msg.botonAceptar}"
@@ -33,6 +43,7 @@
 
 			</div>
 		</h:form>
+		<br />
 		<h:form id="tabla">
 			<p:growl id="msgs" showDetail="true" />
 			<p:dataTable value="#{registroPreguntaBean.preguntas}" var="pregunta"
@@ -41,7 +52,9 @@
 					update=":tabla:msgs" />
 				<p:ajax event="rowEditCancel"
 					listener="#{registroPreguntaBean.onRowCancel}" update=":tabla:msgs" />
-				<p:column headerText="#{msg.etiquetaCodigoPregunta}:">
+						
+				
+				<p:column headerText="#{msg.etiquetaCodigoPregunta}">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{pregunta.codigo}" />
@@ -51,6 +64,33 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
+
+				<p:column headerText="#{msg.etiquetaObjetivos}">
+					<p:commandLink
+						action="#{registroPreguntaBean.adicionarTopico(pregunta.id)}">
+						<span class="ui-icon ui-icon-circle-plus"></span>
+						<p:ajax event="dialogReturn"
+							listener="#{registroPreguntaBean.onTopicoCreado}" update=":tabla,formulario" />
+					</p:commandLink>
+
+					<p:repeat value="#{pregunta.topicos}" var="topico">
+						<p:panelGrid columns="2">
+							<h:outputText value="#{topico.descripcion}" />
+							<p:commandLink
+								action="#{registroPreguntaBean.eliminarTopico(pregunta,topico)}"
+								update=":tabla">
+								<span class="ui-icon ui-icon-trash"></span>
+								<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+									message="#{msg['dialogoConfirmacion.eliminar']}"
+									icon="ui-icon ui-icon-alert" />
+							</p:commandLink>
+						</p:panelGrid>
+					</p:repeat>
+					
+				</p:column>
+
+
+
 				<p:column headerText="#{msg.etiquetaPregunta}">
 					<p:cellEditor>
 						<f:facet name="output">
@@ -61,12 +101,13 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
+				
 				<p:column headerText="#{msg.etiquetaTopicos}">
 					<p:commandLink
 						action="#{registroPreguntaBean.adicionarTopico(pregunta.id)}">
 						<span class="ui-icon ui-icon-circle-plus"></span>
 						<p:ajax event="dialogReturn"
-							listener="#{registroPreguntaBean.onTopicoCreado}" update=":tabla" />
+							listener="#{registroPreguntaBean.onTopicoCreado}" update=":tabla,formulario" />
 					</p:commandLink>
 
 
@@ -82,9 +123,13 @@
 									icon="ui-icon ui-icon-alert" />
 							</p:commandLink>
 						</p:panelGrid>
-
 					</p:repeat>
+					
 				</p:column>
+
+				
+				
+				
 				<p:column style="width:35px">
 					<p:rowEditor />
 					<p:commandLink action="#{registroPreguntaBean.eliminar(pregunta)}"

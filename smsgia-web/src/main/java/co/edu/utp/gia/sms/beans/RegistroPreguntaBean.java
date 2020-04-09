@@ -17,11 +17,25 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 
+import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.PreguntaEJB;
 
+/**
+ * @author Christian A. Candela
+ * @author Luis Eduardo Sepúlveda
+ * @author Julio Cesar Chavarro
+ * @author Carlos Augusto Meneces
+ * @author Grupo de Investigacion en Inteligencia Artificial - GIA
+ * @author Universidad Tecnológica de Pereira
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0 
+ * @since 9 abr. 2020
+ *
+ */
 @ManagedBean
 @ViewScoped
 
@@ -30,7 +44,11 @@ public class RegistroPreguntaBean implements Serializable {
 	@ManagedProperty(value = "#{registroInicialBean.revision}")
 	private Revision revision;
 	private String codigo;
-	private List<Pregunta> preguntas;
+	private List<PreguntaDTO> preguntas;
+	
+	private List<Integer> listaIdObjetivos;
+	
+
 	@Inject
 	private PreguntaEJB preguntaEJB;
 
@@ -45,7 +63,7 @@ public class RegistroPreguntaBean implements Serializable {
 
 	public String registrar() {
 		System.out.println("Se registraron los siguientes datos :");
-		preguntaEJB.registrar(codigo, descripcion, revision.getId());
+		preguntaEJB.registrar(codigo, descripcion, listaIdObjetivos);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pregunta Adicionada"));
 		codigo = "";
 		descripcion = "";
@@ -82,7 +100,7 @@ public class RegistroPreguntaBean implements Serializable {
 	 * 
 	 * @param topico Topico de la pregunta a eliminar
 	 */
-	public void eliminarTopico(Pregunta pregunta,Topico topico) {
+	public void eliminarTopico(PreguntaDTO pregunta,Topico topico) {
 		preguntaEJB.eliminarTopico(topico.getId());
 		FacesMessage msg = new FacesMessage("Topico eliminado");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -100,9 +118,20 @@ public class RegistroPreguntaBean implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idPregunta",id);
 		PrimeFaces.current().dialog().openDynamic("/revision/registrarTopico", options, null);
 	}
+//	public void adicionarTopico(Pregunta pregunta) {
+////		System.out.println("Llamando Dialogo para pregunta "+id);
+//        Map<String,Object> options = new HashMap<String, Object>();
+//        options.put("resizable", false);
+//        options.put("draggable", false);
+//        options.put("modal", true);
+//        
+//        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pregunta",pregunta);
+//		PrimeFaces.current().dialog().openDynamic("/revision/registrarTopico", options, null);
+//	}
 
 	
     public void onTopicoCreado(SelectEvent event) {
+    	System.out.println("OnTopicCreado");
         Topico topico = (Topico) event.getObject();
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Topico Adicionado", "Id:" + topico.getId());
 		FacesContext.getCurrentInstance().addMessage(null, message);
@@ -170,7 +199,7 @@ public class RegistroPreguntaBean implements Serializable {
 	 * 
 	 * @return El valor del atributo preguntas
 	 */
-	public List<Pregunta> getPreguntas() {
+	public List<PreguntaDTO> getPreguntas() {
 		return preguntas;
 	}
 
@@ -179,8 +208,27 @@ public class RegistroPreguntaBean implements Serializable {
 	 * 
 	 * @param preguntas Valor a ser asignado al atributo preguntas
 	 */
-	public void setPreguntas(List<Pregunta> preguntas) {
+	public void setPreguntas(List<PreguntaDTO> preguntas) {
 		this.preguntas = preguntas;
 	}
 
+	/**
+	 * Metodo que permite obtener el valor del atributo listaIdObjetivos
+	 * @return El valor del atributo listaIdObjetivos
+	 */
+	public List<Integer> getListaIdObjetivos() {
+		return listaIdObjetivos;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo listaIdObjetivos
+	 * @param listaIdObjetivos Valor a ser asignado al atributo listaIdObjetivos
+	 */
+	public void setListaIdObjetivos(List<Integer> listaIdObjetivos) {
+		this.listaIdObjetivos = listaIdObjetivos;
+	}
+
+	
+	
+	
 }

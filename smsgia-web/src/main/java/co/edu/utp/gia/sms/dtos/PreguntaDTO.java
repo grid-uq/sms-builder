@@ -1,121 +1,110 @@
-package co.edu.utp.gia.sms.entidades;
+/**
+ * @author Christian A. Candela
+ * @author Luis Eduardo Sepúlveda
+ * @author Julio Cesar Chavarro
+ * @author Carlos Augusto Meneces
+ * @author Grupo de Investigacion en Inteligencia Artificial - GIA
+ * @author Universidad Tecnológica de Pereira
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0 
+ * @since 9 abr. 2020
+ */
+package co.edu.utp.gia.sms.dtos;
 
-import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import co.edu.utp.gia.sms.entidades.Objetivo;
+import co.edu.utp.gia.sms.entidades.Topico;
 
 /**
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
- * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
- * @author Universidad del Quindío
+ * @author Julio Cesar Chavarro
+ * @author Carlos Augusto Meneces
  * @author Grupo de Investigacion en Inteligencia Artificial - GIA
  * @author Universidad Tecnológica de Pereira
- * @version 1.0
- * @since 13/06/2019
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0 
+ * @since 9 abr. 2020
  *
  */
-@Entity
-//@NamedQueries({
-//
-//		@NamedQuery(name = Pregunta.PREGUNTA_GET_ALL, query = "select p from Pregunta p where p.revision.id = :id")
-//
-//})
-
-public class Pregunta implements Serializable {
-	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	private static final long serialVersionUID = -176556849502833317L;
-
-	/**
-	 * Consulta que permite obtener las preguntas registradas en el sistema para una
-	 * revision <br />
-	 * <code>select p from Pregunta p where p.revision.id = :id </code>
-	 * 
-	 */
-//	public static final String PREGUNTA_GET_ALL = "Pregunta.getAll";
+public class PreguntaDTO implements Serializable {
 
 	/**
 	 * Variable que representa el atributo id de la clase
 	 */
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
 	/**
 	 * Variable que representa el atributo codigo de la clase
 	 */
-	@Column(length = 3, nullable = false)
 	private String codigo;
 	/**
 	 * Variable que representa el atributo texto de la clase
 	 */
-	@Column(nullable = false)
 	private String descripcion;
 	
-	
-
-
 	/**
 	 * Variable que representa los topico de una pregunta
 	 */
-	@OneToMany(mappedBy = "pregunta")
 	private List<Topico> topicos;
 
 	/**
 	 * Variable que representa los objetivos con los que se relaciona una pregunta
 	 */
-	@ManyToMany
 	private List<Objetivo> objetivos;
 	
-
+	
 	/**
-	 * Metodo que permite inicializar los elementos de la clase Pregunta
-	 * 
+	 * Metodo que permite inicializar los elementos de la clase PreguntaDTO
+	 * @param id
 	 * @param codigo
 	 * @param descripcion
+	 */
+	public PreguntaDTO(Integer id, String codigo, String descripcion) {
+		super();
+		this.id = id;
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+	}
+
+	
+	
+	
+	
+	/**
+	 * Metodo que permite inicializar los elementos de la clase PreguntaDTO
+	 * @param id
+	 * @param codigo
+	 * @param descripcion
+	 * @param topicos
 	 * @param objetivos
 	 */
-	public Pregunta(String codigo, String descripcion, List<Objetivo> objetivos) {
+	public PreguntaDTO(Integer id, String codigo, String descripcion, List<Topico> topicos, List<Objetivo> objetivos) {
+		super();
+		this.id = id;
 		this.codigo = codigo;
 		this.descripcion = descripcion;
+		this.topicos = topicos;
 		this.objetivos = objetivos;
 	}
-	
-	
-	/**
-	 * Metodo que permite inicializar los elementos de la clase Pregunta
-	 * 
-	 * @param codigo
-	 * @param descripcion
-	 * @param revision
-	 */
-	public Pregunta(String codigo, String descripcion) {
-		this.codigo = codigo;
-		this.descripcion = descripcion;
-	}
-	
-	
-	
-	/**
-	 * Metodo que permite inicializar los elementos de la clase Pregunta
-	 */
-	public Pregunta() {
-	}
+
+
+
+
 
 	/**
 	 * Metodo que permite obtener el valor del atributo id
-	 * 
 	 * @return El valor del atributo id
 	 */
 	public Integer getId() {
@@ -124,7 +113,6 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo id
-	 * 
 	 * @param id Valor a ser asignado al atributo id
 	 */
 	public void setId(Integer id) {
@@ -133,7 +121,6 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo codigo
-	 * 
 	 * @return El valor del atributo codigo
 	 */
 	public String getCodigo() {
@@ -142,7 +129,6 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo codigo
-	 * 
 	 * @param codigo Valor a ser asignado al atributo codigo
 	 */
 	public void setCodigo(String codigo) {
@@ -151,7 +137,6 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo descripcion
-	 * 
 	 * @return El valor del atributo descripcion
 	 */
 	public String getDescripcion() {
@@ -160,7 +145,6 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo descripcion
-	 * 
 	 * @param descripcion Valor a ser asignado al atributo descripcion
 	 */
 	public void setDescripcion(String descripcion) {
@@ -169,7 +153,6 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo topicos
-	 * 
 	 * @return El valor del atributo topicos
 	 */
 	public List<Topico> getTopicos() {
@@ -178,7 +161,6 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo topicos
-	 * 
 	 * @param topicos Valor a ser asignado al atributo topicos
 	 */
 	public void setTopicos(List<Topico> topicos) {
@@ -187,7 +169,6 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo objetivos
-	 * 
 	 * @return El valor del atributo objetivos
 	 */
 	public List<Objetivo> getObjetivos() {
@@ -196,16 +177,17 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo objetivos
-	 * 
 	 * @param objetivos Valor a ser asignado al atributo objetivos
 	 */
 	public void setObjetivos(List<Objetivo> objetivos) {
 		this.objetivos = objetivos;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+
+
+
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -216,9 +198,11 @@ public class Pregunta implements Serializable {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+
+
+
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -229,7 +213,7 @@ public class Pregunta implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pregunta other = (Pregunta) obj;
+		PreguntaDTO other = (PreguntaDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -237,5 +221,10 @@ public class Pregunta implements Serializable {
 			return false;
 		return true;
 	}
+	
 
+	
+	
+	
+	
 }

@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
@@ -29,7 +30,7 @@ public class TablaReferenciasPreguntasBean {
 	@ManagedProperty("#{registroInicialBean.revision}")
 	private Revision revision;
 
-	private List<Pregunta> preguntas;
+	private List<PreguntaDTO> preguntas;
 	
 	@PostConstruct
 	public void inicializar() {
@@ -89,7 +90,7 @@ public class TablaReferenciasPreguntasBean {
 	 * Metodo que permite obtener el valor del atributo preguntas
 	 * @return El valor del atributo preguntas
 	 */
-	public List<Pregunta> getPreguntas() {
+	public List<PreguntaDTO> getPreguntas() {
 		return preguntas;
 	}
 
@@ -98,7 +99,7 @@ public class TablaReferenciasPreguntasBean {
 	 * Metodo que permite asignar un valor al atributo preguntas
 	 * @param preguntas Valor a ser asignado al atributo preguntas
 	 */
-	public void setPreguntas(List<Pregunta> preguntas) {
+	public void setPreguntas(List<PreguntaDTO> preguntas) {
 		this.preguntas = preguntas;
 	}
 
