@@ -21,6 +21,7 @@ public abstract class GenericBean<Objeto> implements Serializable {
 	private RegistroInicialBean registroInicialBean;
 	protected Revision revision;
 
+	
 //	@Inject
 //	private ObjetivoEJB objetivoEJB;
 
