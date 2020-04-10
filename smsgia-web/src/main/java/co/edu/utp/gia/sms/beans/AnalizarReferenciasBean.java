@@ -24,8 +24,6 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO>{
 	private ReferenciaEJB referenciaEJB;
 	@Inject
 	private RevisionEJB revisionEJB;
-
-
 	private List<Topico> topicos;
 
 	public void inicializar() {
