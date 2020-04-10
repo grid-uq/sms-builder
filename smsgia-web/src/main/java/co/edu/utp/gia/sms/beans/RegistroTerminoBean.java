@@ -1,34 +1,28 @@
 package co.edu.utp.gia.sms.beans;
 
-import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.primefaces.event.RowEditEvent;
-
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.negocio.TerminoEJB;
 
-@ManagedBean
+@Named
 @ViewScoped
-
-public class RegistroTerminoBean implements Serializable {
+public class RegistroTerminoBean extends GenericBean<Termino> {
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = 4369004470790305574L;
 	private String descripcion;
-	@ManagedProperty(value = "#{registroInicialBean.revision}")
-	private Revision revision;
 	private List<Termino> terminos;
 	@Inject
 	private TerminoEJB terminoEJB;
 
-	@PostConstruct
 	public void inicializar() {
 		if (revision != null) {
 			terminos = terminoEJB.obtenerTerminos(revision.getId());
@@ -42,16 +36,9 @@ public class RegistroTerminoBean implements Serializable {
 		descripcion = "";
 	}
 
-	public void onRowEdit(RowEditEvent event) {
-		Termino termino = ((Termino) event.getObject());
-		terminoEJB.actualizar(termino);
-		FacesMessage msg = new FacesMessage("Registro editado");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edicion cancelada");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+	@Override
+	public void actualizar(Termino objeto) {
+		terminoEJB.actualizar(objeto);
 	}
 
 	/**
@@ -67,7 +54,6 @@ public class RegistroTerminoBean implements Serializable {
 	}
 
 
-	
 ////////// ----- GET/SET ----- ////////////	
 	/**
 	 * Metodo que permite obtener el valor del atributo descripcion
@@ -85,24 +71,6 @@ public class RegistroTerminoBean implements Serializable {
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * 
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * 
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
 	}
 
 	/**

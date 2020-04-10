@@ -24,11 +24,11 @@
 					<p:inputText value="#{registroPreguntaBean.codigo}" maxlength="3" required="true"/>
 					<p:inputText value="#{registroPreguntaBean.descripcion}" required="true"/>
 					<p:selectManyCheckbox id="basic"
-						value="#{registroPreguntaBean.listaIdObjetivos}" required="true">
+						value="#{registroPreguntaBean.listaObjetivos}" required="true"  >
 
 
 						<f:selectItems value="#{registroObjetivoBean.objetivos}"
-							var="objetivo" itemLabel="#{objetivo.codigo}" itemValue="#{objetivo.id}" />
+							var="objetivo" itemLabel="#{objetivo.codigo}" itemValue="#{objetivo}" />
 
 
 					</p:selectManyCheckbox>
@@ -66,26 +66,16 @@
 				</p:column>
 
 				<p:column headerText="#{msg.etiquetaObjetivos}">
-					<p:commandLink
-						action="#{registroPreguntaBean.adicionarTopico(pregunta.id)}">
-						<span class="ui-icon ui-icon-circle-plus"></span>
-						<p:ajax event="dialogReturn"
-							listener="#{registroPreguntaBean.onTopicoCreado}" update=":tabla,formulario" />
-					</p:commandLink>
-
-					<p:repeat value="#{pregunta.topicos}" var="topico">
-						<p:panelGrid columns="2">
-							<h:outputText value="#{topico.descripcion}" />
-							<p:commandLink
-								action="#{registroPreguntaBean.eliminarTopico(pregunta,topico)}"
-								update=":tabla">
-								<span class="ui-icon ui-icon-trash"></span>
-								<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
-									message="#{msg['dialogoConfirmacion.eliminar']}"
-									icon="ui-icon ui-icon-alert" />
-							</p:commandLink>
-						</p:panelGrid>
-					</p:repeat>
+					
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{pregunta.listObjetivos}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{pregunta.descripcion}" />
+						</f:facet>
+					</p:cellEditor>
+					
 					
 				</p:column>
 
@@ -97,7 +87,11 @@
 							<h:outputText value="#{pregunta.descripcion}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{pregunta.descripcion}" />
+							<p:selectManyCheckbox id="basic"
+								value="#{pregunta.objetivos}" required="true"  >
+								<f:selectItems value="#{registroObjetivoBean.objetivos}"
+									var="objetivo" itemLabel="#{objetivo.codigo}" itemValue="#{objetivo}" />
+							</p:selectManyCheckbox>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>

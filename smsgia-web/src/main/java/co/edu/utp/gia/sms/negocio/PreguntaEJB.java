@@ -21,6 +21,25 @@ public class PreguntaEJB {
 	@Inject
 	private ObjetivoEJB objetivoEJB;
 
+//	/**
+//	 * Permite registrar una pregunta
+//	 * 
+//	 * @param codigo      Codigo de la pregunta
+//	 * @param descripcion Descripcion de la pregunta
+//	 * @param listaIdObjetivos  Id de la {@link Revision} a la que se desea adicionar la
+//	 *                    pregunta
+//	 * @return La pregunta registrada
+//	 */
+//	public Pregunta registrar(String codigo, String descripcion, List<Integer> listaIdObjetivos) {
+//		Pregunta pregunta = null;
+//		List<Objetivo> objetivos = objetivoEJB.obtenerObjetivo(listaIdObjetivos);
+//		if (objetivos.size()>0) {
+//			pregunta = new Pregunta(codigo, descripcion, objetivos);
+//			entityManager.persist(pregunta);
+//		}
+//		return pregunta;
+//	}
+
 	/**
 	 * Permite registrar una pregunta
 	 * 
@@ -30,16 +49,15 @@ public class PreguntaEJB {
 	 *                    pregunta
 	 * @return La pregunta registrada
 	 */
-	public Pregunta registrar(String codigo, String descripcion, List<Integer> listaIdObjetivos) {
+	public Pregunta registrar(String codigo, String descripcion, List<Objetivo> objetivos) {
 		Pregunta pregunta = null;
-		List<Objetivo> objetivos = objetivoEJB.obtenerObjetivo(listaIdObjetivos);
 		if (objetivos.size()>0) {
 			pregunta = new Pregunta(codigo, descripcion, objetivos);
 			entityManager.persist(pregunta);
 		}
 		return pregunta;
 	}
-
+	
 	/**
 	 * Permite obtener una Pregunta basado en su Id
 	 * 
@@ -115,7 +133,7 @@ public class PreguntaEJB {
 	 * 
 	 * @param pregunta Pregunta a ser actualizada
 	 */
-	public void actualizar(Pregunta pregunta) {
+	public void actualizar(PreguntaDTO pregunta) {
 		actualizar(pregunta.getId(), pregunta.getCodigo(), pregunta.getDescripcion());
 	}
 
@@ -157,4 +175,5 @@ public class PreguntaEJB {
 			entityManager.remove(topico);
 		}
 	}
+
 }

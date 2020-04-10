@@ -1,42 +1,36 @@
 package co.edu.utp.gia.sms.beans;
 
-import java.io.Serializable;
-import java.util.Map;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.context.SessionMap;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
 
-import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.PreguntaEJB;
 
-@ManagedBean
+@Named
 @ViewScoped
-public class RegistroTopicoBean implements Serializable {
+public class RegistroTopicoBean extends GenericBean<Topico> {
 
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = 5103003688870607449L;
 	private String descripcion;
 	private Integer id;
 	@Inject
 	private PreguntaEJB preguntaEJB;
 	
-	@SessionMap
-	private Map<String, Object> sessionMap;
-
+	
 	/**
 	 * Permite registrar un topico
 	 */
 	public void registrar() {
 		Topico topico = null;
-		id = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPregunta");
+		id = (Integer) getAndRemoveFromSession("idPregunta");
 		if (id != null) {
 			topico = preguntaEJB.adicionarTopico(id, descripcion);
-			
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("pregunta");
 		}
 		PrimeFaces.current().dialog().closeDynamic(topico);
 	}
@@ -75,6 +69,11 @@ public class RegistroTopicoBean implements Serializable {
 	 */
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@Override
+	public void inicializar() {
+		
 	}
 
 }

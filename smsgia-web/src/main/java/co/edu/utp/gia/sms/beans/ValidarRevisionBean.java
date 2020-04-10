@@ -2,18 +2,18 @@ package co.edu.utp.gia.sms.beans;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 import co.edu.utp.gia.sms.entidades.Revision;
 
-@ManagedBean
-public class ValidarRevisionBean {
-	@ManagedProperty("#{registroInicialBean.revision}")
-	private Revision revision;
+@Named
+public class ValidarRevisionBean extends GenericBean<Revision>{
+
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = 9092392501937374230L;
 
 	public void validar() {
 //		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath());
@@ -21,13 +21,13 @@ public class ValidarRevisionBean {
 //		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestServletPath());
 		String[] urls = { "/revision/registroRevision.xhtml", "/revision/seleccionarRevision.xhtml",
 				"/revision/registroInicial.xhtml" };
-		String path = FacesContext.getCurrentInstance().getExternalContext().getRequestServletPath();
+		String path = getFacesContext().getExternalContext().getRequestServletPath();
 		if (revision == null && !Arrays.asList(urls).contains(path)) {
 			try {
 
-				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/");
-				FacesContext.getCurrentInstance().responseComplete();
+				getFacesContext().getExternalContext()
+						.redirect(getFacesContext().getExternalContext().getRequestContextPath() + "/");
+				getFacesContext().responseComplete();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -35,22 +35,10 @@ public class ValidarRevisionBean {
 		}
 	}
 
-	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * 
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * 
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
+	@Override
+	public void inicializar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

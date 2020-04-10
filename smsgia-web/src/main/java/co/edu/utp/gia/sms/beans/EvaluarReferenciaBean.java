@@ -1,16 +1,11 @@
 package co.edu.utp.gia.sms.beans;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
 
@@ -18,15 +13,17 @@ import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 
-@ManagedBean
-@RequestScoped
-public class EvaluarReferenciaBean implements Serializable {
-	@ManagedProperty(value = "#{registroInicialBean.revision}")
-	private Revision revision;
+@Named
+@ViewScoped
+public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
+	
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = 6788702926482127829L;
 	private List<AtributoCalidad> atributosCalidad;
 	private List<EvaluacionCalidad> evaluaciones;
 	@Inject
@@ -35,11 +32,9 @@ public class EvaluarReferenciaBean implements Serializable {
 	private ReferenciaEJB referenciaEJB;
 	private ReferenciaDTO referencia;
 
-	@PostConstruct
 	public void inicializar() {
 		if (revision != null) {
-			referencia = (ReferenciaDTO) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-					.get("referenciaDTO");
+			referencia = (ReferenciaDTO) getFromSession("referenciaDTO");
 			atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(revision.getId());
 			if (referencia.getEvaluaciones() == null || referencia.getEvaluaciones().isEmpty() ) {
 				evaluaciones = new ArrayList<EvaluacionCalidad>();
@@ -55,35 +50,16 @@ public class EvaluarReferenciaBean implements Serializable {
 	}
 
 	public void guardar() {
-
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Registro Adicionado"));
+		mostrarMensajeGeneral("Registro Adicionado");
 		for (EvaluacionCalidad evaluacion : evaluaciones) {
 			referenciaEJB.guardarEvaluacion(evaluacion);
 		}
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("referenciaDTO");
+		getAndRemoveFromSession("referenciaDTO");
 		PrimeFaces.current().dialog().closeDynamic(referencia);
-
 	}
 
 ////////// ----- GET/SET ----- ////////////	
 
-	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * 
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * 
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
-	}
 
 	/**
 	 * Metodo que permite obtener el valor del atributo atributosCalidad

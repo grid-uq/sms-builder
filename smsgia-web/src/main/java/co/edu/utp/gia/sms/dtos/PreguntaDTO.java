@@ -12,16 +12,9 @@
  */
 package co.edu.utp.gia.sms.dtos;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Topico;
@@ -41,6 +34,10 @@ import co.edu.utp.gia.sms.entidades.Topico;
  */
 public class PreguntaDTO implements Serializable {
 
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = 3245868826313123028L;
 	/**
 	 * Variable que representa el atributo id de la clase
 	 */
@@ -72,10 +69,7 @@ public class PreguntaDTO implements Serializable {
 	 * @param descripcion
 	 */
 	public PreguntaDTO(Integer id, String codigo, String descripcion) {
-		super();
-		this.id = id;
-		this.codigo = codigo;
-		this.descripcion = descripcion;
+		this(id, codigo, descripcion, new ArrayList<Topico>(), new ArrayList<Objetivo>());
 	}
 
 	
@@ -91,7 +85,6 @@ public class PreguntaDTO implements Serializable {
 	 * @param objetivos
 	 */
 	public PreguntaDTO(Integer id, String codigo, String descripcion, List<Topico> topicos, List<Objetivo> objetivos) {
-		super();
 		this.id = id;
 		this.codigo = codigo;
 		this.descripcion = descripcion;
@@ -184,7 +177,15 @@ public class PreguntaDTO implements Serializable {
 	}
 
 
-
+	public String getListObjetivos() {
+		String textoObjetivos = "";
+		String separador = "";
+		for (Objetivo objetivo : objetivos) {
+			textoObjetivos += separador + objetivo.getCodigo();
+			separador = ", ";
+		}
+		return textoObjetivos;
+	}
 
 
 	/* (non-Javadoc)

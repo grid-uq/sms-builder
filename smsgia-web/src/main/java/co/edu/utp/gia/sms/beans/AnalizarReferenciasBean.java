@@ -2,36 +2,32 @@ package co.edu.utp.gia.sms.beans;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import co.edu.utp.gia.sms.negocio.RevisionEJB;
 
-@ManagedBean
+@Named
 @ViewScoped
-public class AnalizarReferenciasBean {
+public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO>{
 
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = 4009685061343184778L;
 	private List<ReferenciaDTO> referencias;
 	@Inject
 	private ReferenciaEJB referenciaEJB;
 	@Inject
 	private RevisionEJB revisionEJB;
 
-	@ManagedProperty("#{registroInicialBean.revision}")
-	private Revision revision;
 
 	private List<Topico> topicos;
 
-	@PostConstruct
 	public void inicializar() {
 
 		if (revision != null) {
@@ -60,23 +56,23 @@ public class AnalizarReferenciasBean {
 //		}
 //	}
 	
-	private Topico obtenerTopico(int topicoId) {
-		for (Topico topico : topicos) {
-			if (topico.getId().intValue() == topicoId) {
-				return topico;
-			}
-		}
-		return null;
-	}
-
-	private ReferenciaDTO obtenerReferencia(int referenciaId) {
-		for (ReferenciaDTO referencia : referencias) {
-			if (referencia.getId().intValue() == referenciaId) {
-				return referencia;
-			}
-		}
-		return null;
-	}
+//	private Topico obtenerTopico(int topicoId) {
+//		for (Topico topico : topicos) {
+//			if (topico.getId().intValue() == topicoId) {
+//				return topico;
+//			}
+//		}
+//		return null;
+//	}
+//
+//	private ReferenciaDTO obtenerReferencia(int referenciaId) {
+//		for (ReferenciaDTO referencia : referencias) {
+//			if (referencia.getId().intValue() == referenciaId) {
+//				return referencia;
+//			}
+//		}
+//		return null;
+//	}
 
 	public void guardar() {
 		for (ReferenciaDTO referencia : referencias) {
@@ -85,7 +81,7 @@ public class AnalizarReferenciasBean {
 				referenciaEJB.adicionarTopico(referencia.getId(),topico.getId() );
 			}
 		}
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se guardaron los registro"));
+		mostrarMensajeGeneral("Se guardaron los registro");
 	}
 
 	/**
@@ -104,24 +100,6 @@ public class AnalizarReferenciasBean {
 	 */
 	public void setReferencias(List<ReferenciaDTO> referencias) {
 		this.referencias = referencias;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * 
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * 
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
 	}
 
 	/**

@@ -1,15 +1,14 @@
 package co.edu.utp.gia.sms.beans;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
@@ -17,9 +16,27 @@ import org.primefaces.event.SelectEvent;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.negocio.RevisionEJB;
 
-@ManagedBean
+/*
+ * 
+ * Deprecated. 
+ * This has been replaced by the Managed Beans specification in general and specifically the dependency injection, scopes 
+ * and naming from the CDI specification.
+ *  Note that the eager attribute for application scoped beans is replaced specifically by observing 
+ *  the javax.enterprise.context.Initialized event for javax.enterprise.context.ApplicationScoped. 
+ *  See 6.7.3 of the CDI spec for further details.
+
+The presence of this annotation on a class automatically registers the class with the runtime as a managed bean class.
+ Classes must be scanned for the presence of this annotation at application startup, before any requests have been serviced.
+ * */
+//@ManagedBean
+//@SessionScoped
+@Named("registroInicialBean")
 @SessionScoped
 public class RegistroInicialBean implements Serializable {
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = -6995163695300909108L;
 	private Revision revision;
 	private String nombre;
 	private String objetivo;
@@ -32,6 +49,7 @@ public class RegistroInicialBean implements Serializable {
 
 	@PostConstruct
 	public void inicializar() {
+		System.out.println("CONSTRUYENDO");
 		revisiones = revisionEJB.obtenerTodas();
 	}
 
@@ -56,20 +74,20 @@ public class RegistroInicialBean implements Serializable {
 		return "/revision/registroPregunta";
 	}
 
-	public void onRowEdit(RowEditEvent event) {
-		Revision revision = ((Revision) event.getObject());
+	public void onRowEdit(RowEditEvent<Revision> event) {
+		Revision revision =  event.getObject();
 		revisionEJB.actualizar(revision);
 		FacesMessage msg = new FacesMessage("Registro editado");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	public void onRowCancel(RowEditEvent event) {
+	public void onRowCancel(RowEditEvent<Revision> event) {
 		FacesMessage msg = new FacesMessage("Edición cancelada");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	public void onRowSelect(SelectEvent event) {
-		FacesMessage msg = new FacesMessage("Revisión Seleccionada", ((Revision) event.getObject()).getNombre());
+	public void onRowSelect(SelectEvent<Revision> event) {
+		FacesMessage msg = new FacesMessage("Revisión Seleccionada", event.getObject().getNombre());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 

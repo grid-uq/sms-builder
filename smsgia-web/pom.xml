@@ -14,6 +14,11 @@
 		<omnifaces.version>1.14.1</omnifaces.version>
 		<junit.jupiter.version>5.5.2</junit.jupiter.version>
 		<junit.platform.version>1.5.2</junit.platform.version>
+		<primefaces.version>8.0</primefaces.version>
+		<jee.version>8.0.1</jee.version>
+		<!-- <jsf-impl.version>2.2.20</jsf-impl.version>  -->
+		<jsf-impl.version>2.3.9.SP08</jsf-impl.version>
+		
 	</properties>
 
 	<build>
@@ -53,7 +58,7 @@
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-web-api</artifactId>
-			<version>8.0</version>
+			<version>${jee.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -65,7 +70,7 @@
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-impl</artifactId>
-			<version>2.2.19</version>
+			<version>${jsf-impl.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -78,7 +83,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>7.0</version>
+			<version>${primefaces.version}</version>
 		</dependency>
 		<!-- <dependency> <groupId>org.primefaces.extensions</groupId> <artifactId>primefaces-extensions</artifactId> 
 			<version>7.0.1</version> </dependency> <dependency> <groupId>org.omnifaces</groupId> 
@@ -135,6 +140,14 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>5.1.48</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<repositories>
@@ -143,5 +156,12 @@
 			<name>PrimeFaces Maven Repository</name>
 			<url>http://repository.primefaces.org</url>
 		</repository>
+		<repository>
+			<id>jboss-public</id>
+			<name>JBoss Public Repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/public/</url>
+		</repository>
+		
+		
 	</repositories>
 </project>
