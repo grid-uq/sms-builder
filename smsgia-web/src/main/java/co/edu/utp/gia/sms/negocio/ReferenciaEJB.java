@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.Metadato;
+import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Revision;
@@ -24,6 +25,9 @@ public class ReferenciaEJB {
 	private EntityManager entityManager;
 	@Inject
 	private RevisionEJB revisionEJB;
+
+	@Inject
+	private NotaEJB notaEJB;
 
 	public Referencia registrar(Referencia referencia, Integer idRevision) {
 		Revision revision = revisionEJB.obtener(idRevision);
@@ -75,6 +79,7 @@ public class ReferenciaEJB {
 			referencia.setAbstracts(obtenerAbstract(referencia.getId()));
 			referencia.setKeywords(obtenerKeywords(referencia.getId()));
 			referencia.setFuente(obtenerFuente(referencia.getId()));
+			referencia.setNota(notaEJB.obtener(referencia.getId(), filtro));
 		}
 		return referencias;
 	}
@@ -157,8 +162,29 @@ public class ReferenciaEJB {
 
 	public void actualizarFiltro(Integer id, Integer filtro) {
 		Referencia referencia = obtener(id);
-		System.out.println("Cambiando " + referencia.getFiltro() + " por " + filtro);
+//		System.out.println("Cambiando " + referencia.getFiltro() + " por " + filtro);
 		referencia.setFiltro(filtro);
+	}
+
+	public void actualizarFiltro(Integer id, Integer filtro, Integer idNota, String descripcionNota, Integer etapa) {
+		Referencia referencia = obtener(id);
+		Nota nota = notaEJB.obtener(id, filtro);
+
+		if (idNota == null && nota.getId() == null && descripcionNota != null && !descripcionNota.isEmpty()) {
+			notaEJB.registrar(etapa, descripcionNota, id);
+		} else if ( nota.getId() != null) {
+
+			if (descripcionNota == null || descripcionNota.isEmpty()) {
+				notaEJB.eliminar(nota.getId());
+			} else {
+				notaEJB.actualizar(nota.getId(), descripcionNota);
+
+			}
+		}
+
+//		System.out.println("Cambiando " + referencia.getFiltro() + " por " + filtro);
+		referencia.setFiltro(filtro);
+
 	}
 
 	public void guardarEvaluacion(EvaluacionCalidad evaluacion) {

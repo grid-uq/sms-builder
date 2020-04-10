@@ -23,6 +23,9 @@ import javax.persistence.NamedQuery;
 //	@NamedQuery(name = Queries.TOPICO_REVISION_GET_ALL, query = "select t from Topico t where t.pregunta.revision.id = :id order by t.pregunta.codigo"),
 	@NamedQuery(name = Queries.TOPICO_REVISION_GET_ALL, query = "select t from Topico t , IN(t.pregunta.objetivos) o where o.revision.id = :id order by t.pregunta.codigo"),
 	@NamedQuery(name = Queries.TERMINO_GET_ALL, query = "select t from Termino t where t.revision.id = :id"),
+	@NamedQuery(name = Queries.NOTA_GET_ALL, query = "select n from Nota n where n.referencia.id = :id"),
+	@NamedQuery(name = Queries.REFERENCIA_NOTA_ETAPA_GET_ALL, query = "select n from Nota n where n.referencia.id = :id and n.referencia.filtro = :filtro"),
+	
 	@NamedQuery(name = Queries.OBJETIVO_GET_ALL, query = "select o from Objetivo o where o.revision.id = :id"),
 	
 	@NamedQuery(name = Queries.REVISION_GET_ALL, query = "select p from Revision p"),
@@ -175,5 +178,9 @@ public class Queries implements Serializable{
 
 
 	public static final String PREGUNTA_OBJETIVO_GET_ALL = "Pregunta.getObjetivos";
+
+	public static final String NOTA_GET_ALL = "Nota.getAll";
+	
+	public static final String REFERENCIA_NOTA_ETAPA_GET_ALL = "Referencia.getNotasEpata.getAll";
 
 }

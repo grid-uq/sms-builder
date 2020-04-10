@@ -7,6 +7,7 @@ import java.util.List;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.Metadato;
+import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
@@ -25,10 +26,10 @@ public class ReferenciaDTO implements Serializable {
 	private String keywords;
 	private String abstracts;
 	private Fuente fuente;
+	private Nota nota;
 
 	public ReferenciaDTO(Referencia referencia) {
 		this(referencia, 0);
-		System.out.println("Construyento ReferenciaDTO SIN PARAMETRO");
 	}
 
 	/**
@@ -42,6 +43,8 @@ public class ReferenciaDTO implements Serializable {
 	public ReferenciaDTO(Referencia referencia, Integer etapa) {
 		this.etapa = etapa;
 		this.referencia = referencia;
+		this.nota = new Nota();
+		this.abstracts = referencia.getResumen();
 		evaluarSeleccion();
 	}
 
@@ -238,14 +241,15 @@ public class ReferenciaDTO implements Serializable {
 	public void setSeleccionada(boolean seleccionada) {
 		if (this.seleccionada != seleccionada) {
 			int base = (etapa << 1) | 1;
-			System.out.println("Base : " + base);
+//			System.out.println("Base : " + base);
 			if (seleccionada) {
 //				System.out.println("filtro = " + getFiltro() + " | " + base + " = " + (getFiltro() | base));
 				setFiltro(getFiltro() | base);
 
 			} else {
 //				System.out.println("filtro = " + getFiltro() + " ^ " + base + " = " + (getFiltro() ^ base));
-				setFiltro(getFiltro() ^ base);
+				setFiltro(getFiltro() & etapa);
+
 			}
 		}
 		this.seleccionada = seleccionada;
@@ -402,5 +406,21 @@ public class ReferenciaDTO implements Serializable {
 	 */
 	public void setFuente(Fuente fuente) {
 		this.fuente = fuente;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo nota
+	 * @return El valor del atributo nota
+	 */
+	public Nota getNota() {
+		return nota;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo nota
+	 * @param nota Valor a ser asignado al atributo nota
+	 */
+	public void setNota(Nota nota) {
+		this.nota = nota;
 	}
 }

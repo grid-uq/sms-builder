@@ -86,22 +86,28 @@
 
 							</p:column>
 						</p:row>
+						<p:row>
+							<p:column colspan="4">
+
+								<p:accordionPanel activeIndex="-1">
+									<p:tab title="Comentarios">
+										<h:panelGrid cellpadding="10">
+											<p:inputTextarea cols="180"
+												value="#{referencia.nota.descripcion}">
+												<p:ajax event="blur" />
+											</p:inputTextarea>
+
+										</h:panelGrid>
+
+
+									</p:tab>
+								</p:accordionPanel>
+
+							</p:column>
+						</p:row>
 
 					</p:panelGrid>
 				</p:column>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 				<f:facet name="footer">
