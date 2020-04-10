@@ -8,7 +8,6 @@ import javax.inject.Named;
 
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Pregunta;
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.negocio.ObjetivoEJB;
 
 @Named
@@ -20,20 +19,12 @@ public class RegistroObjetivoBean extends GenericBean<Objetivo> {
 	private static final long serialVersionUID = 9060626480979863537L;
 	private String codigo;
 	private String descripcion;
-//	@Inject
-//	@ManagedProperty("#{registroInicialBean}")
-//	private RegistroInicialBean registroInicialBean;
-//	private Revision revision;
 	private List<Objetivo> objetivos;
 
 	@Inject
 	private ObjetivoEJB objetivoEJB;
 
-//	@PostConstruct
 	public void inicializar() {
-//		if (registroInicialBean != null) {
-//			revision = registroInicialBean.getRevision();
-//		}
 		if (revision != null) {
 			objetivos = objetivoEJB.obtenerObjetivo(revision.getId());
 		}
@@ -132,24 +123,6 @@ public class RegistroObjetivoBean extends GenericBean<Objetivo> {
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * 
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * 
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
 	}
 
 	/**

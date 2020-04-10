@@ -24,7 +24,7 @@
 					<p:inputText value="#{registroPreguntaBean.codigo}" maxlength="3" required="true"/>
 					<p:inputText value="#{registroPreguntaBean.descripcion}" required="true"/>
 					<p:selectManyCheckbox id="basic"
-						value="#{registroPreguntaBean.listaObjetivos}" required="true"  >
+						value="#{registroPreguntaBean.listaObjetivos}" required="true" >
 
 
 						<f:selectItems value="#{registroObjetivoBean.objetivos}"
@@ -65,26 +65,23 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{msg.etiquetaObjetivos}">
+				<p:column headerText="#{msg.etiquetaPregunta}">
 					
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{pregunta.listObjetivos}" />
+							<h:outputText value="#{pregunta.descripcion}" />
+							
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{pregunta.descripcion}" />
 						</f:facet>
 					</p:cellEditor>
-					
-					
 				</p:column>
 
-
-
-				<p:column headerText="#{msg.etiquetaPregunta}">
+				<p:column headerText="#{msg.etiquetaObjetivos}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{pregunta.descripcion}" />
+							<h:outputText value="#{pregunta.listObjetivos}" />
 						</f:facet>
 						<f:facet name="input">
 							<p:selectManyCheckbox id="basic"

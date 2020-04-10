@@ -41,7 +41,6 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
 	private String codigo;
 	private List<PreguntaDTO> preguntas;
 	
-	private List<Integer> listaIdObjetivos;
 	private List<Objetivo> listaObjetivos;
 	
 
@@ -175,22 +174,6 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
 	 */
 	public void setPreguntas(List<PreguntaDTO> preguntas) {
 		this.preguntas = preguntas;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo listaIdObjetivos
-	 * @return El valor del atributo listaIdObjetivos
-	 */
-	public List<Integer> getListaIdObjetivos() {
-		return listaIdObjetivos;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo listaIdObjetivos
-	 * @param listaIdObjetivos Valor a ser asignado al atributo listaIdObjetivos
-	 */
-	public void setListaIdObjetivos(List<Integer> listaIdObjetivos) {
-		this.listaIdObjetivos = listaIdObjetivos;
 	}
 
 	/**
