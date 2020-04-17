@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import co.edu.utp.gia.sms.entidades.Objetivo;
-import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.negocio.ObjetivoEJB;
 
 @Named
@@ -58,17 +57,6 @@ public class RegistroObjetivoBean extends GenericBean<Objetivo> {
 		mostrarMensajeGeneral("Registro eliminado");
 	}
 
-	/**
-	 * Permite eliminar una {@link Pregunta} de un Objetivo
-	 * 
-	 * @param pregunta Pregunta del Objetivo a eliminar
-	 */
-
-	public void eliminarPregunta(Objetivo objetivo, Pregunta pregunta) {
-		objetivoEJB.eliminarPregunta(pregunta.getId());
-		mostrarMensajeGeneral("Pregunta eliminada");
-		objetivo.getPreguntas().remove(pregunta);
-	}
 
 //	public void adicionarTopico(Integer id) {
 //		System.out.println("Llamando Dialogo para pregunta "+id);

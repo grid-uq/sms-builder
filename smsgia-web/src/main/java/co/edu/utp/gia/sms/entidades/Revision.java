@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.entidades;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -23,7 +22,7 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-public class Revision implements Serializable {
+public class Revision implements Entidad<Integer> {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */

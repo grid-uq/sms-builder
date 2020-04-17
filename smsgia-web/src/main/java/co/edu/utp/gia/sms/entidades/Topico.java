@@ -2,8 +2,6 @@ package co.edu.utp.gia.sms.entidades;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +13,7 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class Topico implements Serializable {
+public class Topico implements Entidad<Integer> {
 	/**
 	 * Variable que representa el identificador unico del topico
 	 */

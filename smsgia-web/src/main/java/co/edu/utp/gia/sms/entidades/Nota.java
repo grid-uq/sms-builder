@@ -3,8 +3,6 @@ package co.edu.utp.gia.sms.entidades;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,7 +24,7 @@ import javax.persistence.ManyToOne;
  */
 
 @Entity
-public class Nota implements Serializable {
+public class Nota implements Entidad<Integer> {
 
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase

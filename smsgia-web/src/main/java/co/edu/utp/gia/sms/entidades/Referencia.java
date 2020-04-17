@@ -1,22 +1,20 @@
 package co.edu.utp.gia.sms.entidades;
 
-import java.io.Serializable;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import static javax.persistence.CascadeType.PERSIST;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-import static javax.persistence.FetchType.EAGER;
 
 /**
  * Elemento que representa de forma general una referencia a ser procesada
@@ -32,64 +30,12 @@ import static javax.persistence.FetchType.EAGER;
  *
  */
 @Entity
-//@NamedQueries({
-//
-//		@NamedQuery(name = Referencia.REFERENCIA_GET_ALL, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ,  (:filtro + 0 )  ) from Referencia r where r.revision.id = :idRevision and MOD( r.filtro, (:filtro + 1 ) ) = :filtro ORDER BY r.nombre"),
-//
-//		@NamedQuery(name = Referencia.ESTADISTICA_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, COUNT(1) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year"),
-//		@NamedQuery(name = Referencia.ESTADISTICA_TIPO, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.tipo, COUNT(1) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.tipo ORDER BY r.tipo"),
-//		@NamedQuery(name = Referencia.ESTADISTICA_CALIDAD_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, AVG(r.totalEvaluacionCalidad) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year"),
-//		@NamedQuery(name = Referencia.ESTADISTICA_REFERENCIA_TOPICO, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( t.descripcion, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.id ORDER BY t.descripcion"),
-//		@NamedQuery(name = Referencia.ESTADISTICA_REFERENCIA_PREGUNTA, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( t.pregunta.codigo, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.pregunta.id ORDER BY t.pregunta.codigo")
-//
-//		
-//})
-
-public class Referencia implements Serializable {
+public class Referencia implements Entidad<Integer> {
 
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
 	private static final long serialVersionUID = -4002756759383683632L;
-
-	/**
-	 * Consulta que permite obtener las preguntas registradas en el sistema para una
-	 * revision <br />
-	 * <code>select r from Referencia r where r.revision.id = :idRevision and r.filtro >= :filtro </code>
-	 * 
-	 */
-//	public static final String REFERENCIA_GET_ALL = "Referencia.getAll";
-	/**
-	 * Consulta que permite obtener las referecias por año <br />
-	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, COUNT(1) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year </code>
-	 * 
-	 */
-//	public static final String ESTADISTICA_YEAR = "Referencia.estadisticaYear";
-	/**
-	 * Consulta que permite obtener las referencias por tipo <br />
-	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( r.tipo, COUNT(1) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year </code>
-	 * 
-	 */
-//	public static final String ESTADISTICA_TIPO = "Referencia.estadisticaTipo";
-	/**
-	 * Consulta que permite obtener las referencias por tipo <br />
-	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, SUM(r.totalEvaluacionCalidad) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year </code>
-	 * 
-	 */
-//	public static final String ESTADISTICA_CALIDAD_YEAR = "Referencia.calidadYear";
-	/**
-	 * Consulta que permite obtener las referencias por tipo <br />
-	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( t.descripcion, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.id ORDER BY t.descripcion </code>
-	 * 
-	 */
-//	public static final String ESTADISTICA_REFERENCIA_TOPICO = "Referencia.referenciaTopico";
-	/**
-	 * Consulta que permite obtener las referencias por tipo <br />
-	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( t.pregunta, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.pregunta.id ORDER BY t.pregunta.descripcion </code>
-	 * 
-	 */
-//	public static final String ESTADISTICA_REFERENCIA_PREGUNTA = "Referencia.referenciaPregunta";
-
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

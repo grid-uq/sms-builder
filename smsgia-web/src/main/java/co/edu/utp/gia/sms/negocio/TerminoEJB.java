@@ -4,20 +4,19 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
-public class TerminoEJB {
-	@PersistenceContext
-	private EntityManager entityManager;
+public class TerminoEJB extends AbstractEJB<Termino, Integer>{
 	@Inject
 	private RevisionEJB revisionEJB;
 
+	public TerminoEJB() {
+		super(Termino.class);
+	}
 	/**
 	 * Permite registrar una termino
 	 * 
@@ -31,19 +30,9 @@ public class TerminoEJB {
 		Revision revision = revisionEJB.obtener(idRevision);
 		if (revision != null) {
 			termino = new Termino(descripcion, revision);
-			entityManager.persist(termino);
+			registrar(termino);
 		}
 		return termino;
-	}
-
-	/**
-	 * Permite obtener una Termino basado en su Id
-	 * 
-	 * @param idTermino Identificador de la Termino que se desea obtener
-	 * @return La {@link Termino} que se corresponde con el Identificador dado
-	 */
-	public Termino obtener(Integer idTermino) {
-		return entityManager.find(Termino.class, idTermino);
 	}
 
 	/**
@@ -58,16 +47,6 @@ public class TerminoEJB {
 				.getResultList();
 	}
 
-
-	/**
-	 * Premite actualizar una {@link Termino}
-	 * 
-	 * @param termino Termino a ser actualizada
-	 */
-	public void actualizar(Termino termino) {
-		actualizar(termino.getId(), termino.getDescripcion());
-	}
-
 	/**
 	 * Permite actualizar una Termino
 	 * 
@@ -78,18 +57,6 @@ public class TerminoEJB {
 		Termino termino = obtener(id);
 		if (termino != null) {
 			termino.setDescripcion(descripcion);
-		}
-	}
-
-	/**
-	 * Permite eliminar una Termino basado en su id
-	 * 
-	 * @param id Id de la Termino a eliminar
-	 */
-	public void eliminar(Integer id) {
-		Termino termino = obtener(id);
-		if (termino != null) {
-			entityManager.remove(termino);
 		}
 	}
 

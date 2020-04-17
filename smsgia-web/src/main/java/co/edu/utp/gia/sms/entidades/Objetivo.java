@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  * @author Christian A. Candela
@@ -25,7 +24,12 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-public class Objetivo {
+public class Objetivo implements Entidad<Integer>{
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = 6918765230126877992L;
+
 	/**
 	 * Variable que representa el identificador unico del Objetivo
 	 */

@@ -1,8 +1,10 @@
 package co.edu.utp.gia.sms.beans;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.annotation.SessionMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
@@ -20,6 +22,10 @@ public abstract class GenericBean<Objeto> implements Serializable {
 	@Inject
 	private RegistroInicialBean registroInicialBean;
 	protected Revision revision;
+	@Inject
+	private FacesContext facesContext;
+	@Inject @SessionMap
+	private Map<String,Object> sessionMap;
 
 	
 //	@Inject
@@ -107,20 +113,26 @@ public abstract class GenericBean<Objeto> implements Serializable {
 	}
 	
 	protected FacesContext getFacesContext() {
-		return FacesContext.getCurrentInstance();
+//		return FacesContext.getCurrentInstance();
+		return facesContext;
 	}
 	
 	protected void addToSession(String key,Object value) {
-		getFacesContext().getExternalContext().getSessionMap().put(key, value);
+//		getFacesContext().getExternalContext().getSessionMap().put(key, value);
+		getSessionMap().put(key, value);
 	}
 
 	protected Object getFromSession(String key) {
-		return getFacesContext().getExternalContext().getSessionMap().get(key);
+//		return getFacesContext().getExternalContext().getSessionMap().get(key);
+		return getSessionMap().get(key);
 	}
 	
 	protected Object getAndRemoveFromSession(String key) {
-		return getFacesContext().getExternalContext().getSessionMap().remove(key);
+//		return getFacesContext().getExternalContext().getSessionMap().remove(key);
+		return getSessionMap().remove(key);
 	}
+	
+	
 	
 //	public void adicionarTopico(Integer id) {
 //		System.out.println("Llamando Dialogo para pregunta "+id);
@@ -141,6 +153,14 @@ public abstract class GenericBean<Objeto> implements Serializable {
 //    }
 
 ////////// ----- GET/SET ----- ////////////	
+
+	/**
+	 * Metodo que permite obtener el valor del atributo sessionMap
+	 * @return El valor del atributo sessionMap
+	 */
+	protected Map<String, Object> getSessionMap() {
+		return sessionMap;
+	}
 
 	/**
 	 * Metodo que permite obtener el valor del atributo revision

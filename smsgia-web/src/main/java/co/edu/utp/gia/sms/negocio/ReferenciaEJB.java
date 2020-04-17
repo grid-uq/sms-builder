@@ -20,14 +20,21 @@ import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
-public class ReferenciaEJB {
-	@PersistenceContext
-	private EntityManager entityManager;
+public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 	@Inject
 	private RevisionEJB revisionEJB;
-
 	@Inject
 	private NotaEJB notaEJB;
+	@Inject
+	private TopicoEJB topicoEJB;
+	@Inject
+	private EvaluacionCalidadEJB evaluacionCalidadEJB;
+	@Inject
+	private MetadatoEJB metadatoEJB;
+	
+	public ReferenciaEJB() {
+		super(Referencia.class);
+	}
 
 	public Referencia registrar(Referencia referencia, Integer idRevision) {
 		Revision revision = revisionEJB.obtener(idRevision);
@@ -38,7 +45,7 @@ public class ReferenciaEJB {
 				referencia.setFiltro(3);
 			}
 		}
-		entityManager.persist(referencia);
+		registrar(referencia);
 		return referencia;
 	}
 
@@ -46,17 +53,6 @@ public class ReferenciaEJB {
 		for (Referencia referencia : referencias) {
 			registrar(referencia, idRevision);
 		}
-	}
-
-	/**
-	 * Permite obtener una referencia por medio del Identificador
-	 * 
-	 * @param idReferencia Identificador de la referencia que se desea obtener
-	 * @return Retorna la referencia que corresponde con el identificador
-	 *         proporcionado
-	 */
-	public Referencia obtener(Integer idReferencia) {
-		return entityManager.find(Referencia.class, idReferencia);
 	}
 
 	/**
@@ -92,7 +88,7 @@ public class ReferenciaEJB {
 	 *         corresponde al id proporcionado
 	 */
 	private Fuente obtenerFuente(Integer id) {
-		return Fuente.valueOf(obtenerStringMetadatoByTipo(id, TipoMetadato.FUENTE));
+		return Fuente.valueOf(metadatoEJB.obtenerStringMetadatoByTipo(id, TipoMetadato.FUENTE));
 	}
 
 	/**
@@ -108,16 +104,12 @@ public class ReferenciaEJB {
 	public List<ReferenciaDTO> obtenerTodasConEvaluacion(int idRevision, int filtro) {
 		List<ReferenciaDTO> referencias = obtenerTodas(idRevision, filtro);
 		for (ReferenciaDTO referencia : referencias) {
-			referencia.setEvaluaciones(obtenerEvaluaciones(referencia.getId()));
+			referencia.setEvaluaciones(evaluacionCalidadEJB.obtenerEvaluaciones(referencia.getId()));
 		}
 
 		return referencias;
 	}
 
-	public List<EvaluacionCalidad> obtenerEvaluaciones(Integer id) {
-		return entityManager.createNamedQuery(Queries.EVALUACION_CALIDAD_GET_ALL, EvaluacionCalidad.class)
-				.setParameter("id", id).getResultList();
-	}
 
 //	public List<ReferenciaDTO> obtenerTodas(int idRevision, int filtro) {
 //		List<ReferenciaDTO> lista = new ArrayList<ReferenciaDTO>();
@@ -133,32 +125,18 @@ public class ReferenciaEJB {
 //	}
 
 	public String obtenerAutores(Integer idReferencia) {
-		return obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.AUTOR);
+		return metadatoEJB.obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.AUTOR);
 	}
 
 	public String obtenerKeywords(Integer idReferencia) {
-		return obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.KEYWORD);
+		return metadatoEJB.obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.KEYWORD);
 	}
 
 	public String obtenerAbstract(Integer idReferencia) {
-		return obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.ABSTRACT);
+		return metadatoEJB.obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.ABSTRACT);
 	}
 
-	public String obtenerStringMetadatoByTipo(Integer idReferencia, TipoMetadato tipoMetadato) {
-		List<Metadato> listMetadatos = obtenerListMetadatoByTipo(idReferencia, tipoMetadato);
-		String valor = "";
-		String separador = "";
-		for (Metadato metadato : listMetadatos) {
-			valor = valor + separador + metadato.getValue();
-			separador = " ; ";
-		}
-		return valor;
-	}
 
-	public List<Metadato> obtenerListMetadatoByTipo(Integer idReferencia, TipoMetadato tipoMetadato) {
-		return entityManager.createNamedQuery(Queries.METADATO_GET_ALL, Metadato.class).setParameter("id", idReferencia)
-				.setParameter("tipo", tipoMetadato).getResultList();
-	}
 
 	public void actualizarFiltro(Integer id, Integer filtro) {
 		Referencia referencia = obtener(id);
@@ -188,11 +166,10 @@ public class ReferenciaEJB {
 	}
 
 	public void guardarEvaluacion(EvaluacionCalidad evaluacion) {
-		evaluacion.calcularEvaluacionCualitativa();
-		entityManager.merge(evaluacion);
+		evaluacionCalidadEJB.actualizar(evaluacion);
 		Referencia referencia = obtener(evaluacion.getReferencia().getId());
 		referencia.setTotalEvaluacionCalidad(
-				calcularTotalEvaluacionCalidad(evaluacion.getReferencia().getId()).floatValue());
+				calcularTotalEvaluacionCalidad(referencia.getId()).floatValue());
 	}
 
 	private Double calcularTotalEvaluacionCalidad(Integer id) {
@@ -202,7 +179,7 @@ public class ReferenciaEJB {
 
 	public void adicionarTopico(Integer id, Integer idTopico) {
 		Referencia referencia = obtener(id);
-		Topico topico = entityManager.find(Topico.class, idTopico);
+		Topico topico = topicoEJB.obtener(idTopico);
 		referencia.getTopicos().add(topico);
 	}
 

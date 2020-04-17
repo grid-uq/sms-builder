@@ -7,7 +7,7 @@ import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.PreguntaEJB;
+import co.edu.utp.gia.sms.negocio.TopicoEJB;
 
 @Named
 @ViewScoped
@@ -20,7 +20,7 @@ public class RegistroTopicoBean extends GenericBean<Topico> {
 	private String descripcion;
 	private Integer id;
 	@Inject
-	private PreguntaEJB preguntaEJB;
+	private TopicoEJB topicoEJB;
 	
 	
 	/**
@@ -30,7 +30,7 @@ public class RegistroTopicoBean extends GenericBean<Topico> {
 		Topico topico = null;
 		id = (Integer) getAndRemoveFromSession("idPregunta");
 		if (id != null) {
-			topico = preguntaEJB.adicionarTopico(id, descripcion);
+			topico = topicoEJB.registrar(id, descripcion);
 		}
 		PrimeFaces.current().dialog().closeDynamic(topico);
 	}

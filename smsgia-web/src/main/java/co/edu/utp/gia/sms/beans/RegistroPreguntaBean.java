@@ -16,6 +16,7 @@ import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.PreguntaEJB;
+import co.edu.utp.gia.sms.negocio.TopicoEJB;
 
 /**
  * @author Christian A. Candela
@@ -46,6 +47,8 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
 
 	@Inject
 	private PreguntaEJB preguntaEJB;
+	@Inject
+	private TopicoEJB topicoEJB;
 
 	public void inicializar() {
 		if (revision != null) {
@@ -87,7 +90,7 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
 	 * @param topico Topico de la pregunta a eliminar
 	 */
 	public void eliminarTopico(PreguntaDTO pregunta,Topico topico) {
-		preguntaEJB.eliminarTopico(topico.getId());
+		topicoEJB.eliminar(topico.getId());
 		mostrarMensajeGeneral("Topico eliminado");
 //		inicializar();
 		pregunta.getTopicos().remove(topico);

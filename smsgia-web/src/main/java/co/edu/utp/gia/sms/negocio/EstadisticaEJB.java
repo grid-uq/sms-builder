@@ -2,12 +2,14 @@ package co.edu.utp.gia.sms.negocio;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.query.Queries;
 
+@Stateless
 public class EstadisticaEJB {
 	@PersistenceContext
 	private EntityManager entityManager;

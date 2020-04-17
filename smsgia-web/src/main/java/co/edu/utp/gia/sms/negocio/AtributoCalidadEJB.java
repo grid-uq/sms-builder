@@ -4,20 +4,22 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.Revision;
+import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
-public class AtributoCalidadEJB {
-	@PersistenceContext
-	private EntityManager entityManager;
+public class AtributoCalidadEJB extends AbstractEJB<AtributoCalidad, Integer>{
+
 	@Inject
 	private RevisionEJB revisionEJB;
 
+	public AtributoCalidadEJB() {
+		super(AtributoCalidad.class);
+	}
+	
 	/**
 	 * Permite registrar un atributo de calidad
 	 * 
@@ -30,19 +32,9 @@ public class AtributoCalidadEJB {
 		Revision revision = revisionEJB.obtener(idRevision);
 		if (revision != null) {
 			atributoCalidad = new AtributoCalidad(descripcion, revision);
-			entityManager.persist(atributoCalidad);
+			registrar(atributoCalidad);
 		}
 		return atributoCalidad;
-	}
-
-	/**
-	 * Permite obtener un atributo de calidad basado en su Id
-	 * 
-	 * @param idAtributoCalidad Identificador del atributo de calidad que se desea obtener
-	 * @return La {@link AtributoCalidad} que se corresponde con el Identificador dado
-	 */
-	public AtributoCalidad obtener(Integer idAtributoCalidad) {
-		return entityManager.find(AtributoCalidad.class, idAtributoCalidad);
 	}
 
 	/**
@@ -80,16 +72,9 @@ public class AtributoCalidadEJB {
 		}
 	}
 
-	/**
-	 * Permite eliminar una Termino basado en su id
-	 * 
-	 * @param id Id de la Termino a eliminar
-	 */
-	public void eliminar(Integer id) {
-		AtributoCalidad atributoCalidad = obtener(id);
-		if (atributoCalidad != null) {
-			entityManager.remove(atributoCalidad);
-		}
+	@Override
+	public List<AtributoCalidad> listar() {
+		throw new LogicException("Operacion no soportada");
 	}
 
 }

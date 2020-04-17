@@ -4,24 +4,20 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
-public class NotaEJB {
-	@PersistenceContext
-	private EntityManager entityManager;
-	@Inject
-	private RevisionEJB revisionEJB;
+public class NotaEJB extends AbstractEJB<Nota, Integer> {
 	@Inject
 	private ReferenciaEJB referenciaEJB;
 
+	public NotaEJB() {
+		super(Nota.class);
+	}
+	
 	public Nota registrar(Integer etapa, String descripcion, Integer idReferencia) {
 		Nota nota = null;
 
@@ -33,30 +29,15 @@ public class NotaEJB {
 		return nota;
 	}
 
-	public Nota obtener(Integer idNota) {
-		return entityManager.find(Nota.class, idNota);
-	}
-
 	public List<Nota> obtenerNotas(Integer idReferencia) {
 		return entityManager.createNamedQuery(Queries.NOTA_GET_ALL, Nota.class).setParameter("id", idReferencia)
 				.getResultList();
-	}
-
-	public void actualizar(Nota nota) {
-		actualizar(nota.getId(), nota.getDescripcion());
 	}
 
 	public void actualizar(Integer id, String descripcion) {
 		Nota nota = obtener(id);
 		if (nota != null) {
 			nota.setDescripcion(descripcion);
-		}
-	}
-
-	public void eliminar(Integer id) {
-		Nota nota = obtener(id);
-		if (nota != null) {
-			entityManager.remove(nota);
 		}
 	}
 
@@ -70,4 +51,5 @@ public class NotaEJB {
 		nota.setEtapa(filtro);
 		return nota;
 	}
+	
 }

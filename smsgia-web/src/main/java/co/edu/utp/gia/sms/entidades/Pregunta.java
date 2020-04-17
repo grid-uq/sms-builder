@@ -1,9 +1,7 @@
 package co.edu.utp.gia.sms.entidades;
 
-import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -26,25 +23,11 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-//@NamedQueries({
-//
-//		@NamedQuery(name = Pregunta.PREGUNTA_GET_ALL, query = "select p from Pregunta p where p.revision.id = :id")
-//
-//})
-
-public class Pregunta implements Serializable {
+public class Pregunta implements Entidad<Integer> {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
 	private static final long serialVersionUID = -176556849502833317L;
-
-	/**
-	 * Consulta que permite obtener las preguntas registradas en el sistema para una
-	 * revision <br />
-	 * <code>select p from Pregunta p where p.revision.id = :id </code>
-	 * 
-	 */
-//	public static final String PREGUNTA_GET_ALL = "Pregunta.getAll";
 
 	/**
 	 * Variable que representa el atributo id de la clase
