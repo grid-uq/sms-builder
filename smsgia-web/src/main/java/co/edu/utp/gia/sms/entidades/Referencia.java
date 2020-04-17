@@ -102,6 +102,7 @@ public class Referencia implements Entidad<Integer> {
 	 */
 	public void addElement(TipoMetadato identifier, String value) {
 		inicializarElementos();
+		metadatos.add(new Metadato(identifier, value, this));
 		switch (identifier) {
 		case TITLE:
 			setNombre(value);
@@ -116,7 +117,7 @@ public class Referencia implements Entidad<Integer> {
 			setYear(value);
 			break;
 		default:
-			metadatos.add(new Metadato(identifier, value, this));
+//			metadatos.add(new Metadato(identifier, value, this));
 			break;
 		}
 	}
