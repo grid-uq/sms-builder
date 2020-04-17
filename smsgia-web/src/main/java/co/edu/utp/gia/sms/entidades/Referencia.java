@@ -123,12 +123,30 @@ public class Referencia implements Serializable {
 	private Integer filtro;
 
 	private Float totalEvaluacionCalidad;
+	
+	
+	private Integer relevancia;
+	
+	private Integer citas;
+	
+	private Float ponderacionCitas;
+	
+	
+	
+	
 	/**
 	 * Variable que representa el atributo metadatos de la clase
 	 */
 	@OneToMany(mappedBy = "referencia", cascade = PERSIST)
 	private List<Metadato> metadatos;
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Variable que representa el atributo revision de la clase
 	 */
@@ -412,6 +430,54 @@ public class Referencia implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo relevancia
+	 * @return El valor del atributo relevancia
+	 */
+	public Integer getRelevancia() {
+		return relevancia;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo relevancia
+	 * @param relevancia Valor a ser asignado al atributo relevancia
+	 */
+	public void setRelevancia(Integer relevancia) {
+		this.relevancia = relevancia;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo citas
+	 * @return El valor del atributo citas
+	 */
+	public Integer getCitas() {
+		return citas;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo citas
+	 * @param citas Valor a ser asignado al atributo citas
+	 */
+	public void setCitas(Integer citas) {
+		this.citas = citas;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo ponderacionCitas
+	 * @return El valor del atributo ponderacionCitas
+	 */
+	public Float getPonderacionCitas() {
+		return ponderacionCitas;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo ponderacionCitas
+	 * @param ponderacionCitas Valor a ser asignado al atributo ponderacionCitas
+	 */
+	public void setPonderacionCitas(Float ponderacionCitas) {
+		this.ponderacionCitas = ponderacionCitas;
 	}
 
 	

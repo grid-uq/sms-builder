@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
+import co.edu.utp.gia.sms.entidades.Referencia;
+import co.edu.utp.gia.sms.negocio.NotaEJB;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 
 @Named
@@ -20,6 +22,9 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
 	private List<ReferenciaDTO> referencias;
 	@Inject
 	private ReferenciaEJB referenciaEJB;
+	
+	@Inject
+	private NotaEJB notaEJB;
 
 	public void inicializar() {
 
@@ -28,14 +33,29 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
 		}
 	}
 
-	public void guardar() {
-		for (ReferenciaDTO referencia : referencias) {
-			referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro(), referencia.getNota().getId(),
-					referencia.getNota().getDescripcion(), referencia.getNota().getEtapa());
-		}
-		mostrarMensajeGeneral("Se guardaron los registro");
+//	public void guardar() {
+//		for (ReferenciaDTO referencia : referencias) {
+//			referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro(), referencia.getNota().getId(),
+//					referencia.getNota().getDescripcion(), referencia.getNota().getEtapa());
+//		}
+//		mostrarMensajeGeneral("Se guardaron los registro");
+//	}
+	
+	public void actualizarNota(ReferenciaDTO referencia) {
+		notaEJB.actualizar(referencia.getId(), referencia.getNota().getId(), referencia.getNota().getDescripcion(), referencia.getNota().getEtapa());
 	}
 
+	
+	public void seleccionarReferencia(ReferenciaDTO referencia) {
+		
+		referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro());
+	}
+	
+	public void actualizarRelevancia(ReferenciaDTO referencia) {
+		
+		referenciaEJB.actualizarRelevancia(referencia.getId(), referencia.getRelevancia());
+	}
+	
 	/**
 	 * Metodo que permite obtener el valor del atributo referencias
 	 * 

@@ -55,6 +55,9 @@ public class Metadato implements Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
+	
+
+
 	/**
 	 * Variable que representa el identificador del elemento
 	 */
@@ -97,6 +100,24 @@ public class Metadato implements Serializable {
 		this.value = value;
 	}
 
+	
+	
+	/**
+	 * Metodo que permite obtener el valor del atributo id
+	 * @return El valor del atributo id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo id
+	 * @param id Valor a ser asignado al atributo id
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}	
+	
 	/**
 	 * Metodo que permite obtener el valor del atributo identifier
 	 * 

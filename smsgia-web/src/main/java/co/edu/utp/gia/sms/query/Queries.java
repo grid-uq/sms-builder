@@ -24,6 +24,7 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = Queries.TOPICO_REVISION_GET_ALL, query = "select t from Topico t , IN(t.pregunta.objetivos) o where o.revision.id = :id order by t.pregunta.codigo"),
 	@NamedQuery(name = Queries.TERMINO_GET_ALL, query = "select t from Termino t where t.revision.id = :id"),
 	@NamedQuery(name = Queries.NOTA_GET_ALL, query = "select n from Nota n where n.referencia.id = :id"),
+	
 	@NamedQuery(name = Queries.REFERENCIA_NOTA_ETAPA_GET_ALL, query = "select n from Nota n where n.referencia.id = :id and n.etapa = :filtro"),
 	
 	@NamedQuery(name = Queries.OBJETIVO_GET_ALL, query = "select o from Objetivo o where o.revision.id = :id"),
@@ -37,6 +38,8 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_PREGUNTA, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( t.pregunta.codigo, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.pregunta.id ORDER BY t.pregunta.codigo"),
 	
 	@NamedQuery(name = Queries.METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id and m.identifier = :tipo "),
+
+	@NamedQuery(name = Queries.REFERENCIA_METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id"),
 
 	@NamedQuery(name = Queries.EVALUACION_CALIDAD_GET_ALL, query = "select e from EvaluacionCalidad e where e.referencia.id = :id"),
 	@NamedQuery(name = Queries.EVALUACION_TOTAL_CALIDAD, query = "select SUM(e.evaluacionCuantitativa) from EvaluacionCalidad e where e.referencia.id = :id"),
@@ -150,7 +153,11 @@ public class Queries implements Serializable{
 	 * <code>select m from Metadato m where m.referencia.id = :id and m.identifier = :tipo </code>
 	 * 
 	 */
+
 	public static final String METADATO_GET_ALL = "Metadato.getAll";
+	
+
+	
 	
 	/**
 	 * Consulta que permite obtener las revisiones de calidad registradas en el
@@ -183,4 +190,8 @@ public class Queries implements Serializable{
 	
 	public static final String REFERENCIA_NOTA_ETAPA_GET_ALL = "Referencia.getNotasEpata.getAll";
 
+	public static final String REFERENCIA_METADATO_GET_ALL = "Referencia.getMetadatos.getAll";
+
+	
+	
 }

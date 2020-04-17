@@ -29,6 +29,7 @@ public class NotaEJB {
 		if (referencia != null) {
 			nota = new Nota(etapa, descripcion, referencia);
 			entityManager.persist(nota);
+			entityManager.flush();
 		}
 		return nota;
 	}
@@ -61,13 +62,37 @@ public class NotaEJB {
 	}
 
 	public Nota obtener(Integer id, int filtro) {
-		List<Nota> lista = entityManager.createNamedQuery(Queries.REFERENCIA_NOTA_ETAPA_GET_ALL, Nota.class).setParameter("id", id)
-				.setParameter("filtro", filtro).getResultList();
-		if (lista.size()>0) {
+		List<Nota> lista = entityManager.createNamedQuery(Queries.REFERENCIA_NOTA_ETAPA_GET_ALL, Nota.class)
+				.setParameter("id", id).setParameter("filtro", filtro).getResultList();
+		if (lista.size() > 0) {
 			return lista.get(0);
 		}
 		Nota nota = new Nota();
 		nota.setEtapa(filtro);
 		return nota;
 	}
+
+	public void actualizar(Integer id, Integer idNota, String descripcion, Integer etapa) {
+
+		Referencia referencia = referenciaEJB.obtener(id);
+
+		if (referencia != null) {
+
+			Nota nota = obtener(id, etapa);
+
+			if (idNota == null && nota.getId() == null && descripcion != null && !descripcion.isEmpty()) {
+				registrar(etapa, descripcion, id);
+
+			} else if (nota != null && nota.getId() != null) {
+				if (descripcion == null || descripcion.isEmpty()) {
+					eliminar(nota.getId());
+				} else {
+					actualizar(nota.getId(), descripcion);
+
+				}
+			}
+
+		}
+	}
+
 }

@@ -28,6 +28,10 @@ public class ReferenciaEJB {
 
 	@Inject
 	private NotaEJB notaEJB;
+	
+	@Inject
+	private MetadatoEJB metadatoEJB;
+
 
 	public Referencia registrar(Referencia referencia, Integer idRevision) {
 		Revision revision = revisionEJB.obtener(idRevision);
@@ -80,6 +84,8 @@ public class ReferenciaEJB {
 			referencia.setKeywords(obtenerKeywords(referencia.getId()));
 			referencia.setFuente(obtenerFuente(referencia.getId()));
 			referencia.setNota(notaEJB.obtener(referencia.getId(), filtro));
+			referencia.setNotas(notaEJB.obtenerNotas(referencia.getId()));
+			referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId())); 
 		}
 		return referencias;
 	}
@@ -166,26 +172,28 @@ public class ReferenciaEJB {
 		referencia.setFiltro(filtro);
 	}
 
-	public void actualizarFiltro(Integer id, Integer filtro, Integer idNota, String descripcionNota, Integer etapa) {
-		Referencia referencia = obtener(id);
-		Nota nota = notaEJB.obtener(id, filtro);
-
-		if (idNota == null && nota.getId() == null && descripcionNota != null && !descripcionNota.isEmpty()) {
-			notaEJB.registrar(etapa, descripcionNota, id);
-		} else if ( nota.getId() != null) {
-
-			if (descripcionNota == null || descripcionNota.isEmpty()) {
-				notaEJB.eliminar(nota.getId());
-			} else {
-				notaEJB.actualizar(nota.getId(), descripcionNota);
-
-			}
-		}
-
-//		System.out.println("Cambiando " + referencia.getFiltro() + " por " + filtro);
-		referencia.setFiltro(filtro);
-
-	}
+//	public void actualizarFiltro(Integer id, Integer filtro, Integer idNota, String descripcionNota, Integer etapa) {
+//		Referencia referencia = obtener(id);
+//		Nota nota = notaEJB.obtener(id, etapa);
+//
+//	
+//		
+//		if (idNota == null && nota.getId() == null && descripcionNota != null && !descripcionNota.isEmpty()) {
+//			notaEJB.registrar(etapa, descripcionNota, id);
+//			
+//		} else if ( nota!= null && nota.getId() != null ) {
+//			if (descripcionNota == null || descripcionNota.isEmpty()) {
+//				notaEJB.eliminar(nota.getId());
+//			} else {
+//				notaEJB.actualizar(nota.getId(), descripcionNota);
+//
+//			}
+//		}
+//
+////		System.out.println("Cambiando " + referencia.getFiltro() + " por " + filtro);
+//		referencia.setFiltro(filtro);
+//
+//	}
 
 	public void guardarEvaluacion(EvaluacionCalidad evaluacion) {
 		evaluacion.calcularEvaluacionCualitativa();
@@ -209,6 +217,13 @@ public class ReferenciaEJB {
 	public void limpiarTopicos(Integer id) {
 		Referencia referencia = obtener(id);
 		referencia.getTopicos().clear();
+	}
+
+	public void actualizarRelevancia(Integer id, Integer relevancia) {
+		Referencia referencia = obtener(id);
+		if (referencia != null) {
+			referencia.setRelevancia(relevancia);
+		}
 	}
 
 }
