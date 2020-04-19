@@ -31,4 +31,10 @@ public class MetadatoEJB extends AbstractEJB<Metadato, Integer>{
 		return valor;
 	}
 
+	public List<Metadato> obtenerMetadatos(Integer idReferencia) {
+		List<Metadato> listaMetadatos = entityManager.createNamedQuery(Queries.REFERENCIA_METADATO_GET_ALL, Metadato.class)
+				.setParameter("id", idReferencia).getResultList();
+			return listaMetadatos;
+	}	
+
 }

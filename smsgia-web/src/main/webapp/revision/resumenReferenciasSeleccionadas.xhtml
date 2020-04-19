@@ -14,7 +14,12 @@
 
 			<p:dataTable id="resumenReferencias"
 				value="#{resumenReferenciasSeleccionadasBean.referencias}"
-				var="referencia">
+				var="referencia" paginator="true" rows="1"
+				rowsPerPageTemplate="1,3,5,10,20,50,100"
+				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}">
+
+
 
 				<f:facet name="footer">
 
@@ -43,6 +48,7 @@
 					</h:commandLink>
 
 				</f:facet>
+				
 				<f:facet name="header">
 
 					<h:commandLink>
@@ -69,6 +75,10 @@
 							fileName="referencias" />
 					</h:commandLink>
 
+					<h:commandLink action="#{resumenReferenciasSeleccionadasBean.exportToRIS}">
+						<p:graphicImage name="/imagenes/ris.png" width="24" />
+					</h:commandLink>
+
 				</f:facet>
 
 				<p:column headerText="#{msg.etiquetaNombre}">
@@ -83,7 +93,11 @@
 				<p:column headerText="#{msg.etiquetaAbstract}">
 					<h:outputText value="#{referencia.resumen}" />
 				</p:column>
-				
+
+				<p:column headerText="#{msg.etiquetaDescripcion}">
+					<h:outputText value="#{referencia.nota.descripcion}" />
+				</p:column>
+
 			</p:dataTable>
 		</h:form>
 	</ui:define>

@@ -9,8 +9,14 @@
 
 
 <h:head>
-	<ui:insert name="estilos">
 
+	<ui:insert name="estilos">
+		<style type="text/css">
+.colorOrange {
+	background-color: #fca752 !important;
+	color: #FFFFFF;
+}
+</style>
 	</ui:insert>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -34,7 +40,7 @@
 	</script>
 	<div id="header" align='center'>
 		<ui:insert name="header">
-			<p:panelGrid columns="1" style="text-align:center" layout="grid" >
+			<p:panelGrid columns="1" style="text-align:center" layout="grid">
 				<!--
 				<p:graphicImage name="/imagenes/logoUtp.png" />
 				-->

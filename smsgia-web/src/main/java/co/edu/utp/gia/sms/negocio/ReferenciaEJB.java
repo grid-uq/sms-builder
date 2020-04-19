@@ -76,6 +76,8 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 			referencia.setKeywords(obtenerKeywords(referencia.getId()));
 			referencia.setFuente(obtenerFuente(referencia.getId()));
 			referencia.setNota(notaEJB.obtener(referencia.getId(), filtro));
+			referencia.setNotas(notaEJB.obtenerNotas(referencia.getId()));
+			referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId())); 
 		}
 		return referencias;
 	}
@@ -144,26 +146,26 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 		referencia.setFiltro(filtro);
 	}
 
-	public void actualizarFiltro(Integer id, Integer filtro, Integer idNota, String descripcionNota, Integer etapa) {
-		Referencia referencia = obtener(id);
-		Nota nota = notaEJB.obtener(id, filtro);
-
-		if (idNota == null && nota.getId() == null && descripcionNota != null && !descripcionNota.isEmpty()) {
-			notaEJB.registrar(etapa, descripcionNota, id);
-		} else if ( nota.getId() != null) {
-
-			if (descripcionNota == null || descripcionNota.isEmpty()) {
-				notaEJB.eliminar(nota.getId());
-			} else {
-				notaEJB.actualizar(nota.getId(), descripcionNota);
-
-			}
-		}
-
-//		System.out.println("Cambiando " + referencia.getFiltro() + " por " + filtro);
-		referencia.setFiltro(filtro);
-
-	}
+//	public void actualizarFiltro(Integer id, Integer filtro, Integer idNota, String descripcionNota, Integer etapa) {
+//		Referencia referencia = obtener(id);
+//		Nota nota = notaEJB.obtener(id, filtro);
+//
+//		if (idNota == null && nota.getId() == null && descripcionNota != null && !descripcionNota.isEmpty()) {
+//			notaEJB.registrar(etapa, descripcionNota, id);
+//		} else if ( nota.getId() != null) {
+//
+//			if (descripcionNota == null || descripcionNota.isEmpty()) {
+//				notaEJB.eliminar(nota.getId());
+//			} else {
+//				notaEJB.actualizar(nota.getId(), descripcionNota);
+//
+//			}
+//		}
+//
+////		System.out.println("Cambiando " + referencia.getFiltro() + " por " + filtro);
+//		referencia.setFiltro(filtro);
+//
+//	}
 
 	public void guardarEvaluacion(EvaluacionCalidad evaluacion) {
 		evaluacionCalidadEJB.actualizar(evaluacion);
@@ -186,6 +188,13 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 	public void limpiarTopicos(Integer id) {
 		Referencia referencia = obtener(id);
 		referencia.getTopicos().clear();
+	}
+
+	public void actualizarRelevancia(Integer id, Integer relevancia) {
+		Referencia referencia = obtener(id);
+		if (referencia != null) {
+			referencia.setRelevancia(relevancia);
+		}
 	}
 
 }

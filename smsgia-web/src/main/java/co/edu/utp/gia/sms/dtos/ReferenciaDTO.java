@@ -27,6 +27,9 @@ public class ReferenciaDTO implements Serializable {
 	private String abstracts;
 	private Fuente fuente;
 	private Nota nota;
+	private List <Nota> notas;
+	private List<Metadato> metadatos;
+	
 
 	public ReferenciaDTO(Referencia referencia) {
 		this(referencia, 0);
@@ -136,21 +139,6 @@ public class ReferenciaDTO implements Serializable {
 		referencia.setResumen(resumen);
 	}
 
-	/**
-	 * @return
-	 * @see co.edu.utp.gia.sms.entidades.Referencia#getMetadatos()
-	 */
-	public List<Metadato> getMetadatos() {
-		return referencia.getMetadatos();
-	}
-
-	/**
-	 * @param metadatos
-	 * @see co.edu.utp.gia.sms.entidades.Referencia#setMetadatos(java.util.List)
-	 */
-	public void setMetadatos(List<Metadato> metadatos) {
-		referencia.setMetadatos(metadatos);
-	}
 
 	/**
 	 * @return
@@ -423,4 +411,54 @@ public class ReferenciaDTO implements Serializable {
 	public void setNota(Nota nota) {
 		this.nota = nota;
 	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo metadatos
+	 * @return El valor del atributo metadatos
+	 */
+	public List<Metadato> getMetadatos() {
+		return metadatos;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo metadatos
+	 * @param metadatos Valor a ser asignado al atributo metadatos
+	 */
+	public void setMetadatos(List<Metadato> metadatos) {
+		this.metadatos = metadatos;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo notas
+	 * @return El valor del atributo notas
+	 */
+	public List <Nota> getNotas() {
+		return notas;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo notas
+	 * @param notas Valor a ser asignado al atributo notas
+	 */
+	public void setNotas(List <Nota> notas) {
+		this.notas = notas;
+	}
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getRelevancia()
+	 */
+	public Integer getRelevancia() {
+		return referencia.getRelevancia();
+	}
+
+	/**
+	 * @param relevancia
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setRelevancia(java.lang.Integer)
+	 */
+	public void setRelevancia(Integer relevancia) {
+		referencia.setRelevancia(relevancia);
+	}
+	
+	
 }
