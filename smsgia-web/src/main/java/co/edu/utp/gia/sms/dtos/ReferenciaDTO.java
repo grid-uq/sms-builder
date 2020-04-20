@@ -19,6 +19,8 @@ public class ReferenciaDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = -2840554748252612956L;
 	private Referencia referencia;
+
+
 	private boolean seleccionada;
 	private int etapa;
 	private List<EvaluacionCalidad> evaluaciones;
@@ -459,6 +461,24 @@ public class ReferenciaDTO implements Serializable {
 	public void setRelevancia(Integer relevancia) {
 		referencia.setRelevancia(relevancia);
 	}
+	
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getCitas()
+	 */
+	
+	public Integer getCitas() {
+		return referencia.getCitas();
+	}
+
+	/**
+	 * @param citas
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setCitas(java.lang.Integer)
+	 */
+	public void setCitas(Integer citas) {
+		referencia.setCitas(citas);
+	}
+
 	
 	
 }

@@ -226,4 +226,13 @@ public class ReferenciaEJB {
 		}
 	}
 
+	public void actualizarCita(Integer id, Integer citas) {
+		
+		Referencia referencia = obtener(id);
+		if (referencia != null) {
+			referencia.setCitas(citas);
+		}
+		
+	}
+
 }
