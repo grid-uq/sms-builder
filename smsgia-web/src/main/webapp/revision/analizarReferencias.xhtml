@@ -15,35 +15,82 @@
 
 			<p:dataTable id="revisionRadio"
 				value="#{analizarReferenciasBean.referencias}" var="referencia"
-				paginator="true" rows="10" rowsPerPageTemplate="10,20"
+				paginator="true" rows="1" rowsPerPageTemplate="1,5,10,20,100,200"
 				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}">
 
-				<p:column headerText="#{msg.etiquetaNombre}">
-					<h:outputText value="#{referencia.nombre}" />
+				<p:column headerText="#{msg.etiquetaNombre}" style="width:75%">
+					<h:outputText value="#{referencia.nombre}"
+						style="font-weight:bold; color:blue" />
+					<hr />
+					<p:column>
+
+						<p:rating value="#{referencia.relevancia}">
+							<p:ajax event="rate"
+								listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}" />
+							<p:ajax event="cancel"
+								listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}" />
+						</p:rating>
+
+
+					</p:column>
+
+					<hr />
+					<h:outputLabel value="#{msg.etiquetaAbstract}"
+						style="font-weight:bold; color:blue" />
+					<hr />
+					<h:outputText value="#{referencia.resumen}" />
+					<hr />
+
+					<h:outputLabel value="#{msg.etiquetaNota}"
+						style="font-weight:bold; color:blue" />
+
+
+					<hr />
+					<p:inputTextarea cols="120" value="#{referencia.nota}">
+						<p:ajax event="blur"
+							listener="#{analizarReferenciasBean.actualizarNota(referencia)}" />
+					</p:inputTextarea>
 				</p:column>
+
+
+				<!--  
 				<p:column headerText="#{msg.etiquetaAutores}">
 					<h:outputText value="#{referencia.autores}" />
 				</p:column>
 				<p:column headerText="#{msg.etiquetaKeywords}">
 					<h:outputText value="#{referencia.keywords}" />
 				</p:column>
-				<p:column headerText="#{msg.etiquetaAbstract}">
-					<h:outputText value="#{referencia.abstracts}" />
+
+				<p:column headerText="#{msg.etiquetaAbstract}" style="width:30%">
+					<h:outputText value="#{referencia.resumen}" />
 				</p:column>
-				<p:column>
-					<p:dataList value="#{analizarReferenciasBean.topicos}" var="topico">
-						<p:panelGrid columns="2" >
-							<h:outputText
-								value="#{topico.pregunta.codigo} - #{topico.descripcion}" />
-								
-							<p:commandButton
-								action="#{analizarReferenciasBean.incluirExcluirTopico(referencia,topico)}"
-								icon="#{referencia.topicos.contains(topico) ? 'ui-icon ui-icon-minus' : 'ui-icon ui-icon-plus'}"
-								update="@this"
-								process="@this" />
+
+				-->
+
+				<p:column headerText="#{msg.etiquetaTopicos}">
+
+					<p:dataList value="#{analizarReferenciasBean.topicos}" var="topico"
+						type="none">
+						<p:panelGrid columns="2"
+							style="padding-left:0px; padding:0; border:1">
+							<p:column>
+								<h:outputText
+									value="#{topico.pregunta.codigo} - #{topico.descripcion}" />
+							</p:column>
+
+							<p:column>
+								<p:commandButton
+									styleClass="#{referencia.topicos.contains(topico) ? 'ui-state-highlight': 'colorOrange'}"
+									action="#{analizarReferenciasBean.incluirExcluirTopico(referencia,topico)}"
+									icon="#{referencia.topicos.contains(topico) ? 'ui-icon ui-icon-minus' : 'ui-icon ui-icon-plus'}"
+									update=":tabla" process="@this" />
+							</p:column>
+
 						</p:panelGrid>
 
 					</p:dataList>
+
+
 
 
 				</p:column>
@@ -53,6 +100,10 @@
 						action="#{analizarReferenciasBean.guardar}" />
 				</f:facet>
 			</p:dataTable>
+
+
+
+
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -38,9 +38,20 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO>{
 		//TODO Pendiente por definir si es mejor que al momento de incluir/excluir de una vez se afecte la BD
 		if (referencia.getTopicos().contains(topico)) {
 			referencia.getTopicos().remove(topico);
+			referenciaEJB.removerTopico(referencia.getId(),topico.getId() );
+			String t = "\n" + "Tópico: " + topico.getDescripcion();
+			String nota = referencia.getNota().replace(t, "");
+			referenciaEJB.actualizarNota(referencia.getId(), nota);
+			referencia.setNota(nota);
 		} else {
 			referencia.getTopicos().add(topico);
+			referenciaEJB.adicionarTopico(referencia.getId(),topico.getId() );
+			String nota = referencia.getNota() + "\n" + "Tópico: " + topico.getDescripcion();
+			referenciaEJB.actualizarNota(referencia.getId(), nota);
+			referencia.setNota(nota);
+			
 		}
+		
 	}
 
 //	public void incluirExcluirTopico(Integer referenciaId, Integer topicoId) {
@@ -118,4 +129,16 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO>{
 		this.topicos = topicos;
 	}
 
+	public void actualizarNota(ReferenciaDTO referencia) {
+		referenciaEJB.actualizarNota(referencia.getId(),referencia.getNota());
+		
+//		notaEJB.actualizar(referencia.getId(), referencia.getNota().getId(), referencia.getNota().getDescripcion(), referencia.getNota().getEtapa());
+	}
+	
+	public void actualizarRelevancia(ReferenciaDTO referencia) {
+		
+		referenciaEJB.actualizarRelevancia(referencia.getId(), referencia.getRelevancia());
+	}
+
+	
 }

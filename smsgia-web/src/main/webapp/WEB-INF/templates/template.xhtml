@@ -40,8 +40,10 @@
 	</script>
 	<div id="header" align='center'>
 		<ui:insert name="header">
-		
-			<p:panelGrid columns="1" style="text-align:center; background-color:#123456; height: 30px" layout="grid">
+
+			<p:panelGrid columns="1"
+				style="text-align:center; background-color:#123456; height: 30px"
+				layout="grid">
 				ESTUDIO DE MAPEO SISTEMÁTICO
 			</p:panelGrid>
 			<!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
@@ -77,30 +79,30 @@
 					<p:menuitem value="#{msg.etiquetaMenuReferenciasImportar}"
 						action="/revision/registroReferencias"
 						rendered="#{registroInicialBean.revision != null}" />
-					
+
 					<p:menuitem value="#{msg.etiquetaMenuReferenciasDuplicadas}"
 						action="/revision/gestionarReferenciasRepetidas"
 						rendered="#{registroInicialBean.revision != null}" />
-					
+
 					<p:menuitem value="#{msg.etiquetaMenuReferenciasSeleccionar}"
 						action="/revision/aplicarCriterios"
 						rendered="#{registroInicialBean.revision != null}" />
-					
+
 					<p:menuitem value="#{msg.etiquetaMenuReferenciasSeleccionadas}"
 						action="/revision/resumenReferenciasSeleccionadas"
-						rendered="#{registroInicialBean.revision != null}" />
-						
-					<p:menuitem value="#{msg.etiquetaMenuAnalizarReferencias}"
-						action="/revision/analizarReferencias"
 						rendered="#{registroInicialBean.revision != null}" />
 
 					<p:menuitem value="#{msg.etiquetaMenuReferenciaNumeroCitas}"
 						action="/revision/referenciaAdicionarCitas"
 						rendered="#{registroInicialBean.revision != null}" />
 
+					<p:menuitem value="#{msg.etiquetaMenuAnalizarReferencias}"
+						action="/revision/analizarReferencias"
+						rendered="#{registroInicialBean.revision != null}" />
+
 				</p:submenu>
-				
-				
+
+
 				<p:submenu label="#{msg.etiquetaMenuCalidad}" icon="pi pi-cog"
 					rendered="#{registroInicialBean.revision != null}">
 					<p:menuitem value="#{msg.etiquetaMenuAtributosCalidad}"
@@ -116,20 +118,25 @@
 				</p:submenu>
 				<p:submenu label="#{msg.etiquetaMenuAnalisisDatos}" icon="pi pi-cog"
 					rendered="#{registroInicialBean.revision != null}">
+					
 					<p:menuitem
 						value="#{msg.etiquetaMenuAnalisisTablaReferenciaPregunta}"
 						action="/estadisticas/tablaReferenciasPreguntas"
 						rendered="#{registroInicialBean.revision != null}" />
+						
 					<p:menuitem
 						value="#{msg.etiquetaMenuAnalisisTablaReferenciaTopico}"
 						action="/estadisticas/tablaReferenciasTopicos"
 						rendered="#{registroInicialBean.revision != null}" />
+						
 					<p:menuitem value="#{msg.etiquetaMenuAnalisisReferenciaYear}"
 						action="/estadisticas/referenciasYear"
 						rendered="#{registroInicialBean.revision != null}" />
+						
 					<p:menuitem value="#{msg.etiquetaMenuAnalisisReferenciaTipo}"
 						action="/estadisticas/referenciasTipo"
 						rendered="#{registroInicialBean.revision != null}" />
+						
 					<p:menuitem value="#{msg.etiquetaMenuAnalisisReferenciaTopico}"
 						action="/estadisticas/referenciasTopico"
 						rendered="#{registroInicialBean.revision != null}" />

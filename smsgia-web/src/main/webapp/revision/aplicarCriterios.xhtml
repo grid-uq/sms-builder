@@ -17,7 +17,7 @@
 				value="#{aplicarCriteriosReferenciasBean.referencias}"
 				var="referencia" paginator="true" rows="10"
 				rowsPerPageTemplate="1,3,5,10,20,50,100"
-				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight': (referencia.nota.descripcion != null ? 'colorOrange': null)}"
+				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight': (referencia.nota != null ? 'colorOrange': null)}"
 				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
 				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}">
 
@@ -97,10 +97,10 @@
 							<p:column colspan="3">
 
 								<p:accordionPanel activeIndex="-1">
-									<p:tab title="Notas">
+									<p:tab title="#{msg.etiquetaNota}">
 										<h:panelGrid cellpadding="10">
 											<p:inputTextarea cols="170"
-												value="#{referencia.nota.descripcion}">
+												value="#{referencia.nota}">
 												<p:ajax event="blur"
 													listener="#{aplicarCriteriosReferenciasBean.actualizarNota(referencia)}" />
 											</p:inputTextarea>

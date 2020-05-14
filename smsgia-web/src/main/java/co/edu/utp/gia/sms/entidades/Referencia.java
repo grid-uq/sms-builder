@@ -118,6 +118,8 @@ public class Referencia implements Serializable {
 	
 	private Float ponderacionCitas;
 	
+	private String nota;
+	
 	
 	
 	
@@ -127,10 +129,6 @@ public class Referencia implements Serializable {
 	@OneToMany(mappedBy = "referencia", cascade = PERSIST)
 	private List<Metadato> metadatos;
 
-	
-	
-	
-	
 	
 	
 	
@@ -465,6 +463,22 @@ public class Referencia implements Serializable {
 	 */
 	public void setPonderacionCitas(Float ponderacionCitas) {
 		this.ponderacionCitas = ponderacionCitas;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo nota
+	 * @return El valor del atributo nota
+	 */
+	public String getNota() {
+		return nota;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo nota
+	 * @param nota Valor a ser asignado al atributo nota
+	 */
+	public void setNota(String nota) {
+		this.nota = nota;
 	}
 
 	

@@ -11,7 +11,7 @@ import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParse;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParseFactory;
 import co.edu.utp.gia.sms.importutil.Fuente;
 
-/// Pendiente por compeltar la anotación
+/// Pendiente por completar la anotación
 class ImportTest {
 
 	@Test
@@ -64,6 +64,10 @@ class ImportTest {
 		testParse(Fuente.SCIENCEDIRECT_MENDELEY, "/sciecedirect_47_mendeleyris.ris", 47);
 	}	
 	
+	@Test
+	void testParseINCLUSION_DIRECTA() {
+		testParse(Fuente.SCIENCEDIRECT_MENDELEY, "/inclusionDirecta_9_rismendeley.ris", 9);
+	}	
 	
 //	@Test
 //	void testFuente() {

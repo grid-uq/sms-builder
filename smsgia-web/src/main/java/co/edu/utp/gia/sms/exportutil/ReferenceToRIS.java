@@ -84,9 +84,7 @@ public class ReferenceToRIS {
 	}
 
 	private void cargarNotas(StringBuilder sb, ReferenciaDTO referencia) {
-		for (Nota nota : referencia.getNotas()) {
-			sb.append(nota.getDescripcion());
-		}
+			sb.append(referencia.getNota());
 	}
 
 	private void escribirFlujo(String clave, String valor) {

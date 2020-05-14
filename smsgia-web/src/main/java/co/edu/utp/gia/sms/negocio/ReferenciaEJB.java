@@ -83,8 +83,6 @@ public class ReferenciaEJB {
 			referencia.setAbstracts(obtenerAbstract(referencia.getId()));
 			referencia.setKeywords(obtenerKeywords(referencia.getId()));
 			referencia.setFuente(obtenerFuente(referencia.getId()));
-			referencia.setNota(notaEJB.obtener(referencia.getId(), filtro));
-			referencia.setNotas(notaEJB.obtenerNotas(referencia.getId()));
 			referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId())); 
 		}
 		return referencias;
@@ -232,6 +230,21 @@ public class ReferenciaEJB {
 		if (referencia != null) {
 			referencia.setCitas(citas);
 		}
+		
+	}
+
+	public void actualizarNota(Integer id, String nota) {
+		
+		Referencia referencia = obtener(id);
+		if (referencia != null) {
+			referencia.setNota(nota);
+		}
+	}
+
+	public void removerTopico(Integer id, Integer idTopico) {
+		Referencia referencia = obtener(id);
+		Topico topico = entityManager.find(Topico.class, idTopico);
+		referencia.getTopicos().remove(topico);
 		
 	}
 

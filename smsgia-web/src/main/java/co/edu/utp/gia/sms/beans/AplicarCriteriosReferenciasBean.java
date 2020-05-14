@@ -23,8 +23,6 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
 	@Inject
 	private ReferenciaEJB referenciaEJB;
 	
-	@Inject
-	private NotaEJB notaEJB;
 
 	public void inicializar() {
 
@@ -42,7 +40,9 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
 //	}
 	
 	public void actualizarNota(ReferenciaDTO referencia) {
-		notaEJB.actualizar(referencia.getId(), referencia.getNota().getId(), referencia.getNota().getDescripcion(), referencia.getNota().getEtapa());
+		referenciaEJB.actualizarNota(referencia.getId(),referencia.getNota());
+		
+//		notaEJB.actualizar(referencia.getId(), referencia.getNota().getId(), referencia.getNota().getDescripcion(), referencia.getNota().getEtapa());
 	}
 
 	

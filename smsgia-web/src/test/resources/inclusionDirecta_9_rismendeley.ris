@@ -1,0 +1,161 @@
+TY  - CHAP
+T1  - Apache airavata sharing service: A tool for enabling user collaboration in science gateways
+A1  - Nakandala, Supun
+A1  - Marru, Suresh
+A1  - Piece, Marlon
+A1  - Pamidighantam, Sudhakar
+A1  - Yoshimoto, Kenneth
+A1  - Schwartz, Terri
+A1  - Sivagnanam, Subhashini
+A1  - Majumdar, Amit
+A1  - Miller, Mark A
+Y1  - 2017///
+JF  - Proceedings of the Practice and Experience in Advanced Research Computing 2017 on Sustainability, Success and Impact
+SP  - 1
+EP  - 8
+L1  - file:///Users/luixip/Library/Application Support/Mendeley Desktop/Downloaded/2017 - Apache Airavata Sharing Service.pdf
+ER  - 
+TY  - CONF
+T1  - Anatomy of the SEAGrid Science Gateway
+A1  - Nakandala, Supun
+A1  - Pamidighantam, Sudhakar
+A1  - Yodage, Shameera
+A1  - Doshi, Nipurn
+A1  - Abeysinghe, Eroma
+A1  - Kankanamalage, Chathuri Peli
+A1  - Marru, Suresh
+A1  - Pierce, Marlon
+Y1  - 2016///
+JF  - Proceedings of the XSEDE16 Conference on Diversity, Big Data, and Science at Scale
+SP  - 1
+EP  - 8
+L1  - file:///Users/luixip/Library/Application Support/Mendeley Desktop/Downloaded/2016 - Anatomy of the SEAGrid Science Gateway.pdf
+ER  - 
+TY  - CONF
+T1  - An Evaluation of a Market Based Resource Trading in a Multi-campus Compute Co-operative (CCC)
+A1  - Prodhan, Md Anindya T
+A1  - Grimshaw, Andrew
+Y1  - 2018///
+PB  - Springer
+JF  - International Conference on the Economics of Grids, Clouds, Systems, and Services
+SP  - 52
+EP  - 65
+L1  - file:///Users/luixip/Library/Application Support/Mendeley Desktop/Downloaded/2018 - An evaluation of a market based resourc.pdf
+ER  - 
+TY  - JOUR
+T1  - Serverless execution of scientific workflows: Experiments with HyperFlow, AWS Lambda and Google Cloud Functions
+A1  - Malawski, Maciej
+A1  - Gajek, Adam
+A1  - Zima, Adam
+A1  - Balis, Bartosz
+A1  - Figiela, Kamil
+Y1  - 2017///
+KW  - Cloud functions
+KW  - FaaS
+KW  - Scientific workflows
+KW  - Serverless architectures
+JF  - Future Generation Computer Systems
+SN  - 0167-739X
+DO  - https://doi.org/10.1016/j.future.2017.10.029
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X1730047X
+L1  - file:///Users/luixip/Library/Application Support/Mendeley Desktop/Downloaded/malawski2017.pdf
+N2  - Scientific workflows consisting of a high number of interdependent tasks represent an important class of complex scientific applications. Recently, a new type of serverless infrastructures has emerged, represented by such services as Google Cloud Functions and AWS Lambda, also referred to as the Function-as-a-Service model. In this paper we take a look at such serverless infrastructures, which are designed mainly for processing background tasks of Web and Internet of Things applications, or event-driven stream processing. We evaluate their applicability to more compute- and data-intensive scientific workflows and discuss possible ways to repurpose serverless architectures for execution of scientific workflows. We have developed prototype workflow executor functions using AWS Lambda and Google Cloud Functions, coupled with the HyperFlow workflow engine. These functions can run workflow tasks in AWS and Google infrastructures, and feature such capabilities as data staging to/from S3 or Google Cloud Storage and execution of custom application binaries. We have successfully deployed and executed the Montage astronomy workflow, often used as a benchmark, and we report on initial results of its performance evaluation. Our findings indicate that the simple mode of operation makes this approach easy to use, although there are costs involved in preparing portable application binaries for execution in a remote environment. While our solution is an early prototype, we find the presented approach highly promising. We also discuss possible future steps related to execution of scientific workflows in serverless infrastructures. Finally, we perform a cost analysis and discuss implications with regard to resource management for scientific applications in general.
+ER  - 
+TY  - CONF
+T1  - Jetstream: performance, early experiences, and early results
+A1  - Stewart, Craig A
+A1  - Hancock, David Y
+A1  - Vaughn, Matthew
+A1  - Fischer, Jeremy
+A1  - Cockerill, Tim
+A1  - Liming, Lee
+A1  - Merchant, Nirav
+A1  - Miller, Therese
+A1  - Lowe, John Michael
+A1  - Stanzione, Daniel C
+Y1  - 2016///
+JF  - Proceedings of the XSEDE16 Conference on Diversity, Big Data, and Science at Scale
+SP  - 1
+EP  - 8
+L1  - file:///Users/luixip/Library/Application Support/Mendeley Desktop/Downloaded/2016 - Jetstream – performance, early experien.pdf
+ER  - 
+TY  - CONF
+T1  - Jetstream: A cloud system enabling learning in higher education communities
+A1  - Fischer, Jeremy
+A1  - Hancock, David Y
+A1  - Lowe, John Michael
+A1  - Turner, George
+A1  - Snapp-Childs, Winona
+A1  - Stewart, Craig A
+Y1  - 2017///
+JF  - Proceedings of the 2017 ACM SIGUCCS Annual Conference
+SP  - 67
+EP  - 72
+L1  - file:///Users/luixip/Library/Application Support/Mendeley Desktop/Downloaded/2017 - Jetstream - A Cloud System Enabling Lea.pdf
+ER  - 
+TY  - JOUR
+T1  - Using Apache Airavata and EasyGateway for the creation of complex science gateway front-end
+A1  - Galizia, Antonella
+A1  - Roverelli, Luca
+A1  - Zereik, Gabriele
+A1  - Danovaro, Emanuele
+A1  - Clematis, Andrea
+A1  - D’Agostino, Daniele
+Y1  - 2019///
+KW  - Apache Airavata
+KW  - EasyGateway
+KW  - Science gateways
+KW  - WRF
+JF  - Future Generation Computer Systems
+VL  - 94
+SP  - 910
+EP  - 919
+DO  - https://doi.org/10.1016/j.future.2017.11.033
+UR  - http://www.sciencedirect.com/science/article/pii/S0167739X17310671
+L1  - file:///Users/luixip/Library/Application Support/Mendeley Desktop/Downloaded/2017 - Using Apache Airavata and EasyGateway f.pdf
+N2  - The development of community-specific user interfaces of a science gateway can be a challenging task for non-IT experts. This contribution proposes an original, easy-to-use solution to tackle this issue based on EasyGateway. EasyGateway is a modern, lightweight solution for the development of science gateway able to interplay with most toolkits. In this paper we present how EasyGateway can “dress” Apache Airavata to manage experiment configurations and job submissions. We discuss the proposed approach considering a real case application represented by the Weather Research and Forecasting Model (WRF), a community model exploited by a large number of users in meteorology and climatology domains. The combined use of EasyGateway and Apache Airavata leads to an improved user experience, enhancing the model configuration phase with support in finding inconsistencies immediately, but also exploiting the possibility of accessing a potentially large set of computational resources to perform model execution.
+ER  - 
+TY  - CHAP
+T1  - Building a science gateway for processing and modeling sequencing data via Apache Airavata
+A1  - Wang, Zhong
+A1  - Christie, Marcus A
+A1  - Abeysinghe, Eroma
+A1  - Chu, Tinyi
+A1  - Marru, Suresh
+A1  - Pierce, Marlon
+A1  - Danko, Charles G
+Y1  - 2018///
+JF  - Proceedings of the Practice and Experience on Advanced Research Computing
+SP  - 1
+EP  - 7
+L1  - file:///Users/luixip/Library/Application Support/Mendeley Desktop/Downloaded/2018 - Building a Science Gateway For Processi.pdf
+ER  - 
+TY  - JOUR
+T1  - The global impact of science gateways, virtual research environments and virtual laboratories
+A1  - Barker, Michelle
+A1  - Olabarriaga, Silvia Delgado
+A1  - Wilkins-Diehr, Nancy
+A1  - Gesing, Sandra
+A1  - Katz, Daniel S.
+A1  - Shahand, Shayan
+A1  - Henwood, Scott
+A1  - Glatard, Tristan
+A1  - Jeffery, Keith
+A1  - Corrie, Brian
+A1  - Treloar, Andrew
+A1  - Glaves, Helen
+A1  - Wyborn, Lesley
+A1  - Hong, Neil P.Chue
+A1  - Costa, Alessandro
+Y1  - 2019///
+KW  - Cyberinfrastructure
+KW  - Open science
+KW  - Science gateways
+KW  - Virtual laboratories
+KW  - Virtual research environments
+KW  - e-infrastructure
+JF  - Future Generation Computer Systems
+DO  - 10.1016/j.future.2018.12.026
+L1  - file:///Users/luixip/Library/Application Support/Mendeley Desktop/Downloaded/Barker et al. - 2019 - The global impact of science gateways, virtual research environments and virtual laboratories.pdf
+N2  - Science gateways, virtual laboratories and virtual research environments are all terms used to refer to community-developed digital environments that are designed to meet a set of needs for a research community. Specifically, they refer to integrated access to research community resources including software, data, collaboration tools, workflows, instrumentation and high-performance computing, usually via Web and mobile applications. Science gateways, virtual laboratories and virtual research environments are enabling significant contributions to many research domains, facilitating more efficient, open, reproducible research in bold new ways. This paper explores the global impact achieved by the sum effects of these programs in increasing research impact, demonstrates their value in the broader digital landscape and discusses future opportunities. This is evidenced through examination of national and international programs in this field.
+ER  - 

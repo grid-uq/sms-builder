@@ -28,8 +28,6 @@ public class ReferenciaDTO implements Serializable {
 	private String keywords;
 	private String abstracts;
 	private Fuente fuente;
-	private Nota nota;
-	private List <Nota> notas;
 	private List<Metadato> metadatos;
 	
 
@@ -48,7 +46,6 @@ public class ReferenciaDTO implements Serializable {
 	public ReferenciaDTO(Referencia referencia, Integer etapa) {
 		this.etapa = etapa;
 		this.referencia = referencia;
-		this.nota = new Nota();
 		this.abstracts = referencia.getResumen();
 		evaluarSeleccion();
 	}
@@ -398,20 +395,22 @@ public class ReferenciaDTO implements Serializable {
 		this.fuente = fuente;
 	}
 
+
+
 	/**
-	 * Metodo que permite obtener el valor del atributo nota
-	 * @return El valor del atributo nota
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getNota()
 	 */
-	public Nota getNota() {
-		return nota;
+	public String getNota() {
+		return referencia.getNota();
 	}
 
 	/**
-	 * Metodo que permite asignar un valor al atributo nota
-	 * @param nota Valor a ser asignado al atributo nota
+	 * @param nota
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setNota(java.lang.String)
 	 */
-	public void setNota(Nota nota) {
-		this.nota = nota;
+	public void setNota(String nota) {
+		referencia.setNota(nota);
 	}
 
 	/**
@@ -430,21 +429,9 @@ public class ReferenciaDTO implements Serializable {
 		this.metadatos = metadatos;
 	}
 
-	/**
-	 * Metodo que permite obtener el valor del atributo notas
-	 * @return El valor del atributo notas
-	 */
-	public List <Nota> getNotas() {
-		return notas;
-	}
 
-	/**
-	 * Metodo que permite asignar un valor al atributo notas
-	 * @param notas Valor a ser asignado al atributo notas
-	 */
-	public void setNotas(List <Nota> notas) {
-		this.notas = notas;
-	}
+
+
 
 	/**
 	 * @return
