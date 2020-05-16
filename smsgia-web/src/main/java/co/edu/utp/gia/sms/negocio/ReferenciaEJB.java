@@ -4,13 +4,10 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.Metadato;
-import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Revision;
@@ -24,14 +21,12 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 	@Inject
 	private RevisionEJB revisionEJB;
 	@Inject
-	private NotaEJB notaEJB;
-	@Inject
 	private TopicoEJB topicoEJB;
 	@Inject
 	private EvaluacionCalidadEJB evaluacionCalidadEJB;
 	@Inject
 	private MetadatoEJB metadatoEJB;
-	
+
 	public ReferenciaEJB() {
 		super(Referencia.class);
 	}
@@ -75,9 +70,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 			referencia.setAbstracts(obtenerAbstract(referencia.getId()));
 			referencia.setKeywords(obtenerKeywords(referencia.getId()));
 			referencia.setFuente(obtenerFuente(referencia.getId()));
-			referencia.setNota(notaEJB.obtener(referencia.getId(), filtro));
-			referencia.setNotas(notaEJB.obtenerNotas(referencia.getId()));
-			referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId())); 
+			referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId()));
 		}
 		return referencias;
 	}
@@ -112,7 +105,6 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 		return referencias;
 	}
 
-
 //	public List<ReferenciaDTO> obtenerTodas(int idRevision, int filtro) {
 //		List<ReferenciaDTO> lista = new ArrayList<ReferenciaDTO>();
 //
@@ -138,40 +130,15 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 		return metadatoEJB.obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.ABSTRACT);
 	}
 
-
-
 	public void actualizarFiltro(Integer id, Integer filtro) {
 		Referencia referencia = obtener(id);
-//		System.out.println("Cambiando " + referencia.getFiltro() + " por " + filtro);
 		referencia.setFiltro(filtro);
 	}
-
-//	public void actualizarFiltro(Integer id, Integer filtro, Integer idNota, String descripcionNota, Integer etapa) {
-//		Referencia referencia = obtener(id);
-//		Nota nota = notaEJB.obtener(id, filtro);
-//
-//		if (idNota == null && nota.getId() == null && descripcionNota != null && !descripcionNota.isEmpty()) {
-//			notaEJB.registrar(etapa, descripcionNota, id);
-//		} else if ( nota.getId() != null) {
-//
-//			if (descripcionNota == null || descripcionNota.isEmpty()) {
-//				notaEJB.eliminar(nota.getId());
-//			} else {
-//				notaEJB.actualizar(nota.getId(), descripcionNota);
-//
-//			}
-//		}
-//
-////		System.out.println("Cambiando " + referencia.getFiltro() + " por " + filtro);
-//		referencia.setFiltro(filtro);
-//
-//	}
 
 	public void guardarEvaluacion(EvaluacionCalidad evaluacion) {
 		evaluacionCalidadEJB.actualizar(evaluacion);
 		Referencia referencia = obtener(evaluacion.getReferencia().getId());
-		referencia.setTotalEvaluacionCalidad(
-				calcularTotalEvaluacionCalidad(referencia.getId()).floatValue());
+		referencia.setTotalEvaluacionCalidad(calcularTotalEvaluacionCalidad(referencia.getId()).floatValue());
 	}
 
 	private Double calcularTotalEvaluacionCalidad(Integer id) {
@@ -197,4 +164,27 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 		}
 	}
 
+	public void actualizarCita(Integer id, Integer citas) {
+
+		Referencia referencia = obtener(id);
+		if (referencia != null) {
+			referencia.setCitas(citas);
+		}
+
+	}
+
+	public void actualizarNota(Integer id, String nota) {
+
+		Referencia referencia = obtener(id);
+		if (referencia != null) {
+			referencia.setNota(nota);
+		}
+	}
+
+	public void removerTopico(Integer id, Integer idTopico) {
+		Referencia referencia = obtener(id);
+		Topico topico = entityManager.find(Topico.class, idTopico);
+		referencia.getTopicos().remove(topico);
+
+	}
 }

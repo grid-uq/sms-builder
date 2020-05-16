@@ -36,7 +36,7 @@ public class Referencia implements Entidad<Integer> {
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
 	private static final long serialVersionUID = -4002756759383683632L;
-	
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
@@ -69,17 +69,15 @@ public class Referencia implements Entidad<Integer> {
 	private Integer filtro;
 
 	private Float totalEvaluacionCalidad;
-	
-	
+
 	private Integer relevancia;
-	
+
 	private Integer citas;
-	
+
 	private Float ponderacionCitas;
-	
-	
-	
-	
+
+	private String nota;
+
 	/**
 	 * Variable que representa el atributo metadatos de la clase
 	 */
@@ -113,7 +111,6 @@ public class Referencia implements Entidad<Integer> {
 	 */
 	public void addElement(TipoMetadato identifier, String value) {
 		inicializarElementos();
-		metadatos.add(new Metadato(identifier, value, this));
 		switch (identifier) {
 		case TITLE:
 			setNombre(value);
@@ -128,7 +125,7 @@ public class Referencia implements Entidad<Integer> {
 			setYear(value);
 			break;
 		default:
-//			metadatos.add(new Metadato(identifier, value, this));
+			metadatos.add(new Metadato(identifier, value, this));
 			break;
 		}
 	}
@@ -138,7 +135,7 @@ public class Referencia implements Entidad<Integer> {
 	 */
 	private void inicializarElementos() {
 		if (metadatos == null) {
-			metadatos = new ArrayList<Metadato>();
+			metadatos = new ArrayList<>();
 		}
 	}
 
@@ -341,7 +338,9 @@ public class Referencia implements Entidad<Integer> {
 		this.totalEvaluacionCalidad = totalEvaluacionCalidad;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -352,7 +351,9 @@ public class Referencia implements Entidad<Integer> {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -367,13 +368,15 @@ public class Referencia implements Entidad<Integer> {
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!id.equals(other.id)) {
 			return false;
+		}	
 		return true;
 	}
 
 	/**
 	 * Metodo que permite obtener el valor del atributo relevancia
+	 * 
 	 * @return El valor del atributo relevancia
 	 */
 	public Integer getRelevancia() {
@@ -382,6 +385,7 @@ public class Referencia implements Entidad<Integer> {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo relevancia
+	 * 
 	 * @param relevancia Valor a ser asignado al atributo relevancia
 	 */
 	public void setRelevancia(Integer relevancia) {
@@ -390,6 +394,7 @@ public class Referencia implements Entidad<Integer> {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo citas
+	 * 
 	 * @return El valor del atributo citas
 	 */
 	public Integer getCitas() {
@@ -398,6 +403,7 @@ public class Referencia implements Entidad<Integer> {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo citas
+	 * 
 	 * @param citas Valor a ser asignado al atributo citas
 	 */
 	public void setCitas(Integer citas) {
@@ -406,6 +412,7 @@ public class Referencia implements Entidad<Integer> {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo ponderacionCitas
+	 * 
 	 * @return El valor del atributo ponderacionCitas
 	 */
 	public Float getPonderacionCitas() {
@@ -414,10 +421,29 @@ public class Referencia implements Entidad<Integer> {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo ponderacionCitas
+	 * 
 	 * @param ponderacionCitas Valor a ser asignado al atributo ponderacionCitas
 	 */
 	public void setPonderacionCitas(Float ponderacionCitas) {
 		this.ponderacionCitas = ponderacionCitas;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo nota
+	 * 
+	 * @return El valor del atributo nota
+	 */
+	public String getNota() {
+		return nota;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo nota
+	 * 
+	 * @param nota Valor a ser asignado al atributo nota
+	 */
+	public void setNota(String nota) {
+		this.nota = nota;
 	}
 
 	

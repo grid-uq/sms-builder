@@ -113,22 +113,18 @@ public abstract class GenericBean<Objeto> implements Serializable {
 	}
 	
 	protected FacesContext getFacesContext() {
-//		return FacesContext.getCurrentInstance();
 		return facesContext;
 	}
 	
 	protected void addToSession(String key,Object value) {
-//		getFacesContext().getExternalContext().getSessionMap().put(key, value);
 		getSessionMap().put(key, value);
 	}
 
 	protected Object getFromSession(String key) {
-//		return getFacesContext().getExternalContext().getSessionMap().get(key);
 		return getSessionMap().get(key);
 	}
 	
 	protected Object getAndRemoveFromSession(String key) {
-//		return getFacesContext().getExternalContext().getSessionMap().remove(key);
 		return getSessionMap().remove(key);
 	}
 	

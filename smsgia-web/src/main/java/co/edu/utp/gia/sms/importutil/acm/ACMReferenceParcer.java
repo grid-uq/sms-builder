@@ -96,7 +96,7 @@ public class ACMReferenceParcer extends ReferenceParser {
 	}
 
 	private void addKeywords(Referencia reference, String value) {
-		String autors[] = value.split(", ");
+		String[] autors = value.split(", ");
 		for (String autor : autors) {
 			reference.addElement(TipoMetadato.KEYWORD, autor);
 		}

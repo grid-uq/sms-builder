@@ -7,7 +7,6 @@ import java.util.List;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.Metadato;
-import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
@@ -19,6 +18,7 @@ public class ReferenciaDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = -2840554748252612956L;
 	private Referencia referencia;
+
 	private boolean seleccionada;
 	private int etapa;
 	private List<EvaluacionCalidad> evaluaciones;
@@ -26,10 +26,7 @@ public class ReferenciaDTO implements Serializable {
 	private String keywords;
 	private String abstracts;
 	private Fuente fuente;
-	private Nota nota;
-	private List <Nota> notas;
 	private List<Metadato> metadatos;
-	
 
 	public ReferenciaDTO(Referencia referencia) {
 		this(referencia, 0);
@@ -46,15 +43,11 @@ public class ReferenciaDTO implements Serializable {
 	public ReferenciaDTO(Referencia referencia, Integer etapa) {
 		this.etapa = etapa;
 		this.referencia = referencia;
-		this.nota = new Nota();
 		this.abstracts = referencia.getResumen();
 		evaluarSeleccion();
 	}
 
 	private void evaluarSeleccion() {
-//		System.out.println("Seleccionada =  " + referencia.getFiltro().intValue() + " | " + etapa + " = "
-//				+ (referencia.getFiltro().intValue() | etapa) + " > " + etapa + " = "
-//				+ ( (referencia.getFiltro().intValue() | etapa) > etapa ) );
 		seleccionada = (referencia.getFiltro().intValue() | etapa) > etapa;
 	}
 
@@ -138,7 +131,6 @@ public class ReferenciaDTO implements Serializable {
 	public void setResumen(String resumen) {
 		referencia.setResumen(resumen);
 	}
-
 
 	/**
 	 * @return
@@ -229,13 +221,10 @@ public class ReferenciaDTO implements Serializable {
 	public void setSeleccionada(boolean seleccionada) {
 		if (this.seleccionada != seleccionada) {
 			int base = (etapa << 1) | 1;
-//			System.out.println("Base : " + base);
 			if (seleccionada) {
-//				System.out.println("filtro = " + getFiltro() + " | " + base + " = " + (getFiltro() | base));
 				setFiltro(getFiltro() | base);
 
 			} else {
-//				System.out.println("filtro = " + getFiltro() + " ^ " + base + " = " + (getFiltro() ^ base));
 				setFiltro(getFiltro() & etapa);
 
 			}
@@ -286,13 +275,14 @@ public class ReferenciaDTO implements Serializable {
 	 */
 	public void addEvaluacion(EvaluacionCalidad evaluacion) {
 		if (evaluaciones == null) {
-			evaluaciones = new ArrayList<EvaluacionCalidad>();
+			evaluaciones = new ArrayList<>();
 		}
 		evaluaciones.add(evaluacion);
 	}
 
 	/**
 	 * Metodo que permite obtener el valor del atributo autores
+	 * 
 	 * @return El valor del atributo autores
 	 */
 	public String getAutores() {
@@ -301,6 +291,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo autores
+	 * 
 	 * @param autores Valor a ser asignado al atributo autores
 	 */
 	public void setAutores(String autores) {
@@ -309,6 +300,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo etapa
+	 * 
 	 * @return El valor del atributo etapa
 	 */
 	public int getEtapa() {
@@ -317,6 +309,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo etapa
+	 * 
 	 * @param etapa Valor a ser asignado al atributo etapa
 	 */
 	public void setEtapa(int etapa) {
@@ -325,6 +318,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo keywords
+	 * 
 	 * @return El valor del atributo keywords
 	 */
 	public String getKeywords() {
@@ -333,6 +327,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo keywords
+	 * 
 	 * @param keywords Valor a ser asignado al atributo keywords
 	 */
 	public void setKeywords(String keywords) {
@@ -341,6 +336,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo abstracts
+	 * 
 	 * @return El valor del atributo abstracts
 	 */
 	public String getAbstracts() {
@@ -349,6 +345,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo abstracts
+	 * 
 	 * @param abstracts Valor a ser asignado al atributo abstracts
 	 */
 	public void setAbstracts(String abstracts) {
@@ -371,9 +368,9 @@ public class ReferenciaDTO implements Serializable {
 		referencia.setTotalEvaluacionCalidad(totalEvaluacionCalidad);
 	}
 
-	public EvaluacionCalidad getEvaluacionCalidad(AtributoCalidad atributo ) {
+	public EvaluacionCalidad getEvaluacionCalidad(AtributoCalidad atributo) {
 		for (EvaluacionCalidad evaluacionCalidad : evaluaciones) {
-			if( evaluacionCalidad.getAtributoCalidad().equals(atributo) ) {
+			if (evaluacionCalidad.getAtributoCalidad().equals(atributo)) {
 				return evaluacionCalidad;
 			}
 		}
@@ -382,6 +379,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo fuente
+	 * 
 	 * @return El valor del atributo fuente
 	 */
 	public Fuente getFuente() {
@@ -390,6 +388,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo fuente
+	 * 
 	 * @param fuente Valor a ser asignado al atributo fuente
 	 */
 	public void setFuente(Fuente fuente) {
@@ -397,23 +396,24 @@ public class ReferenciaDTO implements Serializable {
 	}
 
 	/**
-	 * Metodo que permite obtener el valor del atributo nota
-	 * @return El valor del atributo nota
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getNota()
 	 */
-	public Nota getNota() {
-		return nota;
+	public String getNota() {
+		return referencia.getNota();
 	}
 
 	/**
-	 * Metodo que permite asignar un valor al atributo nota
-	 * @param nota Valor a ser asignado al atributo nota
+	 * @param nota
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setNota(java.lang.String)
 	 */
-	public void setNota(Nota nota) {
-		this.nota = nota;
+	public void setNota(String nota) {
+		referencia.setNota(nota);
 	}
 
 	/**
 	 * Metodo que permite obtener el valor del atributo metadatos
+	 * 
 	 * @return El valor del atributo metadatos
 	 */
 	public List<Metadato> getMetadatos() {
@@ -422,26 +422,11 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo metadatos
+	 * 
 	 * @param metadatos Valor a ser asignado al atributo metadatos
 	 */
 	public void setMetadatos(List<Metadato> metadatos) {
 		this.metadatos = metadatos;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo notas
-	 * @return El valor del atributo notas
-	 */
-	public List <Nota> getNotas() {
-		return notas;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo notas
-	 * @param notas Valor a ser asignado al atributo notas
-	 */
-	public void setNotas(List <Nota> notas) {
-		this.notas = notas;
 	}
 
 	/**
@@ -459,6 +444,22 @@ public class ReferenciaDTO implements Serializable {
 	public void setRelevancia(Integer relevancia) {
 		referencia.setRelevancia(relevancia);
 	}
-	
-	
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getCitas()
+	 */
+
+	public Integer getCitas() {
+		return referencia.getCitas();
+	}
+
+	/**
+	 * @param citas
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setCitas(java.lang.Integer)
+	 */
+	public void setCitas(Integer citas) {
+		referencia.setCitas(citas);
+	}
+
 }

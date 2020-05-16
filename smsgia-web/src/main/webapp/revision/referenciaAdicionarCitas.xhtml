@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h:form id="tabla" enctype="multipart/form-data" prependId="false">
+			<p:growl id="mensajes" showDetail="true" />
+
+
+			<p:dataTable id="revisionRadio"
+				value="#{referenciaAdicionarCitasBean.referencias}" var="referencia"
+				paginator="true" rows="50" rowsPerPageTemplate="10,20,50,100,500"
+				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}">
+
+				<p:column headerText="#{msg.etiquetaNombre}"
+					sortBy="#{referencia.nombre}" filterBy="#{referencia.nombre}"
+					filterMatchMode="contains" style="width:76%">
+					<h:outputText value="#{referencia.nombre}" />
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaCitas}" sortBy="#{referencia.citas}" filterBy="referencia.citas" filterMatchMode="contains">
+					<p:inputNumber value="#{referencia.citas}" size="4">
+						<p:ajax event="blur"
+							listener="#{referenciaAdicionarCitasBean.guardarCita(referencia)}" />
+					</p:inputNumber>
+
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaRelevancia}" sortBy="#{referencia.relevancia}" filterBy="referencia.relevancia" filterMatchMode="contains">
+
+					<p:rating value="#{referencia.relevancia}" >
+						<p:ajax event="rate"
+							listener="#{referenciaAdicionarCitasBean.guardarRelevancia(referencia)}" />
+						<p:ajax event="cancel"
+							listener="#{referenciaAdicionarCitasBean.guardarRelevancia(referencia)}" />
+					</p:rating>
+
+
+				</p:column>
+
+
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
+
+
+
+
+
+

@@ -6,7 +6,6 @@ import java.util.List;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Metadato;
-import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 
 public class ReferenceToRIS {
@@ -84,9 +83,7 @@ public class ReferenceToRIS {
 	}
 
 	private void cargarNotas(StringBuilder sb, ReferenciaDTO referencia) {
-		for (Nota nota : referencia.getNotas()) {
-			sb.append(nota.getDescripcion());
-		}
+			sb.append(referencia.getNota());
 	}
 
 	private void escribirFlujo(String clave, String valor) {

@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import co.edu.utp.gia.sms.entidades.Termino;
-import co.edu.utp.gia.sms.negocio.NotaEJB;
 import co.edu.utp.gia.sms.negocio.TerminoEJB;
 
 @Named
@@ -29,8 +28,6 @@ public class RegistroNotaBean extends GenericBean<Termino> {
 	@Inject
 	private TerminoEJB terminoEJB;
 	
-	@Inject 
-	private NotaEJB notaEJB;
 
 	public void inicializar() {
 		if (revision != null) {

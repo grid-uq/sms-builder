@@ -19,7 +19,7 @@ public class ACMFileMultipleRegisterParse
 
 	@Override
 	public List<Referencia> parse(InputStream input) {
-		List<Referencia> references = new ArrayList<Referencia>();
+		List<Referencia> references = new ArrayList<>();
 
 		try (Scanner lector = new Scanner(input)) {
 

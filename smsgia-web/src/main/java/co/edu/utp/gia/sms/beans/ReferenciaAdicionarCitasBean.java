@@ -13,7 +13,7 @@ import co.edu.utp.gia.sms.negocio.RevisionEJB;
 
 @Named
 @ViewScoped
-public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO>{
+public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO>{
 
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
@@ -35,53 +35,26 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO>{
 	}
 
 	public void incluirExcluirTopico(ReferenciaDTO referencia, Topico topico) {
-		//TODO Pendiente por definir si es mejor que al momento de incluir/excluir de una vez se afecte la BD
 		if (referencia.getTopicos().contains(topico)) {
 			referencia.getTopicos().remove(topico);
-			referenciaEJB.removerTopico(referencia.getId(),topico.getId() );
-			String t = "\n" + "Tópico: " + topico.getDescripcion();
-			String nota = referencia.getNota().replace(t, "");
-			referenciaEJB.actualizarNota(referencia.getId(), nota);
-			referencia.setNota(nota);
 		} else {
 			referencia.getTopicos().add(topico);
-			referenciaEJB.adicionarTopico(referencia.getId(),topico.getId() );
-			String nota = referencia.getNota() + "\n" + "Tópico: " + topico.getDescripcion();
-			referenciaEJB.actualizarNota(referencia.getId(), nota);
-			referencia.setNota(nota);
-			
 		}
-		
 	}
 
-//	public void incluirExcluirTopico(Integer referenciaId, Integer topicoId) {
-//		ReferenciaDTO referencia = obtenerReferencia(referenciaId);
-//		Topico topico = obtenerTopico(topicoId);
-//		if (referencia.getTopicos().contains(topico)) {
-//			referencia.getTopicos().remove(topico);
-//		} else {
-//			referencia.getTopicos().add(topico);
-//			
-//		}
-//	}
 	
-//	private Topico obtenerTopico(int topicoId) {
-//		for (Topico topico : topicos) {
-//			if (topico.getId().intValue() == topicoId) {
-//				return topico;
-//			}
-//		}
-//		return null;
-//	}
-//
-//	private ReferenciaDTO obtenerReferencia(int referenciaId) {
-//		for (ReferenciaDTO referencia : referencias) {
-//			if (referencia.getId().intValue() == referenciaId) {
-//				return referencia;
-//			}
-//		}
-//		return null;
-//	}
+	public void guardarCita(ReferenciaDTO referencia) {
+		
+		referenciaEJB.actualizarCita(referencia.getId(), referencia.getCitas());
+	}
+	
+	
+	public void guardarRelevancia(ReferenciaDTO referencia) {
+		
+		referenciaEJB.actualizarRelevancia(referencia.getId(), referencia.getRelevancia());
+
+	}
+	
 
 	public void guardar() {
 		for (ReferenciaDTO referencia : referencias) {
@@ -129,16 +102,4 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO>{
 		this.topicos = topicos;
 	}
 
-	public void actualizarNota(ReferenciaDTO referencia) {
-		referenciaEJB.actualizarNota(referencia.getId(),referencia.getNota());
-		
-//		notaEJB.actualizar(referencia.getId(), referencia.getNota().getId(), referencia.getNota().getDescripcion(), referencia.getNota().getEtapa());
-	}
-	
-	public void actualizarRelevancia(ReferenciaDTO referencia) {
-		
-		referenciaEJB.actualizarRelevancia(referencia.getId(), referencia.getRelevancia());
-	}
-
-	
 }

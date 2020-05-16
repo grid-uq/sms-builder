@@ -9,6 +9,9 @@ import co.edu.utp.gia.sms.importutil.springer.SpringerFileMultipleRegisterParse;
 import co.edu.utp.gia.sms.importutil.wos.WOSFileMultipleRegisterParse;
 
 public class FileMultipleRegisterParseFactory {
+	private FileMultipleRegisterParseFactory() {
+	}
+	
 	public static final FileMultipleRegisterParse getInstance(Fuente fuente) {
 		switch (fuente) {
 		case ACM:
