@@ -62,7 +62,16 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 		mostrarMensajeGeneral("Se guardaron los registro");
 	}
 
-    public void onEvaluacionRealizada(SelectEvent<ReferenciaDTO> event) {
+	public void evaluacionAutomatica() {
+		for (ReferenciaDTO referencia : referencias) {
+			
+			referenciaEJB.evaluacionAutomatica(referencia.getId());
+		}
+		mostrarMensajeGeneral("Se guardaron los registro");
+	}
+
+	
+	public void onEvaluacionRealizada(SelectEvent<ReferenciaDTO> event) {
         ReferenciaDTO referencia = event.getObject();
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Referencia Evaluada", "Id:" + referencia.getId());
 		FacesContext.getCurrentInstance().addMessage(null, message);

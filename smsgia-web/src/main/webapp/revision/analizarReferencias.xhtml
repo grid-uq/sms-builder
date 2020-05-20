@@ -18,7 +18,8 @@
 				paginator="true" rows="1" rowsPerPageTemplate="1,5,10,20,100,200"
 				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}">
 
-				<p:column headerText="#{msg.etiquetaNombre}" style="width:75%">
+				<p:column headerText="#{msg.etiquetaNombre}" style="width:75%" sortBy="#{referencia.nombre}" filterBy="#{referencia.nombre}"
+					filterMatchMode="contains">
 					<h:outputText value="#{referencia.nombre}"
 						style="font-weight:bold; color:blue" />
 					<hr />

@@ -15,7 +15,10 @@ import javax.persistence.NamedQuery;
 //	@NamedQuery(name = Queries.PREGUNTA_GET_ALL, query = "select p from Pregunta p where p.revision.id = :id"),
 	
 //	@NamedQuery(name = Queries.PREGUNTA_GET_ALL, query = "select distinct p from Pregunta p, IN(p.objetivos) o where o.revision.id = :id order by p.codigo"),
+	
 	@NamedQuery(name = Queries.PREGUNTA_GET_ALL, query = "select distinct new co.edu.utp.gia.sms.dtos.PreguntaDTO(p.id, p.codigo, p.descripcion) from Pregunta p, IN(p.objetivos) o where o.revision.id = :id order by p.codigo"),
+
+	@NamedQuery(name = Queries.PREGUNTA_GET_CANTIDAD, query = "select count(1)  from Pregunta p, IN(p.objetivos) o where o.revision.id = :id order by p.codigo"),
 	
 	@NamedQuery(name = Queries.PREGUNTA_OBJETIVO_GET_ALL, query = "select o from Pregunta p, IN(p.objetivos) o where p.id = :id"),
 	
@@ -25,22 +28,27 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = Queries.TERMINO_GET_ALL, query = "select t from Termino t where t.revision.id = :id"),
 	@NamedQuery(name = Queries.NOTA_GET_ALL, query = "select n from Nota n where n.referencia.id = :id"),
 	
-	@NamedQuery(name = Queries.REFERENCIA_NOTA_ETAPA_GET_ALL, query = "select n from Nota n where n.referencia.id = :id and n.etapa = :filtro"),
 	
 	@NamedQuery(name = Queries.OBJETIVO_GET_ALL, query = "select o from Objetivo o where o.revision.id = :id"),
 	
 	@NamedQuery(name = Queries.REVISION_GET_ALL, query = "select p from Revision p"),
-	@NamedQuery(name = Queries.REFERENCIA_GET_ALL, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ,  (:filtro + 0 )  ) from Referencia r where r.revision.id = :idRevision and MOD( r.filtro, (:filtro + 1 ) ) = :filtro ORDER BY r.nombre"),
+	
 	@NamedQuery(name = Queries.ESTADISTICA_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, COUNT(1) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year"),
 	@NamedQuery(name = Queries.ESTADISTICA_TIPO, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.tipo, COUNT(1) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.tipo ORDER BY r.tipo"),
 	@NamedQuery(name = Queries.ESTADISTICA_CALIDAD_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, AVG(r.totalEvaluacionCalidad) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year"),
 	@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_TOPICO, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( t.descripcion, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.id ORDER BY t.descripcion"),
+	
 	@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_PREGUNTA, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( t.pregunta.codigo, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.pregunta.id ORDER BY t.pregunta.codigo"),
+
 	
 	@NamedQuery(name = Queries.METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id and m.identifier = :tipo "),
 
+	@NamedQuery(name = Queries.REFERENCIA_GET_ALL, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ,  (:filtro + 0 )  ) from Referencia r where r.revision.id = :idRevision and MOD( r.filtro, (:filtro + 1 ) ) = :filtro ORDER BY r.nombre"),
 	@NamedQuery(name = Queries.REFERENCIA_METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id"),
-
+	@NamedQuery(name = Queries.REFERENCIA_CANTIDAD_RELACION_PREGUNTAS, query = "select count(distinct t.pregunta.id) from Referencia r LEFT JOIN r.topicos t  where r.id = :id"),
+	@NamedQuery(name = Queries.REFERENCIA_NOTA_ETAPA_GET_ALL, query = "select n from Nota n where n.referencia.id = :id and n.etapa = :filtro"),
+	
+	
 	@NamedQuery(name = Queries.EVALUACION_CALIDAD_GET_ALL, query = "select e from EvaluacionCalidad e where e.referencia.id = :id"),
 	@NamedQuery(name = Queries.EVALUACION_TOTAL_CALIDAD, query = "select SUM(e.evaluacionCuantitativa) from EvaluacionCalidad e where e.referencia.id = :id"),
 
@@ -62,6 +70,17 @@ public class Queries implements Serializable{
 	 * 
 	 */
 	public static final String PREGUNTA_GET_ALL = "Pregunta.getAll";
+	
+	// TODO	Actualizar la documentación de estas constantes
+	/**
+	 * Consulta que permite obtener las preguntas registradas en el sistema para una
+	 * revision <br />
+	 * <code>select p from Pregunta p where p.revision.id = :id </code>
+	 * 
+	 */
+	public static final String PREGUNTA_GET_CANTIDAD = "Pregunta.getCantidad";
+	
+	
 	
 	/**
 	 * Consulta que permite obtener los topicos registradas en el sistema para una
@@ -191,6 +210,8 @@ public class Queries implements Serializable{
 	public static final String REFERENCIA_NOTA_ETAPA_GET_ALL = "Referencia.getNotasEpata.getAll";
 
 	public static final String REFERENCIA_METADATO_GET_ALL = "Referencia.getMetadatos.getAll";
+	
+	public static final String REFERENCIA_CANTIDAD_RELACION_PREGUNTAS = "Referencia.getCantidadRelacionPreguntas";
 
 	
 	

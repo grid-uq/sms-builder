@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.negocio;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -8,7 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
+import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
+import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.Pregunta;
@@ -19,6 +22,12 @@ import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.query.Queries;
 
+// TODO Pendiente la indicación de las revistas con mayor frecuencia dentro del SMS.
+//      importante para la toma de decisión sobre el destino de publicación.
+
+
+
+
 @Stateless
 public class ReferenciaEJB {
 	@PersistenceContext
@@ -28,10 +37,15 @@ public class ReferenciaEJB {
 
 	@Inject
 	private NotaEJB notaEJB;
-	
+
 	@Inject
 	private MetadatoEJB metadatoEJB;
 
+	@Inject
+	private AtributoCalidadEJB atributoCalidadEJB;
+
+	@Inject
+	private PreguntaEJB preguntaEJB;
 
 	public Referencia registrar(Referencia referencia, Integer idRevision) {
 		Revision revision = revisionEJB.obtener(idRevision);
@@ -83,7 +97,7 @@ public class ReferenciaEJB {
 			referencia.setAbstracts(obtenerAbstract(referencia.getId()));
 			referencia.setKeywords(obtenerKeywords(referencia.getId()));
 			referencia.setFuente(obtenerFuente(referencia.getId()));
-			referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId())); 
+			referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId()));
 		}
 		return referencias;
 	}
@@ -225,16 +239,16 @@ public class ReferenciaEJB {
 	}
 
 	public void actualizarCita(Integer id, Integer citas) {
-		
+
 		Referencia referencia = obtener(id);
 		if (referencia != null) {
 			referencia.setCitas(citas);
 		}
-		
+
 	}
 
 	public void actualizarNota(Integer id, String nota) {
-		
+
 		Referencia referencia = obtener(id);
 		if (referencia != null) {
 			referencia.setNota(nota);
@@ -245,7 +259,89 @@ public class ReferenciaEJB {
 		Referencia referencia = obtener(id);
 		Topico topico = entityManager.find(Topico.class, idTopico);
 		referencia.getTopicos().remove(topico);
+
+	}
+
+	public void evaluacionAutomatica(Integer id) {
+		Referencia referencia = obtener(id);
+		evaluarSegunPreguntas(referencia);
+		evaluarSegunCitas(referencia);
+
+	}
+
+	private void evaluarSegunCitas(Referencia referencia) {
+		// TODO: Se debe agregar un parámetro de configuración que determine el número
+		// de citas
+		// promedio para la evaluación de calidad.
+		// 2 = Citas de los estudios
+
+		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(2);
+		EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
+
 		
+
+		float media = referencia.getCitas()
+				/ (1 + Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(referencia.getYear()));
+
+		if (media >= 3) {
+			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
+		} else if (media > 1) {
+			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
+
+		} else {
+			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
+		}
+
+		guardarEvaluacion(evaluacionCalidad);
+
+	}
+
+	private EvaluacionCalidad determinarEvaluacionCalidad(Referencia referencia, AtributoCalidad atributoCalidad) {
+		EvaluacionCalidad evaluacionCalidad = null;
+
+		for (EvaluacionCalidad evaluacion : referencia.getEvaluacionCalidad()) {
+			if (evaluacion.getAtributoCalidad().equals(atributoCalidad)) {
+				evaluacionCalidad = evaluacion;
+			}
+		}
+
+		if (evaluacionCalidad == null) {
+
+			evaluacionCalidad = new EvaluacionCalidad(referencia, atributoCalidad);
+		}
+
+		return evaluacionCalidad;
+	}
+
+	private void evaluarSegunPreguntas(Referencia referencia) {
+		// TODO: Se debe agregar un parámetro de configuración que determine la relación
+		// con las
+		// preguntas de investigación.
+		// 1 = Correspondencia con preguntas de investigación
+		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(1);
+		EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
+
+		int totalPreguntas = (int) preguntaEJB.totalPreguntas(referencia.getRevision().getId());
+		int totalPreguntasRelacionadas = (int) calcularTotalPreguntasRelacionadas(referencia.getId());
+		float porcentaje = totalPreguntasRelacionadas * 100 / totalPreguntas;
+
+		if (porcentaje >= 80) {
+			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
+		} else if (porcentaje >= 50) {
+			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
+
+		} else {
+			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
+		}
+
+		guardarEvaluacion(evaluacionCalidad);
+
+	}
+
+	private long calcularTotalPreguntasRelacionadas(Integer id) {
+		return entityManager.createNamedQuery(Queries.REFERENCIA_CANTIDAD_RELACION_PREGUNTAS, Long.class)
+				.setParameter("id", id).getSingleResult();
+
 	}
 
 }

@@ -12,7 +12,8 @@
 		<h:form id="tabla" enctype="multipart/form-data" prependId="false">
 			<p:growl id="mensajes" showDetail="true" />
 
-
+			<p:commandButton action="#{evaluarReferenciasBean.evaluacionAutomatica}" value="#{msg.botonActualizacionAutomatica}" update=":tabla"/>
+			
 			<p:dataTable  value="#{evaluarReferenciasBean.referencias}"
 				var="referencia" paginator="true" rows="10"
 				rowsPerPageTemplate="10,20"

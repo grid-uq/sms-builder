@@ -35,6 +35,10 @@ public class FileMultipleRegisterParseFactory {
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.SPRINGER);
 		case WOS_MENDELEY:
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.WOS);
+		case MANUAL:
+			return new MendeleyRisFileMultipleRegisterParse(Fuente.MANUAL);
+		case SNOWBALL:
+			return new MendeleyRisFileMultipleRegisterParse(Fuente.SNOWBALL);
 		default:
 			return null;
 		}

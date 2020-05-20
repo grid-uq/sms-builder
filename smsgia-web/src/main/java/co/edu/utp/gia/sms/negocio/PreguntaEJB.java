@@ -176,4 +176,8 @@ public class PreguntaEJB {
 		}
 	}
 
+	public long totalPreguntas(Integer id) {
+		return entityManager.createNamedQuery(Queries.PREGUNTA_GET_CANTIDAD, Long.class).setParameter("id", id).getSingleResult();
+	}
+
 }
