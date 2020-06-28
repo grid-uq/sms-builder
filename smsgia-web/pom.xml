@@ -53,7 +53,11 @@
 	<dependencies>
 		<!-- persistence <dependency> <groupId>org.eclipse.persistence</groupId> 
 			<artifactId>javax.persistence</artifactId> <version>2.2.1</version> </dependency> -->
-
+<dependency>
+  <groupId>com.google.http-client</groupId>
+  <artifactId>google-http-client</artifactId>
+  <version>1.35.0</version>
+</dependency>
 		<!-- web -->
 		<dependency>
 			<groupId>javax</groupId>
