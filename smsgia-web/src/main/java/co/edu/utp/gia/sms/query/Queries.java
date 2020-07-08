@@ -47,12 +47,13 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = Queries.REFERENCIA_METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id"),
 	@NamedQuery(name = Queries.REFERENCIA_CANTIDAD_RELACION_PREGUNTAS, query = "select count(distinct t.pregunta.id) from Referencia r LEFT JOIN r.topicos t  where r.id = :id"),
 	@NamedQuery(name = Queries.REFERENCIA_NOTA_ETAPA_GET_ALL, query = "select n from Nota n where n.referencia.id = :id and n.etapa = :filtro"),
-	
+	@NamedQuery(name = Queries.REFERENCIA_CITAS, query = "select r.citas from Referencia r where r.revision.id = :idRevision and r.filtro >= 3"),
 	
 	@NamedQuery(name = Queries.EVALUACION_CALIDAD_GET_ALL, query = "select e from EvaluacionCalidad e where e.referencia.id = :id"),
 	@NamedQuery(name = Queries.EVALUACION_TOTAL_CALIDAD, query = "select SUM(e.evaluacionCuantitativa) from EvaluacionCalidad e where e.referencia.id = :id"),
 
-	@NamedQuery(name = Queries.ATRIBUTO_CALIDAD_GET_ALL, query = "select a from AtributoCalidad a where a.revision.id = :id")
+	@NamedQuery(name = Queries.ATRIBUTO_CALIDAD_GET_ALL, query = "select a from AtributoCalidad a where a.revision.id = :id"),
+	@NamedQuery(name = Queries.ATRIBUTO_CALIDAD_GET_BY_DESCRIPTION_AND_REVISION, query = "select a from AtributoCalidad a where a.revision.id = :idRevision and a.descripcion = :descripcion")
 
 })
 
@@ -130,7 +131,16 @@ public class Queries implements Serializable{
 	 * 
 	 */
 	public static final String REFERENCIA_GET_ALL = "Referencia.getAll";
-	
+
+	/**
+	 * Consulta que permite obtener las preguntas registradas en el sistema para una
+	 * revision <br />
+	 * @param idRevision
+	 * <code>select r.citas from Referencia r where r.revision.id = :idRevision and r.filtro >= 3 </code>
+	 * 
+	 */
+	public static final String REFERENCIA_CITAS = "Referencia.getCitas";
+
 	/**
 	 * Consulta que permite obtener las referecias por año <br />
 	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, COUNT(1) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year </code>
@@ -202,6 +212,15 @@ public class Queries implements Serializable{
 	 */
 	public static final String ATRIBUTO_CALIDAD_GET_ALL = "AtributoCalidad.getAll";
 
+	/**
+	 * Consulta que permite obtener un atributo de calidad revision basado en la descripcion
+	 *  <br />
+	 *  @param descripcion
+	 *  @param idRevision
+	 * <code>select a from AtributoCalidad a where a.revision.id = :idRevision and a.descripcion = :descripcion </code>
+	 * 
+	 */
+	public static final String ATRIBUTO_CALIDAD_GET_BY_DESCRIPTION_AND_REVISION = "Revision.getAtributoCalidadByDescripcion";
 
 	public static final String PREGUNTA_OBJETIVO_GET_ALL = "Pregunta.getObjetivos";
 

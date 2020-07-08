@@ -1,22 +1,21 @@
 package co.edu.utp.gia.sms.entidades;
 
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import static javax.persistence.CascadeType.PERSIST;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-import static javax.persistence.FetchType.EAGER;
 
 /**
  * Elemento que representa de forma general una referencia a ser procesada
@@ -82,6 +81,8 @@ public class Referencia implements Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
 
+	@Column(length = 50)
+	private String smsid;
 	/**
 	 * Variable que representa el atributo nombre de la clase
 	 */
@@ -120,7 +121,9 @@ public class Referencia implements Serializable {
 	
 	private String nota;
 	
+	private Integer sci;
 	
+	private Integer srrqi;
 	
 	
 	/**
@@ -481,5 +484,54 @@ public class Referencia implements Serializable {
 		this.nota = nota;
 	}
 
+	/**
+	 * Metodo que permite obtener el valor del atributo smsid
+	 * @return El valor del atributo smsid
+	 */
+	public String getSmsid() {
+		return smsid;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo smsid
+	 * @param smsid Valor a ser asignado al atributo smsid
+	 */
+	public void setSmsid(String smsid) {
+		this.smsid = smsid;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo sci
+	 * @return El valor del atributo sci
+	 */
+	public Integer getSci() {
+		return sci;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo sci
+	 * @param sci Valor a ser asignado al atributo sci
+	 */
+	public void setSci(Integer sci) {
+		this.sci = sci;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo srrqi
+	 * @return El valor del atributo srrqi
+	 */
+	public Integer getSrrqi() {
+		return srrqi;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo srrqi
+	 * @param srrqi Valor a ser asignado al atributo srrqi
+	 */
+	public void setSrrqi(Integer srrqi) {
+		this.srrqi = srrqi;
+	}
+
+	
 	
 }

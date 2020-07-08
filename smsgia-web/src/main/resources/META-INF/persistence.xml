@@ -3,7 +3,7 @@
 	<persistence-unit name="smsgia-web">
 		<!-- <jta-data-source>java:app/smsgia-web/smsDS</jta-data-source> -->
 		<!-- <jta-data-source>jboss/datasources/msm-ds</jta-data-source>  -->
-		<jta-data-source>jdbc/mysql</jta-data-source>
+		<jta-data-source>java:app/smsgia-web/mysql</jta-data-source>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="create-tables"/>

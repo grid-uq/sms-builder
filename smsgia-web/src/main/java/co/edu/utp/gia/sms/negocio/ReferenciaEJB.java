@@ -8,12 +8,13 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.math3.stat.descriptive.rank.Percentile;
+
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.entidades.Metadato;
-import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Revision;
@@ -266,7 +267,22 @@ public class ReferenciaEJB {
 		Referencia referencia = obtener(id);
 		evaluarSegunPreguntas(referencia);
 		evaluarSegunCitas(referencia);
+		evaluarSegunCVI(referencia);
+	}
 
+	private void evaluarSegunCVI(Referencia referencia) {
+		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.CVI, referencia.getRevision().getId());
+		EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
+
+		if (referencia.getRelevancia() == 5) {
+			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
+		} else if (referencia.getRelevancia() >= 3) {
+			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
+		} else {
+			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
+		}
+
+		guardarEvaluacion(evaluacionCalidad);
 	}
 
 	private void evaluarSegunCitas(Referencia referencia) {
@@ -275,19 +291,28 @@ public class ReferenciaEJB {
 		// promedio para la evaluación de calidad.
 		// 2 = Citas de los estudios
 
-		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(2);
+		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.SCI, referencia.getRevision().getId());
 		EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
 		
 
 		float media = referencia.getCitas()
-				/ (1 + Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(referencia.getYear()));
+				/(float) (1 + Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(referencia.getYear()));
 
-		if (media >= 3) {
+		List<Integer> citas = obtenerCitas(referencia.getRevision().getId());
+		
+		Percentile p = new Percentile();
+		double datos[] = new double[citas.size()];
+		for (int i = 0; i < datos.length; i++) {
+			datos[i] = citas.get(i);
+		}
+		
+		double q1 = p.evaluate(datos, 80);
+		double q2 = p.evaluate(datos, 60);
+		if (media >= q1) {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
-		} else if (media > 1) {
+		} else if (media > q2) {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
-
 		} else {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
 		}
@@ -295,6 +320,7 @@ public class ReferenciaEJB {
 		guardarEvaluacion(evaluacionCalidad);
 
 	}
+
 
 	private EvaluacionCalidad determinarEvaluacionCalidad(Referencia referencia, AtributoCalidad atributoCalidad) {
 		EvaluacionCalidad evaluacionCalidad = null;
@@ -314,16 +340,12 @@ public class ReferenciaEJB {
 	}
 
 	private void evaluarSegunPreguntas(Referencia referencia) {
-		// TODO: Se debe agregar un parámetro de configuración que determine la relación
-		// con las
-		// preguntas de investigación.
-		// 1 = Correspondencia con preguntas de investigación
-		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(1);
+		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.RRQI,referencia.getRevision().getId());
 		EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
 		int totalPreguntas = (int) preguntaEJB.totalPreguntas(referencia.getRevision().getId());
 		int totalPreguntasRelacionadas = (int) calcularTotalPreguntasRelacionadas(referencia.getId());
-		float porcentaje = totalPreguntasRelacionadas * 100 / totalPreguntas;
+		float porcentaje = totalPreguntasRelacionadas * 100.0f / totalPreguntas;
 
 		if (porcentaje >= 80) {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
@@ -342,6 +364,11 @@ public class ReferenciaEJB {
 		return entityManager.createNamedQuery(Queries.REFERENCIA_CANTIDAD_RELACION_PREGUNTAS, Long.class)
 				.setParameter("id", id).getSingleResult();
 
+	}
+	
+	private List<Integer> obtenerCitas(Integer idRevision) {
+		return entityManager.createNamedQuery(Queries.REFERENCIA_CITAS, Integer.class)
+				.setParameter("idRevision", idRevision).getResultList();
 	}
 
 }

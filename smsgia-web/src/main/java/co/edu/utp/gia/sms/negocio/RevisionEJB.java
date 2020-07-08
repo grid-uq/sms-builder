@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.negocio;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,7 +17,8 @@ import co.edu.utp.gia.sms.query.Queries;
 public class RevisionEJB {
 	@PersistenceContext
 	private EntityManager entityManager;
-
+	@Inject
+	private AtributoCalidadEJB atributoCalidadEJB;
 	/**
 	 * Permite registrar una revision
 	 * 
@@ -37,6 +39,7 @@ public class RevisionEJB {
 	public Revision registrar(String nombre, String descripcion) {
 	Revision revision = new Revision(nombre, descripcion);
 	entityManager.persist(revision);
+	atributoCalidadEJB.crearAtributosCalidadPorDefecto(revision);
 //	objetivos.stream().forEach((objetivo) -> {
 //		addObjetivo(revision, objetivo);
 //	});

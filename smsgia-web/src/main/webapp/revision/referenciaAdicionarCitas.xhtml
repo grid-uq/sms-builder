@@ -29,7 +29,7 @@
 						<p:ajax event="blur"
 							listener="#{referenciaAdicionarCitasBean.guardarCita(referencia)}" />
 					</p:inputNumber>
-
+					<p:commandButton value="#{msg.botonCompletarCitas}" action="#{referenciaAdicionarCitasBean.completarCita(referencia)}" update="tabla" />
 				</p:column>
 
 				<p:column headerText="#{msg.etiquetaRelevancia}" sortBy="#{referencia.relevancia}" filterBy="referencia.relevancia" filterMatchMode="contains">
