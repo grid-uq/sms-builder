@@ -43,11 +43,14 @@ import javax.persistence.NamedQuery;
 	
 	@NamedQuery(name = Queries.METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id and m.identifier = :tipo "),
 
-	@NamedQuery(name = Queries.REFERENCIA_GET_ALL, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ,  (:filtro + 0 )  ) from Referencia r where r.revision.id = :idRevision and MOD( r.filtro, (:filtro + 1 ) ) = :filtro ORDER BY r.nombre"),
+	@NamedQuery(name = Queries.REFERENCIA_GET_ALL, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ,  (:filtro + 0 )  ) from Referencia r where r.revision.id = :idRevision and MOD( r.filtro, (:filtro + 1 ) ) = :filtro ORDER BY r.spsid,r.nombre"),
+	@NamedQuery(name = Queries.REFERENCIA_GET_EVALUACION_ATRIBUTO_CALIDAD, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ,  (:filtro + 0 )  ) from Referencia r inner join r.evaluacionCalidad e where r.revision.id = :idRevision and MOD( r.filtro, (:filtro + 1 ) ) = :filtro  and e.atributoCalidad.id = :idAtributoCalidad and e.evaluacionCualitativa = :valorEvaluacion  ORDER BY r.spsid,r.nombre"),
+	@NamedQuery(name = Queries.REFERENCIA_GET_ATRIBUTO_CALIDAD, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ,  (:filtro + 0 )  ) from Referencia r inner join r.evaluacionCalidad e where r.revision.id = :idRevision and MOD( r.filtro, (:filtro + 1 ) ) = :filtro  and e.atributoCalidad.id = :idAtributoCalidad  ORDER BY r.spsid,r.nombre"),
+	
 	@NamedQuery(name = Queries.REFERENCIA_METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id"),
 	@NamedQuery(name = Queries.REFERENCIA_CANTIDAD_RELACION_PREGUNTAS, query = "select count(distinct t.pregunta.id) from Referencia r LEFT JOIN r.topicos t  where r.id = :id"),
 	@NamedQuery(name = Queries.REFERENCIA_NOTA_ETAPA_GET_ALL, query = "select n from Nota n where n.referencia.id = :id and n.etapa = :filtro"),
-	@NamedQuery(name = Queries.REFERENCIA_CITAS, query = "select r.citas from Referencia r where r.revision.id = :idRevision and r.filtro >= 3"),
+	@NamedQuery(name = Queries.REFERENCIA_SCIS, query = "select r.sci from Referencia r where r.revision.id = :idRevision and r.filtro >= 3"),
 	
 	@NamedQuery(name = Queries.EVALUACION_CALIDAD_GET_ALL, query = "select e from EvaluacionCalidad e where e.referencia.id = :id"),
 	@NamedQuery(name = Queries.EVALUACION_TOTAL_CALIDAD, query = "select SUM(e.evaluacionCuantitativa) from EvaluacionCalidad e where e.referencia.id = :id"),
@@ -91,6 +94,8 @@ public class Queries implements Serializable{
 	 */
 	
 	public static final String TOPICO_PREGUNTA_GET_ALL = "Topico.PreguntaGetAll";
+	
+	
 	/**
 	 * Consulta que permite obtener los topicos registradas en el sistema para una
 	 * pregunta <br />
@@ -131,6 +136,22 @@ public class Queries implements Serializable{
 	 * 
 	 */
 	public static final String REFERENCIA_GET_ALL = "Referencia.getAll";
+	/**
+	 * Consulta que permite obtener las preguntas registradas en el sistema para una
+	 * revision <br />
+	 * <code>select r from Referencia r where r.revision.id = :idRevision and r.filtro >= :filtro </code>
+	 * 
+	 */
+	
+	public static final String REFERENCIA_GET_EVALUACION_ATRIBUTO_CALIDAD = "Referencia.getReferenciaByEvaluacionAtributoCalidad";
+	/**
+	 * Consulta que permite obtener las preguntas registradas en el sistema para una
+	 * revision <br />
+	 * <code>select r from Referencia r where r.revision.id = :idRevision and r.filtro >= :filtro </code>
+	 * 
+	 */
+	
+	public static final String REFERENCIA_GET_ATRIBUTO_CALIDAD = "Referencia.getReferenciaByAtributoCalidad";
 
 	/**
 	 * Consulta que permite obtener las preguntas registradas en el sistema para una
@@ -139,7 +160,7 @@ public class Queries implements Serializable{
 	 * <code>select r.citas from Referencia r where r.revision.id = :idRevision and r.filtro >= 3 </code>
 	 * 
 	 */
-	public static final String REFERENCIA_CITAS = "Referencia.getCitas";
+	public static final String REFERENCIA_SCIS = "Referencia.getSCIs";
 
 	/**
 	 * Consulta que permite obtener las referecias por año <br />

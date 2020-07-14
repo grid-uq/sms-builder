@@ -10,11 +10,14 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
 		<h:form id="tabla" enctype="multipart/form-data" prependId="false">
-			<p:growl id="mensajes" showDetail="true" />
-
+			<p:growl id="mensajes" showDetail="true"  />
+			<p:selectOneMenu value="#{tablaResumenEvaluacionReferenciasAtributoBean.idAtributo}" >
+				<f:selectItems value="#{tablaResumenEvaluacionReferenciasAtributoBean.atributosCalidad}" var="atributoCalidad" itemValue="#{atributoCalidad.id}" itemLabel="#{atributoCalidad.descripcion}" />
+				<p:ajax listener="#{tablaResumenEvaluacionReferenciasAtributoBean.atributoSeleccionado}" update="tabla" />
+			</p:selectOneMenu>
 			<p:dataTable id="resumenReferencias"
-				value="#{tablaReferenciasPreguntasBean.referencias}"
-				var="referencia">
+				value="#{tablaResumenEvaluacionReferenciasAtributoBean.referencias}"
+				var="referencia" widgetVar="tablaResumenEvaluacion">
 
 				<f:facet name="footer">
 
@@ -70,21 +73,18 @@
 					</h:commandLink>
 
 				</f:facet>
-				<p:column headerText="#{msg.etiquetaSPSId}" style="width:5%">
+
+				<p:column headerText="#{msg.etiquetaSPSId}">
 					<h:outputText value="#{referencia.spsid}" />
 				</p:column>
 
-				<p:column headerText="#{msg.etiquetaNombre}" style="width:76%">
+				<p:column headerText="#{msg.etiquetaNombre}">
 					<h:outputText value="#{referencia.nombre}" />
 				</p:column>
 
-				<p:columns value="#{tablaReferenciasPreguntasBean.preguntas}" var="pregunta" >
-		            <f:facet name="header">
-		                <h:outputText value="#{pregunta.codigo}" />
-		            </f:facet>
-		            <h:outputText value="#{tablaReferenciasPreguntasBean.tieneRalacion(referencia,pregunta) ? 'X':''}" />
-		        </p:columns>
-				
+				<p:column headerText="#{tablaResumenEvaluacionReferenciasAtributoBean.atributoCalidad.descripcion}" filterOptions="#{tablaResumenEvaluacionReferenciasAtributoBean.listaValores}" filterBy="#{referencia.getValorEvaluacion(tablaResumenEvaluacionReferenciasAtributoBean.atributoCalidad)}" filterMatchMode="equals" >
+		            <h:outputText value="#{referencia.getValorEvaluacion(tablaResumenEvaluacionReferenciasAtributoBean.atributoCalidad)}" />
+		        </p:column>
 			</p:dataTable>
 		</h:form>
 	</ui:define>

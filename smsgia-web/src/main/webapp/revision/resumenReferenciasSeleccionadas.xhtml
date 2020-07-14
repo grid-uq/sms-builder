@@ -78,9 +78,14 @@
 					<h:commandLink action="#{resumenReferenciasSeleccionadasBean.exportToRIS}">
 						<p:graphicImage name="/imagenes/ris.png" width="24" />
 					</h:commandLink>
-
+					<br />
+					<p:commandButton value="#{msg.botonNombrar}" action="#{resumenReferenciasSeleccionadasBean.nombrar}" update="tabla" />
+					<p:commandButton value="#{msg.botonLimpiar}" action="#{resumenReferenciasSeleccionadasBean.limpiar}" update="tabla" />
 				</f:facet>
 
+				<p:column headerText="#{msg.etiquetaSPSId}">
+					<h:outputText value="#{referencia.spsid}" />
+				</p:column>
 				<p:column headerText="#{msg.etiquetaNombre}">
 					<h:outputText value="#{referencia.nombre}" />
 				</p:column>

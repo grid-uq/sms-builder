@@ -49,6 +49,7 @@ public class FindReferenceCitation {
 	 * @throws IOException
 	 */
 	public int findCitation(Referencia referencia) throws  IOException {
+		// TODO incluir doi en la consulta
 		HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
 		HttpRequest request = requestFactory.buildGetRequest(new GenericUrl(
 				"https://scholar.google.com/scholar?hl=es&q=" + URLEncoder.encode(referencia.getNombre(), "UTF-8")

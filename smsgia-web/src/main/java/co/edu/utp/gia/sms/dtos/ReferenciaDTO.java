@@ -7,7 +7,6 @@ import java.util.List;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.Metadato;
-import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
@@ -370,14 +369,7 @@ public class ReferenciaDTO implements Serializable {
 		referencia.setTotalEvaluacionCalidad(totalEvaluacionCalidad);
 	}
 
-	public EvaluacionCalidad getEvaluacionCalidad(AtributoCalidad atributo ) {
-		for (EvaluacionCalidad evaluacionCalidad : evaluaciones) {
-			if( evaluacionCalidad.getAtributoCalidad().equals(atributo) ) {
-				return evaluacionCalidad;
-			}
-		}
-		return null;
-	}
+	
 
 	/**
 	 * Metodo que permite obtener el valor del atributo fuente
@@ -466,6 +458,84 @@ public class ReferenciaDTO implements Serializable {
 		referencia.setCitas(citas);
 	}
 
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getPonderacionCitas()
+	 */
+	public Float getPonderacionCitas() {
+		return referencia.getPonderacionCitas();
+	}
+
+	/**
+	 * @param ponderacionCitas
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setPonderacionCitas(java.lang.Float)
+	 */
+	public void setPonderacionCitas(Float ponderacionCitas) {
+		referencia.setPonderacionCitas(ponderacionCitas);
+	}
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getSpsid()
+	 */
+	public String getSpsid() {
+		return referencia.getSpsid();
+	}
+
+	/**
+	 * @param smsid
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setSpsid(java.lang.String)
+	 */
+	public void setSpsid(String spsid) {
+		referencia.setSpsid(spsid);
+	}
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getSci()
+	 */
+	public Float getSci() {
+		return referencia.getSci();
+	}
+
+	/**
+	 * @param sci
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setSci(java.lang.Float)
+	 */
+	public void setSci(Float sci) {
+		referencia.setSci(sci);
+	}
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getSrrqi()
+	 */
+	public Float getSrrqi() {
+		return referencia.getSrrqi();
+	}
+
+	/**
+	 * @param srrqi
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setSrrqi(java.lang.Float)
+	 */
+	public void setSrrqi(Float srrqi) {
+		referencia.setSrrqi(srrqi);
+	}
+
+	public String getValorEvaluacion(AtributoCalidad atributo) {
+		EvaluacionCalidad evaluacion = getEvaluacionCalidad(atributo);
+		if( evaluacion == null ) {
+			return "";
+		}
+		return evaluacion.getEvaluacionCualitativa().toString();
+	}
 	
-	
+	public EvaluacionCalidad getEvaluacionCalidad(AtributoCalidad atributo ) {
+		for (EvaluacionCalidad evaluacionCalidad : evaluaciones) {
+			if( evaluacionCalidad.getAtributoCalidad().equals(atributo) ) {
+				return evaluacionCalidad;
+			}
+		}
+		return null;
+	}
 }

@@ -6,6 +6,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -82,7 +83,7 @@ public class Referencia implements Serializable {
 	private Integer id;
 
 	@Column(length = 50)
-	private String smsid;
+	private String spsid;
 	/**
 	 * Variable que representa el atributo nombre de la clase
 	 */
@@ -118,12 +119,12 @@ public class Referencia implements Serializable {
 	private Integer citas;
 	
 	private Float ponderacionCitas;
-	
+	@Lob
 	private String nota;
 	
-	private Integer sci;
+	private Float sci;
 	
-	private Integer srrqi;
+	private Float srrqi;
 	
 	
 	/**
@@ -450,6 +451,9 @@ public class Referencia implements Serializable {
 	 */
 	public void setCitas(Integer citas) {
 		this.citas = citas;
+		float media = getCitas()
+				/(float) (1 + Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(getYear()));
+		setSci(media);
 	}
 
 	/**
@@ -485,26 +489,26 @@ public class Referencia implements Serializable {
 	}
 
 	/**
-	 * Metodo que permite obtener el valor del atributo smsid
-	 * @return El valor del atributo smsid
+	 * Metodo que permite obtener el valor del atributo spsid
+	 * @return El valor del atributo spsid
 	 */
-	public String getSmsid() {
-		return smsid;
+	public String getSpsid() {
+		return spsid;
 	}
 
 	/**
-	 * Metodo que permite asignar un valor al atributo smsid
-	 * @param smsid Valor a ser asignado al atributo smsid
+	 * Metodo que permite asignar un valor al atributo spsid
+	 * @param spsid Valor a ser asignado al atributo spsid
 	 */
-	public void setSmsid(String smsid) {
-		this.smsid = smsid;
+	public void setSpsid(String spsid) {
+		this.spsid = spsid;
 	}
 
 	/**
 	 * Metodo que permite obtener el valor del atributo sci
 	 * @return El valor del atributo sci
 	 */
-	public Integer getSci() {
+	public Float getSci() {
 		return sci;
 	}
 
@@ -512,7 +516,7 @@ public class Referencia implements Serializable {
 	 * Metodo que permite asignar un valor al atributo sci
 	 * @param sci Valor a ser asignado al atributo sci
 	 */
-	public void setSci(Integer sci) {
+	public void setSci(Float sci) {
 		this.sci = sci;
 	}
 
@@ -520,7 +524,7 @@ public class Referencia implements Serializable {
 	 * Metodo que permite obtener el valor del atributo srrqi
 	 * @return El valor del atributo srrqi
 	 */
-	public Integer getSrrqi() {
+	public Float getSrrqi() {
 		return srrqi;
 	}
 
@@ -528,7 +532,7 @@ public class Referencia implements Serializable {
 	 * Metodo que permite asignar un valor al atributo srrqi
 	 * @param srrqi Valor a ser asignado al atributo srrqi
 	 */
-	public void setSrrqi(Integer srrqi) {
+	public void setSrrqi(Float srrqi) {
 		this.srrqi = srrqi;
 	}
 

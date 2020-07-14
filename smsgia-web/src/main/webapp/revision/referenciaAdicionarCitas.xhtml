@@ -18,6 +18,12 @@
 				paginator="true" rows="50" rowsPerPageTemplate="10,20,50,100,500"
 				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}">
 
+				<p:column headerText="#{msg.etiquetaSPSId}"
+					sortBy="#{referencia.spsid}" filterBy="#{referencia.spsid}"
+					filterMatchMode="contains" >
+					<h:outputText value="#{referencia.spsid}" />
+				</p:column>
+
 				<p:column headerText="#{msg.etiquetaNombre}"
 					sortBy="#{referencia.nombre}" filterBy="#{referencia.nombre}"
 					filterMatchMode="contains" style="width:76%">

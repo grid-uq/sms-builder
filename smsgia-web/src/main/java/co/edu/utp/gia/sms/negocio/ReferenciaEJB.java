@@ -26,9 +26,6 @@ import co.edu.utp.gia.sms.query.Queries;
 // TODO Pendiente la indicación de las revistas con mayor frecuencia dentro del SMS.
 //      importante para la toma de decisión sobre el destino de publicación.
 
-
-
-
 @Stateless
 public class ReferenciaEJB {
 	@PersistenceContext
@@ -271,7 +268,8 @@ public class ReferenciaEJB {
 	}
 
 	private void evaluarSegunCVI(Referencia referencia) {
-		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.CVI, referencia.getRevision().getId());
+		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.CVI,
+				referencia.getRevision().getId());
 		EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
 		if (referencia.getRelevancia() == 5) {
@@ -291,27 +289,26 @@ public class ReferenciaEJB {
 		// promedio para la evaluación de calidad.
 		// 2 = Citas de los estudios
 
-		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.SCI, referencia.getRevision().getId());
+		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.SCI,
+				referencia.getRevision().getId());
 		EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
-		
-
 		float media = referencia.getCitas()
-				/(float) (1 + Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(referencia.getYear()));
+				/ (float) (1 + Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(referencia.getYear()));
 
-		List<Integer> citas = obtenerCitas(referencia.getRevision().getId());
-		
+		List<Float> scis = obtenerSCIs(referencia.getRevision().getId());
+
 		Percentile p = new Percentile();
-		double datos[] = new double[citas.size()];
+		double datos[] = new double[scis.size()];
 		for (int i = 0; i < datos.length; i++) {
-			datos[i] = citas.get(i);
+			datos[i] = scis.get(i);
 		}
-		
-		double q1 = p.evaluate(datos, 80);
-		double q2 = p.evaluate(datos, 60);
+
+		double q1 = p.evaluate(datos, 75);
+		double q2 = p.evaluate(datos, 50);
 		if (media >= q1) {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
-		} else if (media > q2) {
+		} else if (media >= q2) {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
 		} else {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
@@ -320,7 +317,6 @@ public class ReferenciaEJB {
 		guardarEvaluacion(evaluacionCalidad);
 
 	}
-
 
 	private EvaluacionCalidad determinarEvaluacionCalidad(Referencia referencia, AtributoCalidad atributoCalidad) {
 		EvaluacionCalidad evaluacionCalidad = null;
@@ -340,7 +336,8 @@ public class ReferenciaEJB {
 	}
 
 	private void evaluarSegunPreguntas(Referencia referencia) {
-		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.RRQI,referencia.getRevision().getId());
+		AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.RRQI,
+				referencia.getRevision().getId());
 		EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
 		int totalPreguntas = (int) preguntaEJB.totalPreguntas(referencia.getRevision().getId());
@@ -355,7 +352,7 @@ public class ReferenciaEJB {
 		} else {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
 		}
-
+		referencia.setSrrqi(porcentaje);
 		guardarEvaluacion(evaluacionCalidad);
 
 	}
@@ -365,10 +362,54 @@ public class ReferenciaEJB {
 				.setParameter("id", id).getSingleResult();
 
 	}
-	
-	private List<Integer> obtenerCitas(Integer idRevision) {
-		return entityManager.createNamedQuery(Queries.REFERENCIA_CITAS, Integer.class)
+
+	private List<Float> obtenerSCIs(Integer idRevision) {
+		return entityManager.createNamedQuery(Queries.REFERENCIA_SCIS, Float.class)
 				.setParameter("idRevision", idRevision).getResultList();
+	}
+
+	public void actualizarSPS(Integer id, String spsid) {
+		Referencia referencia = obtener(id);
+		if (referencia != null) {
+			referencia.setSpsid(spsid);
+		}
+	}
+
+	public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(Integer idRevision,
+			Integer idAtributoCalidad, EvaluacionCualitativa valorEvaluacion, int filtro) {
+
+		List<ReferenciaDTO> referencias = entityManager
+				.createNamedQuery(Queries.REFERENCIA_GET_EVALUACION_ATRIBUTO_CALIDAD, ReferenciaDTO.class)
+				.setParameter("idRevision", idRevision).setParameter("filtro", filtro)
+				.setParameter("idAtributoCalidad", idAtributoCalidad).setParameter("valorEvaluacion", valorEvaluacion)
+				.getResultList();
+
+		for (ReferenciaDTO referencia : referencias) {
+			referencia.setAutores(obtenerAutores(referencia.getId()));
+			referencia.setAbstracts(obtenerAbstract(referencia.getId()));
+			referencia.setKeywords(obtenerKeywords(referencia.getId()));
+			referencia.setFuente(obtenerFuente(referencia.getId()));
+			referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId()));
+		}
+		return referencias;
+	}
+
+	public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(Integer idRevision,
+			Integer idAtributoCalidad, int filtro) {
+
+		List<ReferenciaDTO> referencias = entityManager
+				.createNamedQuery(Queries.REFERENCIA_GET_ATRIBUTO_CALIDAD, ReferenciaDTO.class)
+				.setParameter("idRevision", idRevision).setParameter("filtro", filtro)
+				.setParameter("idAtributoCalidad", idAtributoCalidad).getResultList();
+
+		for (ReferenciaDTO referencia : referencias) {
+			referencia.setAutores(obtenerAutores(referencia.getId()));
+			referencia.setAbstracts(obtenerAbstract(referencia.getId()));
+			referencia.setKeywords(obtenerKeywords(referencia.getId()));
+			referencia.setFuente(obtenerFuente(referencia.getId()));
+			referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId()));
+		}
+		return referencias;
 	}
 
 }

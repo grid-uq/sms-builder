@@ -2,7 +2,9 @@ package co.edu.utp.gia.sms.beans;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -78,6 +80,26 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 		
 	}
 
+	public void nombrar() {
+		long n = referencias.stream().filter( r->r.getSpsid()!=null ).count();
+		if( n > 0 ) {
+//			ReferenciaDTO re = referencias.stream().filter( r->r.getSpsid()!=null ).sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).findFirst().get();
+			ReferenciaDTO re = referencias.stream().filter( r->r.getSpsid()!=null ).sorted( (r1,r2)->r2.getSpsid().compareTo(r1.getSpsid()) ).findFirst().get();
+			System.out.println( re.getSpsid().substring(3) );
+			n = Long.parseLong( re.getSpsid().substring(3) );
+		}
+		
+		for (ReferenciaDTO referencia : referencias.stream().filter(r->r.getSpsid() == null).collect(Collectors.toList())) {
+			n++;
+			referencia.setSpsid( String.format("SPS%03d", n));
+			referenciaEJB.actualizarSPS( referencia.getId() , referencia.getSpsid() );
+		}
+	}
 	
-	
+	public void limpiar() {
+		for (ReferenciaDTO referencia : referencias) {
+			referencia.setSpsid(null);
+			referenciaEJB.actualizarSPS( referencia.getId() , referencia.getSpsid() );
+		}
+	}
 }

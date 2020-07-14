@@ -41,7 +41,7 @@ public class TablaReferenciasPreguntasBean {
 	}
 	
 
-	public boolean tieneRalacion(ReferenciaDTO referencia,Pregunta pregunta) {
+	public boolean tieneRalacion(ReferenciaDTO referencia,PreguntaDTO pregunta) {
 		for (Topico topico : referencia.getTopicos()) {
 			if( pregunta.getTopicos().contains(topico) ) {
 				return true;
