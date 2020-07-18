@@ -145,11 +145,19 @@
 					<p:menuitem value="#{msg.etiquetaMenuAnalisisReferenciaTopico}"
 						action="/estadisticas/referenciasTopico"
 						rendered="#{registroInicialBean.revision != null}" />
+					<p:menuitem value="#{msg.etiquetaMenuAnalisisReferenciaTopicoAtributoCalidad}"
+						action="/estadisticas/referenciasTopicoAtributoCalidad"
+						rendered="#{registroInicialBean.revision != null}" />
+						
+						
 					<p:menuitem value="#{msg.etiquetaMenuAnalisisReferenciaPregunta}"
 						action="/estadisticas/referenciasPregunta"
 						rendered="#{registroInicialBean.revision != null}" />
 					<p:menuitem value="#{msg.etiquetaMenuAnalisisCalidadYear}"
 						action="/estadisticas/referenciasCalidadYear"
+						rendered="#{registroInicialBean.revision != null}" />
+					<p:menuitem value="#{msg.etiquetaMenuPalabrasClave}"
+						action="/estadisticas/palabrasClave"
 						rendered="#{registroInicialBean.revision != null}" />
 				</p:submenu>
 

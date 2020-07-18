@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:outputLabel for="minimo" value="#{msg.etiquetaTipoGrafico}" />
+				<p:spinner id="minimo" value="#{palabrasClaveBean.minimo}" min="1" >
+					<p:ajax listener="#{palabrasClaveBean.crearModelo}" update="nube,tablaDatos"  />				
+				</p:spinner>
+			</p:panelGrid>
+			
+			<p:tagCloud id="nube" model="#{palabrasClaveBean.modelo}"  >
+        		
+    		</p:tagCloud>
+    		
+			<p:dataTable id="tablaDatos" value="#{palabrasClaveBean.palabras}" var="dato">
+				<f:facet name="header">
+					<h:outputText  value="#{msg.etiquetaKeywords}" />
+				</f:facet>
+				<p:column headerText="#{msg.etiquetaKeywords}">
+					<h:outputText value="#{dato.etiqueta}" />
+				</p:column>
+				<p:column headerText="#">
+					<h:outputText value="#{dato.valor}" />
+				</p:column>
+
+				<f:facet name="footer">
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/excel.png" width="24" />
+						<p:dataExporter type="xls" target="tablaDatos"
+							fileName="tablaDatos_#{msg.etiquetaKeywords}" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="tablaDatos"
+							fileName="tablaDatos_#{msg.etiquetaKeywords}" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/csv.png" width="24" />
+						<p:dataExporter type="csv" target="tablaDatos"
+							fileName="tablaDatos_#{msg.etiquetaKeywords}" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/xml.png" width="24" />
+						<p:dataExporter type="xml" target="tablaDatos"
+							fileName="tablaDatos_#{msg.etiquetaKeywords}" />
+					</h:commandLink>
+
+				</f:facet>				
+			</p:dataTable>    		
+		</h:form>
+
+		<br />
+
+	</ui:define>
+</ui:composition>
+</html>

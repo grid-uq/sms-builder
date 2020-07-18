@@ -19,13 +19,12 @@ public class EstadisticaEJB {
 				.setParameter("idRevision", revisionId).getResultList();
 	}
 
-
 	public List<DatoDTO> obtenerReferenciasYear(Integer revisionId, Integer idAtributoCalidad) {
 		return entityManager.createNamedQuery(Queries.ESTADISTICA_ATRIBUTO_CALIDAD_YEAR, DatoDTO.class)
-				.setParameter("idRevision", revisionId).setParameter("idAtributoCalidad", idAtributoCalidad).getResultList();
+				.setParameter("idRevision", revisionId).setParameter("idAtributoCalidad", idAtributoCalidad)
+				.getResultList();
 	}
 
-	
 	public List<DatoDTO> obtenerReferenciasTipo(Integer revisionId) {
 		return entityManager.createNamedQuery(Queries.ESTADISTICA_TIPO, DatoDTO.class)
 				.setParameter("idRevision", revisionId).getResultList();
@@ -33,11 +32,6 @@ public class EstadisticaEJB {
 
 	public List<DatoDTO> obtenerReferenciasCalidadYear(Integer revisionId) {
 		return entityManager.createNamedQuery(Queries.ESTADISTICA_CALIDAD_YEAR, DatoDTO.class)
-				.setParameter("idRevision", revisionId).getResultList();
-	}
-
-	public List<DatoDTO> obtenerReferenciasTopico(Integer revisionId) {
-		return entityManager.createNamedQuery(Queries.ESTADISTICA_REFERENCIA_TOPICO, DatoDTO.class)
 				.setParameter("idRevision", revisionId).getResultList();
 	}
 
@@ -64,7 +58,8 @@ public class EstadisticaEJB {
 				.createNamedQuery(Queries.ESTADISTICA_REFERENCIA_TIPO_FUENTE_NOMBRE, DatoDTO.class)
 				.setParameter("idRevision", revisionId).setParameter("tipo", tipo).getResultList();
 		for (Fuente fuente : Fuente.values()) {
-			if ( fuente.getTipo() == tipo && !resultado.stream().anyMatch(d -> d.getEtiqueta().equals(fuente.toString()))) {
+			if (fuente.getTipo() == tipo
+					&& !resultado.stream().anyMatch(d -> d.getEtiqueta().equals(fuente.toString()))) {
 				resultado.add(new DatoDTO(fuente, 0L));
 			}
 		}
@@ -77,9 +72,31 @@ public class EstadisticaEJB {
 		return resultado;
 	}
 
+	public List<DatoDTO> obtenerReferenciasTopico(Integer revisionId) {
+		return entityManager.createNamedQuery(Queries.ESTADISTICA_REFERENCIA_TOPICO, DatoDTO.class)
+				.setParameter("idRevision", revisionId).getResultList();
+	}
+
+	public List<DatoDTO> obtenerReferenciasTopico(Integer revisionId, Integer idAtributoCalidad) {
+		return entityManager.createNamedQuery(Queries.ESTADISTICA_REFERENCIA_TOPICO_ATRIBUTO_CALIDAD, DatoDTO.class)
+				.setParameter("idRevision", revisionId).setParameter("idAtributoCalidad", idAtributoCalidad)
+				.getResultList();
+	}
+
 	public List<DatoDTO> obtenerReferenciasTopico(Integer revisionId, String codigo) {
 		return entityManager.createNamedQuery(Queries.ESTADISTICA_REFERENCIA_TOPICO_PREGUNTA, DatoDTO.class)
 				.setParameter("idRevision", revisionId).setParameter("codigo", codigo).getResultList();
+	}
+
+	public List<DatoDTO> obtenerReferenciasTopico(Integer revisionId, String codigo, Integer idAtributoCalidad) {
+		return entityManager.createNamedQuery(Queries.ESTADISTICA_REFERENCIA_TOPICO_PREGUNTA_ATRIBUTO_CALIDAD, DatoDTO.class)
+				.setParameter("idRevision", revisionId).setParameter("codigo", codigo)
+				.setParameter("idAtributoCalidad", idAtributoCalidad).getResultList();
+	}
+
+	public List<DatoDTO> obtenerPalabrasClave(Integer revisionId, int minimo) {
+		return entityManager.createNamedQuery(Queries.ESTADISTICA_PALABRAS_CLAVE, DatoDTO.class)
+				.setParameter("idRevision", revisionId).setParameter("minimo", minimo).getResultList();
 	}
 
 }

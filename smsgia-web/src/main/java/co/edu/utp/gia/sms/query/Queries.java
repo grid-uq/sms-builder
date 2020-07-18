@@ -39,10 +39,14 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = Queries.ESTADISTICA_CALIDAD_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, AVG(r.totalEvaluacionCalidad) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year"),
 	@NamedQuery(name = Queries.ESTADISTICA_ATRIBUTO_CALIDAD_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, COUNT(1) ) from Referencia r inner join r.evaluacionCalidad e where r.revision.id = :idRevision and r.filtro >= 3 and e.atributoCalidad.id = :idAtributoCalidad and e.evaluacionCualitativa = co.edu.utp.gia.sms.entidades.EvaluacionCualitativa.CUMPLE GROUP BY r.year ORDER BY r.year"),
 	@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_TOPICO, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( CONCAT( t.pregunta.codigo,'-', t.descripcion ), COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.id ORDER BY t.descripcion"),
+	@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_TOPICO_ATRIBUTO_CALIDAD, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( CONCAT( t.pregunta.codigo,'-', t.descripcion ), COUNT(1) ) from Referencia r LEFT JOIN r.topicos t inner join r.evaluacionCalidad e where r.revision.id = :idRevision and r.filtro >= 3 and e.atributoCalidad.id = :idAtributoCalidad and e.evaluacionCualitativa = co.edu.utp.gia.sms.entidades.EvaluacionCualitativa.CUMPLE GROUP BY t.id ORDER BY t.descripcion"),
+	@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_TOPICO_PREGUNTA_ATRIBUTO_CALIDAD, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( t.descripcion , COUNT(1) ) from Referencia r LEFT JOIN r.topicos t inner join r.evaluacionCalidad e  where r.revision.id = :idRevision and r.filtro >= 3 and t.pregunta.codigo = :codigo and e.atributoCalidad.id = :idAtributoCalidad and e.evaluacionCualitativa = co.edu.utp.gia.sms.entidades.EvaluacionCualitativa.CUMPLE GROUP BY t.id ORDER BY t.descripcion"),
 	
 	@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_TOPICO_PREGUNTA, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( t.descripcion , COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 and t.pregunta.codigo = :codigo GROUP BY t.id ORDER BY t.descripcion"),
 	@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_PREGUNTA, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( t.pregunta.codigo, COUNT(DISTINCT( r.id )) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.pregunta.id ORDER BY t.pregunta.codigo"),
 	@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_TIPO_FUENTE, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( f.tipo , count(1)) from Metadato m,Fuente f where m.referencia.revision.id = :idRevision and m.referencia.filtro >= 3 and m.identifier = co.edu.utp.gia.sms.entidades.TipoMetadato.FUENTE and m.value = f.nombre group by f.tipo "),
+	@NamedQuery(name = Queries.ESTADISTICA_PALABRAS_CLAVE, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( m.value , count(1)) from Metadato m where m.referencia.revision.id = :idRevision and m.referencia.filtro >= 3 and m.identifier = co.edu.utp.gia.sms.entidades.TipoMetadato.KEYWORD group by m.value having count(1) >= :minimo "),
+	
 	@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_TIPO_FUENTE_NOMBRE, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( f.nombre , count(1)) from Metadato m,Fuente f where m.referencia.revision.id = :idRevision and m.referencia.filtro >= 3 and m.identifier = co.edu.utp.gia.sms.entidades.TipoMetadato.FUENTE and m.value = f.nombre and f.tipo = :tipo group by f.nombre "),
 
 	
@@ -199,14 +203,30 @@ public class Queries implements Serializable{
 	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( t.descripcion, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.id ORDER BY t.descripcion </code>
 	 * 
 	 */
-	public static final String ESTADISTICA_REFERENCIA_TOPICO = "Referencia.referenciaTopicoPregunta";
+	public static final String ESTADISTICA_REFERENCIA_TOPICO = "Referencia.referenciaTopico";
+	/**
+	 * Consulta que permite obtener las referencias por tipo <br />
+	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( t.descripcion, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.id ORDER BY t.descripcion </code>
+	 * 
+	 */
+	public static final String ESTADISTICA_REFERENCIA_TOPICO_ATRIBUTO_CALIDAD = "Referencia.referenciaTopicoAtributoCaliad";
+
 	
 	/**
 	 * Consulta que permite obtener las referencias por tipo <br />
 	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( t.descripcion, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 and t.pregunta.codigo = :codigo GROUP BY t.id ORDER BY t.descripcion </code>
 	 * 
 	 */
-	public static final String ESTADISTICA_REFERENCIA_TOPICO_PREGUNTA = "Referencia.referenciaTopico";
+	public static final String ESTADISTICA_REFERENCIA_TOPICO_PREGUNTA = "Referencia.referenciaTopicoPregunta";
+	
+	/**
+	 * Consulta que permite obtener las referencias por tipo <br />
+	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( t.descripcion, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 and t.pregunta.codigo = :codigo GROUP BY t.id ORDER BY t.descripcion </code>
+	 * 
+	 */
+	public static final String ESTADISTICA_REFERENCIA_TOPICO_PREGUNTA_ATRIBUTO_CALIDAD = "Referencia.referenciaTopicoPreguntaAtributoCalidad";
+	
+	
 	/**
 	 * Consulta que permite obtener las referencias por tipo <br />
 	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( t.pregunta, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.pregunta.id ORDER BY t.pregunta.descripcion </code>
@@ -221,6 +241,14 @@ public class Queries implements Serializable{
 	 */
 	public static final String ESTADISTICA_REFERENCIA_TIPO_FUENTE = "Referencia.referenciaTipoFuente";
 
+	/**
+	 * Consulta que permite obtener las referencias por tipo de fuente <br />
+	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO(f.tipo, count(1)) from Metadato m,Fuente f where m.referencia.filtro >= 3 and m.identifier = co.edu.utp.gia.sms.entidades.TipoMetadato.FUENTE and m.identifier = f.nombre group by f.tipo  </code>
+	 * 
+	 */
+	public static final String ESTADISTICA_PALABRAS_CLAVE = "Referencia.palabrasClave";
+
+	
 	/**
 	 * Consulta que permite obtener las referencias por tipo de fuente <br />
 	 * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( f.nombre , count(1)) from Metadato m,Fuente f where m.referencia.revision.id = :idRevision and m.referencia.filtro >= 3 and m.identifier = co.edu.utp.gia.sms.entidades.TipoMetadato.FUENTE and m.value = f.nombre and f.tipo = :tipo group by f.nombre  </code>

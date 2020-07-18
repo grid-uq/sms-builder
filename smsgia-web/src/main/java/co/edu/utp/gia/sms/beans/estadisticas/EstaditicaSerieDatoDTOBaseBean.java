@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
-import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.PieChartModel;
