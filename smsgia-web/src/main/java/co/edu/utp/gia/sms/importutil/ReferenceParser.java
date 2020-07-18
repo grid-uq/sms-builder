@@ -43,7 +43,7 @@ public abstract class ReferenceParser {
 		
 		Referencia referencia = new Referencia();
 		
-		if ( fuente.equals(Fuente.MANUAL) || fuente.equals(Fuente.SNOWBALL) )  {
+		if ( fuente.equals(Fuente.MANUAL) || fuente.equals(Fuente.SNOWBALL_BACKWARD) )  {
 			referencia.setFiltro(3);
 		}
 		

@@ -21,7 +21,7 @@
 				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
 				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}">
 
-				<p:column>
+				<p:column filterBy="#{referencia.nombre}" filterable="true" filterMatchMode="contains">
 					<p:panelGrid>
 
 						<f:facet name="header">

@@ -11,6 +11,14 @@
 	<ui:define name="content">
 		<h:form>
 			<p:panelGrid columns="2">
+				<p:outputLabel for="codigo" value="#{msg.etiquetaPregunta}" />
+				<p:selectOneMenu id="codigo"
+					value="#{referenciasTopicoBean.codigo}">
+					<f:selectItem itemLabel="" />
+					<f:selectItems value="#{registroPreguntaBean.preguntas}" var="pregunta" itemLabel="#{pregunta.codigo}" itemValue="#{pregunta.codigo}" />
+					<p:ajax update="grafica,tablaDatos"
+						listener="#{referenciasTopicoBean.onChangePregunta}" />
+				</p:selectOneMenu>
 				<p:outputLabel for="tipoGrafico" value="#{msg.etiquetaTipoGrafico}" />
 				<p:selectOneMenu id="tipoGrafico"
 					value="#{referenciasTopicoBean.tipoGrafica}">
@@ -25,7 +33,7 @@
 			model="#{referenciasTopicoBean.model}" style="height:300px" />
 
 		<br />
-		<h:form>
+		<h:form prependId="">
 			<p:dataTable id="tablaDatos" value="#{referenciasTopicoBean.datos}" var="dato">
 				<f:facet name="header">
 					<h:outputText  value="#{referenciasTopicoBean.titulo}" />
