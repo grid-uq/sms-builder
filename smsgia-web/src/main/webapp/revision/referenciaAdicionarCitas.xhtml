@@ -31,7 +31,7 @@
 				</p:column>
 
 				<p:column headerText="#{msg.etiquetaCitas}" sortBy="#{referencia.citas}" filterBy="referencia.citas" filterMatchMode="contains">
-					<p:inputNumber value="#{referencia.citas}" size="4">
+					<p:inputNumber value="#{referencia.citas}" maxlength="4" decimalPlaces="0"  >
 						<p:ajax event="blur"
 							listener="#{referenciaAdicionarCitasBean.guardarCita(referencia)}" />
 					</p:inputNumber>

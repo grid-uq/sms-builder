@@ -67,6 +67,7 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 			
 			referenciaEJB.evaluacionAutomatica(referencia.getId());
 		}
+		referencias = referenciaEJB.obtenerTodasConEvaluacion(revision.getId(), 3);
 		mostrarMensajeGeneral("Se guardaron los registro");
 	}
 
