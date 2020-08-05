@@ -27,7 +27,6 @@ public abstract class GenericBean<Objeto> implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		System.out.println("INICIO GENERICO");
 		if (registroInicialBean != null) {
 			revision = registroInicialBean.getRevision();
 		}

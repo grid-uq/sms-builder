@@ -45,15 +45,14 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 	}
 
 	public void evaluar(ReferenciaDTO referencia) {
-        Map<String,Object> options = new HashMap<String, Object>();
-        options.put("resizable", false);
-        options.put("draggable", false);
-        options.put("modal", true);
-        
-        addToSession("referenciaDTO",referencia);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("resizable", false);
+		options.put("draggable", false);
+		options.put("modal", true);
+
+		addToSession("referenciaDTO", referencia);
 		PrimeFaces.current().dialog().openDynamic("/revision/evaluarReferencia", options, null);
 	}
-
 
 	public void guardar() {
 		for (ReferenciaDTO referencia : referencias) {
@@ -63,23 +62,26 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 	}
 
 	public void evaluacionAutomatica() {
-		for (ReferenciaDTO referencia : referencias) {
-			
-			referenciaEJB.evaluacionAutomatica(referencia.getId());
+		try {
+			for (ReferenciaDTO referencia : referencias) {
+
+				referenciaEJB.evaluacionAutomatica(referencia.getId());
+			}
+			referencias = referenciaEJB.obtenerTodasConEvaluacion(revision.getId(), 3);
+			mostrarMensajeGeneral("Se guardaron los registro");
+		} catch (Exception e) {
+			mostrarErrorGeneral( e.getMessage() );
 		}
-		referencias = referenciaEJB.obtenerTodasConEvaluacion(revision.getId(), 3);
-		mostrarMensajeGeneral("Se guardaron los registro");
 	}
 
-	
 	public void onEvaluacionRealizada(SelectEvent<ReferenciaDTO> event) {
-        ReferenciaDTO referencia = event.getObject();
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Referencia Evaluada", "Id:" + referencia.getId());
+		ReferenciaDTO referencia = event.getObject();
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Referencia Evaluada",
+				"Id:" + referencia.getId());
 		FacesContext.getCurrentInstance().addMessage(null, message);
 //		inicializar();
-    }
-	
-	
+	}
+
 	/**
 	 * Metodo que permite obtener el valor del atributo referencias
 	 * 

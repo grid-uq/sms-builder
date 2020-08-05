@@ -451,9 +451,9 @@ public class Referencia implements Serializable {
 	 */
 	public void setCitas(Integer citas) {
 		this.citas = citas;
-		float media = getCitas()
-				/(float) (1 + Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(getYear()));
-		setSci(media);
+//		float media = getCitas()
+//				/(float) (1 + Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(getYear()));
+//		setSci(media);
 	}
 
 	/**

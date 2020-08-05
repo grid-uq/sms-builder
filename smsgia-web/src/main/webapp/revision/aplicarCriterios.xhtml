@@ -70,20 +70,30 @@
 
 						</p:row>
 
+
 						<p:row>
 							<p:column colspan="3">
-								<p:panel header="Keywords">
-									<h:outputText value="#{referencia.keywords}" />
-								</p:panel>
-
+								<p:panelGrid >
+									<f:facet name="header">
+										<p:row>
+											<p:column style="width:50px">Year</p:column>
+											<p:column>Keywords</p:column>
+										</p:row>
+									</f:facet>		
+								    <p:row>
+								    <p:column><h:outputText value="#{referencia.year}" /></p:column>							
+								    <p:column><h:outputText value="#{referencia.keywords}" /></p:column>
+									</p:row>
+								</p:panelGrid>
 							</p:column>
+							
 						</p:row>
 						<p:row>
 							<p:column colspan="3">
 
 									<p:panel header="#{msg.etiquetaAbstract}">
 											<h:outputText value="#{referencia.resumen}" />
-											<f:facet name="footer"><p:commandButton action="#{aplicarCriteriosReferenciasBean.adicionarResumen(referencia)}"  value="+" update="tabla" /> </f:facet>
+											<f:facet name="footer"><p:commandButton action="#{aplicarCriteriosReferenciasBean.adicionarResumen(referencia)}"  value="#{msg.etiquetaTraducir}" update="tabla" /> </f:facet>
 									</p:panel>
 								
 
@@ -94,7 +104,7 @@
 
 									<p:panel header="#{msg.etiquetaNota}">
 											<p:inputTextarea 
-												value="#{referencia.nota}" style="width:100%">
+												value="#{referencia.nota}" style="width:100%; font-size:14pt">
 												<p:ajax event="blur"
 													listener="#{aplicarCriteriosReferenciasBean.actualizarNota(referencia)}" />
 											</p:inputTextarea>

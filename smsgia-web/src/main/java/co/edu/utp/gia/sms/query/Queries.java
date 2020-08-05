@@ -53,6 +53,7 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = Queries.METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id and m.identifier = :tipo "),
 	
 	@NamedQuery(name = Queries.REFERENCIA_GET_ALL, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ,  (:filtro + 0 )  ) from Referencia r where r.revision.id = :idRevision and MOD( r.filtro, (:filtro + 1 ) ) = :filtro ORDER BY r.spsid,r.nombre"),
+	@NamedQuery(name = Queries.REFERENCIA_GET_ALL_DESTACADAS, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ) from Referencia r where r.revision.id = :idRevision and r.relevancia is not null ORDER BY r.spsid,r.nombre"),
 	@NamedQuery(name = Queries.REFERENCIA_GET_EVALUACION_ATRIBUTO_CALIDAD, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ,  (:filtro + 0 )  ) from Referencia r inner join r.evaluacionCalidad e where r.revision.id = :idRevision and MOD( r.filtro, (:filtro + 1 ) ) = :filtro  and e.atributoCalidad.id = :idAtributoCalidad and e.evaluacionCualitativa = :valorEvaluacion  ORDER BY r.spsid,r.nombre"),
 	@NamedQuery(name = Queries.REFERENCIA_GET_ATRIBUTO_CALIDAD, query = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ,  (:filtro + 0 )  ) from Referencia r inner join r.evaluacionCalidad e where r.revision.id = :idRevision and MOD( r.filtro, (:filtro + 1 ) ) = :filtro  and e.atributoCalidad.id = :idAtributoCalidad  ORDER BY r.spsid,r.nombre"),
 	
@@ -145,6 +146,14 @@ public class Queries implements Serializable{
 	 * 
 	 */
 	public static final String REFERENCIA_GET_ALL = "Referencia.getAll";
+	/**
+	 * Consulta que permite obtener las preguntas registradas en el sistema para una
+	 * revision <br />
+	 * <code>select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ) from Referencia r where r.revision.id = :idRevision and r.relevancia is not null ORDER BY r.spsid,r.nombre</code>
+	 * 
+	 */
+	public static final String REFERENCIA_GET_ALL_DESTACADAS = "Referencia.getAllDestacadas";
+	
 	/**
 	 * Consulta que permite obtener las preguntas registradas en el sistema para una
 	 * revision <br />

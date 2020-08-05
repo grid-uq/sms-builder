@@ -3,6 +3,8 @@ package co.edu.utp.gia.sms.beans;
 import java.io.IOException;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.validator.ValidatorException;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,7 +17,7 @@ import co.edu.utp.gia.sms.negocio.RevisionEJB;
 
 @Named
 @ViewScoped
-public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO>{
+public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
 
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
@@ -44,33 +46,53 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO>{
 		}
 	}
 
-	
-	public void guardarCita(ReferenciaDTO referencia) {
-		
-		referenciaEJB.actualizarCita(referencia.getId(), referencia.getCitas());
+	public void guardarYear(ReferenciaDTO referencia) {
+		try {
+			System.out.println(String.format("Actualizando %d-%s",referencia.getId(),referencia.getYear()));
+			referenciaEJB.actualizarYear(referencia.getId(), referencia.getYear());
+		} catch (Exception e) {
+//			mostrarErrorGeneral("Error al procesar la referencia "+referencia.getSpsid());
+			mostrarErrorGeneral(e.getMessage());
+//			referencia.setCitas(null);
+//			FacesMessage mensaje = new FacesMessage("Error al procesar la referencia "+referencia.getSpsid());
+//			mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+//			throw new ValidatorException(mensaje);
+		}
 	}
 	
-	
+	public void guardarCita(ReferenciaDTO referencia) {
+		try {
+			referenciaEJB.actualizarCita(referencia.getId(), referencia.getCitas());
+		} catch (Exception e) {
+//			mostrarErrorGeneral("Error al procesar la referencia "+referencia.getSpsid());
+			mostrarErrorGeneral(e.getMessage());
+//			referencia.setCitas(null);
+//			FacesMessage mensaje = new FacesMessage("Error al procesar la referencia "+referencia.getSpsid());
+//			mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+//			throw new ValidatorException(mensaje);
+		}
+	}
+
 	public void guardarRelevancia(ReferenciaDTO referencia) {
-		
+
 		referenciaEJB.actualizarRelevancia(referencia.getId(), referencia.getRelevancia());
 
 	}
-	
+
 	public void completarCita(ReferenciaDTO referencia) {
 		try {
-			int i = FindReferenceCitation.getInstans().findCitation( referencia.getReferencia() );
+			int i = FindReferenceCitation.getInstans().findCitation(referencia.getReferencia());
 			guardarCita(referencia);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void guardar() {
 		for (ReferenciaDTO referencia : referencias) {
 			referenciaEJB.limpiarTopicos(referencia.getId());
 			for (Topico topico : referencia.getTopicos()) {
-				referenciaEJB.adicionarTopico(referencia.getId(),topico.getId() );
+				referenciaEJB.adicionarTopico(referencia.getId(), topico.getId());
 			}
 		}
 		mostrarMensajeGeneral("Se guardaron los registro");

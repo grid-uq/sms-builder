@@ -241,6 +241,16 @@ public class ReferenciaEJB {
 		Referencia referencia = obtener(id);
 		if (referencia != null) {
 			referencia.setCitas(citas);
+			if (referencia.getYear() == null) {
+				throw new RuntimeException(
+						String.format("La referencia %d-%s no tiene año ", referencia.getId(), referencia.getSpsid()));
+			} else if (referencia.getCitas() != null) {
+				float media = referencia.getCitas() / (float) (1 + Calendar.getInstance().get(Calendar.YEAR)
+						- Integer.parseInt(referencia.getYear()));
+				referencia.setSci(media);
+			} else {
+				referencia.setSci(null);
+			}
 		}
 
 	}
@@ -262,9 +272,18 @@ public class ReferenciaEJB {
 
 	public void evaluacionAutomatica(Integer id) {
 		Referencia referencia = obtener(id);
-		evaluarSegunPreguntas(referencia);
-		evaluarSegunCitas(referencia);
-		evaluarSegunCVI(referencia);
+		if (referencia == null) {
+			throw new RuntimeException(String.format("No se encontró la referencia %d", id));
+		}
+		try {
+			evaluarSegunPreguntas(referencia);
+			evaluarSegunCitas(referencia);
+			evaluarSegunCVI(referencia);
+		} catch (Exception e) {
+			System.err.println("Error evaluando referencia " + id);
+			e.printStackTrace();
+			throw new RuntimeException(String.format("Error evaluando referencia %d-%s", id, referencia.getSpsid()), e);
+		}
 	}
 
 	private void evaluarSegunCVI(Referencia referencia) {
@@ -272,12 +291,12 @@ public class ReferenciaEJB {
 				referencia.getRevision().getId());
 		EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
-		if (referencia.getRelevancia() == 5) {
-			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
-		} else if (referencia.getRelevancia() >= 3) {
+		if (referencia.getRelevancia() == null || referencia.getRelevancia() < 3) {
+			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
+		} else if (referencia.getRelevancia() < 5) {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
 		} else {
-			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
+			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
 		}
 
 		guardarEvaluacion(evaluacionCalidad);
@@ -401,6 +420,33 @@ public class ReferenciaEJB {
 				.createNamedQuery(Queries.REFERENCIA_GET_ATRIBUTO_CALIDAD, ReferenciaDTO.class)
 				.setParameter("idRevision", idRevision).setParameter("filtro", filtro)
 				.setParameter("idAtributoCalidad", idAtributoCalidad).getResultList();
+
+		for (ReferenciaDTO referencia : referencias) {
+			referencia.setAutores(obtenerAutores(referencia.getId()));
+			referencia.setAbstracts(obtenerAbstract(referencia.getId()));
+			referencia.setKeywords(obtenerKeywords(referencia.getId()));
+			referencia.setFuente(obtenerFuente(referencia.getId()));
+			referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId()));
+		}
+		return referencias;
+	}
+
+	public void actualizarYear(Integer id, String year) {
+		Referencia referencia = obtener(id);
+		if (referencia != null) {
+			referencia.setYear(year);
+			if (referencia.getCitas() != null && referencia.getYear() != null) {
+				float media = referencia.getCitas() / (float) (1 + Calendar.getInstance().get(Calendar.YEAR)
+						- Integer.parseInt(referencia.getYear()));
+				referencia.setSci(media);
+			}
+		}
+	}
+
+	public List<ReferenciaDTO> obtenerDestacadas(Integer idRevision) {
+		List<ReferenciaDTO> referencias = entityManager
+				.createNamedQuery(Queries.REFERENCIA_GET_ALL_DESTACADAS, ReferenciaDTO.class)
+				.setParameter("idRevision", idRevision).getResultList();
 
 		for (ReferenciaDTO referencia : referencias) {
 			referencia.setAutores(obtenerAutores(referencia.getId()));
