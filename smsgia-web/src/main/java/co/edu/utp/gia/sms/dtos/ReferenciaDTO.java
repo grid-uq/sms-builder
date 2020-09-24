@@ -466,6 +466,22 @@ public class ReferenciaDTO implements Serializable {
 		referencia.setCitas(citas);
 	}
 
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getSpsid()
+	 */
+	public String getSpsid() {
+		return referencia.getSpsid();
+	}
+
+	/**
+	 * @param spsid
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setSpsid(java.lang.String)
+	 */
+	public void setSpsid(String spsid) {
+		referencia.setSpsid(spsid);
+	}
+
 	
 	
 }

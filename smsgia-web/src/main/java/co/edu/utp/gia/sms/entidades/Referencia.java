@@ -81,6 +81,12 @@ public class Referencia implements Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
+	
+	/**
+	 * Variable que representa el atributo SPSID
+	 */
+	@Column(length = 100)
+	private String spsid;
 
 	/**
 	 * Variable que representa el atributo nombre de la clase
@@ -479,6 +485,22 @@ public class Referencia implements Serializable {
 	 */
 	public void setNota(String nota) {
 		this.nota = nota;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo spsid
+	 * @return El valor del atributo spsid
+	 */
+	public String getSpsid() {
+		return spsid;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo spsid
+	 * @param spsid Valor a ser asignado al atributo spsid
+	 */
+	public void setSpsid(String spsid) {
+		this.spsid = spsid;
 	}
 
 	

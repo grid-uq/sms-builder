@@ -39,7 +39,14 @@
 					<h:outputLabel value="#{msg.etiquetaAbstract}"
 						style="font-weight:bold; color:blue" />
 					<hr />
+<!--  
 					<h:outputText value="#{referencia.resumen}" />
+-->					
+					<p:inputTextarea cols="120" value="#{referencia.resumen}">
+						<p:ajax event="blur"
+							listener="#{analizarReferenciasBean.actualizarResumen(referencia)}" />
+					</p:inputTextarea>
+
 					<hr />
 
 					<h:outputLabel value="#{msg.etiquetaNota}"
