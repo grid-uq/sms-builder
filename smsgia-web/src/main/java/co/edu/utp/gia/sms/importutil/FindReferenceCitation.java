@@ -67,8 +67,7 @@ public class FindReferenceCitation {
 		// TODO incluir doi en la consulta
 		HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
 		HttpRequest request = requestFactory.buildGetRequest(new GenericUrl(
-				"https://scholar.google.com/scholar?hl=es&q=" + URLEncoder.encode(referencia.getNombre(), "UTF-8")
-
+				String.format("https://scholar.google.com/scholar?hl=es&q=%s", URLEncoder.encode(referencia.getNombre(), "UTF-8"))
 		));
 		String rawResponse = request.execute().parseAsString();
 		int i = rawResponse.indexOf("Citado por ");
@@ -105,7 +104,7 @@ public class FindReferenceCitation {
 		HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
 		String url = "https://microsoft-translator-text.p.rapidapi.com/translate?profanityAction=NoAction&textType=plain&to=es&api-version=3.0";
 		HttpRequest postRequest = requestFactory.buildPostRequest(new GenericUrl(url),
-				ByteArrayContent.fromString("application/json", "[ {  \"Text\": \"" + texto + "\" }]"));
+				ByteArrayContent.fromString("application/json", String.format("[ {  \"Text\": \"%s\" }]" , texto)));
 //		postRequest.set
 		JacksonFactory jsonFactory = new JacksonFactory();
 		postRequest.setParser(new JsonObjectParser(jsonFactory));
