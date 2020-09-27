@@ -262,6 +262,17 @@ public class ReferenciaEJB {
 			referencia.setNota(nota);
 		}
 	}
+	
+	public void actualizarResumen(Integer id, String resumen) {
+		// TODO Auto-generated method stub
+		
+		Referencia referencia = obtener(id);
+		if (referencia != null) {
+			referencia.setResumen(resumen);
+		}
+	}
+	
+	
 
 	public void removerTopico(Integer id, Integer idTopico) {
 		Referencia referencia = obtener(id);

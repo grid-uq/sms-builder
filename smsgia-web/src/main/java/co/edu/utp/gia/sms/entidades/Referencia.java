@@ -81,7 +81,9 @@ public class Referencia implements Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
-
+	/**
+	 * Variable que representa el atributo SPSID
+	 */
 	@Column(length = 50)
 	private String spsid;
 	/**
