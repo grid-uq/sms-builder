@@ -3,8 +3,6 @@ package co.edu.utp.gia.sms.configuration;
 import javax.annotation.sql.DataSourceDefinition;
 import javax.annotation.sql.DataSourceDefinitions;
 
-
-
 @DataSourceDefinitions({
 	
 	@DataSourceDefinition(
@@ -24,8 +22,8 @@ import javax.annotation.sql.DataSourceDefinitions;
 	serverName="localhost",
 	databaseName = "sms",
 	portNumber=3306,
-	user = "root",
-	password = "12345"
+	user = "sms",
+	password = "sms-12345"
 		)
 
 

@@ -54,7 +54,6 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 		PrimeFaces.current().dialog().openDynamic("/revision/evaluarReferencia", options, null);
 	}
 
-
 	public void guardar() {
 		for (ReferenciaDTO referencia : referencias) {
 			referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro());
@@ -62,13 +61,25 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 		mostrarMensajeGeneral("Se guardaron los registro");
 	}
 
+	public void evaluacionAutomatica() {
+		try {
+			for (ReferenciaDTO referencia : referencias) {
+
+				referenciaEJB.evaluacionAutomatica(referencia.getId());
+			}
+			referencias = referenciaEJB.obtenerTodasConEvaluacion(revision.getId(), 3);
+			mostrarMensajeGeneral("Se guardaron los registro");
+		} catch (Exception e) {
+			mostrarErrorGeneral( e.getMessage() );
+		}
+	}
+	
     public void onEvaluacionRealizada(SelectEvent<ReferenciaDTO> event) {
         ReferenciaDTO referencia = event.getObject();
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Referencia Evaluada", "Id:" + referencia.getId());
 		FacesContext.getCurrentInstance().addMessage(null, message);
 //		inicializar();
     }
-	
 	
 	/**
 	 * Metodo que permite obtener el valor del atributo referencias

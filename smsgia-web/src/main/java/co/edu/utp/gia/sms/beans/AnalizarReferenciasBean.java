@@ -140,5 +140,10 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO>{
 		referenciaEJB.actualizarRelevancia(referencia.getId(), referencia.getRelevancia());
 	}
 
-	
+	public void actualizarResumen(ReferenciaDTO referencia) {
+		referenciaEJB.actualizarResumen(referencia.getId(),referencia.getResumen());
+//		referenciaEJB.actualizarNota(referencia.getId(),referencia.getNota());
+		
+//		notaEJB.actualizar(referencia.getId(), referencia.getNota().getId(), referencia.getNota().getDescripcion(), referencia.getNota().getEtapa());
+	}
 }

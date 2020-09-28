@@ -9,12 +9,101 @@
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
+	
 		<h:form id="tabla" enctype="multipart/form-data" prependId="false">
 			<p:growl id="mensajes" showDetail="true" />
 
+			<p:panelGrid>
+				<p:outputLabel for="atributoCalidad" value="#{msg.etiquetaAtributoCalidad}" />
+				<p:selectOneMenu id="atributoCalidad" value="#{tablaReferenciasTopicosBean.idAtributoCalidad}">
+					<f:selectItem itemValue="null" itemLabel="" />
+					<f:selectItems value="#{registroAtributoCalidadBean.atributosCalidad}" var="atributo" itemLabel="#{atributo.descripcion}" itemValue="#{atributo.id}" />
+					<p:ajax listener="#{tablaReferenciasTopicosBean.consultarReferencias}" update="tabla"></p:ajax>
+				</p:selectOneMenu>
+				<p:outputLabel for="evaluacion" value="#{msg.etiquetaAtributoCalidad}" />
+				<p:selectOneMenu id="evaluacion" value="#{tablaReferenciasTopicosBean.evaluacion}">
+					<f:selectItems value="#{tablaReferenciasTopicosBean.listaValores}" />
+					<p:ajax listener="#{tablaReferenciasTopicosBean.consultarReferencias}" update="tabla"></p:ajax>
+				</p:selectOneMenu>
+			</p:panelGrid>
+			
+			<p:dataTable id="resumenReferencias2"
+				value="#{tablaReferenciasTopicosBean.topicos}" var="topico">
+
+				<f:facet name="footer">
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/excel.png" width="24" />
+						<p:dataExporter type="xls" target="resumenReferencias2"
+							fileName="topico_referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="resumenReferencias2"
+							fileName="topico_referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/csv.png" width="24" />
+						<p:dataExporter type="csv" target="resumenReferencias2"
+							fileName="topico_referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/xml.png" width="24" />
+						<p:dataExporter type="xml" target="resumenReferencias2"
+							fileName="topico_referencias" />
+					</h:commandLink>
+
+				</f:facet>
+				<f:facet name="header">
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/excel.png" width="24" />
+						<p:dataExporter type="xls" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/csv.png" width="24" />
+						<p:dataExporter type="csv" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/xml.png" width="24" />
+						<p:dataExporter type="xml" target="resumenReferencias"
+							fileName="referencias" />
+					</h:commandLink>
+
+				</f:facet>
+				<p:column headerText="#{msg.etiquetaPregunta}">
+					<h:outputText value="#{topico.pregunta.codigo}" />
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaTopicos}">
+					<h:outputText value="#{topico.descripcion}" />
+				</p:column>
+				
+				<p:column headerText="#{msg.etiquetaSPSId}">
+					<ui:repeat value="#{tablaReferenciasTopicosBean.referencias}" var="referencia">
+						<h:outputText
+						value="#{referencia.topicos.contains(topico) ? referencia.spsid : '' } " />
+					</ui:repeat>
+					
+				</p:column>
+
+			</p:dataTable>
+		
 			<p:dataTable id="resumenReferencias"
-				value="#{tablaReferenciasTopicosBean.referencias}"
-				var="referencia">
+				value="#{tablaReferenciasTopicosBean.referencias}" var="referencia">
 
 				<f:facet name="footer">
 
@@ -70,20 +159,27 @@
 					</h:commandLink>
 
 				</f:facet>
+				<p:column headerText="#{msg.etiquetaSPSId}">
+					<h:outputText value="#{referencia.spsid}" />
+				</p:column>
 
 				<p:column headerText="#{msg.etiquetaNombre}">
 					<h:outputText value="#{referencia.nombre}" />
 				</p:column>
 
-				<p:columns value="#{tablaReferenciasTopicosBean.topicos}" var="topico" >
-		            <f:facet name="header">
-		                <h:outputText value="#{topico.descripcion}" />
-		            </f:facet>
-		            <h:outputText value="#{referencia.topicos.contains(topico) ? 'X' : '' }" />
-		        </p:columns>
-				
+				<p:columns value="#{tablaReferenciasTopicosBean.topicos}"
+					var="topico">
+					<f:facet name="header">
+						<h:outputText
+							value="#{topico.pregunta.codigo} - #{topico.descripcion}" />
+					</f:facet>
+					<h:outputText
+						value="#{referencia.topicos.contains(topico) ? 'X' : '' }" />
+				</p:columns>
+
 			</p:dataTable>
 		</h:form>
+
 	</ui:define>
 </ui:composition>
 </html>

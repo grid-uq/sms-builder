@@ -86,4 +86,8 @@ public class PreguntaEJB extends AbstractEJB<Pregunta, Integer> {
 		}
 	}
 
+	public long totalPreguntas(Integer id) {
+		return entityManager.createNamedQuery(Queries.PREGUNTA_GET_CANTIDAD, Long.class).setParameter("id", id).getSingleResult();
+	}
+
 }

@@ -51,22 +51,22 @@ class ImportTest {
 
 	@Test
 	void testParseACM_MENDELEY() {
-		testParse(Fuente.ACM_MENDELEY, "/acm_3_mendeleyris.ris", 3);
+		testParse(Fuente.ACM, "/acm_3_mendeleyris.ris", 3);
 	}
 	
 	@Test
 	void testParseIEEE_MENDELEY() {
-		testParse(Fuente.IEEE_MENDELEY, "/ieee_6_mendeleyris.ris", 6);
+		testParse(Fuente.IEEE, "/ieee_6_mendeleyris.ris", 6);
 	}
 
 	@Test
 	void testParseSCIENCEDIRECT_MENDELEY() {
-		testParse(Fuente.SCIENCEDIRECT_MENDELEY, "/sciecedirect_47_mendeleyris.ris", 47);
+		testParse(Fuente.SCIENCEDIRECT, "/sciecedirect_47_mendeleyris.ris", 47);
 	}	
 	
 	@Test
 	void testParseINCLUSION_DIRECTA() {
-		testParse(Fuente.SCIENCEDIRECT_MENDELEY, "/inclusionDirecta_9_rismendeley.ris", 9);
+		testParse(Fuente.SCIENCEDIRECT, "/inclusionDirecta_9_rismendeley.ris", 9);
 	}	
 	
 //	@Test

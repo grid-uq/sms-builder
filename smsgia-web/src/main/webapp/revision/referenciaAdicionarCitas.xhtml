@@ -16,7 +16,14 @@
 			<p:dataTable id="revisionRadio"
 				value="#{referenciaAdicionarCitasBean.referencias}" var="referencia"
 				paginator="true" rows="50" rowsPerPageTemplate="10,20,50,100,500"
-				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}">
+				rowStyleClass="#{referencia.year == null or referencia.citas == null ? 'colorOrange' : null}">
+				
+
+				<p:column headerText="#{msg.etiquetaSPSId}"
+					sortBy="#{referencia.spsid}" filterBy="#{referencia.spsid}"
+					filterMatchMode="contains" >
+					<h:outputText value="#{referencia.spsid}" />
+				</p:column>
 
 				<p:column headerText="#{msg.etiquetaNombre}"
 					sortBy="#{referencia.nombre}" filterBy="#{referencia.nombre}"
@@ -25,11 +32,18 @@
 				</p:column>
 
 				<p:column headerText="#{msg.etiquetaCitas}" sortBy="#{referencia.citas}" filterBy="referencia.citas" filterMatchMode="contains">
-					<p:inputNumber value="#{referencia.citas}" size="4">
+					<p:inputNumber value="#{referencia.citas}" maxlength="4" decimalPlaces="0"  inputStyle="width: 90%" >
 						<p:ajax event="blur"
-							listener="#{referenciaAdicionarCitasBean.guardarCita(referencia)}" />
+							listener="#{referenciaAdicionarCitasBean.guardarCita(referencia)}" update="mensajes" />
 					</p:inputNumber>
-
+					<p:commandButton value="#{msg.botonCompletarCitas}" action="#{referenciaAdicionarCitasBean.completarCita(referencia)}" update="tabla" />
+				</p:column>
+				<p:column headerText="#{msg.etiquetaYear}" sortBy="#{referencia.year}" filterBy="referencia.year" filterMatchMode="contains">
+					<p:inputMask value="#{referencia.year}" mask="9999"  inputStyle="width: 90%" >
+						<p:ajax event="blur"
+							listener="#{referenciaAdicionarCitasBean.guardarYear(referencia)}" update="mensajes"  />
+					</p:inputMask>
+					
 				</p:column>
 
 				<p:column headerText="#{msg.etiquetaRelevancia}" sortBy="#{referencia.relevancia}" filterBy="referencia.relevancia" filterMatchMode="contains">

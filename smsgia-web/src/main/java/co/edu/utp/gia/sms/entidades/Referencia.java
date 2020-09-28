@@ -5,6 +5,7 @@ import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -40,7 +41,11 @@ public class Referencia implements Entidad<Integer> {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
-
+	/**
+	 * Variable que representa el atributo SPSID
+	 */
+	@Column(length = 50)
+	private String spsid;
 	/**
 	 * Variable que representa el atributo nombre de la clase
 	 */
@@ -75,9 +80,13 @@ public class Referencia implements Entidad<Integer> {
 	private Integer citas;
 
 	private Float ponderacionCitas;
-
+	@Lob
 	private String nota;
-
+	
+	private Float sci;
+	
+	private Float srrqi;
+	
 	/**
 	 * Variable que representa el atributo metadatos de la clase
 	 */
@@ -446,5 +455,52 @@ public class Referencia implements Entidad<Integer> {
 		this.nota = nota;
 	}
 
+	/**
+	 * Metodo que permite obtener el valor del atributo spsid
+	 * @return El valor del atributo spsid
+	 */
+	public String getSpsid() {
+		return spsid;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo spsid
+	 * @param spsid Valor a ser asignado al atributo spsid
+	 */
+	public void setSpsid(String spsid) {
+		this.spsid = spsid;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo sci
+	 * @return El valor del atributo sci
+	 */
+	public Float getSci() {
+		return sci;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo sci
+	 * @param sci Valor a ser asignado al atributo sci
+	 */
+	public void setSci(Float sci) {
+		this.sci = sci;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo srrqi
+	 * @return El valor del atributo srrqi
+	 */
+	public Float getSrrqi() {
+		return srrqi;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo srrqi
+	 * @param srrqi Valor a ser asignado al atributo srrqi
+	 */
+	public void setSrrqi(Float srrqi) {
+		this.srrqi = srrqi;
+	}
 	
 }

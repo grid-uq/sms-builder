@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.negocio;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
@@ -11,14 +12,17 @@ import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
 public class RevisionEJB extends AbstractEJB<Revision, Integer> {
-
+	@Inject
+	private AtributoCalidadEJB atributoCalidadEJB;
 	public RevisionEJB() {
 		super(Revision.class);
 	}
 
 	public Revision registrar(String nombre, String descripcion) {
 		Revision revision = new Revision(nombre, descripcion);
-		return registrar(revision);
+		registrar(revision);
+		atributoCalidadEJB.crearAtributosCalidadPorDefecto(revision);
+		return revision;
 	}
 
 	/**

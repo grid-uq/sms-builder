@@ -12,6 +12,9 @@ import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
 public class AtributoCalidadEJB extends AbstractEJB<AtributoCalidad, Integer>{
+	public static final String RRQI = "RRQI";
+	public static final String CVI = "CVI";
+	public static final String SCI = "SCI";
 
 	@Inject
 	private RevisionEJB revisionEJB;
@@ -28,15 +31,37 @@ public class AtributoCalidadEJB extends AbstractEJB<AtributoCalidad, Integer>{
 	 * @return El atributo de calidad registrado
 	 */
 	public AtributoCalidad registrar(String descripcion, Integer idRevision) {
-		AtributoCalidad atributoCalidad = null;
 		Revision revision = revisionEJB.obtener(idRevision);
+		return registrar(descripcion, revision);
+	}
+
+	/**
+	 * Permite registrar un atributo de calidad
+	 * 
+	 * @param descripcion Descripcion del atributo de calidad
+	 * @param Revision  {@link Revision} a la que se desea adicionar el atributo de calidad
+	 * @return El atributo de calidad registrado
+	 */
+	private AtributoCalidad registrar(String descripcion, Revision revision) {
+		AtributoCalidad atributoCalidad = null;
 		if (revision != null) {
 			atributoCalidad = new AtributoCalidad(descripcion, revision);
-			registrar(atributoCalidad);
+			entityManager.persist(atributoCalidad);
 		}
 		return atributoCalidad;
 	}
 
+	/**
+	 * Permite obtener un atributo de calidad basado en su Id
+	 * 
+	 * @param idAtributoCalidad Identificador del atributo de calidad que se desea obtener
+	 * @return La {@link AtributoCalidad} que se corresponde con el Identificador dado
+	 */
+	public AtributoCalidad obtener(String descripcion,Integer idRevision) {
+		return entityManager.createNamedQuery(Queries.ATRIBUTO_CALIDAD_GET_BY_DESCRIPTION_AND_REVISION, AtributoCalidad.class).setParameter("descripcion", descripcion).setParameter("idRevision", idRevision)
+				.getResultList().stream().findFirst().orElse(null);
+	}
+	
 	/**
 	 * Permite obtener el listado de atributos de calidad de una revision
 	 * 
@@ -72,9 +97,10 @@ public class AtributoCalidadEJB extends AbstractEJB<AtributoCalidad, Integer>{
 		}
 	}
 
-	@Override
-	public List<AtributoCalidad> listar() {
-		throw new LogicException("Operacion no soportada");
+	public void crearAtributosCalidadPorDefecto(Revision revision) {
+		registrar(SCI, revision);
+		registrar(CVI, revision);
+		registrar(RRQI, revision);
 	}
 
 }

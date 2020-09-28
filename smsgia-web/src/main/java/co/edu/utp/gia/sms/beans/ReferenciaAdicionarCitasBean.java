@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -8,6 +9,7 @@ import javax.inject.Named;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.importutil.FindReferenceCitation;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import co.edu.utp.gia.sms.negocio.RevisionEJB;
 
@@ -42,10 +44,22 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO>{
 		}
 	}
 
+	public void guardarYear(ReferenciaDTO referencia) {
+		try {
+			System.out.println(String.format("Actualizando %d-%s",referencia.getId(),referencia.getYear()));
+			referenciaEJB.actualizarYear(referencia.getId(), referencia.getYear());
+		} catch (Exception e) {
+			mostrarErrorGeneral(e.getMessage());
+
+		}
+	}
 	
 	public void guardarCita(ReferenciaDTO referencia) {
-		
-		referenciaEJB.actualizarCita(referencia.getId(), referencia.getCitas());
+		try {
+			referenciaEJB.actualizarCita(referencia.getId(), referencia.getCitas());
+		} catch (Exception e) {
+			mostrarErrorGeneral(e.getMessage());
+		}
 	}
 	
 	
@@ -55,7 +69,15 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO>{
 
 	}
 	
-
+	public void completarCita(ReferenciaDTO referencia) {
+		try {
+			int i = FindReferenceCitation.getInstans().findCitation(referencia.getReferencia());
+			guardarCita(referencia);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void guardar() {
 		for (ReferenciaDTO referencia : referencias) {
 			referenciaEJB.limpiarTopicos(referencia.getId());

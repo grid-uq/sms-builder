@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.beans;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,7 @@ import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 
 @Named
 @ViewScoped
-public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaDTO> {
+public class ResumenReferenciasDestacadasBean extends GenericBean<ReferenciaDTO> {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
@@ -31,7 +30,7 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 	public void inicializar() {
 
 		if (revision != null) {
-			referencias = referenciaEJB.obtenerTodas(revision.getId(), 3);
+			referencias = referenciaEJB.obtenerDestacadas(revision.getId());
 		}
 	}
 	
@@ -102,5 +101,4 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 			referenciaEJB.actualizarSPS( referencia.getId() , referencia.getSpsid() );
 		}
 	}
-	
 }

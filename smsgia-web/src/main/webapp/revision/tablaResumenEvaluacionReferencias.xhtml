@@ -14,7 +14,7 @@
 
 			<p:dataTable id="resumenReferencias"
 				value="#{tablaResumenEvaluacionReferenciasBean.referencias}"
-				var="referencia">
+				var="referencia" widgetVar="tablaResumenEvaluacion">
 
 				<f:facet name="footer">
 
@@ -71,6 +71,10 @@
 
 				</f:facet>
 
+				<p:column headerText="#{msg.etiquetaSPSId}">
+					<h:outputText value="#{referencia.spsid}" />
+				</p:column>
+
 				<p:column headerText="#{msg.etiquetaNombre}">
 					<h:outputText value="#{referencia.nombre}" />
 				</p:column>
@@ -79,8 +83,24 @@
 		            <f:facet name="header">
 		                <h:outputText value="#{atributoCalidad.descripcion}" />
 		            </f:facet>
+		            <h:outputText value="#{referencia.getValorEvaluacion(atributoCalidad)}" />
+		        </p:columns>
+				
+				<!-- 
+				<p:columns value="#{tablaResumenEvaluacionReferenciasBean.atributosCalidad}" var="atributoCalidad" filterOptions="#{tablaResumenEvaluacionReferenciasBean.listaValores}" filterBy="#{referencia.getValorEvaluacion(atributoCalidad)}" columnIndexVar="colIndex" filterMatchMode="equals" filterable="true" >
+		            <f:facet name="header">
+		                <h:outputText value="#{atributoCalidad.descripcion}" />
+		            </f:facet>
+		            <h:outputText value="#{referencia.getValorEvaluacion(atributoCalidad)}" />
+		        </p:columns>
+
+				<p:columns value="#{tablaResumenEvaluacionReferenciasBean.atributosCalidad}" var="atributoCalidad" columnIndexVar="colIndex" filterOptions="#{tablaResumenEvaluacionReferenciasBean.listaValores}" filterBy="#{referencia.getEvaluacionCalidad(atributoCalidad) != null ? referencia.getEvaluacionCalidad(atributoCalidad).evaluacionCualitativa : ''}" >
+		            <f:facet name="header">
+		                <h:outputText value="#{atributoCalidad.descripcion}" />
+		            </f:facet>
 		            <h:outputText value="#{referencia.getEvaluacionCalidad(atributoCalidad) != null ? referencia.getEvaluacionCalidad(atributoCalidad).evaluacionCualitativa : ''}" />
 		        </p:columns>
+ -->		        
 				<p:column headerText="#{msg.etiquetaTotal}">
 					<h:outputText value="#{referencia.totalEvaluacionCalidad}" />
 				</p:column>

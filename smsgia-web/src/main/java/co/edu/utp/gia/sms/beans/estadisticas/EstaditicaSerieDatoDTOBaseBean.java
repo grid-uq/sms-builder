@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedProperty;
@@ -15,7 +16,7 @@ import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 
-public class EstaditicaDatoDTOBaseBean {
+public class EstaditicaSerieDatoDTOBaseBean {
 
 	@Inject
 	private EstadisticaEJB estadisticaEJB;
@@ -24,6 +25,7 @@ public class EstaditicaDatoDTOBaseBean {
 	private Revision revision;
 
 	private List<DatoDTO> datos;
+	private List<ChartSeries> series;
 
 	private ChartModel model;
 
@@ -35,6 +37,31 @@ public class EstaditicaDatoDTOBaseBean {
 	private String[] tiposGrafica = { "bar", "pie"};
 
 	private String tipoGrafica = "pie";
+
+	public EstaditicaSerieDatoDTOBaseBean() {
+		series = new ArrayList<>();
+	}
+	
+	protected void addSerie(List<DatoDTO> datos) {
+		addSerie( crearSerieFromListDatoDTO(datos) );
+	}
+	
+	
+	protected void addSerie(ChartSeries serie) {
+		if( series == null ) {
+			series = new ArrayList<>();
+		}
+		series.add(serie);
+	}
+
+
+	protected ChartSeries crearSerieFromListDatoDTO(List<DatoDTO> datos) {
+		ChartSeries serie = new ChartSeries();
+		for (DatoDTO dato : datos) {
+			serie.set(dato.getEtiqueta(), dato.getValor());
+		}
+		return serie;
+	}
 
 	protected void crearModelo() {
 		switch (tipoGrafica) {
@@ -54,9 +81,13 @@ public class EstaditicaDatoDTOBaseBean {
 	protected PieChartModel crearPieModel() {
 		PieChartModel model = new PieChartModel();
 
-		for (DatoDTO datoDTO : datos) {
-			model.set(datoDTO.getEtiqueta(), datoDTO.getValor());
+		if( series != null && series.size() > 0 ) {
+			series.get(0).getData().forEach( (k,v)->{ model.set(k.toString(),v); } );
 		}
+		
+//		for (DatoDTO datoDTO : datos) {
+//			model.set(datoDTO.getEtiqueta(), datoDTO.getValor());
+//		}
 
 		model.setTitle(titulo);
 		model.setLegendPosition("w");
@@ -67,19 +98,20 @@ public class EstaditicaDatoDTOBaseBean {
 	protected BarChartModel crearBarModel() {
 		BarChartModel model = new BarChartModel();
 
-		ChartSeries referencias = new ChartSeries();
+//		ChartSeries referencias = new ChartSeries();
 		
-		
-//        referencias.setLabel("Referencias");
 //		referencias.setLabel(titulo);
-		for (DatoDTO datoDTO : datos) {
-			referencias.set(datoDTO.getEtiqueta(), datoDTO.getValor());
+//		for (DatoDTO datoDTO : datos) {
+//			referencias.set(datoDTO.getEtiqueta(), datoDTO.getValor());
+//		}
+//		model.addSeries(referencias);
+
+		if( series != null ) {
+			series.forEach( s->model.addSeries(s) );
 		}
-
-		model.addSeries(referencias);
-
+		
 		model.setTitle(titulo);
-//		model.setLegendPosition("ne");
+		model.setLegendPosition("ne");
 
 		model.getAxis(AxisType.X).setLabel(ejeX);
 		model.getAxis(AxisType.Y).setLabel(ejeY);
@@ -178,6 +210,8 @@ public class EstaditicaDatoDTOBaseBean {
 	 */
 	public void setDatos(List<DatoDTO> datos) {
 		this.datos = datos;
+		series.clear();
+		addSerie(datos);
 	}
 
 	/**
@@ -270,4 +304,21 @@ public class EstaditicaDatoDTOBaseBean {
 		this.tipoGrafica = tipoGrafica;
 	}
 
+	/**
+	 * Metodo que permite obtener el valor del atributo series
+	 * @return El valor del atributo series
+	 */
+	public List<ChartSeries> getSeries() {
+		return series;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo series
+	 * @param series Valor a ser asignado al atributo series
+	 */
+	public void setSeries(List<ChartSeries> series) {
+		this.series = series;
+	}
+
+	
 }

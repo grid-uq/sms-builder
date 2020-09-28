@@ -20,7 +20,7 @@ import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 
 @Named
 @ViewScoped
-public class TablaResumenEvaluacionReferenciasBean extends GenericBean<ReferenciaDTO>{
+public class TablaResumenEvaluacionReferenciasAtributoBean extends GenericBean<ReferenciaDTO>{
 
 
 	/**
@@ -36,10 +36,15 @@ public class TablaResumenEvaluacionReferenciasBean extends GenericBean<Referenci
 
 	private List<AtributoCalidad> atributosCalidad;
 	
+	private AtributoCalidad atributoCalidad;
+	private Integer idAtributo;
+	
 	public void inicializar() {
 		if (revision != null) {
 			referencias = referenciaEJB.obtenerTodasConEvaluacion(revision.getId(), 3);
 			atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad( revision.getId() );
+			atributoCalidad = atributosCalidad.stream().findFirst().orElse(null);
+			idAtributo = atributoCalidad != null ? atributoCalidad.getId() : null;
 		}
 	}
 	
@@ -52,6 +57,12 @@ public class TablaResumenEvaluacionReferenciasBean extends GenericBean<Referenci
 		}
 		return false;
 	}
+	
+	
+	public void atributoSeleccionado () {
+		atributoCalidad = atributosCalidad.stream().filter(a->a.getId()==idAtributo).findFirst().orElse(atributoCalidad);
+	}
+	
 	/**
 	 * Metodo que permite obtener el valor del atributo referencias
 	 * 
@@ -99,4 +110,42 @@ public class TablaResumenEvaluacionReferenciasBean extends GenericBean<Referenci
 		}
 		return valores;
 	}
+
+
+	/**
+	 * Metodo que permite obtener el valor del atributo atributoCalidad
+	 * @return El valor del atributo atributoCalidad
+	 */
+	public AtributoCalidad getAtributoCalidad() {
+		return atributoCalidad;
+	}
+
+
+	/**
+	 * Metodo que permite asignar un valor al atributo atributoCalidad
+	 * @param atributoCalidad Valor a ser asignado al atributo atributoCalidad
+	 */
+	public void setAtributoCalidad(AtributoCalidad atributoCalidad) {
+		this.atributoCalidad = atributoCalidad;
+	}
+
+
+	/**
+	 * Metodo que permite obtener el valor del atributo idAtributo
+	 * @return El valor del atributo idAtributo
+	 */
+	public Integer getIdAtributo() {
+		return idAtributo;
+	}
+
+
+	/**
+	 * Metodo que permite asignar un valor al atributo idAtributo
+	 * @param idAtributo Valor a ser asignado al atributo idAtributo
+	 */
+	public void setIdAtributo(Integer idAtributo) {
+		this.idAtributo = idAtributo;
+	}
+	
+	
 }

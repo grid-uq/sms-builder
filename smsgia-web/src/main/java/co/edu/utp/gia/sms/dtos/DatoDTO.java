@@ -14,6 +14,11 @@ public class DatoDTO implements Serializable {
 
 	}
 
+	public DatoDTO(Object etiqueta, Long valor) {
+		this.etiqueta = etiqueta.toString();
+		this.valor = valor.floatValue();
+	}
+
 	/**
 	 * Metodo que permite inicializar los elementos de la clase DatoDTO
 	 * 
