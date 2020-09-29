@@ -28,7 +28,11 @@
 				<p:column headerText="#{msg.etiquetaNombre}"
 					sortBy="#{referencia.nombre}" filterBy="#{referencia.nombre}"
 					filterMatchMode="contains" style="width:76%">
-					<h:outputText value="#{referencia.nombre}" />
+					
+					<p:link href="https://scholar.google.com/scholar" target="_blank" value="#{referencia.nombre}">
+						<f:param name="hl" value="es" />
+						<f:param name="q" value="#{referencia.nombre}" />
+					</p:link>
 				</p:column>
 
 				<p:column headerText="#{msg.etiquetaCitas}" sortBy="#{referencia.citas}" filterBy="referencia.citas" filterMatchMode="contains">
