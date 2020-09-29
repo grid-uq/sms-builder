@@ -50,8 +50,7 @@ public class NotaEJB extends AbstractEJB<Nota, Integer> {
 		Nota nota = new Nota();
 		nota.setEtapa(filtro);
 		return nota;
-	}
-	
+	}	
 
 	public void actualizar(Integer id, Integer idNota, String descripcion, Integer etapa) {
 

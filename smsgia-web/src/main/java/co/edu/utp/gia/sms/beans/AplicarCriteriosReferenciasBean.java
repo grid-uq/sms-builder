@@ -22,6 +22,7 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
 	private List<ReferenciaDTO> referencias;
 	@Inject
 	private ReferenciaEJB referenciaEJB;
+	
 
 	public void inicializar() {
 		if (revision != null) {

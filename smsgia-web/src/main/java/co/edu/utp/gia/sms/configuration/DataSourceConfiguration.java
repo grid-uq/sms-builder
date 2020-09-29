@@ -26,7 +26,6 @@ import javax.annotation.sql.DataSourceDefinitions;
 	password = "sms-12345"
 		)
 
-
 //	@DataSourceDefinition(name = "java:global/MyApp/myDS",
 //	className = "org.apache.derby.jdbc.ClientDataSource",
 //	portNumber = 1527,

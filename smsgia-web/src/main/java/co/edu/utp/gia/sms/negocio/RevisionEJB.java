@@ -10,7 +10,7 @@ import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.query.Queries;
 
-@Stateless
+@Stateless 
 public class RevisionEJB extends AbstractEJB<Revision, Integer> {
 	@Inject
 	private AtributoCalidadEJB atributoCalidadEJB;
