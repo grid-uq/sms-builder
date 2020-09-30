@@ -1,0 +1,1 @@
+El propósito de esta carpeta es almacenar los archivos de respaldo para la base de datos
