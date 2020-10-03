@@ -14,17 +14,33 @@ import javax.annotation.sql.DataSourceDefinitions;
 //			url = "jdbc:h2:mem:test"
 			url = "jdbc:h2:file:./sms"
 			),
-	@DataSourceDefinition(
-	name = "java:app/smsgia-web/mysql",
-	className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
-//	className = "com.mysql.jdbc.Driver",
-//	serverName="192.168.211.254",
-	serverName="localhost",
-	databaseName = "sms",
-	portNumber=3306,
-	user = "sms",
-	password = "sms-12345"
-		)
+//	@DataSourceDefinition(
+//	name = "java:app/smsgia-web/mysql",
+////	className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
+////	className = "com.mysql.jdbc.Driver",
+//	className = "com.mysql.cj.jdbc.MysqlDataSource",
+//	url = "jdbc:mysql://localhost:3306/sms",
+////	serverName="192.168.211.254",
+//	serverName="localhost",
+//	databaseName = "sms",
+//	portNumber=3306,
+//	user = "sms",
+//	password = "sms-12345"
+//		)
+	
+	
+	
+	@DataSourceDefinition(name = "java:app/smsgia-web/mysql", //
+	className = "com.mysql.cj.jdbc.MysqlDataSource", //
+	serverName = "localhost", //
+	portNumber = 3306, //
+	user = "sms", //
+	password = "sms-12345", //
+	databaseName = "sms", //
+	properties = { //
+	"useSSL=false", "useInformationSchema=true", "nullCatalogMeansCurrent=true", "nullNamePatternMatchesAll=false" //
+	})
+	
 
 //	@DataSourceDefinition(name = "java:global/MyApp/myDS",
 //	className = "org.apache.derby.jdbc.ClientDataSource",
