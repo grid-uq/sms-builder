@@ -21,8 +21,12 @@ public class EvaluacionCalidadEJB extends AbstractEJB<EvaluacionCalidad, Evaluac
 	@Override
 	public void actualizar(EvaluacionCalidad evaluacion) {
 		evaluacion.calcularEvaluacionCualitativa();
-		super.actualizar(evaluacion);
-	}
+		if( evaluacion.getId() != null ) {
+			super.actualizar(evaluacion);
+		} else {
+			registrar(evaluacion);
+		}
+	}	
 	
 	public List<EvaluacionCalidad> obtenerEvaluaciones(Integer id) {
 		return entityManager.createNamedQuery(Queries.EVALUACION_CALIDAD_GET_ALL, EvaluacionCalidad.class)
