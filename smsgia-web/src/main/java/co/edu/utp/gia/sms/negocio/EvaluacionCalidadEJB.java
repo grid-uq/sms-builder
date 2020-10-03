@@ -21,7 +21,7 @@ public class EvaluacionCalidadEJB extends AbstractEJB<EvaluacionCalidad, Evaluac
 	@Override
 	public void actualizar(EvaluacionCalidad evaluacion) {
 		evaluacion.calcularEvaluacionCualitativa();
-		if( evaluacion.getId() != null ) {
+		if( evaluacion.getId() != null && obtener(evaluacion.getId()) != null ) {
 			super.actualizar(evaluacion);
 		} else {
 			registrar(evaluacion);
