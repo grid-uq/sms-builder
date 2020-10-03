@@ -2,18 +2,14 @@ package co.edu.utp.gia.sms.entidades;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import static javax.persistence.FetchType.EAGER;
 
 /**
  * @author Christian A. Candela
@@ -27,25 +23,11 @@ import static javax.persistence.FetchType.EAGER;
  *
  */
 @Entity
-//@NamedQueries({
-//
-//		@NamedQuery(name = Pregunta.PREGUNTA_GET_ALL, query = "select p from Pregunta p where p.revision.id = :id")
-//
-//})
-
-public class Pregunta implements Serializable {
+public class Pregunta implements Entidad<Integer> {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
 	private static final long serialVersionUID = -176556849502833317L;
-
-	/**
-	 * Consulta que permite obtener las preguntas registradas en el sistema para una
-	 * revision <br />
-	 * <code>select p from Pregunta p where p.revision.id = :id </code>
-	 * 
-	 */
-//	public static final String PREGUNTA_GET_ALL = "Pregunta.getAll";
 
 	/**
 	 * Variable que representa el atributo id de la clase
@@ -63,13 +45,37 @@ public class Pregunta implements Serializable {
 	 */
 	@Column(nullable = false)
 	private String descripcion;
-
-	@ManyToOne
-	private Revision revision;
 	
-	@OneToMany(mappedBy = "pregunta", fetch = EAGER )
+	
+
+
+	/**
+	 * Variable que representa los topico de una pregunta
+	 */
+	@OneToMany(mappedBy = "pregunta")
 	private List<Topico> topicos;
 
+	/**
+	 * Variable que representa los objetivos con los que se relaciona una pregunta
+	 */
+	@ManyToMany
+	private List<Objetivo> objetivos;
+	
+
+	/**
+	 * Metodo que permite inicializar los elementos de la clase Pregunta
+	 * 
+	 * @param codigo
+	 * @param descripcion
+	 * @param objetivos
+	 */
+	public Pregunta(String codigo, String descripcion, List<Objetivo> objetivos) {
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+		this.objetivos = objetivos;
+	}
+	
+	
 	/**
 	 * Metodo que permite inicializar los elementos de la clase Pregunta
 	 * 
@@ -77,12 +83,13 @@ public class Pregunta implements Serializable {
 	 * @param descripcion
 	 * @param revision
 	 */
-	public Pregunta(String codigo, String descripcion, Revision revision) {
+	public Pregunta(String codigo, String descripcion) {
 		this.codigo = codigo;
 		this.descripcion = descripcion;
-		this.revision = revision;
 	}
-
+	
+	
+	
 	/**
 	 * Metodo que permite inicializar los elementos de la clase Pregunta
 	 */
@@ -144,25 +151,8 @@ public class Pregunta implements Serializable {
 	}
 
 	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * 
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * 
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
-	}
-
-	/**
 	 * Metodo que permite obtener el valor del atributo topicos
+	 * 
 	 * @return El valor del atributo topicos
 	 */
 	public List<Topico> getTopicos() {
@@ -171,13 +161,34 @@ public class Pregunta implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo topicos
+	 * 
 	 * @param topicos Valor a ser asignado al atributo topicos
 	 */
 	public void setTopicos(List<Topico> topicos) {
 		this.topicos = topicos;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * Metodo que permite obtener el valor del atributo objetivos
+	 * 
+	 * @return El valor del atributo objetivos
+	 */
+	public List<Objetivo> getObjetivos() {
+		return objetivos;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo objetivos
+	 * 
+	 * @param objetivos Valor a ser asignado al atributo objetivos
+	 */
+	public void setObjetivos(List<Objetivo> objetivos) {
+		this.objetivos = objetivos;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -188,7 +199,9 @@ public class Pregunta implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

@@ -1,32 +1,29 @@
 package co.edu.utp.gia.sms.beans;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.file.UploadedFile;
 
 import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParse;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParseFactory;
 import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 
-@ManagedBean
+@Named
 @ViewScoped
+public class RegistroReferenciasBean extends GenericBean<Referencia> {
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = 1107564281230780705L;
 
-public class RegistroReferenciasBean implements Serializable {
-	@ManagedProperty(value = "#{registroInicialBean.revision}")
-	private Revision revision;
 	@Inject
 	private ReferenciaEJB referenciaEJB;
 
@@ -41,13 +38,13 @@ public class RegistroReferenciasBean implements Serializable {
 	}
 
 	private void procesarArchivo() {
-		try (Scanner reader = new Scanner( file.getInputstream() )){
+		
+		try (Scanner reader = new Scanner( file.getInputStream() )){
 			
 			FileMultipleRegisterParse parser = FileMultipleRegisterParseFactory.getInstance(fuente);
-			List<Referencia> referencias = parser.parse(file.getInputstream());
+			List<Referencia> referencias = parser.parse(file.getInputStream());
 			referenciaEJB.registrar(referencias, revision.getId());
-			FacesMessage message = new FacesMessage("Se adicionaron ", referencias.size() + " referencias");
-			FacesContext.getCurrentInstance().addMessage(null, message);
+			mostrarMensajeGeneral("Se adicionaron "+ referencias.size() + " referencias" );
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,21 +103,9 @@ public class RegistroReferenciasBean implements Serializable {
 		return Fuente.values();
 	}
 
-	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
+	@Override
+	public void inicializar() {
+		
 	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
-	}
-
 
 }

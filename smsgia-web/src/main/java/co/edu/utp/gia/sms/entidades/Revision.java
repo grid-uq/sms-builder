@@ -2,15 +2,12 @@ package co.edu.utp.gia.sms.entidades;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -25,24 +22,12 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-//@NamedQueries({
-//
-//	@NamedQuery(name = Revision.REVISION_GET_ALL, query = "select p from Revision p")
-//
-//})
-
-public class Revision implements Serializable {
+public class Revision implements Entidad<Integer> {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
 	private static final long serialVersionUID = -7643166662144090738L;
-	/**
-	 * Consulta que permite obtener las revisiones registradas en el sistema <br />
-	 * <code>select p from Revision p  </code>
-	 * 
-	 */
-//	public static final String REVISION_GET_ALL = "Revision.getAll";
-	
+
 	/**
 	 * Variable que representa el atributo id de la clase
 	 */
@@ -59,27 +44,31 @@ public class Revision implements Serializable {
 	 * Variable que representa el atributo descripcion de la clase
 	 */
 	private String descripcion;
+
 	/**
-	 * Variable que representa el atributo objetivo de la clase
-	 */
-	private String objetivo;
-	/**
-	 * Variable que representa el atributo preguntas de la clase
+	 * Lista de objetivos de la revision
+	 * 
 	 */
 	@OneToMany(mappedBy = "revision")
-	private List<Pregunta> preguntas;
-
+	private List<Objetivo> objetivos;
+	
+	
+//	/**
+//	 * Variable que representa el atributo preguntas de la clase
+//	 */
+//	@OneToMany(mappedBy = "revision")
+//	private List<Pregunta> preguntas;
+//
+	
 	/**
 	 * Metodo que permite inicializar los elementos de la clase Revision
 	 * 
 	 * @param nombre
 	 * @param descripcion
-	 * @param objetivo
 	 */
-	public Revision(String nombre, String descripcion, String objetivo) {
+	public Revision(String nombre, String descripcion) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.objetivo = objetivo;
 	}
 
 	/**
@@ -142,43 +131,27 @@ public class Revision implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	/**
-	 * Metodo que permite obtener el valor del atributo objetivo
-	 * 
-	 * @return El valor del atributo objetivo
-	 */
-	public String getObjetivo() {
-		return objetivo;
-	}
+//	/**
+//	 * Metodo que permite obtener el valor del atributo preguntas
+//	 * 
+//	 * @return El valor del atributo preguntas
+//	 */
+//	public List<Pregunta> getPreguntas() {
+//		return preguntas;
+//	}
+//
+//	/**
+//	 * Metodo que permite asignar un valor al atributo preguntas
+//	 * 
+//	 * @param preguntas Valor a ser asignado al atributo preguntas
+//	 */
+//	public void setPreguntas(List<Pregunta> preguntas) {
+//		this.preguntas = preguntas;
+//	}
 
-	/**
-	 * Metodo que permite asignar un valor al atributo objetivo
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param objetivo Valor a ser asignado al atributo objetivo
-	 */
-	public void setObjetivo(String objetivo) {
-		this.objetivo = objetivo;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo preguntas
-	 * 
-	 * @return El valor del atributo preguntas
-	 */
-	public List<Pregunta> getPreguntas() {
-		return preguntas;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo preguntas
-	 * 
-	 * @param preguntas Valor a ser asignado al atributo preguntas
-	 */
-	public void setPreguntas(List<Pregunta> preguntas) {
-		this.preguntas = preguntas;
-	}
-
-	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -189,7 +162,9 @@ public class Revision implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -209,5 +184,4 @@ public class Revision implements Serializable {
 		return true;
 	}
 
-	
 }

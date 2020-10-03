@@ -10,6 +10,7 @@ import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.importutil.Fuente;
 
 public class ReferenciaDTO implements Serializable {
 	/**
@@ -17,16 +18,18 @@ public class ReferenciaDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = -2840554748252612956L;
 	private Referencia referencia;
+
 	private boolean seleccionada;
 	private int etapa;
 	private List<EvaluacionCalidad> evaluaciones;
 	private String autores;
 	private String keywords;
 	private String abstracts;
+	private Fuente fuente;
+	private List<Metadato> metadatos;
 
 	public ReferenciaDTO(Referencia referencia) {
 		this(referencia, 0);
-		System.out.println("Construyento ReferenciaDTO SIN PARAMETRO");
 	}
 
 	/**
@@ -40,13 +43,11 @@ public class ReferenciaDTO implements Serializable {
 	public ReferenciaDTO(Referencia referencia, Integer etapa) {
 		this.etapa = etapa;
 		this.referencia = referencia;
+		this.abstracts = referencia.getResumen();
 		evaluarSeleccion();
 	}
 
 	private void evaluarSeleccion() {
-//		System.out.println("Seleccionada =  " + referencia.getFiltro().intValue() + " | " + etapa + " = "
-//				+ (referencia.getFiltro().intValue() | etapa) + " > " + etapa + " = "
-//				+ ( (referencia.getFiltro().intValue() | etapa) > etapa ) );
 		seleccionada = (referencia.getFiltro().intValue() | etapa) > etapa;
 	}
 
@@ -129,22 +130,6 @@ public class ReferenciaDTO implements Serializable {
 	 */
 	public void setResumen(String resumen) {
 		referencia.setResumen(resumen);
-	}
-
-	/**
-	 * @return
-	 * @see co.edu.utp.gia.sms.entidades.Referencia#getMetadatos()
-	 */
-	public List<Metadato> getMetadatos() {
-		return referencia.getMetadatos();
-	}
-
-	/**
-	 * @param metadatos
-	 * @see co.edu.utp.gia.sms.entidades.Referencia#setMetadatos(java.util.List)
-	 */
-	public void setMetadatos(List<Metadato> metadatos) {
-		referencia.setMetadatos(metadatos);
 	}
 
 	/**
@@ -236,14 +221,10 @@ public class ReferenciaDTO implements Serializable {
 	public void setSeleccionada(boolean seleccionada) {
 		if (this.seleccionada != seleccionada) {
 			int base = (etapa << 1) | 1;
-			System.out.println("Base : " + base);
 			if (seleccionada) {
-//				System.out.println("filtro = " + getFiltro() + " | " + base + " = " + (getFiltro() | base));
 				setFiltro(getFiltro() | base);
-
 			} else {
-//				System.out.println("filtro = " + getFiltro() + " ^ " + base + " = " + (getFiltro() ^ base));
-				setFiltro(getFiltro() ^ base);
+				setFiltro(getFiltro() & etapa);
 			}
 		}
 		this.seleccionada = seleccionada;
@@ -292,13 +273,14 @@ public class ReferenciaDTO implements Serializable {
 	 */
 	public void addEvaluacion(EvaluacionCalidad evaluacion) {
 		if (evaluaciones == null) {
-			evaluaciones = new ArrayList<EvaluacionCalidad>();
+			evaluaciones = new ArrayList<>();
 		}
 		evaluaciones.add(evaluacion);
 	}
 
 	/**
 	 * Metodo que permite obtener el valor del atributo autores
+	 * 
 	 * @return El valor del atributo autores
 	 */
 	public String getAutores() {
@@ -307,6 +289,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo autores
+	 * 
 	 * @param autores Valor a ser asignado al atributo autores
 	 */
 	public void setAutores(String autores) {
@@ -315,6 +298,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo etapa
+	 * 
 	 * @return El valor del atributo etapa
 	 */
 	public int getEtapa() {
@@ -323,6 +307,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo etapa
+	 * 
 	 * @param etapa Valor a ser asignado al atributo etapa
 	 */
 	public void setEtapa(int etapa) {
@@ -331,6 +316,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo keywords
+	 * 
 	 * @return El valor del atributo keywords
 	 */
 	public String getKeywords() {
@@ -339,6 +325,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo keywords
+	 * 
 	 * @param keywords Valor a ser asignado al atributo keywords
 	 */
 	public void setKeywords(String keywords) {
@@ -347,6 +334,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite obtener el valor del atributo abstracts
+	 * 
 	 * @return El valor del atributo abstracts
 	 */
 	public String getAbstracts() {
@@ -355,6 +343,7 @@ public class ReferenciaDTO implements Serializable {
 
 	/**
 	 * Metodo que permite asignar un valor al atributo abstracts
+	 * 
 	 * @param abstracts Valor a ser asignado al atributo abstracts
 	 */
 	public void setAbstracts(String abstracts) {
@@ -377,13 +366,169 @@ public class ReferenciaDTO implements Serializable {
 		referencia.setTotalEvaluacionCalidad(totalEvaluacionCalidad);
 	}
 
-	public EvaluacionCalidad getEvaluacionCalidad(AtributoCalidad atributo ) {
+	public EvaluacionCalidad getEvaluacionCalidad(AtributoCalidad atributo) {
 		for (EvaluacionCalidad evaluacionCalidad : evaluaciones) {
-			if( evaluacionCalidad.getAtributoCalidad().equals(atributo) ) {
+			if (evaluacionCalidad.getAtributoCalidad().equals(atributo)) {
 				return evaluacionCalidad;
 			}
 		}
 		return null;
 	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo fuente
+	 * 
+	 * @return El valor del atributo fuente
+	 */
+	public Fuente getFuente() {
+		return fuente;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo fuente
+	 * 
+	 * @param fuente Valor a ser asignado al atributo fuente
+	 */
+	public void setFuente(Fuente fuente) {
+		this.fuente = fuente;
+	}
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getNota()
+	 */
+	public String getNota() {
+		return referencia.getNota();
+	}
+
+	/**
+	 * @param nota
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setNota(java.lang.String)
+	 */
+	public void setNota(String nota) {
+		referencia.setNota(nota);
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo metadatos
+	 * 
+	 * @return El valor del atributo metadatos
+	 */
+	public List<Metadato> getMetadatos() {
+		return metadatos;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo metadatos
+	 * 
+	 * @param metadatos Valor a ser asignado al atributo metadatos
+	 */
+	public void setMetadatos(List<Metadato> metadatos) {
+		this.metadatos = metadatos;
+	}
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getRelevancia()
+	 */
+	public Integer getRelevancia() {
+		return referencia.getRelevancia();
+	}
+
+	/**
+	 * @param relevancia
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setRelevancia(java.lang.Integer)
+	 */
+	public void setRelevancia(Integer relevancia) {
+		referencia.setRelevancia(relevancia);
+	}
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getCitas()
+	 */
+
+	public Integer getCitas() {
+		return referencia.getCitas();
+	}
+
+	/**
+	 * @param citas
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setCitas(java.lang.Integer)
+	 */
+	public void setCitas(Integer citas) {
+		referencia.setCitas(citas);
+	}
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getPonderacionCitas()
+	 */
+	public Float getPonderacionCitas() {
+		return referencia.getPonderacionCitas();
+	}
+
+	/**
+	 * @param ponderacionCitas
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setPonderacionCitas(java.lang.Float)
+	 */
+	public void setPonderacionCitas(Float ponderacionCitas) {
+		referencia.setPonderacionCitas(ponderacionCitas);
+	}
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getSpsid()
+	 */
+	public String getSpsid() {
+		return referencia.getSpsid();
+	}
+
+	/**
+	 * @param smsid
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setSpsid(java.lang.String)
+	 */
+	public void setSpsid(String spsid) {
+		referencia.setSpsid(spsid);
+	}
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getSci()
+	 */
+	public Float getSci() {
+		return referencia.getSci();
+	}
+
+	/**
+	 * @param sci
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setSci(java.lang.Float)
+	 */
+	public void setSci(Float sci) {
+		referencia.setSci(sci);
+	}
+
+	/**
+	 * @return
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#getSrrqi()
+	 */
+	public Float getSrrqi() {
+		return referencia.getSrrqi();
+	}
+
+	/**
+	 * @param srrqi
+	 * @see co.edu.utp.gia.sms.entidades.Referencia#setSrrqi(java.lang.Float)
+	 */
+	public void setSrrqi(Float srrqi) {
+		referencia.setSrrqi(srrqi);
+	}
 	
+	public String getValorEvaluacion(AtributoCalidad atributo) {
+		EvaluacionCalidad evaluacion = getEvaluacionCalidad(atributo);
+		if( evaluacion == null ) {
+			return "";
+		}
+		return evaluacion.getEvaluacionCualitativa().toString();
+	}
 }

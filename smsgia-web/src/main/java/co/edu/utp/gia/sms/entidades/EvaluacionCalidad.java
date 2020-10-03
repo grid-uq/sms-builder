@@ -1,16 +1,11 @@
 package co.edu.utp.gia.sms.entidades;
 
-import java.io.Serializable;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 /**
  * @author Christian A. Candela
@@ -24,35 +19,12 @@ import javax.persistence.NamedQuery;
  *
  */
 @Entity
-//@NamedQueries({
-//
-//		@NamedQuery(name = EvaluacionCalidad.EVALUACION_CALIDAD_GET_ALL, query = "select e from EvaluacionCalidad e where e.referencia.id = :id"),
-//		@NamedQuery(name = EvaluacionCalidad.EVALUACION_TOTAL_CALIDAD, query = "select SUM(e.evaluacionCuantitativa) from EvaluacionCalidad e where e.referencia.id = :id")
-//		
-//
-//})
-
-public class EvaluacionCalidad implements Serializable {
+public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
 
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
 	private static final long serialVersionUID = 3246469713521362393L;
-
-	/**
-	 * Consulta que permite obtener las revisiones de calidad registradas en el
-	 * sistema para una referencia <br />
-	 * <code>select e from EvaluacionCalidad e where e.referencia.id = :id </code>
-	 * 
-	 */
-//	public static final String EVALUACION_CALIDAD_GET_ALL = "EvaluacionCalidad.getAll";
-	/**
-	 * Consulta que permite obtener el total de las evaluaciones de calidad registradas en el
-	 * sistema para una referencia <br />
-	 * <code>select SUM(e.evaluacionCuantitativa) from EvaluacionCalidad e where e.referencia.id = :id </code>
-	 * 
-	 */
-//	public static final String EVALUACION_TOTAL_CALIDAD = "EvaluacionCalidad.totalCalidad";
 
 	@EmbeddedId
 	private EvaluacionCalidadPK id;
@@ -70,7 +42,6 @@ public class EvaluacionCalidad implements Serializable {
 	private Float evaluacionCuantitativa;
 
 	public EvaluacionCalidad() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public EvaluacionCalidad(Referencia referencia, AtributoCalidad atributoCalidad) {

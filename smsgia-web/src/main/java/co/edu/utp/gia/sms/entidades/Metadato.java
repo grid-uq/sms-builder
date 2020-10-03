@@ -1,9 +1,8 @@
 package co.edu.utp.gia.sms.entidades;
 
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
-
-import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -11,10 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import static javax.persistence.FetchType.EAGER;
-
 
 /**
  * Representa un element del formato RIS
@@ -31,23 +26,11 @@ import static javax.persistence.FetchType.EAGER;
  */
 
 @Entity
-//@NamedQueries({
-//
-//		@NamedQuery(name = Metadato.METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id and m.identifier = :tipo ")
-//
-//})
-public class Metadato implements Serializable {
+public class Metadato implements Entidad<Integer> {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
 	private static final long serialVersionUID = 4287992191212757639L;
-	/**
-	 * Consulta que permite obtener los metadatos de una referencia que pertenecen a
-	 * un cierto tipo<br />
-	 * <code>select m from Metadato m where m.referencia.id = :id and m.identifier = :tipo </code>
-	 * 
-	 */
-//	public static final String METADATO_GET_ALL = "Metadato.getAll";
 
 	/**
 	 * Variable que representa el atributo id de la clase
@@ -55,6 +38,9 @@ public class Metadato implements Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
+	
+
+
 	/**
 	 * Variable que representa el identificador del elemento
 	 */
@@ -67,7 +53,7 @@ public class Metadato implements Serializable {
 	@Lob
 	private String value;
 
-	@ManyToOne( fetch = EAGER )
+	@ManyToOne(fetch = EAGER)
 	private Referencia referencia;
 
 	public Metadato() {
@@ -97,6 +83,24 @@ public class Metadato implements Serializable {
 		this.value = value;
 	}
 
+	
+	
+	/**
+	 * Metodo que permite obtener el valor del atributo id
+	 * @return El valor del atributo id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo id
+	 * @param id Valor a ser asignado al atributo id
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}	
+	
 	/**
 	 * Metodo que permite obtener el valor del atributo identifier
 	 * 
@@ -131,6 +135,24 @@ public class Metadato implements Serializable {
 	 */
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo referencia
+	 * 
+	 * @return El valor del atributo referencia
+	 */
+	public Referencia getReferencia() {
+		return referencia;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo referencia
+	 * 
+	 * @param referencia Valor a ser asignado al atributo referencia
+	 */
+	public void setReferencia(Referencia referencia) {
+		this.referencia = referencia;
 	}
 
 	/*

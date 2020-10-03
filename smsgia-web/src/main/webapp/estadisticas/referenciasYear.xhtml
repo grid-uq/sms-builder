@@ -26,17 +26,17 @@
 
 		<br />
 		<h:form>
-			<p:dataTable id="tablaDatos" value="#{referenciasYearBean.datos}"
-				var="dato">
+			<p:dataTable id="tablaDatos" value="#{referenciasYearBean.years}"
+				var="year">
 				<f:facet name="header">
 					<h:outputText value="#{referenciasYearBean.titulo}" />
 				</f:facet>
 				<p:column headerText="#{referenciasYearBean.ejeX}">
-					<h:outputText value="#{dato.etiqueta}" />
+					<h:outputText value="#{year}" />
 				</p:column>
-				<p:column headerText="#{referenciasYearBean.ejeY}">
-					<h:outputText value="#{dato.valor}" />
-				</p:column>
+				<p:columns value="#{referenciasYearBean.series}" var="serie" headerText="#{serie.label}" >
+					<h:outputText value="#{serie.data.get(year)}" />
+				</p:columns>
 
 				<f:facet name="footer">
 

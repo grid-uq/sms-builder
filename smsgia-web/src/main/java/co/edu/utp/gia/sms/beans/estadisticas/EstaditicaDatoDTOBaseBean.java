@@ -68,8 +68,10 @@ public class EstaditicaDatoDTOBaseBean {
 		BarChartModel model = new BarChartModel();
 
 		ChartSeries referencias = new ChartSeries();
+		
+		
 //        referencias.setLabel("Referencias");
-		referencias.setLabel(titulo);
+//		referencias.setLabel(titulo);
 		for (DatoDTO datoDTO : datos) {
 			referencias.set(datoDTO.getEtiqueta(), datoDTO.getValor());
 		}
@@ -77,7 +79,7 @@ public class EstaditicaDatoDTOBaseBean {
 		model.addSeries(referencias);
 
 		model.setTitle(titulo);
-		model.setLegendPosition("ne");
+//		model.setLegendPosition("ne");
 
 		model.getAxis(AxisType.X).setLabel(ejeX);
 		model.getAxis(AxisType.Y).setLabel(ejeY);

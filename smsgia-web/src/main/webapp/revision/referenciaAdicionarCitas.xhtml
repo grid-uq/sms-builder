@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h:form id="tabla" enctype="multipart/form-data" prependId="false">
+			<p:growl id="mensajes" showDetail="true" />
+
+
+			<p:dataTable id="revisionRadio"
+				value="#{referenciaAdicionarCitasBean.referencias}" var="referencia"
+				paginator="true" rows="50" rowsPerPageTemplate="10,20,50,100,500"
+				rowStyleClass="#{referencia.year == null or referencia.citas == null ? 'colorOrange' : null}">
+				
+
+				<p:column headerText="#{msg.etiquetaSPSId}"
+					sortBy="#{referencia.spsid}" filterBy="#{referencia.spsid}"
+					filterMatchMode="contains" >
+					<h:outputText value="#{referencia.spsid}" />
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaNombre}"
+					sortBy="#{referencia.nombre}" filterBy="#{referencia.nombre}"
+					filterMatchMode="contains" style="width:76%">
+					
+					<p:link href="https://scholar.google.com/scholar" target="_blank" value="#{referencia.nombre}">
+						<f:param name="hl" value="es" />
+						<f:param name="q" value="#{referencia.nombre}" />
+					</p:link>
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaCitas}" sortBy="#{referencia.citas}" filterBy="referencia.citas" filterMatchMode="contains">
+					<p:inputNumber value="#{referencia.citas}" maxlength="4" decimalPlaces="0"  inputStyle="width: 90%" >
+						<p:ajax event="blur"
+							listener="#{referenciaAdicionarCitasBean.guardarCita(referencia)}" update="mensajes" />
+					</p:inputNumber>
+					<p:commandButton value="#{msg.botonCompletarCitas}" action="#{referenciaAdicionarCitasBean.completarCita(referencia)}" update="tabla" />
+				</p:column>
+				<p:column headerText="#{msg.etiquetaYear}" sortBy="#{referencia.year}" filterBy="referencia.year" filterMatchMode="contains">
+					<p:inputMask value="#{referencia.year}" mask="9999"  inputStyle="width: 90%" >
+						<p:ajax event="blur"
+							listener="#{referenciaAdicionarCitasBean.guardarYear(referencia)}" update="mensajes"  />
+					</p:inputMask>
+					
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaRelevancia}" sortBy="#{referencia.relevancia}" filterBy="referencia.relevancia" filterMatchMode="contains">
+
+					<p:rating value="#{referencia.relevancia}" >
+						<p:ajax event="rate"
+							listener="#{referenciaAdicionarCitasBean.guardarRelevancia(referencia)}" />
+						<p:ajax event="cancel"
+							listener="#{referenciaAdicionarCitasBean.guardarRelevancia(referencia)}" />
+					</p:rating>
+
+
+				</p:column>
+
+
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
+
+
+
+
+
+

@@ -3,30 +3,25 @@ package co.edu.utp.gia.sms.negocio;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
 
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.query.Queries;
 
-@Stateless
-public class RevisionEJB {
-	@PersistenceContext
-	private EntityManager entityManager;
+@Stateless 
+public class RevisionEJB extends AbstractEJB<Revision, Integer> {
+	@Inject
+	private AtributoCalidadEJB atributoCalidadEJB;
+	public RevisionEJB() {
+		super(Revision.class);
+	}
 
-	/**
-	 * Permite registrar una revision
-	 * 
-	 * @param nombre      Nombre de la revision
-	 * @param descripcion Descripcion de la revision
-	 * @param objetivo    Objetivo de la revision
-	 * @return Revision registrada
-	 */
-	public Revision registrar(String nombre, String descripcion, String objetivo) {
-		Revision revision = new Revision(nombre, descripcion, objetivo);
-		entityManager.persist(revision);
+	public Revision registrar(String nombre, String descripcion) {
+		Revision revision = new Revision(nombre, descripcion);
+		registrar(revision);
+		atributoCalidadEJB.crearAtributosCalidadPorDefecto(revision);
 		return revision;
 	}
 
@@ -42,16 +37,6 @@ public class RevisionEJB {
 				.getResultList();
 	}
 
-	/**
-	 * Permite obtener una revision por medio del Identificador
-	 * 
-	 * @param idRevision Identificador de la revision que se desea obtener
-	 * @return Retorna la revision que corresponde con el identificador
-	 *         proporcionado
-	 */
-	public Revision obtener(Integer idRevision) {
-		return entityManager.find(Revision.class, idRevision);
-	}
 
 	/**
 	 * Permite obtener el listado de preguntas de una revision
@@ -65,42 +50,18 @@ public class RevisionEJB {
 	/**
 	 * Permite actualizar una revision
 	 * 
-	 * @param revision Revision a ser actualizada
-	 */
-	public void actualizar(Revision revision) {
-		actualizar(revision.getId(), revision.getNombre(), revision.getDescripcion(), revision.getObjetivo());
-	}
-
-	/**
-	 * Permite actualizar una revision
-	 * 
 	 * @param id          Id de la {@link Pregunta} a ser actualizada
 	 * @param nombre      Codigo de la pregunta a actualizar
 	 * @param descripcion Descripcion de la pregunta a actulizar
-	 * @param objetivo    Objetivo de la revision
 	 */
-	public void actualizar(Integer id, String nombre, String descripcion, String objetivo) {
+	public void actualizar(Integer id, String nombre, String descripcion) {
 		Revision revision = obtener(id);
 		if (revision != null) {
 			revision.setNombre(nombre);
 			revision.setDescripcion(descripcion);
-			revision.setObjetivo(objetivo);
 		}
 	}
 
-	/**
-	 * Permite eliminar una revision basado en su id
-	 * 
-	 * @param id Id de la revision a eliminar
-	 */
-	public void eliminar(Integer id) {
-		Revision revision = obtener(id);
-		if (revision != null) {
-			entityManager.remove(revision);
-		}
-	}
-	
-	
 	/**
 	 * Permite obtener el listado de topicos de la revision
 	 * 
@@ -112,5 +73,5 @@ public class RevisionEJB {
 		return entityManager.createNamedQuery(Queries.TOPICO_REVISION_GET_ALL, Topico.class).setParameter("id", id)
 				.getResultList();
 	}
-
+	
 }

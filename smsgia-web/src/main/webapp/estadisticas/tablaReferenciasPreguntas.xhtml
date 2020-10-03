@@ -70,8 +70,11 @@
 					</h:commandLink>
 
 				</f:facet>
+				<p:column headerText="#{msg.etiquetaSPSId}" style="width:5%">
+					<h:outputText value="#{referencia.spsid}" />
+				</p:column>
 
-				<p:column headerText="#{msg.etiquetaNombre}">
+				<p:column headerText="#{msg.etiquetaNombre}" style="width:76%">
 					<h:outputText value="#{referencia.nombre}" />
 				</p:column>
 

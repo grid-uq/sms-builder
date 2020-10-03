@@ -1,52 +1,40 @@
 package co.edu.utp.gia.sms.entidades;
 
-import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 /**
- * Entity implementation class for Entity: Topico
+ * Entity implementation class for Entity: Topico, el cual hace referencia a un
+ * tema o aspecto particular de una {@link Pregunta}
  *
  */
 @Entity
-//@NamedQueries({
-//
-//		@NamedQuery(name = Topico.TOPICO_PREGUNTA_GET_ALL, query = "select t from Topico t where t.pregunta.id = :id"),
-//		@NamedQuery(name = Topico.TOPICO_REVISION_GET_ALL, query = "select t from Topico t where t.pregunta.revision.id = :id order by t.pregunta.codigo")
-//
-//})
-
-public class Topico implements Serializable {
-
+public class Topico implements Entidad<Integer> {
 	/**
-	 * Consulta que permite obtener los topicos registradas en el sistema para una
-	 * pregunta <br />
-	 * <code>select t from Topico t where t.pregunta.id = :id </code>
-	 * 
+	 * Variable que representa el identificador unico del topico
 	 */
-//	public static final String TOPICO_PREGUNTA_GET_ALL = "Topico.PreguntaGetAll";
-	/**
-	 * Consulta que permite obtener los topicos registradas en el sistema para una
-	 * pregunta <br />
-	 * <code>select t from Topico t where t.pregunta.revision.id = :id  order by t.pregunta.codigo</code>
-	 * 
-	 */
-//	public static final String TOPICO_REVISION_GET_ALL = "Topico.RevisionGetAll";
-
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
+	/**
+	 * Variable que representa el atributo descripcion de la clase
+	 */
 	private String descripcion;
+	/**
+	 * Variable que representa la {@link Pregunta} a la que pertence el
+	 * {@link Topico}
+	 */
 	@ManyToOne
 	private Pregunta pregunta;
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Metodo que permite inicializar los elementos de la clase Topico
+	 */
 	public Topico() {
 		super();
 	}

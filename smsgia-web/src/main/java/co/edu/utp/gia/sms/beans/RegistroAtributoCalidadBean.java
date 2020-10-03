@@ -1,34 +1,27 @@
 package co.edu.utp.gia.sms.beans;
 
-import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-
-import org.primefaces.event.RowEditEvent;
+import javax.inject.Named;
 
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 
-@ManagedBean
-@ViewScoped
 
-public class RegistroAtributoCalidadBean implements Serializable {
+@Named
+@ViewScoped
+public class RegistroAtributoCalidadBean extends GenericBean<AtributoCalidad> {
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = 1755642135191615078L;
 	private String descripcion;
-	@ManagedProperty(value = "#{registroInicialBean.revision}")
-	private Revision revision;
 	private List<AtributoCalidad> atributosCalidad;
 	@Inject
 	private AtributoCalidadEJB atributoCalidadEJB;
 
-	@PostConstruct
 	public void inicializar() {
 		if (revision != null) {
 			atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(revision.getId());
@@ -38,21 +31,15 @@ public class RegistroAtributoCalidadBean implements Serializable {
 	public void registrar() {
 		AtributoCalidad atributo = atributoCalidadEJB.registrar( descripcion, revision.getId());
 		atributosCalidad.add(atributo);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Registro Adicionado"));
+		mostrarMensajeGeneral("Registro Adicionado");
 		descripcion = "";
 	}
 
-	public void onRowEdit(RowEditEvent event) {
-		AtributoCalidad atributoCalidad = ((AtributoCalidad) event.getObject());
-		atributoCalidadEJB.actualizar(atributoCalidad);
-		FacesMessage msg = new FacesMessage("Registro editado");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+	@Override
+	public void actualizar(AtributoCalidad objeto) {
+		atributoCalidadEJB.actualizar(objeto);
 	}
 
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edicion cancelada");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
 
 	/**
 	 * Permite eliminar una atributo de calidad
@@ -62,8 +49,7 @@ public class RegistroAtributoCalidadBean implements Serializable {
 	public void eliminar(AtributoCalidad atributoCalidad) {
 		atributoCalidadEJB.eliminar(atributoCalidad.getId());
 		atributosCalidad.remove(atributoCalidad);
-		FacesMessage msg = new FacesMessage("Registro eliminado");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		mostrarMensajeGeneral("Registro eliminado");
 	}
 
 
@@ -88,24 +74,6 @@ public class RegistroAtributoCalidadBean implements Serializable {
 	}
 
 	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * 
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * 
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
-	}
-
-	/**
 	 * Metodo que permite obtener el valor del atributo atributosCalidad
 	 * @return El valor del atributo atributosCalidad
 	 */
@@ -120,6 +88,4 @@ public class RegistroAtributoCalidadBean implements Serializable {
 	public void setAtributosCalidad(List<AtributoCalidad> atributosCalidad) {
 		this.atributosCalidad = atributosCalidad;
 	}
-
-
 }

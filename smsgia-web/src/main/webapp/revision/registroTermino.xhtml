@@ -35,10 +35,10 @@
 			<p:growl id="msgs" showDetail="true" />
 			<p:dataTable value="#{registroTerminoBean.terminos}" var="termino"
 				editable="true">
-				<p:ajax event="rowEdit" listener="#{registroPreguntaBean.onRowEdit}"
+				<p:ajax event="rowEdit" listener="#{registroTerminoBean.onRowEdit}"
 					update=":tabla:msgs" />
 				<p:ajax event="rowEditCancel"
-					listener="#{registroPreguntaBean.onRowCancel}" update=":tabla:msgs" />
+					listener="#{registroTerminoBean.onRowCancel}" update=":tabla:msgs" />
 				<p:column headerText="#{msg.etiquetaTermino}">
 					<p:cellEditor>
 						<f:facet name="output">

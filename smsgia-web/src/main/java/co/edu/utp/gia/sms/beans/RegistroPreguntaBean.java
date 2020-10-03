@@ -1,80 +1,87 @@
 package co.edu.utp.gia.sms.beans;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
-import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 
-import co.edu.utp.gia.sms.entidades.Pregunta;
-import co.edu.utp.gia.sms.entidades.Revision;
+import co.edu.utp.gia.sms.dtos.PreguntaDTO;
+import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.PreguntaEJB;
+import co.edu.utp.gia.sms.negocio.TopicoEJB;
 
-@ManagedBean
+/**
+ * @author Christian A. Candela
+ * @author Luis Eduardo Sepúlveda
+ * @author Julio Cesar Chavarro
+ * @author Carlos Augusto Meneces
+ * @author Grupo de Investigacion en Inteligencia Artificial - GIA
+ * @author Universidad Tecnológica de Pereira
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0 
+ * @since 9 abr. 2020
+ *
+ */
+@Named
 @ViewScoped
-
-public class RegistroPreguntaBean implements Serializable {
+public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = 1L;
 	private String descripcion;
-	@ManagedProperty(value = "#{registroInicialBean.revision}")
-	private Revision revision;
 	private String codigo;
-	private List<Pregunta> preguntas;
+	private List<PreguntaDTO> preguntas;
+	
+	private List<Objetivo> listaObjetivos;
+	
+
 	@Inject
 	private PreguntaEJB preguntaEJB;
+	@Inject
+	private TopicoEJB topicoEJB;
 
-	@PostConstruct
 	public void inicializar() {
-
 		if (revision != null) {
 			System.out.println("Buscando preguntas revision " + revision.getId());
 			preguntas = preguntaEJB.obtenerPreguntas(revision.getId());
 		}
+		listaObjetivos = new ArrayList<Objetivo>();
 	}
 
 	public String registrar() {
-		System.out.println("Se registraron los siguientes datos :");
-		preguntaEJB.registrar(codigo, descripcion, revision.getId());
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pregunta Adicionada"));
+//		preguntaEJB.registrar(codigo, descripcion, listaIdObjetivos);
+		preguntaEJB.registrar(codigo, descripcion, listaObjetivos);
+		mostrarMensajeGeneral("Pregunta Adicionada" );
 		codigo = "";
 		descripcion = "";
 		return "/revision/registroPregunta";
 	}
 
-	public void onRowEdit(RowEditEvent event) {
-		Pregunta pregunta = ((Pregunta) event.getObject());
-		preguntaEJB.actualizar(pregunta);
-		FacesMessage msg = new FacesMessage("Pregunta editada");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+	@Override
+	public void actualizar(PreguntaDTO objeto) {
+		preguntaEJB.actualizar(objeto);
 	}
-
-	public void onRowCancel(RowEditEvent event) {
-//    	Pregunta pregunta = ((Pregunta) event.getObject());
-		FacesMessage msg = new FacesMessage("Edicion cancelada");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
+	
 
 	/**
 	 * Permite eliminar una pregunta
 	 * 
 	 * @param pregunta pregunta a eliminar
 	 */
-	public void eliminar(Pregunta pregunta) {
+	public void eliminar(PreguntaDTO pregunta) {
 		preguntaEJB.eliminar(pregunta.getId());
 		preguntas.remove(pregunta);
-		FacesMessage msg = new FacesMessage("Pregunta eliminada");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		mostrarMensajeGeneral("Pregunta eliminada");
 	}
 
 	/**
@@ -82,10 +89,9 @@ public class RegistroPreguntaBean implements Serializable {
 	 * 
 	 * @param topico Topico de la pregunta a eliminar
 	 */
-	public void eliminarTopico(Pregunta pregunta,Topico topico) {
-		preguntaEJB.eliminarTopico(topico.getId());
-		FacesMessage msg = new FacesMessage("Topico eliminado");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+	public void eliminarTopico(PreguntaDTO pregunta,Topico topico) {
+		topicoEJB.eliminar(topico.getId());
+		mostrarMensajeGeneral("Topico eliminado");
 //		inicializar();
 		pregunta.getTopicos().remove(topico);
 	}
@@ -96,16 +102,24 @@ public class RegistroPreguntaBean implements Serializable {
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idPregunta",id);
+        addToSession("idPregunta",id);
 		PrimeFaces.current().dialog().openDynamic("/revision/registrarTopico", options, null);
 	}
+//	public void adicionarTopico(Pregunta pregunta) {
+////		System.out.println("Llamando Dialogo para pregunta "+id);
+//        Map<String,Object> options = new HashMap<String, Object>();
+//        options.put("resizable", false);
+//        options.put("draggable", false);
+//        options.put("modal", true);
+//        
+//        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pregunta",pregunta);
+//		PrimeFaces.current().dialog().openDynamic("/revision/registrarTopico", options, null);
+//	}
 
 	
-    public void onTopicoCreado(SelectEvent event) {
-        Topico topico = (Topico) event.getObject();
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Topico Adicionado", "Id:" + topico.getId());
-		FacesContext.getCurrentInstance().addMessage(null, message);
+    public void onTopicoCreado(SelectEvent<Topico> event) {
+//        Topico topico = event.getObject();
+        mostrarMensajeGeneral("Topico Adicionado");
 		inicializar();
     }
 
@@ -127,24 +141,6 @@ public class RegistroPreguntaBean implements Serializable {
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * 
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * 
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
 	}
 
 	/**
@@ -170,7 +166,7 @@ public class RegistroPreguntaBean implements Serializable {
 	 * 
 	 * @return El valor del atributo preguntas
 	 */
-	public List<Pregunta> getPreguntas() {
+	public List<PreguntaDTO> getPreguntas() {
 		return preguntas;
 	}
 
@@ -179,8 +175,27 @@ public class RegistroPreguntaBean implements Serializable {
 	 * 
 	 * @param preguntas Valor a ser asignado al atributo preguntas
 	 */
-	public void setPreguntas(List<Pregunta> preguntas) {
+	public void setPreguntas(List<PreguntaDTO> preguntas) {
 		this.preguntas = preguntas;
 	}
 
+	/**
+	 * Metodo que permite obtener el valor del atributo listaObjetivos
+	 * @return El valor del atributo listaObjetivos
+	 */
+	public List<Objetivo> getListaObjetivos() {
+		return listaObjetivos;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo listaObjetivos
+	 * @param listaObjetivos Valor a ser asignado al atributo listaObjetivos
+	 */
+	public void setListaObjetivos(List<Objetivo> listaObjetivos) {
+		this.listaObjetivos = listaObjetivos;
+	}
+
+	
+	
+	
 }

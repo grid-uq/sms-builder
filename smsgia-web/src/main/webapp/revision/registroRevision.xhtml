@@ -41,17 +41,15 @@
 	<ui:define name="content">
 
 		<h:form id="registro">
-			<div class="ui-fluid" style="width: 70%;">
+			<div  class="ui-fluid" style="width: 70%;">
+			
 				<p:panelGrid columns="2" style="width:70%">
+				
 					<p:outputLabel value="#{msg.etiquetaNombre}:" />
 					<p:inputText value="#{registroInicialBean.nombre}" />
-
-					<p:outputLabel value="#{msg.etiquetaObjetivo}:" />
-					<p:inputTextarea id="area" value="#{registroInicialBean.objetivo}" />
-
+					
 					<p:outputLabel for="area2" value="#{msg.etiquetaDescripcion}:" />
-					<p:inputTextarea id="area2"
-						value="#{registroInicialBean.descripcion}" />
+					<p:inputTextarea id="area2" value="#{registroInicialBean.descripcion}" />
 
 
 					<f:facet name="footer">

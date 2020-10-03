@@ -9,32 +9,54 @@ import co.edu.utp.gia.sms.importutil.springer.SpringerFileMultipleRegisterParse;
 import co.edu.utp.gia.sms.importutil.wos.WOSFileMultipleRegisterParse;
 
 public class FileMultipleRegisterParseFactory {
+	private FileMultipleRegisterParseFactory() {
+	}
+	
 	public static final FileMultipleRegisterParse getInstance(Fuente fuente) {
 		switch (fuente) {
+//		case ACM:
+//			return new ACMFileMultipleRegisterParse();
+//		case IEEE:
+//			return new IEEEFileMultipleRegisterParse();
+//		case SCIENCEDIRECT:
+//			return new SDFileMultipleRegisterParse();
+//		case SCOPUS:
+//			return new ScopusFileMultipleRegisterParse();
+//		case SPRINGER:
+//			return new SpringerFileMultipleRegisterParse();
+//		case WOS:
+//			return new WOSFileMultipleRegisterParse();
 		case ACM:
-			return new ACMFileMultipleRegisterParse();
-		case IEEE:
-			return new IEEEFileMultipleRegisterParse();
-		case SCIENCEDIRECT:
-			return new SDFileMultipleRegisterParse();
-		case SCOPUS:
-			return new ScopusFileMultipleRegisterParse();
-		case SPRINGER:
-			return new SpringerFileMultipleRegisterParse();
-		case WOS:
-			return new WOSFileMultipleRegisterParse();
-		case ACM_MENDELEY:
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.ACM);
-		case IEEE_MENDELEY:
+		case IEEE:
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.IEEE);
-		case SCIENCEDIRECT_MENDELEY:
+		case SCIENCEDIRECT:
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.SCIENCEDIRECT);
-		case SCOPUS_MENDELEY:
+		case SCOPUS:
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.SCOPUS);
-		case SPRINGER_MENDELEY:
+		case SPRINGER:
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.SPRINGER);
-		case WOS_MENDELEY:
+		case WOS:
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.WOS);
+		
+//		case ACM_MENDELEY:
+//			return new MendeleyRisFileMultipleRegisterParse(Fuente.ACM);
+//		case IEEE_MENDELEY:
+//			return new MendeleyRisFileMultipleRegisterParse(Fuente.IEEE);
+//		case SCIENCEDIRECT_MENDELEY:
+//			return new MendeleyRisFileMultipleRegisterParse(Fuente.SCIENCEDIRECT);
+//		case SCOPUS_MENDELEY:
+//			return new MendeleyRisFileMultipleRegisterParse(Fuente.SCOPUS);
+//		case SPRINGER_MENDELEY:
+//			return new MendeleyRisFileMultipleRegisterParse(Fuente.SPRINGER);
+//		case WOS_MENDELEY:
+//			return new MendeleyRisFileMultipleRegisterParse(Fuente.WOS);
+		case MANUAL:
+			return new MendeleyRisFileMultipleRegisterParse(Fuente.MANUAL);
+		case SNOWBALL_BACKWARD:
+			return new MendeleyRisFileMultipleRegisterParse(Fuente.SNOWBALL_BACKWARD);
+		case SNOWBALL_FORWARD:
+			return new MendeleyRisFileMultipleRegisterParse(Fuente.SNOWBALL_FORWARD);
 		default:
 			return null;
 		}

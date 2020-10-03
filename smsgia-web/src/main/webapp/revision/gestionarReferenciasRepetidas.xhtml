@@ -15,7 +15,7 @@
 			<p:dataTable id="revisionRadio"
 				value="#{gestionarReferenciasRepetidasBean.referencias}"
 				var="referencia" paginator="true" rows="20"
-				rowsPerPageTemplate="10,20,50,100"
+				rowsPerPageTemplate="20,50,100"
 				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}"
 				
 				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
@@ -34,6 +34,9 @@
 					<p:selectBooleanCheckbox value="#{referencia.seleccionada}">
 						<p:ajax update=":tabla" />
 					</p:selectBooleanCheckbox>
+				</p:column>
+				<p:column style="width:100px" headerText="#{msg.etiquetaFuente}">
+					<h:outputText value="#{referencia.fuente}" />
 				</p:column>
 
 				<p:column headerText="#{msg.etiquetaNombre}">
