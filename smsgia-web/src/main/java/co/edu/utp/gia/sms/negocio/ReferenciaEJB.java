@@ -274,9 +274,9 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 
 		double q1 = p.evaluate(datos, 75);
 		double q2 = p.evaluate(datos, 50);
-		if (media >= q1) {
+		if (media > q1) {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
-		} else if (media >= q2) {
+		} else if (media > q2) {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
 		} else {
 			evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
