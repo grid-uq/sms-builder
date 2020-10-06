@@ -24,15 +24,15 @@ public class RegistroObjetivoBean extends GenericBean<Objetivo> {
 	private ObjetivoEJB objetivoEJB;
 
 	public void inicializar() {
-		if (revision != null) {
-			objetivos = objetivoEJB.obtenerObjetivo(revision.getId());
+		if (getRevision() != null) {
+			objetivos = objetivoEJB.obtenerObjetivo(getRevision().getId());
 		}
 	}
 	
 	
 
 	public void registrar() {
-		Objetivo objetivo = objetivoEJB.registrar(codigo, descripcion, revision.getId());
+		Objetivo objetivo = objetivoEJB.registrar(codigo, descripcion, getRevision().getId());
 		objetivos.add(objetivo);
 		mostrarMensajeGeneral("Objetivo Adicionado");
 		codigo = "";

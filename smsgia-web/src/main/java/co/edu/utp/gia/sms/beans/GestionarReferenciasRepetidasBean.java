@@ -22,8 +22,8 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
 	private ReferenciaEJB referenciaEJB;
 
 	public void inicializar() {
-		if (revision != null) {
-			referencias = referenciaEJB.obtenerTodas(revision.getId(), 0);
+		if (getRevision() != null) {
+			referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 0);
 		}
 	}
 	

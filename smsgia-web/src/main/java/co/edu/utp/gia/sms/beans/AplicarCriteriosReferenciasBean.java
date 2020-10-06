@@ -25,8 +25,8 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
 	
 
 	public void inicializar() {
-		if (revision != null) {
-			referencias = referenciaEJB.obtenerTodas(revision.getId(), 1);
+		if (getRevision() != null) {
+			referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 1);
 		}
 	}
 

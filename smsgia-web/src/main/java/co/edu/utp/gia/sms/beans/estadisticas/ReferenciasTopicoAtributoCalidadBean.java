@@ -3,19 +3,23 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.model.chart.ChartSeries;
 
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTOBaseBean {
+
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = 3695939063364135580L;
 
 	@Inject
 	private AtributoCalidadEJB atributoCalidadEJB;
@@ -24,7 +28,6 @@ public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTO
 	
 	private List<String> topicos;
 	
-	@PostConstruct
 	public void inicializar() {
 		setTitulo("Referencias x Topico");
 		setEjeX("Topicos");

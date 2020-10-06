@@ -7,14 +7,14 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import co.edu.utp.gia.sms.beans.GenericBean;
+import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 
 @Named
 @ViewScoped
-public class ReferenciaPalabrasClaveBean extends GenericBean<String> {
+public class ReferenciaPalabrasClaveBean extends AbstractBean {
 
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
@@ -35,14 +35,14 @@ public class ReferenciaPalabrasClaveBean extends GenericBean<String> {
 
 	public void inicializar() {
 		metadatos = new TipoMetadato[] { TipoMetadato.KEYWORD };
-		if (revision != null) {
+		if (getRevision() != null) {
 			consultarReferencias();
 		}
 	}
 
 	public void consultarReferencias() {
 		String separador = "";
-		referencias = estadisticaEJB.obtenerReferencias(revision.getId(), keyword, Arrays.asList(metadatos));
+		referencias = estadisticaEJB.obtenerReferencias(getRevision().getId(), keyword, Arrays.asList(metadatos));
 		listadoReferencias = "";
 
 		for (Referencia referencia : referencias) {

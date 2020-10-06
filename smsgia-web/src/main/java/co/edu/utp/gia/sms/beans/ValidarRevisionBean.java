@@ -22,7 +22,7 @@ public class ValidarRevisionBean extends GenericBean<Revision>{
 		String[] urls = { "/revision/registroRevision.xhtml", "/revision/seleccionarRevision.xhtml",
 				"/revision/registroInicial.xhtml" };
 		String path = getFacesContext().getExternalContext().getRequestServletPath();
-		if (revision == null && !Arrays.asList(urls).contains(path)) {
+		if (getRevision() == null && !Arrays.asList(urls).contains(path)) {
 			try {
 
 				getFacesContext().getExternalContext()

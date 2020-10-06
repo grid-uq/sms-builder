@@ -51,9 +51,8 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
 	private TopicoEJB topicoEJB;
 
 	public void inicializar() {
-		if (revision != null) {
-			System.out.println("Buscando preguntas revision " + revision.getId());
-			preguntas = preguntaEJB.obtenerPreguntas(revision.getId());
+		if (getRevision() != null) {
+			preguntas = preguntaEJB.obtenerPreguntas(getRevision().getId());
 		}
 		listaObjetivos = new ArrayList<Objetivo>();
 	}

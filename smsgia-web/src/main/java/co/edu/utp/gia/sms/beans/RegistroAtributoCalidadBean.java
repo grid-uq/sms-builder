@@ -23,13 +23,13 @@ public class RegistroAtributoCalidadBean extends GenericBean<AtributoCalidad> {
 	private AtributoCalidadEJB atributoCalidadEJB;
 
 	public void inicializar() {
-		if (revision != null) {
-			atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(revision.getId());
+		if (getRevision() != null) {
+			atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
 		}
 	}
 
 	public void registrar() {
-		AtributoCalidad atributo = atributoCalidadEJB.registrar( descripcion, revision.getId());
+		AtributoCalidad atributo = atributoCalidadEJB.registrar( descripcion, getRevision().getId());
 		atributosCalidad.add(atributo);
 		mostrarMensajeGeneral("Registro Adicionado");
 		descripcion = "";

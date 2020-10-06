@@ -1,23 +1,20 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-
-import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.BarChartModel;
-import org.primefaces.model.chart.CategoryAxis;
-import org.primefaces.model.chart.ChartSeries;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 import co.edu.utp.gia.sms.importutil.TipoFuente;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class ReferenciasTipoFuenteBean extends EstaditicaDatoDTOBaseBean {
 
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = -5273832765304254823L;
 	private TipoFuente tipo;
 
-	@PostConstruct
 	public void inicializar() {
 		setTitulo("Referencias por Tipo de Fuente");
 		setEjeX("Fuente");

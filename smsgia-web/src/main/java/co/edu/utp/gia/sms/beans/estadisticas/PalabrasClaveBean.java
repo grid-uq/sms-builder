@@ -2,46 +2,46 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.model.tagcloud.DefaultTagCloudItem;
 import org.primefaces.model.tagcloud.DefaultTagCloudModel;
 import org.primefaces.model.tagcloud.TagCloudModel;
 
+import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 
-@ManagedBean
+@Named
 @ViewScoped
-public class PalabrasClaveBean {
+public class PalabrasClaveBean extends AbstractBean {
 
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = -2705046687022203958L;
 	private TagCloudModel modelo;
 	@Inject
 	private EstadisticaEJB estadisticaEJB;
 
 	private Integer minimo;
 	
-	@ManagedProperty("#{registroInicialBean.revision}")
-	private Revision revision;
 	
-	List<DatoDTO> palabras;
+	private List<DatoDTO> palabras;
 
-	@PostConstruct
+	
 	public void inicializar() {
 		minimo = 2;
 //		setTitulo("Referencias por Tipo");
-		if (revision != null) {
+		if (getRevision() != null) {
 			crearModelo();
 		}
 	}
 
 	public void crearModelo() {
-		palabras = estadisticaEJB.obtenerPalabrasClave(revision.getId(),minimo);
+		palabras = estadisticaEJB.obtenerPalabrasClave(getRevision().getId(),minimo);
 		modelo = new DefaultTagCloudModel();
 		palabras.forEach( d->{ modelo.addTag( new DefaultTagCloudItem(d.getEtiqueta(), d.getValor().intValue()) ); } );
 	}
@@ -76,22 +76,6 @@ public class PalabrasClaveBean {
 	 */
 	public void setMinimo(Integer minimo) {
 		this.minimo = minimo;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
 	}
 
 	/**

@@ -31,8 +31,8 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 
 	public void inicializar() {
 
-		if (revision != null) {
-			referencias = referenciaEJB.obtenerTodasConEvaluacion(revision.getId(), 3);
+		if (getRevision() != null) {
+			referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId(), 3);
 		}
 	}
 
@@ -67,7 +67,7 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 
 				referenciaEJB.evaluacionAutomatica(referencia.getId());
 			}
-			referencias = referenciaEJB.obtenerTodasConEvaluacion(revision.getId(), 3);
+			referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId(), 3);
 			mostrarMensajeGeneral("Se guardaron los registro");
 		} catch (Exception e) {
 			mostrarErrorGeneral( e.getMessage() );

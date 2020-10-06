@@ -30,13 +30,13 @@ public class RegistroNotaBean extends GenericBean<Termino> {
 	
 
 	public void inicializar() {
-		if (revision != null) {
-			terminos = terminoEJB.obtenerTerminos(revision.getId());
+		if (getRevision() != null) {
+			terminos = terminoEJB.obtenerTerminos(getRevision().getId());
 		}
 	}
 
 	public void registrar() {
-		Termino termino = terminoEJB.registrar( descripcion, revision.getId());
+		Termino termino = terminoEJB.registrar( descripcion, getRevision().getId());
 		terminos.add(termino);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Registro Adicionado"));
 		descripcion = "";

@@ -43,7 +43,7 @@ public class RegistroReferenciasBean extends GenericBean<Referencia> {
 			
 			FileMultipleRegisterParse parser = FileMultipleRegisterParseFactory.getInstance(fuente);
 			List<Referencia> referencias = parser.parse(file.getInputStream());
-			referenciaEJB.registrar(referencias, revision.getId());
+			referenciaEJB.registrar(referencias, getRevision().getId());
 			mostrarMensajeGeneral("Se adicionaron "+ referencias.size() + " referencias" );
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

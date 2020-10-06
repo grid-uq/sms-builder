@@ -1,8 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -37,9 +35,9 @@ public class TablaResumenEvaluacionReferenciasBean extends GenericBean<Referenci
 	private List<AtributoCalidad> atributosCalidad;
 	
 	public void inicializar() {
-		if (revision != null) {
-			referencias = referenciaEJB.obtenerTodasConEvaluacion(revision.getId(), 3);
-			atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad( revision.getId() );
+		if (getRevision() != null) {
+			referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId(), 3);
+			atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad( getRevision().getId() );
 		}
 	}
 	

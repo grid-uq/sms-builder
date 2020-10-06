@@ -33,9 +33,9 @@ public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
 	private ReferenciaDTO referencia;
 
 	public void inicializar() {
-		if (revision != null) {
+		if (getRevision() != null) {
 			referencia = (ReferenciaDTO) getFromSession("referenciaDTO");
-			atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(revision.getId());
+			atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
 			if (referencia.getEvaluaciones() == null || referencia.getEvaluaciones().isEmpty() ) {
 				evaluaciones = new ArrayList<EvaluacionCalidad>();
 				for (AtributoCalidad atributoCalidad : atributosCalidad) {

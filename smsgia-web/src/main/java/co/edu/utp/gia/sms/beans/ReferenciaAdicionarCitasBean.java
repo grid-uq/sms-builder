@@ -30,9 +30,9 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO>{
 
 	public void inicializar() {
 
-		if (revision != null) {
-			referencias = referenciaEJB.obtenerTodas(revision.getId(), 3);
-			topicos = revisionEJB.obtenerTopicos(revision.getId());
+		if (getRevision() != null) {
+			referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
+			topicos = revisionEJB.obtenerTopicos(getRevision().getId());
 		}
 	}
 
@@ -71,7 +71,7 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO>{
 	
 	public void completarCita(ReferenciaDTO referencia) {
 		try {
-			int i = FindReferenceCitation.getInstans().findCitation(referencia.getReferencia());
+			FindReferenceCitation.getInstans().findCitation(referencia.getReferencia());
 			guardarCita(referencia);
 		} catch (IOException e) {
 			e.printStackTrace();

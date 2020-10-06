@@ -3,55 +3,54 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
+import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import co.edu.utp.gia.sms.negocio.RevisionEJB;
 
-@ManagedBean
+@Named
 @ViewScoped
-public class TablaReferenciasTopicosBean {
+public class TablaReferenciasTopicosBean extends AbstractBean{
 
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = -5710032002326306549L;
 	private List<ReferenciaDTO> referencias;
 	@Inject
 	private ReferenciaEJB referenciaEJB;
 	@Inject
 	private RevisionEJB revisionEJB;
 
-	@ManagedProperty("#{registroInicialBean.revision}")
-	private Revision revision;
 
 	private List<Topico> topicos;
 
 	private Integer idAtributoCalidad;
 	private String evaluacion;
 
-	@PostConstruct
 	public void inicializar() {
 
-		if (revision != null) {
-			referencias = referenciaEJB.obtenerTodas(revision.getId(), 3);
-			topicos = revisionEJB.obtenerTopicos(revision.getId());
+		if (getRevision() != null) {
+			referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
+			topicos = revisionEJB.obtenerTopicos(getRevision().getId());
 		}
 	}
 
 	public void consultarReferencias() {
 		if (idAtributoCalidad == null) {
-			referencias = referenciaEJB.obtenerTodas(revision.getId(), 3);
+			referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
 		} else if (evaluacion != null) {
-			referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(revision.getId(), idAtributoCalidad,
+			referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad,
 					EvaluacionCualitativa.valueOf(evaluacion), 3);
 		} else {
-			referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(revision.getId(), idAtributoCalidad,
+			referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad,
 					3);
 		}
 	}
@@ -72,24 +71,6 @@ public class TablaReferenciasTopicosBean {
 	 */
 	public void setReferencias(List<ReferenciaDTO> referencias) {
 		this.referencias = referencias;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * 
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * 
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
 	}
 
 	/**

@@ -48,7 +48,7 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = Queries.ESTADISTICA_PALABRAS_CLAVE, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( m.value , count(1)) from Metadato m where m.referencia.revision.id = :idRevision and m.referencia.filtro >= 3 and m.identifier = co.edu.utp.gia.sms.entidades.TipoMetadato.KEYWORD group by m.value having count(1) >= :minimo "),
 
 		@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_TIPO_FUENTE_NOMBRE, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( f.nombre , count(1)) from Metadato m,Fuente f where m.referencia.revision.id = :idRevision and m.referencia.filtro >= 3 and m.identifier = co.edu.utp.gia.sms.entidades.TipoMetadato.FUENTE and m.value = f.nombre and f.tipo = :tipo group by f.nombre "),
-		@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_PALABRAS_CLAVE, query = "select DISTINCT( m.referencia ) from Metadato m where m.referencia.revision.id = :idRevision and m.referencia.filtro >= 3 and m.identifier in :identifiers and m.value like :value"),
+		@NamedQuery(name = Queries.ESTADISTICA_REFERENCIA_PALABRAS_CLAVE, query = "select DISTINCT( m.referencia ) from Metadato m where m.referencia.revision.id = :idRevision and m.referencia.filtro >= 3 and m.identifier in :identifiers and UPPER(m.value) like UPPER(:value) "),
 
 		@NamedQuery(name = Queries.METADATO_GET_ALL, query = "select m from Metadato m where m.referencia.id = :id and m.identifier = :tipo "),
 

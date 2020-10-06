@@ -1,16 +1,18 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class ReferenciasTopicoBean extends EstaditicaDatoDTOBaseBean {
 
+	/**
+	 * Variable que representa el atributo serialVersionUID de la clase
+	 */
+	private static final long serialVersionUID = -7097161925478814637L;
 	private String codigo;
 	
-	@PostConstruct
 	public void inicializar() {
 		setTitulo("Referencias x Topico");
 		setEjeX("Topicos");
