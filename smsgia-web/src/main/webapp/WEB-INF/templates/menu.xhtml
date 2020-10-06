@@ -118,6 +118,9 @@
 			<p:menuitem value="#{msg.etiquetaMenuPalabrasClave}"
 				action="/estadisticas/palabrasClave"
 				rendered="#{registroInicialBean.revision != null}" />
+			<p:menuitem value="#{msg.etiquetaMenuMetadato}"
+				action="/estadisticas/referenciaPalabrasClave.xhtml"
+				rendered="#{registroInicialBean.revision != null}" />	
 		</p:submenu>
 
 	</p:menubar>

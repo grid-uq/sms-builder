@@ -123,12 +123,15 @@ public class Referencia implements Entidad<Integer> {
 		switch (identifier) {
 		case TITLE:
 			setNombre(value);
+			metadatos.add(new Metadato(identifier, value, this));
 			break;
 		case ABSTRACT:
 			setResumen(value);
+			metadatos.add(new Metadato(identifier, value, this));
 			break;
 		case TYPE:
 			setTipo(value);
+			metadatos.add(new Metadato(identifier, value, this));
 			break;
 		case YEAR:
 			setYear(value);

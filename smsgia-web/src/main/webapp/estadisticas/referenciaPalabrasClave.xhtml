@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+
+		<h:form>
+			<p:panelGrid columns="2" style="width:700px;">
+				<p:outputLabel for="metadato" value="#{msg.etiquetaKeywords}" />
+				<p:inputText id="keyword"
+					value="#{referenciaPalabrasClaveBean.keyword}" />
+				<p:outputLabel for="metadato" value="#{msg.etiquetaMetadato}" />
+				<p:selectCheckboxMenu id="metadato"
+					value="#{referenciaPalabrasClaveBean.metadatos}"
+					label="#{msg.etiquetaMetadato}" multiple="true"
+					panelStyle="width:250px" style="width:500px;">
+					<f:selectItems value="#{referenciaPalabrasClaveBean.tipoMetadatos}"
+						var="tipoMetadado" itemLabel="#{tipoMetadato}"
+						itemValue="#{tipoMetadato.toString()}" />
+				</p:selectCheckboxMenu>
+				<f:facet name="footer">
+					<p:commandButton value="#{msg.botonAceptar}"
+					action="#{referenciaPalabrasClaveBean.consultarReferencias}" update="resultado" />	
+				</f:facet>
+				
+			</p:panelGrid>
+
+
+		</h:form>
+		<p:panelGrid columns="2" id="resultado" style="width:700px;">
+			<p:outputLabel value="#{msg.etiquetaKeywords}" />
+			<p:outputLabel value="#{referenciaPalabrasClaveBean.keyword}" />
+			<p:outputLabel value="#{msg.etiquetaTotal}" />
+			<p:outputLabel value="#{referenciaPalabrasClaveBean.totalResultados}" />
+			<p:outputLabel value="#{msg.etiquetaMenuReferencias}" />
+			
+			<p:outputPanel style="width:500px;height:200px;overflow: auto;"><p>#{referenciaPalabrasClaveBean.listadoReferencias}</p></p:outputPanel>
+		</p:panelGrid>
+
+	</ui:define>
+</ui:composition>
+</html>

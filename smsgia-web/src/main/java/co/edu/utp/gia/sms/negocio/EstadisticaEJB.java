@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import co.edu.utp.gia.sms.dtos.DatoDTO;
+import co.edu.utp.gia.sms.entidades.Referencia;
+import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.importutil.TipoFuente;
 import co.edu.utp.gia.sms.query.Queries;
@@ -91,7 +93,8 @@ public class EstadisticaEJB {
 	}
 
 	public List<DatoDTO> obtenerReferenciasTopico(Integer revisionId, String codigo, Integer idAtributoCalidad) {
-		return entityManager.createNamedQuery(Queries.ESTADISTICA_REFERENCIA_TOPICO_PREGUNTA_ATRIBUTO_CALIDAD, DatoDTO.class)
+		return entityManager
+				.createNamedQuery(Queries.ESTADISTICA_REFERENCIA_TOPICO_PREGUNTA_ATRIBUTO_CALIDAD, DatoDTO.class)
 				.setParameter("idRevision", revisionId).setParameter("codigo", codigo)
 				.setParameter("idAtributoCalidad", idAtributoCalidad).getResultList();
 	}
@@ -99,6 +102,12 @@ public class EstadisticaEJB {
 	public List<DatoDTO> obtenerPalabrasClave(Integer revisionId, int minimo) {
 		return entityManager.createNamedQuery(Queries.ESTADISTICA_PALABRAS_CLAVE, DatoDTO.class)
 				.setParameter("idRevision", revisionId).setParameter("minimo", minimo).getResultList();
+	}
+
+	public List<Referencia> obtenerReferencias(Integer revisionId, String keyword, List<TipoMetadato> metadatos) {
+		return entityManager.createNamedQuery(Queries.ESTADISTICA_REFERENCIA_PALABRAS_CLAVE, Referencia.class)
+				.setParameter("idRevision", revisionId).setParameter("value", String.format("%%%s%%", keyword))
+				.setParameter("identifiers", metadatos).getResultList();
 	}
 
 }
