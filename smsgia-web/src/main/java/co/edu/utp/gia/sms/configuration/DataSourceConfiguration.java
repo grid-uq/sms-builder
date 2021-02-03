@@ -31,7 +31,8 @@ import javax.annotation.sql.DataSourceDefinitions;
 	
 	
 	@DataSourceDefinition(name = "java:app/smsgia-web/mysql", //
-	className = "com.mysql.cj.jdbc.MysqlDataSource", //
+//	className = "com.mysql.cj.jdbc.MysqlDataSource", //
+	className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
 	serverName = "localhost", //
 	portNumber = 3306, //
 	user = "sms", //

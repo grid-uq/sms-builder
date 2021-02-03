@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+
+
+	<ui:define name="contenidoDefault">
+		<h:form id="registro">
+			<p:panelGrid columns="2">
+				<f:facet name="header">#{msg['rol.registro.titulo']}</f:facet>
+				<p:outputLabel for="nombre" value="#{msg['rol.nombre']}:" />
+				<p:inputText id="nombre" value="#{rolBean.rol.nombre}"
+					required="true" />
+				<p:outputLabel for="recursos" value="#{msg['rol.recursos']}:" />
+				<p:selectManyMenu id="recursos" value="#{rolBean.rol.recursos}"
+					converter="selectItemObjectConverter" showCheckbox="true">
+					<f:selectItems value="#{recursoBean.recursos}" var="recurso"
+						itemLabel="#{recurso.nombre}" itemValue="#recurso" />
+				</p:selectManyMenu>
+			</p:panelGrid>
+			<p:commandButton value="#{msg['aplicacion.aceptar']}"
+				action="#{rolBean.registrar}" update=":registro,:datos:tabla" />
+			<p:growl />
+		</h:form>
+
+		<h:form id="datos">
+			<p:growl id="mensajes" />
+			<p:dataTable id="tabla" value="#{rolBean.roles}" var="rol" border="1"
+				paginator="true" rows="10" editable="true">
+				<f:facet name="header">
+					<h:outputText value="#{msg['rol.tituloTabla']}" />
+				</f:facet>
+				<p:ajax event="rowEdit" listener="#{rolBean.onRowEdit}"
+					update=":datos:mensajes" />
+				<p:ajax event="rowEditCancel" listener="#{rolBean.onRowCancel}"
+					update=":datos:mensajes" />
+
+				<p:column headerText="#{msg['rol.nombre']}" filterBy="#{rol.nombre}"
+					filterMatchMode="contains" sortBy="#{rol.nombre}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{rol.nombre}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="nombre" value="#{rol.nombre}" style="width:95%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['rol.recursos']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:dataList value="#{rol.recursos}" var="recurso">
+								<h:outputText value="#{recurso.nombre}" />
+							</p:dataList>
+						</f:facet>
+						<f:facet name="input">
+							<p:selectManyMenu id="recursos" value="#{rol.recursos}"
+								converter="selectItemObjectConverter" showCheckbox="true"
+								style="width:95%">
+								<f:selectItems value="#{recursoBean.recursos}" var="recurso"
+									itemLabel="#{recurso.nombre}" itemValue="#{recurso}" />
+							</p:selectManyMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column style="width:50px">
+					<p:rowEditor />
+					<p:commandLink action="#{rolBean.eliminar(rol)}"
+						styleClass="ui-icon ui-icon-trash"
+						update=":datos:mensajes,:datos:tabla">
+						<p:confirm header="#{msg['aplicacion.tituloDialogoConfirmar']}"
+							message="#{msg['aplicacion.textoDialogoConfirmarEliminacion']}"
+							icon="ui-icon ui-icon-alert" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="contenidoDefault">
+
+		<!--  
+		<ui:include src="/seguridad/usuario/__formulario.xhtml" />
+-->
+
+
+		<h:form id="registro">
+			<p:panelGrid columns="2" id="panel"
+				style="width:100%; align:center; text-align: left">
+				<f:facet name="header">#{msg['usuario.registro.titulo']}</f:facet>
+				<p:outputLabel for="nombre" value="#{msg['usuario.nombre']}:" />
+				<p:inputText id="nombre" value="#{usuarioBean.usuario.nombre}"
+					required="true" style="width:90%" />
+				<p:outputLabel for="nombreUsuario" value="#{msg['usuario.nombreUsuario']}:" />
+				<p:inputText id="nombreUsuario" value="#{usuarioBean.usuario.nombreUsuario}"
+					required="true" style="width:90%" />
+				<p:outputLabel for="email" value="#{msg['usuario.email']}:" />
+				<p:inputText id="email" value="#{usuarioBean.usuario.email}"
+					required="true" style="width:90%" />
+				<p:outputLabel for="rol" value="#{msg['usuario.rol']}:" />
+				<p:selectManyMenu id="rol" value="#{usuarioBean.usuario.roles}"
+					converter="selectItemObjectConverter" showCheckbox="true"
+					style="width:90%">
+					<f:selectItems value="#{rolBean.roles}" var="rol"
+						itemLabel="#{rol.nombre}" itemValue="#rol" />
+				</p:selectManyMenu>
+				<p:outputLabel for="clave" value="#{msg['usuario.clave']}:" />
+				<p:password id="clave" value="#{usuarioBean.usuario.clave}"
+					required="true" style="width:90%" />
+				<p:outputLabel for="verificacionClave"
+					value="#{msg['usuario.verificacionClave']}:" />
+				<p:password id="verificacionClave"
+					value="#{usuarioBean.verificacionClave}" required="true"
+					style="width:90%" />
+			</p:panelGrid>
+			<br />
+			<div align="center" style="text-align: center; width: 100%;">
+				<p:commandButton value="#{msg['aplicacion.aceptar']}"
+					action="#{usuarioBean.registrar}" update=":registro,:datos:tabla" />
+			</div>
+			<p:growl />
+		</h:form>
+		<br />
+		<br />
+
+
+		<h:form id="datos">
+			<p:growl id="mensajes" />
+			<p:dataTable id="tabla" value="#{usuarioBean.usuarios}" var="usuario"
+				border="2" paginator="true" rows="10" editable="true"
+				style="width:100%">
+
+				<f:facet name="header">
+					<h:outputText value="#{msg['usuario.tituloTabla']}" />
+				</f:facet>
+
+				<p:column style="width:16px">
+					<p:rowToggler />
+				</p:column>
+
+				<p:column headerText="#{msg['usuario.nombre']}"
+					filterBy="#{usuario.nombre}" filterMatchMode="contains"
+					sortBy="#{usuario.nombre}">
+					<h:outputText value="#{usuario.nombre}" />
+				</p:column>
+
+				<p:column headerText="#{msg['usuario.nombreUsuario']}"
+					filterBy="#{usuario.nombreUsuario}" filterMatchMode="contains"
+					sortBy="#{usuario.nombreUsuario}">
+					<h:outputText value="#{usuario.nombreUsuario}" />
+				</p:column>
+
+				<p:rowExpansion>
+					<p:panelGrid columns="2" columnClasses="label,value"
+						style="width:100%; align:center" id="gridEdition">
+
+						<f:facet name="header">
+                		#{msg['usuario.tituloInformacionUsuario']}
+                		</f:facet>
+
+						<h:outputText value="#{msg['usuario.nombre']}" />
+						<p:column>
+							<h:outputText value="#{usuario.nombre}"
+								rendered="#{!(usuario.id == usuarioBean.editId)}" />
+							<p:inputText id="nombre" value="#{usuario.nombre}"
+								style="width:95%"
+								rendered="#{(usuario.id == usuarioBean.editId)}" />
+						</p:column>
+
+						<h:outputText value="#{msg['usuario.email']}" />
+						<p:column>
+
+							<h:outputText value="#{usuario.email}"
+								rendered="#{!(usuario.id == usuarioBean.editId)}" />
+
+							<p:inputText id="email" value="#{usuario.email}"
+								style="width:95%"
+								rendered="#{(usuario.id == usuarioBean.editId)}" />
+
+						</p:column>
+
+
+
+
+						<h:outputText value="#{msg['usuario.rol']}" />
+
+
+						<p:column>
+							<p:dataList value="#{usuario.roles}" var="rol"
+								rendered="#{!(usuario.id == usuarioBean.editId)}">
+								<h:outputText value="#{rol.nombre}" />
+							</p:dataList>
+
+							<p:selectManyMenu id="rol" value="#{usuario.roles}"
+								converter="selectItemObjectConverter" showCheckbox="true"
+								rendered="#{(usuario.id == usuarioBean.editId)}">
+								<f:selectItems value="#{rolBean.roles}" var="rol"
+									itemLabel="#{rol.nombre}" itemValue="#rol" />
+							</p:selectManyMenu>
+
+						</p:column>
+
+
+						<h:outputText value="#{msg['usuario.clave']}" />
+						<p:column>
+
+							<h:outputText value="**********"
+								rendered="#{!(usuario.id == usuarioBean.editId)}" />
+
+							<h:panelGrid columns="1"
+								rendered="#{(usuario.id == usuarioBean.editId)}">
+								<p:outputLabel for="clave" value="#{msg['usuario.clave']}"
+									rendered="#{(usuario.id == usuarioBean.editId)}" />
+								<p:password id="clave" value="#{usuario.clave}" required="true"
+									style="width:95%"
+									rendered="#{(usuario.id == usuarioBean.editId)}" />
+								<p:outputLabel for="verificacionClave"
+									value="#{msg['usuario.verificacionClave']}:"
+									rendered="#{(usuario.id == usuarioBean.editId)}" />
+								<p:password id="verificacionClave"
+									value="#{usuarioBean.verificacionClaveEdit}" required="true"
+									style="width:95%"
+									rendered="#{(usuario.id == usuarioBean.editId)}" />
+							</h:panelGrid>
+
+						</p:column>
+						<h:outputText value="#{msg['usuario.estado']}" />
+						<p:column>
+							<h:outputText value="#{usuario.estado}"
+								rendered="#{!(usuario.id == usuarioBean.editId)}" />
+							<p:selectOneMenu id="estado" value="#{usuario.estado}"
+								converter="selectItemObjectConverter" showCheckbox="true"
+								rendered="#{(usuario.id == usuarioBean.editId)}">
+								<f:selectItems value="#{usuarioBean.estados}" var="estado"
+									itemLabel="#estado" itemValue="#estado" />
+							</p:selectOneMenu>
+							 
+						</p:column>
+						<p:commandLink action="#{usuarioBean.setEditId(usuario.id)}"
+							update="gridEdition"
+							rendered="#{!(usuario.id == usuarioBean.editId)}">#{msg['aplicacion.editar']}</p:commandLink>
+						<p:commandLink action="#{usuarioBean.setEditId(null)}"
+							update="gridEdition"
+							rendered="#{(usuario.id == usuarioBean.editId)}" immediate="true">#{msg['aplicacion.cancelar']}</p:commandLink>
+						<p:commandLink action="#{usuarioBean.guardar(usuario)}"
+							update="gridEdition, :datos:mensajes"
+							rendered="#{(usuario.id == usuarioBean.editId)}">#{msg['aplicacion.guardar']}</p:commandLink>
+					</p:panelGrid>
+
+				</p:rowExpansion>
+
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>
+
+

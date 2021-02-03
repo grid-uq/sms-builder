@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+
+
+	<ui:define name="contenidoDefault">
+		<h:form id="registro">
+			<p:panelGrid columns="2">
+				<f:facet name="header">#{msg['recurso.registro.titulo']}</f:facet>
+				<p:outputLabel for="nombre" value="#{msg['recurso.nombre']}:" />
+				<p:inputText id="nombre" value="#{recursoBean.recurso.nombre}"
+					required="true" />
+				<p:outputLabel for="url" value="#{msg['recurso.url']}:" />
+				<p:inputText id="url" value="#{recursoBean.recurso.url}"
+					required="true" />
+				<p:outputLabel for="publico" value="#{msg['recurso.publico']}:" />
+				<p:selectBooleanCheckbox id="publico"
+					value="#{recursoBean.recurso.publico}" />
+			</p:panelGrid>
+			<p:commandButton value="#{msg['aplicacion.aceptar']}"
+				action="#{recursoBean.registrar}" update=":registro,:datos:tabla" />
+			<p:growl />
+		</h:form>
+
+		<h:form id="datos">
+			<p:growl id="mensajes" />
+			<p:dataTable id="tabla" value="#{recursoBean.recursos}" var="recurso"
+				border="1" paginator="true" rows="10" editable="true">
+				<f:facet name="header">
+					<h:outputText value="#{msg['recurso.tituloTabla']}" />
+				</f:facet>
+				<p:ajax event="rowEdit" listener="#{recursoBean.onRowEdit}"
+					update=":datos:mensajes" />
+				<p:ajax event="rowEditCancel" listener="#{recursoBean.onRowCancel}"
+					update=":datos:mensajes" />
+
+				<p:column headerText="#{msg['recurso.nombre']}"
+					filterBy="#{recurso.nombre}" filterMatchMode="contains"
+					sortBy="#{recurso.nombre}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{recurso.nombre}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="nombre" value="#{recurso.nombre}"
+								style="width:95%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['recurso.url']}"
+					filterBy="#{recurso.url}" filterMatchMode="contains"
+					sortBy="#{recurso.url}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{recurso.url}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="url" value="#{recurso.url}"
+								style="width:95%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['recurso.publico']}"
+					filterBy="#{recurso.publico}" filterMatchMode="exact"
+					sortBy="#{recurso.publico}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{recurso.publico}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectBooleanCheckbox id="publico"
+					value="#{recurso.publico}" style="width:95%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column style="width:50px">
+					<p:rowEditor />
+					<p:commandLink action="#{recursoBean.eliminar(recurso)}"
+						styleClass="ui-icon ui-icon-trash"
+						update=":datos:mensajes,:datos:tabla">
+						<p:confirm header="#{msg['aplicacion.tituloDialogoConfirmar']}"
+							message="#{msg['aplicacion.textoDialogoConfirmarEliminacion']}"
+							icon="ui-icon ui-icon-alert" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

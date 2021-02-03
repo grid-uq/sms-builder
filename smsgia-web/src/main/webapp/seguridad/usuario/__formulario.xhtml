@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="contenidoPrivado">
+
+
+		<h:form id="registro">
+			<p:panelGrid columns="2" id="panel">
+				<f:facet name="header">#{msg['usuario.registro.titulo']}</f:facet>
+				<p:outputLabel for="nombre" value="#{msg['usuario.nombre']}:" />
+				<p:inputText id="nombre" value="#{usuarioBean.usuario.nombre}"
+					required="true" />
+				<p:outputLabel for="nombreUsuario" value="#{msg['usuario.nombreUsuario']}:" />
+				<p:inputText id="nombreUsuario" value="#{usuarioBean.usuario.nombreUsuario}"
+					required="true" />
+				<p:outputLabel for="rol" value="#{msg['usuario.rol']}:" />
+				<p:selectManyMenu id="rol" value="#{usuarioBean.usuario.roles}"
+					converter="selectItemObjectConverter" showCheckbox="true">
+					<f:selectItems value="#{rolBean.roles}" var="rol"
+						itemLabel="#{rol.nombre}" itemValue="#rol" />
+				</p:selectManyMenu>
+				<p:outputLabel for="clave" value="#{msg['usuario.clave']}:" />
+				<p:password id="clave" value="#{usuarioBean.usuario.clave}"
+					required="true" />
+				<p:outputLabel for="verificacionClave"
+					value="#{msg['usuario.verificacionClave']}:" />
+				<p:password id="verificacionClave"
+					value="#{usuarioBean.verificacionClave}" required="true" />
+			</p:panelGrid>
+			<p:commandButton value="#{msg['aplicacion.aceptar']}"
+				action="#{usuarioBean.registrar}" update=":registro,:datos:tabla" />
+			<p:growl />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

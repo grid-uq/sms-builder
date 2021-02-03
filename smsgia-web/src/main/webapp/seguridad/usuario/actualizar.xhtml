@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="contenidoDefault">
+		<h:form id="registro">
+			<p:panelGrid columns="3" id="panel"
+				style="width:100%; align:center; text-align: left">
+				<f:facet name="header">#{msg['usuario.actualizar.titulo']}</f:facet>
+				<p:outputLabel for="nombre" value="#{msg['usuario.nombre']}:" />
+				<p:inputText id="nombre" value="#{usuarioBean.usuarioAutenticado.nombre}"
+					required="true" style="width:90%" />
+				<p:message for="nombre" />
+				<p:outputLabel for="email" value="#{msg['usuario.nombreUsuario']}:" />
+				<p:inputText id="email" value="#{usuarioBean.usuarioAutenticado.nombreUsuario}"
+					required="true" style="width:90%" />
+				<p:message for="email" />
+				<p:outputLabel for="clave" value="#{msg['usuario.claveActual']}:" />
+				<p:password id="clave" value="#{usuarioBean.claveActual}"
+					required="true" style="width:90%" />
+				<p:message for="clave" />
+				<p:outputLabel for="nuevaclave" value="#{msg['usuario.nuevaClave']}:" />
+				<p:password id="nuevaclave" value="#{usuarioBean.nuevaClave}"
+					required="true" style="width:90%" />
+				<p:message for="nuevaclave" />
+				<p:outputLabel for="verificacionClave"
+					value="#{msg['usuario.verificacionClave']}:" />
+				<p:password id="verificacionClave"
+					value="#{usuarioBean.verificacionClaveEdit}" required="true"
+					style="width:90%" />
+				<p:message for="verificacionClave" />
+				<f:facet name="footer">
+					<p:commandButton value="#{msg['aplicacion.aceptar']}"
+						action="#{usuarioBean.actualizar}" ajax="false" />
+				</f:facet>
+			</p:panelGrid>
+			<p:growl id="mensajes" />
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>
+
+

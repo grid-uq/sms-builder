@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="contenidoDefault">
+		<h:form id="registro">
+			<p:panelGrid columns="3" id="panel"
+				style="width:100%; align:center; text-align: left">
+				<f:facet name="header">#{msg['usuario.registro.titulo']}</f:facet>
+				<p:outputLabel for="nombre" value="#{msg['usuario.nombre']}:" />
+				<p:inputText id="nombre" value="#{usuarioBean.usuario.nombre}" 
+					required="true" style="width:90%" />
+				<p:message for="nombre" />
+				<p:outputLabel for="nombreUsuario" value="#{msg['usuario.nombreUsuario']}:" />
+				<p:inputText id="nombreUsuario" value="#{usuarioBean.usuario.nombreUsuario}"
+					required="true" style="width:90%" />
+				<p:message for="nombreUsuario" /> 
+				<p:outputLabel for="clave" value="#{msg['usuario.clave']}:" />
+				<p:password id="clave" value="#{usuarioBean.usuario.clave}"
+					required="true" style="width:90%" />
+				<p:message for="clave" />
+				<p:outputLabel for="verificacionClave"
+					value="#{msg['usuario.verificacionClave']}:" />
+				<p:password id="verificacionClave"
+					value="#{usuarioBean.verificacionClave}" required="true"
+					style="width:90%" />
+				<p:message for="verificacionClave" />
+				<f:facet name="footer">
+					<p:commandButton value="#{msg['aplicacion.aceptar']}"
+						action="#{usuarioBean.registrar}" ajax="false" />
+				</f:facet>
+			</p:panelGrid>
+			<p:growl id="mensajes" />
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>
+
+
