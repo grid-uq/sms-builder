@@ -8,13 +8,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import co.edu.utp.gia.sms.beans.AbstractBean;
+import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 
 @Named
 @ViewScoped
-public class ReferenciaPalabrasClaveBean extends AbstractBean {
+public class ReferenciaPalabrasClaveBean extends AbstractRevisionBean {
 
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase

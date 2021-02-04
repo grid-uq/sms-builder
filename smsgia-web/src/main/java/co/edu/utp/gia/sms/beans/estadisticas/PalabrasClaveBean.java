@@ -6,6 +6,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import org.primefaces.model.tagcloud.DefaultTagCloudItem;
 import org.primefaces.model.tagcloud.DefaultTagCloudModel;
 import org.primefaces.model.tagcloud.TagCloudModel;
@@ -16,7 +17,7 @@ import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 
 @Named
 @ViewScoped
-public class PalabrasClaveBean extends AbstractBean {
+public class PalabrasClaveBean extends AbstractRevisionBean {
 
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase

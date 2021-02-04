@@ -2,14 +2,14 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 
 import javax.inject.Inject;
 
+import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartModel;
 import org.primefaces.model.chart.PieChartModel;
 
-import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 
-public abstract class EstadisticaBean extends AbstractBean{
+public abstract class EstadisticaBean extends AbstractRevisionBean {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
@@ -18,8 +18,7 @@ public abstract class EstadisticaBean extends AbstractBean{
 
 	@Inject
 	private EstadisticaEJB estadisticaEJB;
-	
-	
+
 	private ChartModel model;
 
 	private String titulo;
@@ -158,7 +157,8 @@ public abstract class EstadisticaBean extends AbstractBean{
 	public final EstadisticaEJB getEstadisticaEJB() {
 		return estadisticaEJB;
 	}
-	
+
+
 	
 
 }

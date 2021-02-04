@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.seguridad.SeguridadBean;
 import co.edu.utp.gia.sms.entidades.Persona;
+import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Usuario;
 
 import javax.enterprise.context.SessionScoped;

@@ -32,6 +32,7 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = Queries.OBJETIVO_GET_ALL, query = "select o from Objetivo o where o.revision.id = :id"),
 
 		@NamedQuery(name = Queries.REVISION_GET_ALL, query = "select p from Revision p"),
+		@NamedQuery(name = Queries.REVISION_GET_ALL_RELATED, query = "select p from Revision p where p.propietario = :propietario or :propietario MEMBER OF p.revisores "),
 
 		@NamedQuery(name = Queries.ESTADISTICA_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, COUNT(1) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year"),
 
@@ -133,6 +134,13 @@ public class Queries implements Serializable {
 	 * 
 	 */
 	public static final String REVISION_GET_ALL = "Revision.getAll";
+	/**
+	 * Consulta que permite obtener las revisiones registradas en el sistema <br />
+	 * @param :propietario
+	 * <code>select p from Revision p where p.propietario = :propietario or :propietario MEMBER OF p.revisores  </code>
+	 *
+	 */
+	public static final String REVISION_GET_ALL_RELATED = "Revision.getAllRelated";
 
 	/**
 	 * Consulta que permite obtener las preguntas registradas en el sistema para una

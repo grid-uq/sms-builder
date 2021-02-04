@@ -4,11 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  * @author Christian A. Candela
@@ -51,8 +47,12 @@ public class Revision implements Entidad<Integer> {
 	 */
 	@OneToMany(mappedBy = "revision")
 	private List<Objetivo> objetivos;
-	
-	
+
+	@ManyToOne
+	private Persona propietario;
+
+	@ManyToMany
+	private List<Persona> revisores;
 //	/**
 //	 * Variable que representa el atributo preguntas de la clase
 //	 */
@@ -131,7 +131,44 @@ public class Revision implements Entidad<Integer> {
 		this.descripcion = descripcion;
 	}
 
-//	/**
+	/**
+	 * Metodo que permite obtener el propietario de una revision
+	 *
+	 * @return El propietario
+	 */
+	public Persona getPropietario() {
+		return propietario;
+	}
+
+	/**
+	 * Permite asignar un propietario a una revision
+	 *
+	 * @param propietario El propietario
+	 */
+	public void setPropietario(Persona propietario) {
+		this.propietario = propietario;
+	}
+
+
+	/**
+	 * Permite obtener los revisiores asociados a la revision
+	 *
+	 * @return List de revisores
+	 */
+	public List<Persona> getRevisores() {
+		return revisores;
+	}
+
+	/**
+	 * Permite adicionar un revision a una Revision
+	 *
+	 * @param revisores Listado de los revisores
+	 */
+	public void setRevisores(List<Persona> revisores) {
+		this.revisores = revisores;
+	}
+
+	//	/**
 //	 * Metodo que permite obtener el valor del atributo preguntas
 //	 * 
 //	 * @return El valor del atributo preguntas

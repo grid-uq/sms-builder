@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.annotation.SessionMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -40,24 +41,17 @@ public abstract class AbstractBean implements Serializable {
 	@SessionMap
 	private Map<String, Object> sessionMap;
 
-	@Inject
-	private RegistroInicialBean registroInicialBean;
 
-	private Revision revision;
 
 	@PostConstruct
 	public void init() {
-		if (registroInicialBean != null) {
-			revision = registroInicialBean.getRevision();
-		}
+//		if (registroInicialBean != null) {
+//			revision = registroInicialBean.getRevision();
+//		}
 		inicializar();
 	}
 
 	public abstract void inicializar();
-
-	protected Revision getRevision() {
-		return revision;
-	}
 
 	protected void mostrarErrorGeneral(String mensaje) {
 		mostrarErrorEspecifico(null, mensaje);

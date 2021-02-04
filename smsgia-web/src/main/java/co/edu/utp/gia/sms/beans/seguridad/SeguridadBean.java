@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.faces.component.FacesComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -152,12 +153,7 @@ public abstract class SeguridadBean extends AbstractBean {
 	 *            acceso
 	 * @return True si se tiene acceso, en caso contrario retorna false;
 	 */
-	private boolean verifivarAcceso(String path) {
-		Logger.getLogger(SeguridadBean.class.getName()).info("RECURSO SOLICITADO ----> " + path);
-		System.out.println( "RECURSO SOLICITADO ----> " + path );
-		urlRecursos.stream().forEach( System.out::println );
-		urlRecursos.stream().forEach( Logger.getLogger(SeguridadBean.class.getName())::info );
-
+	public boolean verifivarAcceso(String path) {
 		return urlRecursos.contains(path);
 //		for (Rol rol : usuario.getRoles()) {
 //			for (Recurso recurso : rol.getRecursos()) {
@@ -169,6 +165,9 @@ public abstract class SeguridadBean extends AbstractBean {
 //		return verificarRecursoPublico(path);
 	}
 
+	public boolean verificarPermiso(FacesComponent component){
+		return verifivarAcceso(component.value());
+	}
 	/**
 	 * Metodo que permite cerrar la sesion del usuario
 	 * 

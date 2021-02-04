@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import co.edu.utp.gia.sms.beans.AbstractBean;
+import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
@@ -16,7 +17,7 @@ import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 
 @Named
 @ViewScoped
-public class TablaReferenciasPreguntasBean extends AbstractBean {
+public class TablaReferenciasPreguntasBean extends AbstractRevisionBean {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */

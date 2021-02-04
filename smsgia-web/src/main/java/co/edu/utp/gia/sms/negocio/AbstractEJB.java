@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.negocio;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,7 +16,7 @@ import co.edu.utp.gia.sms.exceptions.TecnicalException;
  * 
  * 
  */
-public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> {
+public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements Serializable {
 
 	/**
 	 * Representa la clase a la que pertenece la entidad que esta manipulando el DAO

@@ -62,7 +62,7 @@ public class UsuarioEJB extends AbstractEJB<Usuario,Integer>{
 		// TODO pendiente obtener el estado de una tabla de parametros de
 		// configuracionen lugar de estar quemado
 		Rol rolUsuario = new Rol();
-		rolUsuario.setId(3);
+		rolUsuario.setId(2);
 		return Arrays.asList(rolUsuario);
 	}
 

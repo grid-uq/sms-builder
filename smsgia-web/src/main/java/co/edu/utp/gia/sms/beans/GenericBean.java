@@ -5,13 +5,16 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
-public abstract class GenericBean<Objeto> extends AbstractBean {
+public abstract class GenericBean<Objeto> extends AbstractRevisionBean {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
 	private static final long serialVersionUID = 9060626480979863537L;
 
-	
+	//@Inject
+	//private RegistroInicialBean registroInicialBean;
+
+
 //	@Inject
 //	private ObjetivoEJB objetivoEJB;
 

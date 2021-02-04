@@ -1,15 +1,20 @@
 package co.edu.utp.gia.sms.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import co.edu.utp.gia.sms.entidades.Persona;
+import co.edu.utp.gia.sms.entidades.Usuario;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 
@@ -32,7 +37,7 @@ The presence of this annotation on a class automatically registers the class wit
 //@SessionScoped
 @Named("registroInicialBean")
 @SessionScoped
-public class RegistroInicialBean implements Serializable {
+public class RegistroInicialBean extends AbstractBean {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
@@ -43,14 +48,19 @@ public class RegistroInicialBean implements Serializable {
 	private String descripcion;
 	private Integer id;
 	private List<Revision> revisiones;
+	@Inject
+	private SeguridadBeanImpl seguridadBean;
 
 	@Inject
 	private RevisionEJB revisionEJB;
 
 	@PostConstruct
 	public void inicializar() {
-		System.out.println("CONSTRUYENDO");
-		revisiones = revisionEJB.obtenerTodas();
+		if( seguridadBean.isAutenticado() ) {
+			revisiones = revisionEJB.obtenerTodas(seguridadBean.getUsuario());
+		} else {
+			revisiones = new ArrayList<>();
+		}
 	}
 
 	public void registrar() {
@@ -77,32 +87,28 @@ public class RegistroInicialBean implements Serializable {
 	public void onRowEdit(RowEditEvent<Revision> event) {
 		Revision revision =  event.getObject();
 		revisionEJB.actualizar(revision);
-		FacesMessage msg = new FacesMessage("Registro editado");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		mostrarMensajeGeneral("Registro editado");
 	}
 
 	public void onRowCancel(RowEditEvent<Revision> event) {
-		FacesMessage msg = new FacesMessage("Edición cancelada");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		mostrarMensajeGeneral("Edición cancelada");
 	}
 
 	public void onRowSelect(SelectEvent<Revision> event) {
-		FacesMessage msg = new FacesMessage("Revisión Seleccionada", event.getObject().getNombre());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		mostrarMensajeGeneral(String.format( "Revisión Seleccionada - %s ",event.getObject().getNombre() ) );
 	}
 
 	/**
 	 * Permite eliminar una revision a través de su id
 	 * 
-	 * @param id Id de la revisión a eliminar
+	 * @param revision Revisión a eliminar
 	 */
 
 	public void eliminar(Revision revision) {
 		revisionEJB.eliminar(revision.getId());
 		revisiones.remove(revision);
 		this.revision = null;
-		FacesMessage msg = new FacesMessage("Registro eliminado");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		mostrarMensajeGeneral("Registro eliminado");
 	}
 
 	/**
