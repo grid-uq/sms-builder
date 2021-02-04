@@ -154,6 +154,7 @@ public abstract class SeguridadBean extends AbstractBean {
 	 * @return True si se tiene acceso, en caso contrario retorna false;
 	 */
 	public boolean verifivarAcceso(String path) {
+		System.out.println(path);
 		return urlRecursos.contains(path);
 //		for (Rol rol : usuario.getRoles()) {
 //			for (Recurso recurso : rol.getRecursos()) {
