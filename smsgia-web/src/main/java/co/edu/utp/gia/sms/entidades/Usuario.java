@@ -30,7 +30,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
 		@NamedQuery(name = Usuario.FIND_BY_ID, query = "select usuario from Usuario usuario where usuario.id = :id"),
 		@NamedQuery(name = Usuario.GET_ALL, query = "select usuario from Usuario usuario"),
-		@NamedQuery(name = Usuario.AUTENTICAR, query = "select usuario from Usuario usuario where usuario.nombreUsuario = :nombreUsuario and usuario.estado = co.edu.uniquindio.ingesis.grid.asesoriauq.entidades.EstadoUsuario.ACTIVO"),
+		@NamedQuery(name = Usuario.AUTENTICAR, query = "select usuario from Usuario usuario where usuario.nombreUsuario = :nombreUsuario and usuario.estado = co.edu.utp.gia.sms.entidades.EstadoUsuario.ACTIVO"),
 
 })
 

@@ -58,14 +58,46 @@
 
 
 	<div id="content" align='center'>
-		<ui:insert name="content">
-    	Pagina en construccion
-    	
-    	<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
-			<!-- <div> -->
-			<!-- <ui:include src="content.xhtml"/> -->
-			<!-- </div> -->
-		</ui:insert>
+
+		<h:panelGrid rendered="#{!seguridadBean.autenticado}">
+			<h:form prependId="false">
+				<p:outputLabel value="#{msg['usuario.nombreUsuario']}: "
+							   for="nombreUsuario" />
+				<p:inputText id="nombreUsuario"
+							 value="#{seguridadBean.nombreUsuario}" required="true" size="28" />
+				&nbsp;
+				<p:outputLabel value="#{msg['usuario.clave']}: " for="clave" />
+
+				<p:password id="clave" value="#{seguridadBean.clave}" size="28" />
+				&nbsp;
+				<p:commandButton value="#{msg['seguridad.boton.ingresar']}"
+								 action="#{seguridadBean.ingresar}" ajax="false" />
+				<p:commandButton value="#{msg['seguridad.boton.registrarse']}"
+								 action="/seguridad/usuario/registro" ajax="false" immediate="true" />
+				<p:growl />
+			</h:form>
+		</h:panelGrid>
+		<h:panelGroup id="panelContenido" style="width:100%">
+
+			<h:panelGroup rendered="#{seguridadBean.tienePermiso}">
+				<ui:insert name="content">
+					Pagina en construccion
+
+					<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
+					<!-- <div> -->
+					<!-- <ui:include src="content.xhtml"/> -->
+					<!-- </div> -->
+				</ui:insert>
+			</h:panelGroup>
+			<ui:insert name="publicContent"></ui:insert>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{! seguridadBean.tienePermiso}"
+					  style="width:100%">
+			#{msg['seguridad.notienepermiso']}
+		</h:panelGroup>
+
+
+
 	</div>
 
 

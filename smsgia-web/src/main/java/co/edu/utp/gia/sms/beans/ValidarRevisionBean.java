@@ -21,8 +21,9 @@ public class ValidarRevisionBean extends GenericBean<Revision>{
 //		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestServletPath());
 		String[] urls = { "/revision/registroRevision.xhtml", "/revision/seleccionarRevision.xhtml",
 				"/revision/registroInicial.xhtml" };
+		String[] pattern = {"/seguridad","/administracion"};
 		String path = getFacesContext().getExternalContext().getRequestServletPath();
-		if (getRevision() == null && !Arrays.asList(urls).contains(path)) {
+		if (getRevision() == null && !Arrays.asList(urls).contains(path) && Arrays.stream(pattern).filter(p->path.startsWith(p)).count() == 0) {
 			try {
 
 				getFacesContext().getExternalContext()

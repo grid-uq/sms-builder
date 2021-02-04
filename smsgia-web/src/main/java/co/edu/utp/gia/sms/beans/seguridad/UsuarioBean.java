@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.entidades.EstadoUsuario;
 import co.edu.utp.gia.sms.entidades.Usuario;
-import co.edu.utp.gia.sms.negocio.UsuarioBO;
+import co.edu.utp.gia.sms.negocio.UsuarioEJB;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -68,7 +68,7 @@ public abstract class UsuarioBean extends AbstractBean {
 	 * Variable que representa el atributo usuarioBO de la clase
 	 */
 	@Inject
-	private UsuarioBO usuarioBO;
+	private UsuarioEJB usuarioEJB;
 
 	/**
 	 * Variable que representa el atributo editId de la clase. Id de la
@@ -86,7 +86,7 @@ public abstract class UsuarioBean extends AbstractBean {
 	 * Metodo encargado de inicializar los datos de la clase
 	 */
 	public void inicializar() {
-		usuarios = usuarioBO.buscarAll();
+		usuarios = usuarioEJB.listar();
 		setUsuario( newUsuario() );
 		estados = Arrays.asList(EstadoUsuario.values());
 	}
@@ -101,10 +101,10 @@ public abstract class UsuarioBean extends AbstractBean {
 	 */
 	public String registrar() {
 		try {
-			usuarioBO.insertar(getUsuario(), verificacionClave);
+			usuarioEJB.registrar(getUsuario(), verificacionClave);
 			setUsuario(newUsuario());
 			verificacionClave = "";
-			usuarios = usuarioBO.buscarAll();
+			usuarios = usuarioEJB.listar();
 			mostrarMensajeGeneral("Registro exitoso");
 		} catch (Exception e) {
 			mostrarErrorGeneral(e.getMessage());
@@ -120,8 +120,8 @@ public abstract class UsuarioBean extends AbstractBean {
 	 */
 	public void eliminar(Usuario usuario) {
 		try {
-			usuarioBO.borrar(usuario);
-			usuarios = usuarioBO.buscarAll();
+			usuarioEJB.eliminar(usuario);
+			usuarios = usuarioEJB.listar();
 			mostrarMensajeGeneral("Registro eliminado");
 		} catch (Exception e) {
 			mostrarErrorGeneral(e.getMessage());
@@ -149,7 +149,7 @@ public abstract class UsuarioBean extends AbstractBean {
 	private boolean actualizar(Usuario usuario) {
 		boolean exito = false;
 		try {
-			usuarioBO.actualizar(usuario, verificacionClaveEdit);
+			usuarioEJB.actualizar(usuario, verificacionClaveEdit);
 			exito = true;
 			verificacionClaveEdit = "";
 			// usuarios = usuarioEjb.buscarAll();
@@ -157,7 +157,7 @@ public abstract class UsuarioBean extends AbstractBean {
 			
 		} catch (Exception e) {
 			mostrarErrorGeneral(e.getMessage());
-			usuarios = usuarioBO.buscarAll();
+			usuarios = usuarioEJB.listar();
 		}
 		return exito;
 	}
@@ -275,7 +275,7 @@ public abstract class UsuarioBean extends AbstractBean {
 
 	public void guardar(Usuario usuario) {
 		try {
-			usuarioBO.actualizar(usuario);
+			usuarioEJB.actualizar(usuario);
 			setEditId(null);
 			mostrarMensajeGeneral("Registro actualizado");
 

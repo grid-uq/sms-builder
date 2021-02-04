@@ -123,6 +123,35 @@
 				rendered="#{registroInicialBean.revision != null}" />	
 		</p:submenu>
 
+		<p:submenu label="#{msg['menu.gestionar']}" icon="ui-icon-gear"
+				   rendered="#{seguridadBean.urlRecursos.contains('/seguridad/usuario/index.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/recurso/index.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/rol/index.xhtml')  or seguridadBean.urlRecursos.contains('/seguridad/usuario/actualizar.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/usuario/registro.xhtml') }">
+			<p:submenu label="#{msg['menu.seguridad']}" icon="ui-icon-gear"
+					   rendered="#{seguridadBean.urlRecursos.contains('/seguridad/usuario/index.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/recurso/index.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/rol/index.xhtml')  or seguridadBean.urlRecursos.contains('/seguridad/usuario/actualizar.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/usuario/registro.xhtml') }">
+				<p:menuitem value="#{msg['menu.usuarios']}"
+							action="/usuario/index.xhtml" update=":panelContenido"
+							icon="ui-icon-person"
+							rendered="#{seguridadBean.urlRecursos.contains('/usuario/index.xhtml')}" />
+				<p:menuitem value="#{msg['menu.recurso']}"
+							action="/seguridad/recurso/index.xhtml" update=":panelContenido"
+							icon="ui-icon-plus"
+							rendered="#{seguridadBean.urlRecursos.contains('/seguridad/recurso/index.xhtml')}" />
+				<p:menuitem value="#{msg['menu.rol']}"
+							action="/seguridad/rol/index.xhtml" update=":panelContenido"
+							icon="ui-icon-plus"
+							rendered="#{seguridadBean.urlRecursos.contains('/seguridad/rol/index.xhtml')}" />
+				<p:menuitem value="#{msg['menu.usuario.actualizar']}"
+							action="/seguridad/usuario/actualizar.xhtml"
+							update=":panelContenido" icon="ui-icon-person"
+							rendered="#{seguridadBean.urlRecursos.contains('/seguridad/usuario/actualizar.xhtml')}" />
+				<p:menuitem value="#{msg['menu.usuario.registrar']}"
+							action="/seguridad/usuario/index.xhtml"
+							update=":panelContenido" icon="ui-icon-person"
+							rendered="#{seguridadBean.urlRecursos.contains('/seguridad/usuario/index.xhtml')}" />
+			</p:submenu>
+		</p:submenu>
+		<p:menuitem value="#{msg['menu.salir']}"
+					action="#{seguridadBean.cerrarSesion}" icon="ui-icon-circle-close"
+					ajax="false" rendered="#{seguridadBean.autenticado}" />
 	</p:menubar>
 </h:form>
 

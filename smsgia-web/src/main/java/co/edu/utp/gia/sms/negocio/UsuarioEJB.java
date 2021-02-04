@@ -2,19 +2,8 @@ package co.edu.utp.gia.sms.negocio;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
-
 import co.edu.utp.gia.sms.entidades.EstadoUsuario;
 import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.entidades.Usuario;
@@ -34,11 +23,11 @@ import co.edu.utp.gia.sms.exceptions.LogicException;
  */
 @Stateless
 @LocalBean
-public class UsuarioBO extends AbstractEJB<Usuario,Integer>{
+public class UsuarioEJB extends AbstractEJB<Usuario,Integer>{
 
 
 
-	public UsuarioBO () { super(Usuario.class); }
+	public UsuarioEJB() { super(Usuario.class); }
 
 	/**
 	 * Metodo que permite registrar un usuario
@@ -78,24 +67,6 @@ public class UsuarioBO extends AbstractEJB<Usuario,Integer>{
 	}
 
 	/**
-	 * Metodo que permite borrar un {@link Usuario}
-	 * 
-	 * @param usuario
-	 *            Usuario a ser borrado
-	 */
-	public void eliminar(Usuario usuario) {
-		if (usuario == null) {
-			throw new LogicException("Faltan dados para completar la operación");
-		}
-		usuario = obtener(usuario.getId());
-		if (!entityManager.contains(usuario) && usuario == null) {
-			throw new LogicException("Registro no existente");
-		}
-		usuario.setEstado(EstadoUsuario.BLOQUEADO);
-	}
-
-
-	/**
 	 * Metodo que permite actualizar el {@link Usuario}
 	 * 
 	 * @param usuario
@@ -121,7 +92,7 @@ public class UsuarioBO extends AbstractEJB<Usuario,Integer>{
 	 *         registrados en el sistema
 	 */
 	public List<Usuario> listar() {
-		return crearQuery(Usuario.GET_ALL).getResultList();
+		return entityManager.createNamedQuery(Usuario.GET_ALL, Usuario.class).getResultList();
 	}
 
 
@@ -142,11 +113,13 @@ public class UsuarioBO extends AbstractEJB<Usuario,Integer>{
 	 *             que no se encuentre el nombre de usuario proporcionado
 	 */
 	public Usuario autenticarUsuario(String nombreUsuario, String clave) {
-		TypedQuery<Usuario> query = entityManager.createNamedQuery(Usuario.AUTENTICAR, Usuario.class)
-		query.setParameter("nombreUsuario", nombreUsuario);
-		List<Usuario> resultado = query.getResultList();
+		Usuario usuario = entityManager.createNamedQuery(Usuario.AUTENTICAR, Usuario.class)
+				.setParameter("nombreUsuario", nombreUsuario)
+				.getResultList()
+				.stream()
+				.findFirst()
+				.orElse(null);
 
-		Usuario usuario = resultado.size() > 0 ? resultado.get(0) : null;
 		if (usuario == null) {
 			throw new LogicException("Error de autenticación");
 		}
@@ -160,19 +133,4 @@ public class UsuarioBO extends AbstractEJB<Usuario,Integer>{
 		usuario.setIntentos(0);
 		return usuario;
 	}
-
-
-
-	/**
-	 * Método que permite crear un {@link TypedQuery} basado en el nombre de una
-	 * {@link NamedQuery} cuyo resultado es de tipo {@link Usuario}
-	 * 
-	 * @param namedQuery
-	 *            Nombre de la {@link NamedQuery}
-	 * @return {@link TypedQuery} creado a partir del namedQuery
-	 */
-	private TypedQuery<Usuario> crearQuery(String namedQuery) {
-		return entityManager.createNamedQuery(namedQuery, Usuario.class);
-	}
-
 }

@@ -5,10 +5,11 @@ import co.edu.utp.gia.sms.entidades.Recurso;
 import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.exceptions.LogicException;
-import co.edu.utp.gia.sms.negocio.RecursoBO;
-import co.edu.utp.gia.sms.negocio.UsuarioBO;
+import co.edu.utp.gia.sms.negocio.RecursoEJB;
+import co.edu.utp.gia.sms.negocio.UsuarioEJB;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -58,18 +59,18 @@ public abstract class SeguridadBean extends AbstractBean {
 	 */
 	private List<String> urlRecursos;
 	/**
-	 * Instancia del objeto de negocio {@link UsuarioBO} usadao para la gestion
+	 * Instancia del objeto de negocio {@link UsuarioEJB} usadao para la gestion
 	 * del {@link Usuario}
 	 */
 	@Inject
-	private UsuarioBO usuarioBO;
+	private UsuarioEJB usuarioEJB;
 
 	/**
-	 * Instancia del objeto de negocio {@link RecursoBO} usadao para la gestion
+	 * Instancia del objeto de negocio {@link RecursoEJB} usadao para la gestion
 	 * del {@link Recurso}
 	 */
 	@Inject
-	private RecursoBO recursoBO;
+	private RecursoEJB recursoEJB;
 
 	/**
 	 * Método que inicializa los elementos básicos del sistema
@@ -85,7 +86,7 @@ public abstract class SeguridadBean extends AbstractBean {
 	 */
 	public void ingresar() {
 		try {
-			setUsuario( usuarioBO.autenticarUsuario(nombreUsuario, clave) );
+			setUsuario( usuarioEJB.autenticarUsuario(nombreUsuario, clave) );
 			if (getUsuario() == null) {
 				throw new LogicException("Usuario o clave incorrectos");
 			}
@@ -103,7 +104,7 @@ public abstract class SeguridadBean extends AbstractBean {
 	 * acceso
 	 */
 	private void cargarRecursos() {
-		urlRecursos = recursoBO.buscarRecursosPublicos();
+		urlRecursos = recursoEJB.buscarRecursosPublicos();
 		if (getUsuario() != null) {
 			for (Rol rol : getUsuario().getRoles()) {
 				for (Recurso recurso : rol.getRecursos()) {
@@ -139,7 +140,7 @@ public abstract class SeguridadBean extends AbstractBean {
 	 * @return True si el recurso es publico, en caso contrario retorna false
 	 */
 	public boolean verificarRecursoPublico(String path) {
-		Recurso recurso = recursoBO.buscarRecurso(path);
+		Recurso recurso = recursoEJB.buscarRecurso(path);
 		return recurso != null && recurso.isPublico();
 	}
 
@@ -152,6 +153,11 @@ public abstract class SeguridadBean extends AbstractBean {
 	 * @return True si se tiene acceso, en caso contrario retorna false;
 	 */
 	private boolean verifivarAcceso(String path) {
+		Logger.getLogger(SeguridadBean.class.getName()).info("RECURSO SOLICITADO ----> " + path);
+		System.out.println( "RECURSO SOLICITADO ----> " + path );
+		urlRecursos.stream().forEach( System.out::println );
+		urlRecursos.stream().forEach( Logger.getLogger(SeguridadBean.class.getName())::info );
+
 		return urlRecursos.contains(path);
 //		for (Rol rol : usuario.getRoles()) {
 //			for (Recurso recurso : rol.getRecursos()) {

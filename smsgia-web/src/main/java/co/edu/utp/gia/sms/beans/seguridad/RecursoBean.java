@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.entidades.Recurso;
-import co.edu.utp.gia.sms.negocio.RecursoBO;
+import co.edu.utp.gia.sms.negocio.RecursoEJB;
 import org.primefaces.event.RowEditEvent;
 
 
@@ -45,14 +45,14 @@ public class RecursoBean extends AbstractBean {
 	 * del objeto de negocio que permite la gestion de las {@link Recurso}
 	 */
 	@Inject
-	private RecursoBO recursoBO;
+	private RecursoEJB recursoEJB;
 
 	/**
 	 * Metodo encargado de inicializar los datos de la clase
 	 */
 	@PostConstruct
 	public void inicializar() {
-		recursos = recursoBO.listar();
+		recursos = recursoEJB.listar();
 	}
 
 	/**
@@ -60,9 +60,9 @@ public class RecursoBean extends AbstractBean {
 	 */
 	public void registrar() {
 		try {
-			recursoBO.registrar(recurso);
+			recursoEJB.registrar(recurso);
 			recurso = new Recurso();
-			recursos = recursoBO.listar();
+			recursos = recursoEJB.listar();
 			mostrarMensajeGeneral("Registro exitoso");
 		} catch (Exception e) {
 			mostrarErrorGeneral(e.getMessage());
@@ -77,8 +77,8 @@ public class RecursoBean extends AbstractBean {
 	 */
 	public void eliminar(Recurso recurso) {
 		try {
-			recursoBO.eliminar(recurso);
-			recursos = recursoBO.listar();
+			recursoEJB.eliminar(recurso);
+			recursos = recursoEJB.listar();
 			mostrarMensajeGeneral("Registro eliminado");
 		} catch (Exception e) {
 			mostrarErrorGeneral(e.getMessage());
@@ -95,11 +95,11 @@ public class RecursoBean extends AbstractBean {
 	public void onRowEdit(RowEditEvent event) {
 		Recurso recurso = ((Recurso) event.getObject());
 		try {
-			recursoBO.actualizar(recurso);
+			recursoEJB.actualizar(recurso);
 			mostrarMensajeGeneral("Registro actializado");
 		} catch (Exception e) {
 			mostrarErrorGeneral(e.getMessage());
-			recursos = recursoBO.listar();
+			recursos = recursoEJB.listar();
 		}
 	}
 

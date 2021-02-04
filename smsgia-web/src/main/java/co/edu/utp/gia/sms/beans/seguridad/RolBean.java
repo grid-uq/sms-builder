@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.entidades.Rol;
-import co.edu.utp.gia.sms.negocio.RolBO;
+import co.edu.utp.gia.sms.negocio.RolEJB;
 import org.primefaces.event.RowEditEvent;
 
 
@@ -45,14 +45,14 @@ public class RolBean extends AbstractBean {
 	 * del objeto de negocio que permite la gestion de las {@link Rol}
 	 */
 	@Inject
-	private RolBO rolBO;
+	private RolEJB rolEJB;
 
 	/**
 	 * Metodo encargado de inicializar los datos de la clase
 	 */
 	@PostConstruct
 	public void inicializar() {
-		roles = rolBO.listar();
+		roles = rolEJB.listar();
 	}
 
 	/**
@@ -60,9 +60,9 @@ public class RolBean extends AbstractBean {
 	 */
 	public void registrar() {
 		try {
-			rolBO.registrar(rol);
+			rolEJB.registrar(rol);
 			rol = new Rol();
-			roles = rolBO.listar();
+			roles = rolEJB.listar();
 			mostrarMensajeGeneral("Registro exitoso");
 		} catch (Exception e) {
 			mostrarErrorGeneral(e.getMessage());
@@ -77,8 +77,8 @@ public class RolBean extends AbstractBean {
 	 */
 	public void eliminar(Rol rol) {
 		try {
-			rolBO.eliminar(rol);
-			roles = rolBO.listar();
+			rolEJB.eliminar(rol);
+			roles = rolEJB.listar();
 			mostrarMensajeGeneral("Registro eliminado");
 		} catch (Exception e) {
 			mostrarErrorGeneral(e.getMessage());
@@ -95,11 +95,11 @@ public class RolBean extends AbstractBean {
 	public void onRowEdit(RowEditEvent event) {
 		Rol rol = ((Rol) event.getObject());
 		try {
-			rolBO.actualizar(rol);
+			rolEJB.actualizar(rol);
 			mostrarMensajeGeneral("Registro actualizado");
 		} catch (Exception e) {
 			mostrarErrorGeneral(e.getMessage());
-			roles = rolBO.listar();
+			roles = rolEJB.listar();
 		}
 	}
 

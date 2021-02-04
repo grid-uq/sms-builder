@@ -78,7 +78,7 @@
 					<configuration>
 						<version>7</version>
 						<defaultLibBundleDir>lib</defaultLibBundleDir>
-						<defaultJavaBundleDir>lib/</defaultJavaBundleDir>
+						<!--defaultJavaBundleDir>lib/</defaultJavaBundleDir -->
 						<skinnyWars>true</skinnyWars>
 						<generateModuleId>true</generateModuleId>
 						<fileNameMapping>no-version</fileNameMapping>

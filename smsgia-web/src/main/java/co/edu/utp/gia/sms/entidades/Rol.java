@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.entidades;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -69,6 +70,14 @@ public class Rol implements Entidad<Integer> {
 	 * {@code select rol from Usuario usuario inner join usuario.roles rol where usuario = :usuario}
 	 */
 	public static final String FIND_BY_USUARIO = "Rol_findByUsuario";
+
+	public Rol(){ }
+
+	public Rol(Integer id, String nombre) {
+		this.id = id;
+		this.nombre = nombre;
+		this.recursos = new ArrayList<>();
+	}
 
 	/**
 	 * Metodo que permite obtener el valor del atributo id

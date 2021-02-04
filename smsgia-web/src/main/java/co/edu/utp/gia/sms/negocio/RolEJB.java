@@ -23,15 +23,9 @@ import co.edu.utp.gia.sms.entidades.Rol;
  */
 @Stateless
 @LocalBean
-public class RolBO extends AbstractEJB<Rol, Integer>{
+public class RolEJB extends AbstractEJB<Rol, Integer>{
 
-	/**
-	 * Instancia del entityManager
-	 */
-	@Inject
-	private EntityManager entityManager;
-
-	public RolBO() {
+	public RolEJB() {
 		super(Rol.class);
 	}
 

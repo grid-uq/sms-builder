@@ -18,7 +18,7 @@
 		<jee.version>8.0.1</jee.version>
 		<!-- <jsf-impl.version>2.2.20</jsf-impl.version>  -->
 		<jsf-impl.version>2.3.9.SP08</jsf-impl.version>
-		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<build>

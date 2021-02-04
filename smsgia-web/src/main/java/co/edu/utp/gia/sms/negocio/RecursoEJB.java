@@ -26,16 +26,10 @@ import co.edu.utp.gia.sms.entidades.Recurso;
  */
 @Stateless
 @LocalBean
-public class RecursoBO extends AbstractEJB<Recurso,Integer>{
+public class RecursoEJB extends AbstractEJB<Recurso,Integer>{
 
 
-	/**
-	 * Instancia del entityManager
-	 */
-	@Inject
-	private EntityManager entityManager;
-
-	public RecursoBO() {
+	public RecursoEJB() {
 		super(Recurso.class);
 	}
 
