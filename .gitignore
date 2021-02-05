@@ -1,7 +1,11 @@
-/.DS_Store
-/.project
-/.idea
+.DS_Store
+.project
+.idea
 sms.iml
 /smsgia-web/smsgia-web.iml
-/smsgia-web/.classpath
+.classpath
 /smsgia-web/.gitignore
+.settings
+.metadata
+.project
+target
