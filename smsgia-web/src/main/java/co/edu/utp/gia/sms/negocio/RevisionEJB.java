@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import co.edu.utp.gia.sms.entidades.Persona;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
@@ -53,9 +52,9 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
 	 *
 	 * @return Listado de las {@link Revision} registradas
 	 */
-	public List<Revision> obtenerTodas(Persona usuario) {
+	public List<Revision> obtenerTodas(Integer idUsuario) {
 		return entityManager.createNamedQuery(Queries.REVISION_GET_ALL_RELATED, Revision.class)
-				.setParameter("propietario",usuario)
+				.setParameter("id",idUsuario)
 				.getResultList();
 	}
 

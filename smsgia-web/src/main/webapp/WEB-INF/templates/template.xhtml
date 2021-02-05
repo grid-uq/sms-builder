@@ -29,6 +29,13 @@
 	<ui:debug hotkey="x"
 		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
 
+		<h:form>
+			<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}">
+				<p:ajax event="idle" listener="#{validarRevisionBean.onIdle}" />
+				<p:ajax event="active" listener="#{validarRevisionBean.onActive}" />
+			</p:idleMonitor>
+		</h:form>
+
 	<h:form>
 		<p:remoteCommand name="redirect"
 			action="#{validarRevisionBean.validar}" />

@@ -1,20 +1,12 @@
 package co.edu.utp.gia.sms.beans;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.annotation.ManagedProperty;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import co.edu.utp.gia.sms.entidades.Persona;
-import co.edu.utp.gia.sms.entidades.Usuario;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 
@@ -36,7 +28,8 @@ The presence of this annotation on a class automatically registers the class wit
 //@ManagedBean
 //@SessionScoped
 @Named("registroInicialBean")
-@SessionScoped
+//@SessionScoped
+@ViewScoped
 public class RegistroInicialBean extends AbstractBean {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
@@ -56,10 +49,11 @@ public class RegistroInicialBean extends AbstractBean {
 
 	@PostConstruct
 	public void inicializar() {
+		revision = (Revision) getFromSession("revision");
+		System.out.println("Ingresando");
 		if( seguridadBean.isAutenticado() ) {
-			revisiones = revisionEJB.obtenerTodas(seguridadBean.getUsuario());
-		} else {
-			revisiones = new ArrayList<>();
+			System.out.println("Ingresando --> "+seguridadBean.getUsuario().getNombre());
+			revisiones = revisionEJB.obtenerTodas(seguridadBean.getUsuario().getId());
 		}
 	}
 
@@ -95,6 +89,8 @@ public class RegistroInicialBean extends AbstractBean {
 	}
 
 	public void onRowSelect(SelectEvent<Revision> event) {
+		this.addToSession("revision",event.getObject());
+		System.out.println("Se selecciono elemento "+event.getObject().getNombre());
 		mostrarMensajeGeneral(String.format( "Revisión Seleccionada - %s ",event.getObject().getNombre() ) );
 	}
 

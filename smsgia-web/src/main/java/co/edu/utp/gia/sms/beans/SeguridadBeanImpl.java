@@ -1,8 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.seguridad.SeguridadBean;
-import co.edu.utp.gia.sms.entidades.Persona;
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Usuario;
 
 import javax.enterprise.context.SessionScoped;
@@ -32,25 +30,15 @@ public class SeguridadBeanImpl extends SeguridadBean {
 	/**
 	 * Variable que representa el {@link Usuario} que esta autenticado
 	 */
-	private Persona usuario = null;
+	private Usuario usuario = null;
 
 	/**
 	 * Metodo que permite obtener el valor del atributo usuario
 	 * 
 	 * @return El valor del atributo usuario
 	 */
-	public Persona getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo usuario
-	 * 
-	 * @param usuario
-	 *            Valor a ser asignado al atributo usuario
-	 */
-	public void setUsuario(Persona usuario) {
-		this.usuario = usuario;
 	}
 
 	/*
@@ -62,9 +50,7 @@ public class SeguridadBeanImpl extends SeguridadBean {
 	 */
 	@Override
 	public void setUsuario(Usuario usuario) {
-		if (usuario instanceof Persona) {
-			setUsuario((Persona) usuario);
-		}
+			this.usuario = usuario;
 	}
 
 }

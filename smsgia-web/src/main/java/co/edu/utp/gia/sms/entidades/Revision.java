@@ -49,10 +49,10 @@ public class Revision implements Entidad<Integer> {
 	private List<Objetivo> objetivos;
 
 	@ManyToOne
-	private Persona propietario;
+	private Usuario propietario;
 
 	@ManyToMany
-	private List<Persona> revisores;
+	private List<Usuario> revisores;
 //	/**
 //	 * Variable que representa el atributo preguntas de la clase
 //	 */
@@ -136,7 +136,7 @@ public class Revision implements Entidad<Integer> {
 	 *
 	 * @return El propietario
 	 */
-	public Persona getPropietario() {
+	public Usuario getPropietario() {
 		return propietario;
 	}
 
@@ -145,7 +145,7 @@ public class Revision implements Entidad<Integer> {
 	 *
 	 * @param propietario El propietario
 	 */
-	public void setPropietario(Persona propietario) {
+	public void setPropietario(Usuario propietario) {
 		this.propietario = propietario;
 	}
 
@@ -155,7 +155,7 @@ public class Revision implements Entidad<Integer> {
 	 *
 	 * @return List de revisores
 	 */
-	public List<Persona> getRevisores() {
+	public List<Usuario> getRevisores() {
 		return revisores;
 	}
 
@@ -164,7 +164,7 @@ public class Revision implements Entidad<Integer> {
 	 *
 	 * @param revisores Listado de los revisores
 	 */
-	public void setRevisores(List<Persona> revisores) {
+	public void setRevisores(List<Usuario> revisores) {
 		this.revisores = revisores;
 	}
 

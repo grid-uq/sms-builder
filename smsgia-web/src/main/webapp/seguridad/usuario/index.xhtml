@@ -33,7 +33,7 @@
 					converter="selectItemObjectConverter" showCheckbox="true"
 					style="width:90%">
 					<f:selectItems value="#{rolBean.roles}" var="rol"
-						itemLabel="#{rol.nombre}" itemValue="#rol" />
+						itemLabel="#{rol.nombre}" itemValue="#{rol}" />
 				</p:selectManyMenu>
 				<p:outputLabel for="clave" value="#{msg['usuario.clave']}:" />
 				<p:password id="clave" value="#{usuarioBean.usuario.clave}"

@@ -17,6 +17,8 @@
 				action="/revision/registroRevision.xhtml" rendered="#{seguridadBean.verifivarAcceso('/revision/registroRevision.xhtml')}" />
 			<p:menuitem value="#{msg.etiquetaMenuRevisionSeleccionar}"
 				action="/revision/seleccionarRevision.xhtml" rendered="#{seguridadBean.verifivarAcceso('/revision/seleccionarRevision.xhtml')}" />
+			<p:menuitem value="#{msg.etiquetaMenuRevisionRevisores}"
+						action="/revision/revisores/index" rendered="#{registroInicialBean.revision != null and seguridadBean.verifivarAcceso('/revision/revisores/index.xhtml')}" />
 		</p:submenu>
 
 		<p:menuitem value="#{msg.etiquetaMenuObjetivo}"
@@ -25,11 +27,11 @@
 
 		<p:menuitem value="#{msg.etiquetaMenuPregunta}"
 			action="/revision/registroPregunta" update="messages"
-					rendered="#{registroInicialBean.revision != null and seguridadBean.verifivarAcceso('/revision/registroPregunta') }" />
+					rendered="#{registroInicialBean.revision != null and seguridadBean.verifivarAcceso('/revision/registroPregunta.xhtml') }" />
 
 		<p:menuitem value="#{msg.etiquetaTermino}"
 			action="/revision/registroTermino" update="messages"
-					rendered="#{registroInicialBean.revision != null and seguridadBean.verifivarAcceso('/revision/registroTermino') }" />
+					rendered="#{registroInicialBean.revision != null and seguridadBean.verifivarAcceso('/revision/registroTermino.xhtml') }" />
 
 		<p:submenu label="#{msg.etiquetaMenuReferencias}" icon="pi pi-cog"
 				   rendered="#{registroInicialBean.revision != null and (seguridadBean.verifivarAcceso('/revision/registroReferencias.xhtml') or

@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+
+
+
+		<h:form id="registro">
+			<p:panelGrid columns="1" id="panel"
+				style="width:100%; align:center; text-align: left">
+				<f:facet name="header">#{msg['usuario.tituloTabla']}</f:facet>
+				<p:selectManyCheckbox id="rol" value="#{revisoresBean.usuarios}"
+					converter="selectItemObjectConverter" layout="pageDirection"
+									  columns="1">
+					<f:selectItems value="#{usuarioBean.usuarios}" var="usuario"
+						itemLabel="#{usuario.nombre}" itemValue="#{usuario}" />
+				</p:selectManyCheckbox>
+			</p:panelGrid>
+			<br />
+			<div align="center" style="text-align: center; width: 100%;">
+				<p:commandButton value="#{msg['aplicacion.aceptar']}"
+					action="#{revisoresBean.guardar}" update=":registro" />
+			</div>
+			<p:growl />
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>
+
+

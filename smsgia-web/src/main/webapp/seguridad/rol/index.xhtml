@@ -13,16 +13,16 @@
 
 	<ui:define name="content">
 		<h:form id="registro">
-			<p:panelGrid columns="2">
+			<p:panelGrid columns="2" style="width: 400px">
 				<f:facet name="header">#{msg['rol.registro.titulo']}</f:facet>
-				<p:outputLabel for="nombre" value="#{msg['rol.nombre']}:" />
-				<p:inputText id="nombre" value="#{rolBean.rol.nombre}"
+				<p:outputLabel for="nombreNuevo" value="#{msg['rol.nombre']}:" />
+				<p:inputText id="nombreNuevo" value="#{rolBean.rol.nombre}"
 					required="true" />
-				<p:outputLabel for="recursos" value="#{msg['rol.recursos']}:" />
-				<p:selectManyMenu id="recursos" value="#{rolBean.rol.recursos}"
-					converter="selectItemObjectConverter" showCheckbox="true">
+				<p:outputLabel for="recursosNuevos" value="#{msg['rol.recursos']}:" />
+				<p:selectManyMenu id="recursosNuevos" value="#{rolBean.rol.recursos}"
+					converter="selectItemObjectConverter" showCheckbox="true" style="width: 100%">
 					<f:selectItems value="#{recursoBean.recursos}" var="recurso"
-						itemLabel="#{recurso.nombre}" itemValue="#recurso" />
+						itemLabel="#{recurso.nombre}" itemValue="#{recurso}" />
 				</p:selectManyMenu>
 			</p:panelGrid>
 			<p:commandButton value="#{msg['aplicacion.aceptar']}"

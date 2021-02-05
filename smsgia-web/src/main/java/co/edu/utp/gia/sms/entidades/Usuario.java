@@ -77,6 +77,17 @@ public class Usuario implements Entidad<Integer> {
 	private List<Rol> roles;
 
 	/**
+	 * Variable que representa el atributo nombre del {@link Usuario}
+	 */
+	@Column(length = 70)
+	private String nombre;
+	/**
+	 * Variable que representa el atributo email del {@link Usuario}
+	 */
+	@Column(length = 150)
+	private String email;
+
+	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
 	private static final long serialVersionUID = 1L;
@@ -212,6 +223,44 @@ public class Usuario implements Entidad<Integer> {
 	 */
 	public void setIntentos(Integer intentos) {
 		this.intentos = intentos;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo nombre
+	 *
+	 * @return El valor del atributo nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo nombre
+	 *
+	 * @param nombre
+	 *            Valor a ser asignado al atributo nombre
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	/**
+	 * Metodo que permite obtener el valor del atributo email
+	 *
+	 * @return El valor del atributo email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * Metodo que permite asignar un valor al atributo email
+	 *
+	 * @param email
+	 *            Valor a ser asignado al atributo email
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	/*

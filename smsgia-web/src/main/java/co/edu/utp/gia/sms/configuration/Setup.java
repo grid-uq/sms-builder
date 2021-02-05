@@ -6,9 +6,9 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import co.edu.utp.gia.sms.entidades.Persona;
 import co.edu.utp.gia.sms.entidades.Recurso;
 import co.edu.utp.gia.sms.entidades.Rol;
+import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.negocio.RecursoEJB;
 import co.edu.utp.gia.sms.negocio.RolEJB;
@@ -75,6 +75,7 @@ public class Setup {
 			"/revision/seleccionarRevision.xhtml",
 			"/revision/tablaResumenEvaluacionReferencias.xhtml",
 			"/revision/tablaResumenEvaluacionReferenciasAtributo.xhtml",
+			"/revision/revisores/index.xhtml",
 			"/estadisticas/palabrasClave.xhtml",
 			"/estadisticas/referenciaPalabrasClave.xhtml",
 			"/estadisticas/referenciasCalidadYear.xhtml",
@@ -183,14 +184,12 @@ public class Setup {
 	 */
 	private void setupUsuario() {
 		if (usuarioBO.listar().size() == 0) {
-			Persona usuario = new Persona();
+			Usuario usuario = new Usuario();
 			usuario.setNombreUsuario("root");
 			usuario.setClave("12345");
 			usuario.setRoles(rolBO.listar());
-			usuario.setNumeroIdentificacion("1");
 			usuario.setNombre("root");
 			usuario.setEmail("root@email.com");
-			usuario.setTelefono("7342126");
 			usuarioBO.registrar(usuario, usuario.getClave());
 		}
 	}

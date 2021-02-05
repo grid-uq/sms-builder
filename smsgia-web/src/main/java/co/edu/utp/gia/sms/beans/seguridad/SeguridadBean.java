@@ -94,6 +94,9 @@ public abstract class SeguridadBean extends AbstractBean {
 			cargarRecursos();
 			autenticado = true;
 			mostrarMensajeGeneral("");
+
+			getFacesContext().getExternalContext().redirect( getFacesContext().getExternalContext().getApplicationContextPath()+ "/index.xhtml");
+			getFacesContext().responseComplete();
 		} catch (Throwable t) {
 			mostrarErrorGeneral(String.format("ERROR: %s",t.getMessage()));
 		}
@@ -154,7 +157,6 @@ public abstract class SeguridadBean extends AbstractBean {
 	 * @return True si se tiene acceso, en caso contrario retorna false;
 	 */
 	public boolean verifivarAcceso(String path) {
-		System.out.println(path);
 		return urlRecursos.contains(path);
 //		for (Rol rol : usuario.getRoles()) {
 //			for (Recurso recurso : rol.getRecursos()) {

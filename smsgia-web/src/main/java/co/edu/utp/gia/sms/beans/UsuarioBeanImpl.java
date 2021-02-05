@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.beans;
 
 
 import co.edu.utp.gia.sms.beans.seguridad.UsuarioBean;
-import co.edu.utp.gia.sms.entidades.Persona;
 import co.edu.utp.gia.sms.entidades.Usuario;
 
 import javax.faces.view.ViewScoped;
@@ -24,7 +23,7 @@ import javax.inject.Named;
 @Named("usuarioBean")
 @ViewScoped
 public class UsuarioBeanImpl extends UsuarioBean {
-	private Persona usuario;
+	private Usuario usuario;
 
 	/**
 	 * Metodo que permite obtener el valor del atributo usuario
@@ -32,7 +31,7 @@ public class UsuarioBeanImpl extends UsuarioBean {
 	 * @return El valor del atributo usuario
 	 */
 	@Override
-	public Persona getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
@@ -42,7 +41,7 @@ public class UsuarioBeanImpl extends UsuarioBean {
 	 * @param usuario
 	 *            Valor a ser asignado al atributo usuario
 	 */
-	public void setUsuario(Persona usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
@@ -54,21 +53,7 @@ public class UsuarioBeanImpl extends UsuarioBean {
 	 */
 	@Override
 	public Usuario newUsuario() {
-		return new Persona();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * co.edu.uniquindio.grid.common.bean.seguridad.UsuarioBean#setUsuario(co.
-	 * edu.uniquindio.grid.common.entidades.seguridad.Usuario)
-	 */
-	@Override
-	public void setUsuario(Usuario usuario) {
-		if (usuario instanceof Persona) {
-			this.usuario = (Persona) usuario;
-		}
+		return new Usuario();
 	}
 
 }
