@@ -4,9 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+
 import co.edu.utp.gia.sms.entidades.EstadoUsuario;
 import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.entidades.Usuario;
+import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 
 /**
@@ -25,7 +28,11 @@ import co.edu.utp.gia.sms.exceptions.LogicException;
 @LocalBean
 public class UsuarioEJB extends AbstractEJB<Usuario,Integer>{
 
-
+	/**
+	 * Instancia que perite obtener los mensajes de las excepciones generadas.
+	 */
+	@Inject
+	private ExceptionMessage exceptionMessage;
 
 	public UsuarioEJB() { super(Usuario.class); }
 
@@ -95,12 +102,11 @@ public class UsuarioEJB extends AbstractEJB<Usuario,Integer>{
 		return entityManager.createNamedQuery(Usuario.GET_ALL, Usuario.class).getResultList();
 	}
 
-
 	/**
 	 * Metodo que permite verificar si los datos de autenticación dados (email y
 	 * clave) corresponden con datos de un {@link Usuario} registrado en el
 	 * sistema
-	 * 
+	 *
 	 * @param nombreUsuario
 	 *            Email del usuario que se desea autenticar
 	 * @param clave
@@ -121,7 +127,7 @@ public class UsuarioEJB extends AbstractEJB<Usuario,Integer>{
 				.orElse(null);
 
 		if (usuario == null) {
-			throw new LogicException("Error de autenticación");
+			throw new LogicException(exceptionMessage.getLoginFailMessage());
 		}
 		if (!usuario.getClave().equals(clave)) {
 			usuario.setIntentos(usuario.getIntentos() + 1);
@@ -133,4 +139,6 @@ public class UsuarioEJB extends AbstractEJB<Usuario,Integer>{
 		usuario.setIntentos(0);
 		return usuario;
 	}
+
+
 }

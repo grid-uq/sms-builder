@@ -4,12 +4,13 @@ import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.entidades.Recurso;
 import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.entidades.Usuario;
+import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.negocio.RecursoEJB;
 import co.edu.utp.gia.sms.negocio.UsuarioEJB;
+import lombok.extern.java.Log;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.component.FacesComponent;
@@ -29,7 +30,6 @@ import javax.inject.Inject;
  * @since 2015-12-02
  *
  */
-
 public abstract class SeguridadBean extends AbstractBean {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
@@ -74,6 +74,12 @@ public abstract class SeguridadBean extends AbstractBean {
 	private RecursoEJB recursoEJB;
 
 	/**
+	 * Instancia que perite obtener los mensajes de las excepciones generadas.
+	 */
+	@Inject
+	private ExceptionMessage exceptionMessage;
+
+	/**
 	 * Método que inicializa los elementos básicos del sistema
 	 */
 	@PostConstruct
@@ -89,7 +95,7 @@ public abstract class SeguridadBean extends AbstractBean {
 		try {
 			setUsuario( usuarioEJB.autenticarUsuario(nombreUsuario, clave) );
 			if (getUsuario() == null) {
-				throw new LogicException("Usuario o clave incorrectos");
+				throw new LogicException(exceptionMessage.getLoginFailMessage());
 			}
 			cargarRecursos();
 			autenticado = true;

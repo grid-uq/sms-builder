@@ -65,17 +65,17 @@ public class TecnicalException extends RuntimeException {
 	}
 	
 	/**
-	 * Permite obtener el valor del atributo {@link IESTecnicalException#visible}, el cual determina si la
+	 * Permite obtener el valor del atributo {@link TecnicalException#visible}, el cual determina si la
 	 * excepción debe o no ser mostrada al usuario
 	 * 
-	 * @return El valor del atributo {@link IESTecnicalException#visible}
+	 * @return El valor del atributo {@link TecnicalException#visible}
 	 */
 	public boolean isVisible() {
 		return visible;
 	}
 
 	/**
-	 * Permite asignar un valor al atributo {@link IESTecnicalException#visible}.
+	 * Permite asignar un valor al atributo {@link TecnicalException#visible}.
 	 * 
 	 * @param visible
 	 *            Valor a ser asignado al atributo {@link IESTecnicalException#visible}

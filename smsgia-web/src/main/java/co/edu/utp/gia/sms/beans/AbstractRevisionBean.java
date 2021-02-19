@@ -13,7 +13,6 @@ public abstract class AbstractRevisionBean extends AbstractBean {
     protected Revision getRevision() {
         if( revision == null ){
             revision = (Revision) getFromSession("revision");
-            System.out.println( "Se tiene " + ( revision ==null ? null : revision.getNombre()) );
         }
         return revision;
     }

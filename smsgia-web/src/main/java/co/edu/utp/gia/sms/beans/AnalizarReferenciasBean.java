@@ -54,35 +54,6 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO>{
 		
 	}
 
-//	public void incluirExcluirTopico(Integer referenciaId, Integer topicoId) {
-//		ReferenciaDTO referencia = obtenerReferencia(referenciaId);
-//		Topico topico = obtenerTopico(topicoId);
-//		if (referencia.getTopicos().contains(topico)) {
-//			referencia.getTopicos().remove(topico);
-//		} else {
-//			referencia.getTopicos().add(topico);
-//			
-//		}
-//	}
-	
-//	private Topico obtenerTopico(int topicoId) {
-//		for (Topico topico : topicos) {
-//			if (topico.getId().intValue() == topicoId) {
-//				return topico;
-//			}
-//		}
-//		return null;
-//	}
-//
-//	private ReferenciaDTO obtenerReferencia(int referenciaId) {
-//		for (ReferenciaDTO referencia : referencias) {
-//			if (referencia.getId().intValue() == referenciaId) {
-//				return referencia;
-//			}
-//		}
-//		return null;
-//	}
-
 	public void guardar() {
 		for (ReferenciaDTO referencia : referencias) {
 			referenciaEJB.limpiarTopicos(referencia.getId());

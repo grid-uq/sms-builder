@@ -51,6 +51,7 @@
 	</build>
 
 	<dependencies>
+
 		<!-- persistence <dependency> <groupId>org.eclipse.persistence</groupId> 
 			<artifactId>javax.persistence</artifactId> <version>2.2.1</version> </dependency> -->
 <dependency>
