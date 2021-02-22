@@ -30,17 +30,21 @@ import javax.annotation.sql.DataSourceDefinitions;
 	
 	
 	
-	@DataSourceDefinition(name = "java:app/smsgia-web/mysql", //
+	@DataSourceDefinition(
+			name = "java:app/smsgia-web/mysql", //
 //	className = "com.mysql.cj.jdbc.MysqlDataSource", //
-	className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
-	serverName = "localhost", //
-	portNumber = 3306, //
-	user = "sms", //
-	password = "sms-12345", //
-	databaseName = "sms", //
-	properties = { //
-	"useSSL=false", "useInformationSchema=true", "nullCatalogMeansCurrent=true", "nullNamePatternMatchesAll=false" //
-	})
+			className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
+			initialPoolSize = 2,
+			minPoolSize = 2,
+			maxPoolSize = 10,
+			serverName = "localhost", //
+			portNumber = 3306, //
+			user = "sms", //
+			password = "sms-12345", //
+			databaseName = "sms", //
+			properties = { //
+			"useSSL=false", "useInformationSchema=true", "nullCatalogMeansCurrent=true", "nullNamePatternMatchesAll=false" //
+			})
 	
 
 //	@DataSourceDefinition(name = "java:global/MyApp/myDS",

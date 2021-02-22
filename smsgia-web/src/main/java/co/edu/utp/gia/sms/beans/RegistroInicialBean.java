@@ -50,9 +50,7 @@ public class RegistroInicialBean extends AbstractBean {
 	@PostConstruct
 	public void inicializar() {
 		revision = (Revision) getFromSession("revision");
-		System.out.println("Ingresando");
 		if( seguridadBean.isAutenticado() ) {
-			System.out.println("Ingresando --> "+seguridadBean.getUsuario().getNombre());
 			revisiones = revisionEJB.obtenerTodas(seguridadBean.getUsuario().getId());
 		}
 	}

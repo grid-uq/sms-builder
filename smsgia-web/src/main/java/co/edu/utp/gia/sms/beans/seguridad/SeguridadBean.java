@@ -100,7 +100,6 @@ public abstract class SeguridadBean extends AbstractBean {
 			cargarRecursos();
 			autenticado = true;
 			mostrarMensajeGeneral("");
-
 			getFacesContext().getExternalContext().redirect( getFacesContext().getExternalContext().getApplicationContextPath()+ "/index.xhtml");
 			getFacesContext().responseComplete();
 		} catch (Throwable t) {
