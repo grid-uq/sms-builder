@@ -1,10 +1,11 @@
 package co.edu.utp.gia.sms.entidades;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.util.List;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * @author Christian A. Candela
@@ -15,210 +16,69 @@ import javax.persistence.*;
  * @author Universidad Tecnológica de Pereira
  * @version 1.0
  * @since 13/06/2019
- *
  */
 @Entity
+@EqualsAndHashCode
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Revision implements Entidad<Integer> {
-	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	private static final long serialVersionUID = -7643166662144090738L;
+    /**
+     * Variable que representa el atributo serialVersionUID de la clase
+     */
+    private static final long serialVersionUID = -7643166662144090738L;
 
-	/**
-	 * Variable que representa el atributo id de la clase
-	 */
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	private Integer id;
-	/**
-	 * Variable que representa el atributo nombre de la clase
-	 */
+    /**
+     * Variable que representa el atributo id de la clase
+     */
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Getter
+    @Setter
+    private Integer id;
+    /**
+     * Variable que representa el atributo nombre de la clase
+     */
 
-	@Column(nullable = false)
-	private String nombre;
-	/**
-	 * Variable que representa el atributo descripcion de la clase
-	 */
-	private String descripcion;
+    @Column(nullable = false)
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    @NonNull
+    private String nombre;
+    /**
+     * Variable que representa el atributo descripcion de la clase
+     */
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    @NonNull
+    private String descripcion;
 
-	/**
-	 * Lista de objetivos de la revision
-	 * 
-	 */
-	@OneToMany(mappedBy = "revision")
-	private List<Objetivo> objetivos;
+    /**
+     * Lista de objetivos de la revision
+     */
+    @OneToMany(mappedBy = "revision")
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private List<Objetivo> objetivos;
 
-	@ManyToOne
-	private Usuario propietario;
+    /**
+     * Identifica el usuario propieratio de la Revision
+     */
+    @ManyToOne
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private Usuario propietario;
 
-	@ManyToMany
-	private List<Usuario> revisores;
-//	/**
-//	 * Variable que representa el atributo preguntas de la clase
-//	 */
-//	@OneToMany(mappedBy = "revision")
-//	private List<Pregunta> preguntas;
-//
-	
-	/**
-	 * Metodo que permite inicializar los elementos de la clase Revision
-	 * 
-	 * @param nombre
-	 * @param descripcion
-	 */
-	public Revision(String nombre, String descripcion) {
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-	}
-
-	/**
-	 * Metodo que permite inicializar los elementos de la clase Revision
-	 */
-	public Revision() {
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo id
-	 * 
-	 * @return El valor del atributo id
-	 */
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo id
-	 * 
-	 * @param id Valor a ser asignado al atributo id
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo nombre
-	 * 
-	 * @return El valor del atributo nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo nombre
-	 * 
-	 * @param nombre Valor a ser asignado al atributo nombre
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo descripcion
-	 * 
-	 * @return El valor del atributo descripcion
-	 */
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo descripcion
-	 * 
-	 * @param descripcion Valor a ser asignado al atributo descripcion
-	 */
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	/**
-	 * Metodo que permite obtener el propietario de una revision
-	 *
-	 * @return El propietario
-	 */
-	public Usuario getPropietario() {
-		return propietario;
-	}
-
-	/**
-	 * Permite asignar un propietario a una revision
-	 *
-	 * @param propietario El propietario
-	 */
-	public void setPropietario(Usuario propietario) {
-		this.propietario = propietario;
-	}
-
-
-	/**
-	 * Permite obtener los revisiores asociados a la revision
-	 *
-	 * @return List de revisores
-	 */
-	public List<Usuario> getRevisores() {
-		return revisores;
-	}
-
-	/**
-	 * Permite adicionar un revision a una Revision
-	 *
-	 * @param revisores Listado de los revisores
-	 */
-	public void setRevisores(List<Usuario> revisores) {
-		this.revisores = revisores;
-	}
-
-	//	/**
-//	 * Metodo que permite obtener el valor del atributo preguntas
-//	 * 
-//	 * @return El valor del atributo preguntas
-//	 */
-//	public List<Pregunta> getPreguntas() {
-//		return preguntas;
-//	}
-//
-//	/**
-//	 * Metodo que permite asignar un valor al atributo preguntas
-//	 * 
-//	 * @param preguntas Valor a ser asignado al atributo preguntas
-//	 */
-//	public void setPreguntas(List<Pregunta> preguntas) {
-//		this.preguntas = preguntas;
-//	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Revision other = (Revision) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+    /**
+     * Lista de usuarios con acceso a la revision
+     */
+    @ManyToMany
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private List<Usuario> revisores;
 
 }

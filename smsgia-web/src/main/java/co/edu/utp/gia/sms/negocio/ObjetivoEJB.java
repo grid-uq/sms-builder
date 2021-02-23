@@ -32,7 +32,7 @@ public class ObjetivoEJB extends AbstractEJB<Objetivo, Integer> {
 		Objetivo objetivo = null;
 		Revision revision = revisionEJB.obtener(idRevision);
 		if (revision != null) {
-			objetivo = new Objetivo(revision, codigo, descripcion);
+			objetivo = new Objetivo( codigo, descripcion,revision);
 			entityManager.persist(objetivo);
 		}
 		return objetivo;

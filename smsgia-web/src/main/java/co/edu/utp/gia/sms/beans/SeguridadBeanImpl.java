@@ -2,6 +2,8 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.seguridad.SeguridadBean;
 import co.edu.utp.gia.sms.entidades.Usuario;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -30,27 +32,8 @@ public class SeguridadBeanImpl extends SeguridadBean {
 	/**
 	 * Variable que representa el {@link Usuario} que esta autenticado
 	 */
+	@Getter
+	@Setter
 	private Usuario usuario = null;
-
-	/**
-	 * Metodo que permite obtener el valor del atributo usuario
-	 * 
-	 * @return El valor del atributo usuario
-	 */
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * co.edu.uniquindio.grid.common.bean.seguridad.SeguridadBean#setUsuario(co.
-	 * edu.uniquindio.grid.common.entidades.seguridad.Usuario)
-	 */
-	@Override
-	public void setUsuario(Usuario usuario) {
-			this.usuario = usuario;
-	}
 
 }

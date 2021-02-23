@@ -1,13 +1,10 @@
 package co.edu.utp.gia.sms.negocio;
 
-import java.util.List;
+import co.edu.utp.gia.sms.entidades.Rol;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-
-import co.edu.utp.gia.sms.entidades.Rol;
+import java.util.List;
 
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
@@ -19,26 +16,26 @@ import co.edu.utp.gia.sms.entidades.Rol;
  * @author Universidad del Quindío
  * @version 1.0
  * @since 12/11/2015
- *
  */
 @Stateless
 @LocalBean
-public class RolEJB extends AbstractEJB<Rol, Integer>{
+public class RolEJB extends AbstractEJB<Rol, Integer> {
 
-	public RolEJB() {
-		super(Rol.class);
-	}
+    public RolEJB() {
+        super(Rol.class);
+    }
 
 
-	/**
-	 * Permite obtener un listado con todos los {@link Rol}s registrados en
-	 * el sistema
-	 * 
-	 * @return {@link List} de {@link Rol}, con todos los {@link Rol}
-	 *         registrados en el sistema
-	 */
-	public List<Rol> listar() {
-		return entityManager.createNamedQuery(Rol.GET_ALL, Rol.class).getResultList();
-	}
+    /**
+     * Permite obtener un listado con todos los {@link Rol}s registrados en
+     * el sistema
+     *
+     * @return {@link List} de {@link Rol}, con todos los {@link Rol}
+     * registrados en el sistema
+     */
+    @Override
+    public List<Rol> listar() {
+        return entityManager.createNamedQuery(Rol.GET_ALL, Rol.class).getResultList();
+    }
 
 }

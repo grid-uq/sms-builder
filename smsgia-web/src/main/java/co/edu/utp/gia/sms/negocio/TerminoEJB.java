@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.negocio;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -10,6 +11,7 @@ import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
+@LocalBean
 public class TerminoEJB extends AbstractEJB<Termino, Integer>{
 	@Inject
 	private RevisionEJB revisionEJB;

@@ -1,17 +1,17 @@
 package co.edu.utp.gia.sms.beans.seguridad;
 
-import java.util.List;
+import co.edu.utp.gia.sms.beans.AbstractBean;
+import co.edu.utp.gia.sms.entidades.Recurso;
+import co.edu.utp.gia.sms.negocio.RecursoEJB;
+import lombok.Getter;
+import lombok.Setter;
+import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import co.edu.utp.gia.sms.beans.AbstractBean;
-import co.edu.utp.gia.sms.entidades.Recurso;
-import co.edu.utp.gia.sms.negocio.RecursoEJB;
-import org.primefaces.event.RowEditEvent;
-
+import java.util.List;
 
 
 /**
@@ -24,132 +24,95 @@ import org.primefaces.event.RowEditEvent;
  * @author Universidad del Quindío
  * @version 1.0
  * @since 2015-12-02
- *
  */
 @Named
 @ViewScoped
 public class RecursoBean extends AbstractBean {
-	/**
-	 * Variable que representa el atributo {@link Recurso} de la clase
-	 */
-	private Recurso recurso = new Recurso();
+    /**
+     * Variable que representa el atributo {@link Recurso} de la clase
+     */
+    @Getter
+    @Setter
+    private Recurso recurso = new Recurso();
 
-	/**
-	 * Variable que representa el atributo recursos de la clase. Contiene la
-	 * lista de {@link Recurso} registradas en el sistema
-	 */
-	private List<Recurso> recursos;
+    /**
+     * Variable que representa el atributo recursos de la clase. Contiene la
+     * lista de {@link Recurso} registradas en el sistema
+     */
+    @Getter
+    @Setter
+    private List<Recurso> recursos;
 
-	/**
-	 * Variable que representa el atributo recursoEjb de la clase. Instancia
-	 * del objeto de negocio que permite la gestion de las {@link Recurso}
-	 */
-	@Inject
-	private RecursoEJB recursoEJB;
+    /**
+     * Variable que representa el atributo recursoEjb de la clase. Instancia
+     * del objeto de negocio que permite la gestion de las {@link Recurso}
+     */
+    @Inject
+    private RecursoEJB recursoEJB;
 
-	/**
-	 * Metodo encargado de inicializar los datos de la clase
-	 */
-	@PostConstruct
-	public void inicializar() {
-		recursos = recursoEJB.listar();
-	}
+    /**
+     * Metodo encargado de inicializar los datos de la clase
+     */
+    @PostConstruct
+    public void inicializar() {
+        recursos = recursoEJB.listar();
+    }
 
-	/**
-	 * Metodo que permite registrar una {@link Recurso} en el sistema
-	 */
-	public void registrar() {
-		try {
-			recursoEJB.registrar(recurso);
-			recurso = new Recurso();
-			recursos = recursoEJB.listar();
-			mostrarMensajeGeneral("Registro exitoso");
-		} catch (Exception e) {
-			mostrarErrorGeneral(e.getMessage());
-		}
-	}
+    /**
+     * Metodo que permite registrar una {@link Recurso} en el sistema
+     */
+    public void registrar() {
+        try {
+            recursoEJB.registrar(recurso);
+            recurso = new Recurso();
+            recursos = recursoEJB.listar();
+            mostrarMensajeGeneral("Registro exitoso");
+        } catch (Exception e) {
+            mostrarErrorGeneral(e.getMessage());
+        }
+    }
 
-	/**
-	 * Metodo que permite eliminar una {@link Recurso} del sistema
-	 * 
-	 * @param recurso
-	 *            Instancia de la entidad {@link Recurso} a ser eliminada
-	 */
-	public void eliminar(Recurso recurso) {
-		try {
-			recursoEJB.eliminar(recurso);
-			recursos = recursoEJB.listar();
-			mostrarMensajeGeneral("Registro eliminado");
-		} catch (Exception e) {
-			mostrarErrorGeneral(e.getMessage());
-		}
-	}
+    /**
+     * Metodo que permite eliminar una {@link Recurso} del sistema
+     *
+     * @param recurso Instancia de la entidad {@link Recurso} a ser eliminada
+     */
+    public void eliminar(Recurso recurso) {
+        try {
+            recursoEJB.eliminar(recurso);
+            recursos = recursoEJB.listar();
+            mostrarMensajeGeneral("Registro eliminado");
+        } catch (Exception e) {
+            mostrarErrorGeneral(e.getMessage());
+        }
+    }
 
-	/**
-	 * Metodo encargado de responder al evento de edicion de la
-	 * {@link Recurso}
-	 * 
-	 * @param event
-	 *            Evento generado al editar una {@link Recurso}
-	 */
-	public void onRowEdit(RowEditEvent event) {
-		Recurso recurso = ((Recurso) event.getObject());
-		try {
-			recursoEJB.actualizar(recurso);
-			mostrarMensajeGeneral("Registro actializado");
-		} catch (Exception e) {
-			mostrarErrorGeneral(e.getMessage());
-			recursos = recursoEJB.listar();
-		}
-	}
+    /**
+     * Metodo encargado de responder al evento de edicion de la
+     * {@link Recurso}
+     *
+     * @param event Evento generado al editar una {@link Recurso}
+     */
+    public void onRowEdit(RowEditEvent<Recurso> event) {
+        Recurso recursoActual = event.getObject();
+        try {
+            recursoEJB.actualizar(recursoActual);
+            mostrarMensajeGeneral("Registro actializado");
+        } catch (Exception e) {
+            mostrarErrorGeneral(e.getMessage());
+            recursos = recursoEJB.listar();
+        }
+    }
 
-	/**
-	 * Metodo encargado de responder al evento de cancelación de la edicion de
-	 * {@link Recurso}
-	 * 
-	 * @param event
-	 *            Evento generado al cancela la edición de un {@link Recurso}
-	 */
-	public void onRowCancel(RowEditEvent event) {
-		mostrarMensajeGeneral("Edición cancelada");
-	}
+    /**
+     * Metodo encargado de responder al evento de cancelación de la edicion de
+     * {@link Recurso}
+     *
+     * @param event Evento generado al cancela la edición de un {@link Recurso}
+     */
+    public void onRowCancel(RowEditEvent event) {
+        mostrarMensajeGeneral("Edición cancelada");
+    }
 
-	/**
-	 * Metodo que permite obtener el valor del atributo recurso
-	 * 
-	 * @return El valor del atributo recurso
-	 */
-	public Recurso getRecurso() {
-		return recurso;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo recurso
-	 * 
-	 * @param recurso
-	 *            Valor a ser asignado al atributo recurso
-	 */
-	public void setRecurso(Recurso recurso) {
-		this.recurso = recurso;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo recursos
-	 * 
-	 * @return El valor del atributo recursos
-	 */
-	public List<Recurso> getRecursos() {
-		return recursos;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo recursos
-	 * 
-	 * @param recursos
-	 *            Valor a ser asignado al atributo recursos
-	 */
-	public void setRecursos(List<Recurso> recursos) {
-		this.recursos = recursos;
-	}
 
 }

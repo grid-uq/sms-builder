@@ -1,79 +1,49 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.negocio.TopicoEJB;
+import lombok.Getter;
+import lombok.Setter;
+import org.primefaces.PrimeFaces;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.primefaces.PrimeFaces;
-
-import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.TopicoEJB;
 
 @Named
 @ViewScoped
 public class RegistroTopicoBean extends GenericBean<Topico> {
 
-	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	private static final long serialVersionUID = 5103003688870607449L;
-	private String descripcion;
-	private Integer id;
-	@Inject
-	private TopicoEJB topicoEJB;
-	
-	
-	/**
-	 * Permite registrar un topico
-	 */
-	public void registrar() {
-		Topico topico = null;
-		id = (Integer) getAndRemoveFromSession("idPregunta");
-		if (id != null) {
-			topico = topicoEJB.registrar(id, descripcion);
-		}
-		PrimeFaces.current().dialog().closeDynamic(topico);
-	}
+    /**
+     * Variable que representa el atributo serialVersionUID de la clase
+     */
+    private static final long serialVersionUID = 5103003688870607449L;
+    @Getter
+    @Setter
+    private String descripcion;
+    @Getter
+    @Setter
+    private Integer id;
+    @Inject
+    private TopicoEJB topicoEJB;
 
-	/**
-	 * Metodo que permite obtener el valor del atributo descripcion
-	 * 
-	 * @return El valor del atributo descripcion
-	 */
-	public String getDescripcion() {
-		return descripcion;
-	}
 
-	/**
-	 * Metodo que permite asignar un valor al atributo descripcion
-	 * 
-	 * @param descripcion Valor a ser asignado al atributo descripcion
-	 */
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    /**
+     * Permite registrar un topico
+     */
+    public void registrar() {
+        Topico topico = null;
+        id = (Integer) getAndRemoveFromSession("idPregunta");
+        if (id != null) {
+            topico = topicoEJB.registrar(id, descripcion);
+        }
+        PrimeFaces.current().dialog().closeDynamic(topico);
+    }
 
-	/**
-	 * Metodo que permite obtener el valor del atributo id
-	 * 
-	 * @return El valor del atributo id
-	 */
-	public Integer getId() {
-		return id;
-	}
 
-	/**
-	 * Metodo que permite asignar un valor al atributo id
-	 * 
-	 * @param id Valor a ser asignado al atributo id
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	@Override
-	public void inicializar() {
-		
-	}
+    @Override
+    public void inicializar() {
+        // No se requiere inicializar ningún dato
+    }
 
 }

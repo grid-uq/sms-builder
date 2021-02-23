@@ -20,7 +20,7 @@ public abstract class ReferenceParser {
 	/**
 	 * Variable que representa el atributo fuente de la clase
 	 */
-	private Fuente fuente;
+	private final Fuente fuente;
 
 	/**
 	 * Metodo que permite inicializar los elementos de la clase ReferenceParser

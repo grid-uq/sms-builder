@@ -14,6 +14,8 @@ import javax.inject.Named;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.exportutil.ReferenceToRIS;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @ViewScoped
@@ -22,6 +24,8 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
 	private static final long serialVersionUID = -4192800052066233993L;
+	@Getter
+	@Setter
 	private List<ReferenciaDTO> referencias;
 	@Inject
 	private ReferenciaEJB referenciaEJB;
@@ -32,25 +36,6 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 		if (getRevision() != null) {
 			referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
 		}
-	}
-	
-
-	/**
-	 * Metodo que permite obtener el valor del atributo referencias
-	 * 
-	 * @return El valor del atributo referencias
-	 */
-	public List<ReferenciaDTO> getReferencias() {
-		return referencias;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo referencias
-	 * 
-	 * @param referencias Valor a ser asignado al atributo referencias
-	 */
-	public void setReferencias(List<ReferenciaDTO> referencias) {
-		this.referencias = referencias;
 	}
 	
 	public void exportToRIS() {
@@ -84,7 +69,6 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 		if( n > 0 ) {
 //			ReferenciaDTO re = referencias.stream().filter( r->r.getSpsid()!=null ).sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).findFirst().get();
 			ReferenciaDTO re = referencias.stream().filter( r->r.getSpsid()!=null ).sorted( (r1,r2)->r2.getSpsid().compareTo(r1.getSpsid()) ).findFirst().get();
-			System.out.println( re.getSpsid().substring(3) );
 			n = Long.parseLong( re.getSpsid().substring(3) );
 		}
 		

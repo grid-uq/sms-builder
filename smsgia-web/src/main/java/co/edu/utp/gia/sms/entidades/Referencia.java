@@ -1,25 +1,20 @@
 package co.edu.utp.gia.sms.entidades;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 /**
  * Elemento que representa de forma general una referencia a ser procesada
- * 
+ *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
@@ -28,482 +23,181 @@ import javax.persistence.OneToMany;
  * @author Universidad Tecnológica de Pereira
  * @version 1.0
  * @since 6/06/2019
- *
  */
 @Entity
+@EqualsAndHashCode
 public class Referencia implements Entidad<Integer> {
 
-	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	private static final long serialVersionUID = -4002756759383683632L;
+    /**
+     * Variable que representa el atributo serialVersionUID de la clase
+     */
+    private static final long serialVersionUID = -4002756759383683632L;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	private Integer id;
-	/**
-	 * Variable que representa el atributo SPSID
-	 */
-	@Column(length = 50)
-	private String spsid;
-	/**
-	 * Variable que representa el atributo nombre de la clase
-	 */
-	@Lob
-	private String nombre;
-	/**
-	 * Variable que representa el atributo year de la clase
-	 */
-	@Column(length = 4)
-	private String year;
-	/**
-	 * Variable que representa el atributo resumen de la clase
-	 */
-	@Lob
-	private String resumen;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Getter
+    @Setter
+    private Integer id;
+    /**
+     * Variable que representa el atributo SPSID
+     */
+    @Column(length = 50)
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private String spsid;
+    /**
+     * Variable que representa el atributo nombre de la clase
+     */
+    @Lob
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private String nombre;
+    /**
+     * Variable que representa el atributo year de la clase
+     */
+    @Column(length = 4)
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private String year;
+    /**
+     * Variable que representa el atributo resumen de la clase
+     */
+    @Lob
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private String resumen;
 
-	/**
-	 * Variable que representa el atributo tipo de la clase
-	 */
-	private String tipo;
+    /**
+     * Variable que representa el atributo tipo de la clase
+     */
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private String tipo;
 
-	/**
-	 * Variable que representa el filtro en el cual esta la referencia, todas
-	 * inician con 0 y va aumentando
-	 */
-	private Integer filtro;
+    /**
+     * Variable que representa el filtro en el cual esta la referencia, todas
+     * inician con 0 y va aumentando
+     */
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private Integer filtro;
 
-	private Float totalEvaluacionCalidad;
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private Float totalEvaluacionCalidad;
 
-	private Integer relevancia;
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private Integer relevancia;
 
-	private Integer citas;
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private Integer citas;
 
-	private Float ponderacionCitas;
-	@Lob
-	private String nota;
-	
-	private Float sci;
-	
-	private Float srrqi;
-	
-	/**
-	 * Variable que representa el atributo metadatos de la clase
-	 */
-	@OneToMany(mappedBy = "referencia", cascade = PERSIST)
-	private List<Metadato> metadatos;
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private Float ponderacionCitas;
 
-	/**
-	 * Variable que representa el atributo revision de la clase
-	 */
-	@ManyToOne
-	private Revision revision;
+    @Lob
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private String nota;
 
-	@ManyToMany(fetch = EAGER)
-	private List<Topico> topicos;
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private Float sci;
 
-	@OneToMany(mappedBy = "referencia")
-	private List<EvaluacionCalidad> evaluacionCalidad;
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private Float srrqi;
 
-	/**
-	 * Metodo que permite inicializar los elementos de la clase Reference
-	 */
-	public Referencia() {
-		filtro = 0;
-	}
+    /**
+     * Variable que representa el atributo metadatos de la clase
+     */
+    @OneToMany(mappedBy = "referencia", cascade = PERSIST)
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private List<Metadato> metadatos;
 
-	/**
-	 * Adiciona un nuevo atributo a una {@link Referencia}
-	 * 
-	 * @param identifier Identificador del elemento que se adicionara
-	 * @param value      Valor del elemento a ser adicionado
-	 */
-	public void addElement(TipoMetadato identifier, String value) {
-		inicializarElementos();
-		switch (identifier) {
-		case TITLE:
-			setNombre(value);
-			metadatos.add(new Metadato(identifier, value, this));
-			break;
-		case ABSTRACT:
-			setResumen(value);
-			metadatos.add(new Metadato(identifier, value, this));
-			break;
-		case TYPE:
-			setTipo(value);
-			metadatos.add(new Metadato(identifier, value, this));
-			break;
-		case YEAR:
-			setYear(value);
-			break;
-		default:
-			metadatos.add(new Metadato(identifier, value, this));
-			break;
-		}
-	}
+    /**
+     * Variable que representa el atributo revision de la clase
+     */
+    @ManyToOne
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private Revision revision;
 
-	/**
-	 * Inicialia el listado de elementos de la referencia
-	 */
-	private void inicializarElementos() {
-		if (metadatos == null) {
-			metadatos = new ArrayList<>();
-		}
-	}
+    @ManyToMany(fetch = EAGER)
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private List<Topico> topicos;
 
-	/**
-	 * Metodo que permite obtener el valor del atributo id
-	 * 
-	 * @return El valor del atributo id
-	 */
-	public Integer getId() {
-		return id;
-	}
+    @OneToMany(mappedBy = "referencia")
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private List<EvaluacionCalidad> evaluacionCalidad;
 
-	/**
-	 * Metodo que permite asignar un valor al atributo id
-	 * 
-	 * @param id Valor a ser asignado al atributo id
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    /**
+     * Metodo que permite inicializar los elementos de la clase Reference
+     */
+    public Referencia() {
+        filtro = 0;
+    }
 
-	/**
-	 * Metodo que permite obtener el valor del atributo nombre
-	 * 
-	 * @return El valor del atributo nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
+    /**
+     * Adiciona un nuevo atributo a una {@link Referencia}
+     *
+     * @param identifier Identificador del elemento que se adicionara
+     * @param value      Valor del elemento a ser adicionado
+     */
+    public void addElement(TipoMetadato identifier, String value) {
+        inicializarElementos();
+        switch (identifier) {
+            case TITLE:
+                setNombre(value);
+                metadatos.add(new Metadato(identifier, value, this));
+                break;
+            case ABSTRACT:
+                setResumen(value);
+                metadatos.add(new Metadato(identifier, value, this));
+                break;
+            case TYPE:
+                setTipo(value);
+                metadatos.add(new Metadato(identifier, value, this));
+                break;
+            case YEAR:
+                setYear(value);
+                break;
+            default:
+                metadatos.add(new Metadato(identifier, value, this));
+                break;
+        }
+    }
 
-	/**
-	 * Metodo que permite asignar un valor al atributo nombre
-	 * 
-	 * @param nombre Valor a ser asignado al atributo nombre
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    /**
+     * Inicialia el listado de elementos de la referencia
+     */
+    private void inicializarElementos() {
+        if (metadatos == null) {
+            metadatos = new ArrayList<>();
+        }
+    }
 
-	/**
-	 * Metodo que permite obtener el valor del atributo year
-	 * 
-	 * @return El valor del atributo year
-	 */
-	public String getYear() {
-		return year;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo year
-	 * 
-	 * @param year Valor a ser asignado al atributo year
-	 */
-	public void setYear(String year) {
-		this.year = year;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo resumen
-	 * 
-	 * @return El valor del atributo resumen
-	 */
-	public String getResumen() {
-		return resumen;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo resumen
-	 * 
-	 * @param resumen Valor a ser asignado al atributo resumen
-	 */
-	public void setResumen(String resumen) {
-		this.resumen = resumen;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo metadatos
-	 * 
-	 * @return El valor del atributo metadatos
-	 */
-	public List<Metadato> getMetadatos() {
-		return metadatos;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo metadatos
-	 * 
-	 * @param metadatos Valor a ser asignado al atributo metadatos
-	 */
-	public void setMetadatos(List<Metadato> metadatos) {
-		this.metadatos = metadatos;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo filtro
-	 * 
-	 * @return El valor del atributo filtro
-	 */
-	public Integer getFiltro() {
-		return filtro;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo filtro
-	 * 
-	 * @param filtro Valor a ser asignado al atributo filtro
-	 */
-	public void setFiltro(Integer filtro) {
-		this.filtro = filtro;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo tipo
-	 * 
-	 * @return El valor del atributo tipo
-	 */
-	public String getTipo() {
-		return tipo;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo tipo
-	 * 
-	 * @param tipo Valor a ser asignado al atributo tipo
-	 */
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo revision
-	 * 
-	 * @return El valor del atributo revision
-	 */
-	public Revision getRevision() {
-		return revision;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo revision
-	 * 
-	 * @param revision Valor a ser asignado al atributo revision
-	 */
-	public void setRevision(Revision revision) {
-		this.revision = revision;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo topicos
-	 * 
-	 * @return El valor del atributo topicos
-	 */
-	public List<Topico> getTopicos() {
-		return topicos;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo topicos
-	 * 
-	 * @param topicos Valor a ser asignado al atributo topicos
-	 */
-	public void setTopicos(List<Topico> topicos) {
-		this.topicos = topicos;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo evaluacionCalidad
-	 * 
-	 * @return El valor del atributo evaluacionCalidad
-	 */
-	public List<EvaluacionCalidad> getEvaluacionCalidad() {
-		return evaluacionCalidad;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo evaluacionCalidad
-	 * 
-	 * @param evaluacionCalidad Valor a ser asignado al atributo evaluacionCalidad
-	 */
-	public void setEvaluacionCalidad(List<EvaluacionCalidad> evaluacionCalidad) {
-		this.evaluacionCalidad = evaluacionCalidad;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo totalEvaluacionCalidad
-	 * 
-	 * @return El valor del atributo totalEvaluacionCalidad
-	 */
-	public Float getTotalEvaluacionCalidad() {
-		return totalEvaluacionCalidad;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo totalEvaluacionCalidad
-	 * 
-	 * @param totalEvaluacionCalidad Valor a ser asignado al atributo
-	 *                               totalEvaluacionCalidad
-	 */
-	public void setTotalEvaluacionCalidad(Float totalEvaluacionCalidad) {
-		this.totalEvaluacionCalidad = totalEvaluacionCalidad;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Referencia other = (Referencia) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id)) {
-			return false;
-		}	
-		return true;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo relevancia
-	 * 
-	 * @return El valor del atributo relevancia
-	 */
-	public Integer getRelevancia() {
-		return relevancia;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo relevancia
-	 * 
-	 * @param relevancia Valor a ser asignado al atributo relevancia
-	 */
-	public void setRelevancia(Integer relevancia) {
-		this.relevancia = relevancia;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo citas
-	 * 
-	 * @return El valor del atributo citas
-	 */
-	public Integer getCitas() {
-		return citas;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo citas
-	 * 
-	 * @param citas Valor a ser asignado al atributo citas
-	 */
-	public void setCitas(Integer citas) {
-		this.citas = citas;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo ponderacionCitas
-	 * 
-	 * @return El valor del atributo ponderacionCitas
-	 */
-	public Float getPonderacionCitas() {
-		return ponderacionCitas;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo ponderacionCitas
-	 * 
-	 * @param ponderacionCitas Valor a ser asignado al atributo ponderacionCitas
-	 */
-	public void setPonderacionCitas(Float ponderacionCitas) {
-		this.ponderacionCitas = ponderacionCitas;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo nota
-	 * 
-	 * @return El valor del atributo nota
-	 */
-	public String getNota() {
-		return nota;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo nota
-	 * 
-	 * @param nota Valor a ser asignado al atributo nota
-	 */
-	public void setNota(String nota) {
-		this.nota = nota;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo spsid
-	 * @return El valor del atributo spsid
-	 */
-	public String getSpsid() {
-		return spsid;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo spsid
-	 * @param spsid Valor a ser asignado al atributo spsid
-	 */
-	public void setSpsid(String spsid) {
-		this.spsid = spsid;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo sci
-	 * @return El valor del atributo sci
-	 */
-	public Float getSci() {
-		return sci;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo sci
-	 * @param sci Valor a ser asignado al atributo sci
-	 */
-	public void setSci(Float sci) {
-		this.sci = sci;
-	}
-
-	/**
-	 * Metodo que permite obtener el valor del atributo srrqi
-	 * @return El valor del atributo srrqi
-	 */
-	public Float getSrrqi() {
-		return srrqi;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo srrqi
-	 * @param srrqi Valor a ser asignado al atributo srrqi
-	 */
-	public void setSrrqi(Float srrqi) {
-		this.srrqi = srrqi;
-	}
-	
 }

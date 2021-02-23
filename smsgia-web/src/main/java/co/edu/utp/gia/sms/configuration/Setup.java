@@ -118,7 +118,7 @@ public class Setup {
 	 * aplicacion
 	 */
 	private void setupRol() {
-		if (rolBO.listar().size() == 0) {
+		if (rolBO.listar().isEmpty()) {
 			registrarRecursosRol(1,"Administrador", recursosAdministrador);
 			registrarRecursosRol(2,"Usuario", recursosUsuario);
 		}
@@ -169,8 +169,7 @@ public class Setup {
 
 	private String getNombreRecurso(String url) {
 		String[] nombre = url.split("/");
-		String nombreRecurso = null;
-		nombreRecurso = nombre[1];
+		String nombreRecurso = nombre[1];
 		for (int i = 2; i < nombre.length && !"index.xhtml".equals(nombre[i]); i++) {
 			nombreRecurso += "_" + nombre[i];
 		}
@@ -183,7 +182,7 @@ public class Setup {
 	 * defecto usado para la gestión inicial del sistema
 	 */
 	private void setupUsuario() {
-		if (usuarioBO.listar().size() == 0) {
+		if (usuarioBO.listar().isEmpty()) {
 			Usuario usuario = new Usuario();
 			usuario.setNombreUsuario("root");
 			usuario.setClave("12345");

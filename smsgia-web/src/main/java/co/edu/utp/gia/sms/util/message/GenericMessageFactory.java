@@ -46,7 +46,7 @@ public class GenericMessageFactory<T extends Config>{
 
     private Properties resourcesBundleToProperties(ResourceBundle resourceBundle) {
         Properties properties = new Properties();
-        resourceBundle.keySet().stream().forEach( key->properties.setProperty(key,resourceBundle.getString(key)) );
+        resourceBundle.keySet().forEach(key->properties.setProperty(key,resourceBundle.getString(key)) );
         return properties;
     }
 }

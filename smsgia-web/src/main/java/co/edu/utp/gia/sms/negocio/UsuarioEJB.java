@@ -98,6 +98,7 @@ public class UsuarioEJB extends AbstractEJB<Usuario,Integer>{
 	 * @return {@link List} de {@link Usuario}, con todos los {@link Usuario}
 	 *         registrados en el sistema
 	 */
+	@Override
 	public List<Usuario> listar() {
 		return entityManager.createNamedQuery(Usuario.GET_ALL, Usuario.class).getResultList();
 	}

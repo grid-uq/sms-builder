@@ -1,122 +1,116 @@
 package co.edu.utp.gia.sms.exportutil;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.List;
-
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.List;
+
 public class ReferenceToRIS {
 
-	private OutputStream flujo;
-	private PrintStream ps;
-	
-	private static final String RIS_TITLE = "T1";
-	private static final String RIS_TITLE2 = "TI";
-	private static final String RIS_ABSTRACT = "AB";
-	private static final String RIS_KEWYWORDS= "KW";
-	private static final String RIS_ISBN = "SN";
-	private static final String RIS_PUBLISHER = "JF";
-	private static final String RIS_DOI = "DO";
-	private static final String RIS_AUTHOR = "A1";
-	private static final String RIS_YEAR = "Y1";
-	private static final String RIS_TYPE = "TY";
-	private static final String RIS_NOTE = "N1";
-	private static final String RIS_NOT_SUPPORT = "U1";
-	private static final String RIS_END_REFERNCE = "ER";
+    private static final String RIS_TITLE = "T1";
+    private static final String RIS_TITLE2 = "TI";
+    private static final String RIS_ABSTRACT = "AB";
+    private static final String RIS_KEWYWORDS = "KW";
+    private static final String RIS_ISBN = "SN";
+    private static final String RIS_PUBLISHER = "JF";
+    private static final String RIS_DOI = "DO";
+    private static final String RIS_AUTHOR = "A1";
+    private static final String RIS_YEAR = "Y1";
+    private static final String RIS_TYPE = "TY";
+    private static final String RIS_NOTE = "N1";
+    private static final String RIS_NOT_SUPPORT = "U1";
+    private static final String RIS_END_REFERNCE = "ER";
+    private PrintStream ps;
 
-	public ReferenceToRIS() {
+    public ReferenceToRIS() {
 
-	}
+    }
 
-	public ReferenceToRIS(OutputStream flujoSalida) {
-		this.flujo = flujoSalida;
-		this.ps = new PrintStream(this.flujo);
-	}
+    public ReferenceToRIS(OutputStream flujoSalida) {
+		ps = new PrintStream(flujoSalida);
+    }
 
-	
-	public void procesarReferencias(List<ReferenciaDTO> referencias) {
-		
-		for (ReferenciaDTO referencia : referencias) {
-			procesarReferencia(referencia);
-		}
-	}
+    private static String identificarClave(TipoMetadato identifier) {
 
-	public void procesarReferencia(ReferenciaDTO referencia) {
-		
-		StringBuilder sb = new StringBuilder();
-		
-		cargarNotas(sb,referencia);
-		cargarTitulo(referencia);
-		cargarAbstract(referencia);
-		
-		for (Metadato metadato : referencia.getMetadatos()) {
+        switch (identifier) {
+            case TITLE:
+                return RIS_TITLE;
+            case ABSTRACT:
+                return RIS_ABSTRACT;
+            case KEYWORD:
+                return RIS_KEWYWORDS;
+            case ISBN:
+                return RIS_ISBN;
+            case PUBLISHER:
+                return RIS_PUBLISHER;
+            case DOI:
+                return RIS_DOI;
+            case AUTOR:
+                return RIS_AUTHOR;
+            case YEAR:
+                return RIS_YEAR;
+            case TYPE:
+                return RIS_TYPE;
+            case NOTA:
+                return RIS_NOTE;
 
-			String clave = identificarClave(metadato.getIdentifier());
-			String valor = metadato.getValue();
-			
-				
-			
-			
-			if (clave.equals(RIS_NOTE)) {
-				sb.append(valor);
-			}else if (!clave.equals(RIS_NOT_SUPPORT)){
-				if (clave.equals(RIS_TITLE)){
-					escribirFlujo(RIS_TITLE2,valor);
-				}
-				escribirFlujo(clave,valor);
-			}
-		}
-		escribirFlujo(RIS_NOTE, sb.toString());
-		escribirFlujo(RIS_END_REFERNCE,"");
+            case NOT_SUPORT:
+            default:
+                return RIS_NOT_SUPPORT;
+        }
+    }
 
-	}
+    public void procesarReferencias(List<ReferenciaDTO> referencias) {
 
-	private void cargarAbstract(ReferenciaDTO referencia) {
-		escribirFlujo(RIS_ABSTRACT, referencia.getResumen());
-	}
+        for (ReferenciaDTO referencia : referencias) {
+            procesarReferencia(referencia);
+        }
+    }
 
-	private void cargarTitulo(ReferenciaDTO referencia) {
-		escribirFlujo(RIS_TITLE, referencia.getNombre());		
-	}
+    public void procesarReferencia(ReferenciaDTO referencia) {
 
-	private void cargarNotas(StringBuilder sb, ReferenciaDTO referencia) {
-			sb.append(referencia.getNota());
-	}
+        StringBuilder sb = new StringBuilder();
 
-	private void escribirFlujo(String clave, String valor) {
-		ps.println(clave + "  - " + valor);
-	}
+        cargarNotas(sb, referencia);
+        cargarTitulo(referencia);
+        cargarAbstract(referencia);
 
-	private static String identificarClave(TipoMetadato identifier) {
+        for (Metadato metadato : referencia.getMetadatos()) {
 
-		switch (identifier) {
-		case TITLE:
-			return RIS_TITLE;
-		case ABSTRACT:
-			return RIS_ABSTRACT;
-		case KEYWORD:
-			return RIS_KEWYWORDS;
-		case ISBN:
-			return RIS_ISBN;
-		case PUBLISHER:
-			return RIS_PUBLISHER;
-		case DOI:
-			return RIS_DOI;
-		case AUTOR:
-			return RIS_AUTHOR;
-		case YEAR:
-			return RIS_YEAR;
-		case TYPE:
-			return RIS_TYPE;
-		case NOTA:
-			return RIS_NOTE;
-			
-		case NOT_SUPORT:
-		default:
-			return RIS_NOT_SUPPORT;
-		}
-	}
+            String clave = identificarClave(metadato.getIdentifier());
+            String valor = metadato.getValue();
+
+
+            if (clave.equals(RIS_NOTE)) {
+                sb.append(valor);
+            } else if (!clave.equals(RIS_NOT_SUPPORT)) {
+                if (clave.equals(RIS_TITLE)) {
+                    escribirFlujo(RIS_TITLE2, valor);
+                }
+                escribirFlujo(clave, valor);
+            }
+        }
+        escribirFlujo(RIS_NOTE, sb.toString());
+        escribirFlujo(RIS_END_REFERNCE, "");
+
+    }
+
+    private void cargarAbstract(ReferenciaDTO referencia) {
+        escribirFlujo(RIS_ABSTRACT, referencia.getResumen());
+    }
+
+    private void cargarTitulo(ReferenciaDTO referencia) {
+        escribirFlujo(RIS_TITLE, referencia.getNombre());
+    }
+
+    private void cargarNotas(StringBuilder sb, ReferenciaDTO referencia) {
+        sb.append(referencia.getNota());
+    }
+
+    private void escribirFlujo(String clave, String valor) {
+        ps.println(clave + "  - " + valor);
+    }
 }

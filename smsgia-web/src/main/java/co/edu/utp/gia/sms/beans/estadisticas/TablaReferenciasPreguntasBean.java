@@ -1,85 +1,55 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.PreguntaEJB;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.List;
 
 @Named
 @ViewScoped
 public class TablaReferenciasPreguntasBean extends AbstractRevisionBean {
-	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	private static final long serialVersionUID = -8876888410139722110L;
-	private List<ReferenciaDTO> referencias;
-	@Inject
-	private ReferenciaEJB referenciaEJB;
-	@Inject
-	private PreguntaEJB preguntaEJB;
+    /**
+     * Variable que representa el atributo serialVersionUID de la clase
+     */
+    private static final long serialVersionUID = -8876888410139722110L;
+    @Getter
+    @Setter
+    private List<ReferenciaDTO> referencias;
+    @Inject
+    private ReferenciaEJB referenciaEJB;
+    @Inject
+    private PreguntaEJB preguntaEJB;
+
+    @Getter
+    @Setter
+    private List<PreguntaDTO> preguntas;
+
+    @PostConstruct
+    public void inicializar() {
+        if (getRevision() != null) {
+            referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
+            preguntas = preguntaEJB.obtenerPreguntas(getRevision().getId());
+        }
+    }
 
 
-	private List<PreguntaDTO> preguntas;
-	
-	@PostConstruct
-	public void inicializar() {
-		if (getRevision() != null) {
-			referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
-			preguntas = preguntaEJB.obtenerPreguntas( getRevision().getId() );
-		}
-	}
-	
+    public boolean tieneRalacion(ReferenciaDTO referencia, PreguntaDTO pregunta) {
+        for (Topico topico : referencia.getTopicos()) {
+            if (pregunta.getTopicos().contains(topico)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	public boolean tieneRalacion(ReferenciaDTO referencia,PreguntaDTO pregunta) {
-		for (Topico topico : referencia.getTopicos()) {
-			if( pregunta.getTopicos().contains(topico) ) {
-				return true;
-			}
-		}
-		return false;
-	}
-	/**
-	 * Metodo que permite obtener el valor del atributo referencias
-	 * 
-	 * @return El valor del atributo referencias
-	 */
-	public List<ReferenciaDTO> getReferencias() {
-		return referencias;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo referencias
-	 * 
-	 * @param referencias Valor a ser asignado al atributo referencias
-	 */
-	public void setReferencias(List<ReferenciaDTO> referencias) {
-		this.referencias = referencias;
-	}
-
-
-	/**
-	 * Metodo que permite obtener el valor del atributo preguntas
-	 * @return El valor del atributo preguntas
-	 */
-	public List<PreguntaDTO> getPreguntas() {
-		return preguntas;
-	}
-
-	/**
-	 * Metodo que permite asignar un valor al atributo preguntas
-	 * @param preguntas Valor a ser asignado al atributo preguntas
-	 */
-	public void setPreguntas(List<PreguntaDTO> preguntas) {
-		this.preguntas = preguntas;
-	}
 }

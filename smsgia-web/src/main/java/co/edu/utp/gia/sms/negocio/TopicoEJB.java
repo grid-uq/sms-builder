@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.negocio;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -10,6 +11,7 @@ import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
+@LocalBean
 public class TopicoEJB extends AbstractEJB<Topico, Integer> {
 
 	@Inject
@@ -38,7 +40,7 @@ public class TopicoEJB extends AbstractEJB<Topico, Integer> {
 	 * Permite obtener el listado de topicos de una pregunta
 	 * 
 	 * @param id Identificador de la pregunta
-	 * @return Listado de {@link Topcios} de la {@link Pregunta} identificada con el
+	 * @return Listado de {@link Topico} de la {@link Pregunta} identificada con el
 	 *         id dado
 	 */
 	public List<Topico> obtenerTopicos(Integer id) {
