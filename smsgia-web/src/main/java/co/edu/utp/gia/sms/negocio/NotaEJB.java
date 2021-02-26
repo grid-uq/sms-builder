@@ -52,25 +52,18 @@ public class NotaEJB extends AbstractEJB<Nota, Integer> {
     }
 
     public void actualizar(Integer id, Integer idNota, String descripcion, Integer etapa) {
-
         Referencia referencia = referenciaEJB.obtener(id);
-
         if (referencia != null) {
-
             Nota nota = obtener(id, etapa);
-
             if (idNota == null && nota.getId() == null && descripcion != null && !descripcion.isEmpty()) {
                 registrar(etapa, descripcion, id);
-
             } else if (nota != null && nota.getId() != null) {
                 if (descripcion == null || descripcion.isEmpty()) {
                     eliminar(nota.getId());
                 } else {
                     actualizar(nota.getId(), descripcion);
-
                 }
             }
-
         }
     }
 

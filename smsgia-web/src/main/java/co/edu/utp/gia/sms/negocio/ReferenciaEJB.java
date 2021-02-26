@@ -2,19 +2,23 @@ package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.*;
+import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.query.Queries;
+import lombok.extern.java.Log;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
 
 // TODO Pendiente la indicación de las revistas con mayor frecuencia dentro del SMS.
 //      importante para la toma de decisión sobre el destino de publicación.
 
 @Stateless
+@Log
 public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     @Inject
     private RevisionEJB revisionEJB;
@@ -67,6 +71,10 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
                 .createNamedQuery(Queries.REFERENCIA_GET_ALL, ReferenciaDTO.class)
                 .setParameter("idRevision", idRevision).setParameter("filtro", filtro).getResultList();
 
+        return poblarReferenciaDTOS(referencias);
+    }
+
+    private List<ReferenciaDTO> poblarReferenciaDTOS(List<ReferenciaDTO> referencias) {
         for (ReferenciaDTO referencia : referencias) {
             referencia.setAutores(obtenerAutores(referencia.getId()));
             referencia.setAbstracts(obtenerAbstract(referencia.getId()));
@@ -172,8 +180,9 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
         if (referencia != null) {
             referencia.setCitas(citas);
             if (referencia.getYear() == null) {
-                throw new RuntimeException(
-                        String.format("La referencia %d-%s no tiene año ", referencia.getId(), referencia.getSpsid()));
+                throw new LogicException(
+                        getExceptionMessage().getReferenciaSinFecha(referencia.getId(), referencia.getSpsid())
+                );
             } else if (referencia.getCitas() != null) {
                 float media = referencia.getCitas() / (float) (1 + Calendar.getInstance().get(Calendar.YEAR)
                         - Integer.parseInt(referencia.getYear()));
@@ -210,16 +219,16 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     public void evaluacionAutomatica(Integer id) {
         Referencia referencia = obtener(id);
         if (referencia == null) {
-            throw new RuntimeException(String.format("No se encontró la referencia %d", id));
+            throw new LogicException(exceptionMessage.getRegistroNoEncontrado());
         }
         try {
             evaluarSegunPreguntas(referencia);
             evaluarSegunCitas(referencia);
             evaluarSegunCVI(referencia);
         } catch (Exception e) {
-            System.err.println("Error evaluando referencia " + id);
-            e.printStackTrace();
-            throw new RuntimeException(String.format("Error evaluando referencia %d-%s", id, referencia.getSpsid()), e);
+            final String mensaje = exceptionMessage.getReferenciaErrorEvaluacion(id, referencia.getSpsid());
+            log.log(Level.WARNING, mensaje, e);
+            throw new LogicException(mensaje, e);
         }
     }
 
@@ -336,14 +345,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
                 .setParameter("idAtributoCalidad", idAtributoCalidad).setParameter("valorEvaluacion", valorEvaluacion)
                 .getResultList();
 
-        for (ReferenciaDTO referencia : referencias) {
-            referencia.setAutores(obtenerAutores(referencia.getId()));
-            referencia.setAbstracts(obtenerAbstract(referencia.getId()));
-            referencia.setKeywords(obtenerKeywords(referencia.getId()));
-            referencia.setFuente(obtenerFuente(referencia.getId()));
-            referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId()));
-        }
-        return referencias;
+        return poblarReferenciaDTOS(referencias);
     }
 
     public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(Integer idRevision,
@@ -354,14 +356,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
                 .setParameter("idRevision", idRevision).setParameter("filtro", filtro)
                 .setParameter("idAtributoCalidad", idAtributoCalidad).getResultList();
 
-        for (ReferenciaDTO referencia : referencias) {
-            referencia.setAutores(obtenerAutores(referencia.getId()));
-            referencia.setAbstracts(obtenerAbstract(referencia.getId()));
-            referencia.setKeywords(obtenerKeywords(referencia.getId()));
-            referencia.setFuente(obtenerFuente(referencia.getId()));
-            referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId()));
-        }
-        return referencias;
+        return poblarReferenciaDTOS(referencias);
     }
 
     public void actualizarYear(Integer id, String year) {
@@ -381,13 +376,6 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
                 .createNamedQuery(Queries.REFERENCIA_GET_ALL_DESTACADAS, ReferenciaDTO.class)
                 .setParameter("idRevision", idRevision).getResultList();
 
-        for (ReferenciaDTO referencia : referencias) {
-            referencia.setAutores(obtenerAutores(referencia.getId()));
-            referencia.setAbstracts(obtenerAbstract(referencia.getId()));
-            referencia.setKeywords(obtenerKeywords(referencia.getId()));
-            referencia.setFuente(obtenerFuente(referencia.getId()));
-            referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId()));
-        }
-        return referencias;
+        return poblarReferenciaDTOS(referencias);
     }
 }

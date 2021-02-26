@@ -3,12 +3,15 @@ package co.edu.utp.gia.sms.negocio;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import co.edu.utp.gia.sms.entidades.Entidad;
+import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.exceptions.TecnicalException;
+import lombok.Getter;
 
 /**
  * Clase abstracta que define los elementos de logica generales asociados al
@@ -25,6 +28,13 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 
 	@PersistenceContext
 	protected EntityManager entityManager;
+
+	/**
+	 * Instancia que perite obtener los mensajes de las excepciones generadas.
+	 */
+	@Inject
+	@Getter
+	protected ExceptionMessage exceptionMessage;
 	
 
 	public AbstractEJB(Class<E> entityClass) {
@@ -34,7 +44,7 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 	public E registrar(E entidad) {
 		try {
 			if (obtener(entidad.getId()) != null) {
-				throw new LogicException("Registro ya existente");
+				throw new LogicException(exceptionMessage.getRegistroExistente());
 			}
 			entityManager.persist(entidad);
 			return entidad;
@@ -46,7 +56,7 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 	public void actualizar(E entidad) {
 		try {
 			if (obtener(entidad.getId()) == null) {
-				throw new LogicException("Registro no existente");
+				throw new LogicException(exceptionMessage.getRegistroNoEncontrado());
 			}
 			entityManager.merge(entidad);
 		} catch (Throwable t) {
@@ -57,7 +67,7 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 	public void eliminar(E entidad) {
 		try {
 			if (!entityManager.contains(entidad) && obtener(entidad.getId()) == null) {
-				throw new LogicException("Registro no existente");
+				throw new LogicException(exceptionMessage.getRegistroNoEncontrado());
 			}
 			entityManager.remove(entidad);
 		} catch (Throwable t) {
@@ -69,7 +79,7 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 		try {
 			E entidad = obtener(id);
 			if (entidad == null) {
-				throw new LogicException("Registro no existente");
+				throw new LogicException(exceptionMessage.getRegistroNoEncontrado());
 			}
 			eliminar(entidad);
 		} catch (Throwable t) {
@@ -86,7 +96,7 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 	}
 
 	public List<E> listar() {
-		throw new LogicException("Operacion no soportada");
+		throw new LogicException(exceptionMessage.getOperacionNoSoportada());
 	}
 	
 	

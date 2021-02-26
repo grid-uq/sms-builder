@@ -13,8 +13,10 @@ import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
+import javax.inject.Inject;
 
 import co.edu.utp.gia.sms.util.PropertiesLoader;
+import lombok.Getter;
 
 
 /**
@@ -38,6 +40,8 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 //	@Inject
 //	@ExceptionPropertiesLoader
 	private PropertiesLoader exceptionPropertiesLoader;
+
+
 
 	/**
 	 * Variable que representa el atributo facesContext de la clase. Identifica
@@ -111,10 +115,14 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 				msgDetail = exception.getLocalizedMessage();
 				msgSummary = exception.getMessage();
 			} else {
-				msgDetail = exceptionPropertiesLoader
-						.getProperties(ExceptionConstants.EXCEPTION_DEFAULT_DETAIL);
-				msgSummary = exceptionPropertiesLoader
-						.getProperties(ExceptionConstants.EXCEPTION_DEFAULT_SUMMARY);
+//				msgDetail = exceptionPropertiesLoader
+//						.getProperties(ExceptionConstants.EXCEPTION_DEFAULT_DETAIL);
+//				msgSummary = exceptionPropertiesLoader
+//						.getProperties(ExceptionConstants.EXCEPTION_DEFAULT_SUMMARY);
+				ExceptionMessage exceptionMessage = ExceptionMessageFactory.getInstance()
+						.getMessageInstance( FacesContext.getCurrentInstance().getViewRoot().getLocale()  );
+				msgDetail = exceptionMessage.getDefaultMessageDetail();
+				msgSummary = exceptionMessage.getDefaultMessageSumary();
 			}
 			addError(msgDetail, msgSummary);
 		}

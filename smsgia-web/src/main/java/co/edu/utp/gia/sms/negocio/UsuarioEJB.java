@@ -28,11 +28,7 @@ import co.edu.utp.gia.sms.exceptions.LogicException;
 @LocalBean
 public class UsuarioEJB extends AbstractEJB<Usuario,Integer>{
 
-	/**
-	 * Instancia que perite obtener los mensajes de las excepciones generadas.
-	 */
-	@Inject
-	private ExceptionMessage exceptionMessage;
+
 
 	public UsuarioEJB() { super(Usuario.class); }
 
@@ -46,10 +42,10 @@ public class UsuarioEJB extends AbstractEJB<Usuario,Integer>{
 	 */
 	public void registrar(Usuario usuario, String verificacionClave) {
 		if (usuario == null) {
-			throw new LogicException("Faltan dados para completar la operación");
+			throw new LogicException(exceptionMessage.getDatosIncompletos());
 		}
 		if (!usuario.getClave().equals(verificacionClave)) {
-			throw new LogicException("La clave no coincide");
+			throw new LogicException(exceptionMessage.getClaveNoCoincide());
 		}
 		if (usuario.getRoles() == null) {
 			usuario.setRoles(getRolesPorDefecto());
@@ -83,10 +79,10 @@ public class UsuarioEJB extends AbstractEJB<Usuario,Integer>{
 	 */
 	public void actualizar(Usuario usuario, String verificacionClave) {
 		if (usuario == null) {
-			throw new LogicException("Faltan dados para completar la operación");
+			throw new LogicException(exceptionMessage.getDatosIncompletos());
 		}
 		if (!usuario.getClave().equals(verificacionClave)) {
-			throw new LogicException("La clave no coincide");
+			throw new LogicException(exceptionMessage.getClaveNoCoincide());
 		}
 		actualizar(usuario);
 	}

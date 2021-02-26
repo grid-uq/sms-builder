@@ -2,7 +2,8 @@ package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Usuario;
-import co.edu.utp.gia.sms.exceptions.TecnicalException;
+import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
+import co.edu.utp.gia.sms.exceptions.LogicException;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -16,23 +17,28 @@ import java.util.List;
 @LocalBean
 public class RevisoresEJB implements Serializable {
     @PersistenceContext
-    protected EntityManager entityManager;
+    private EntityManager entityManager;
+    /**
+     * Instancia que perite obtener los mensajes de las excepciones generadas.
+     */
+    @Inject
+    private ExceptionMessage exceptionMessage;
     @Inject
     private RevisionEJB revisionEJB;
 
     public List<Usuario> listar(Integer id) {
-        Revision revision = revisionEJB.obtener(id);
-        if( revision == null ){
-            throw new TecnicalException("La revisión no existe");
-        }
-        return revision.getRevisores();
+        return obtenerRevision(id).getRevisores();
     }
 
     public void guardar(Integer id, List<Usuario> usuarios) {
+        obtenerRevision(id).setRevisores(usuarios);
+    }
+
+    private Revision obtenerRevision(Integer id) {
         Revision revision = revisionEJB.obtener(id);
-        if( revision == null ){
-            throw new TecnicalException("La revisión no existe");
+        if (revision == null) {
+            throw new LogicException(exceptionMessage.getRegistroNoEncontrado());
         }
-        revision.setRevisores( usuarios );
+        return revision;
     }
 }

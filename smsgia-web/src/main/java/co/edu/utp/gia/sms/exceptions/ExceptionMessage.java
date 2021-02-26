@@ -9,4 +9,18 @@ public interface ExceptionMessage extends Config {
     String getDefaultMessageSumary();
     @Key("message.exception.loginFail")
     String getLoginFailMessage();
+    @Key("message.exception.registroExiste")
+    String getRegistroExistente();
+    @Key("message.exception.registroNoExiste")
+    String getRegistroNoEncontrado();
+    @Key("message.exception.operacionNosoportada")
+    String getOperacionNoSoportada();
+    @Key("message.exception.datosIncompletos")
+    String getDatosIncompletos();
+    @Key("message.exception.claveNoConincide")
+    String getClaveNoCoincide();
+    @Key("message.exception.referencia.sinFecha")
+    String getReferenciaSinFecha(int id,String spsid);
+    @Key("message.exception.referencia.errorEvaluacion")
+    String getReferenciaErrorEvaluacion(int id,String spsid);
 }
