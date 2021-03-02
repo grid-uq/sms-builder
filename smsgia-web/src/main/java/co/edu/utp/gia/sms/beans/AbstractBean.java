@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.beans;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.faces.annotation.ManagedProperty;
@@ -11,6 +12,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Revision;
 
 /**
@@ -41,7 +43,9 @@ public abstract class AbstractBean implements Serializable {
 	@SessionMap
 	private Map<String, Object> sessionMap;
 
-
+	@Inject
+	@ManagedProperty("#{msg}")
+	private ResourceBundle bundle;
 
 	@PostConstruct
 	public void init() {
@@ -82,6 +86,18 @@ public abstract class AbstractBean implements Serializable {
 		getFacesContext().addMessage(idComponente, facesMessage);
 	}
 
+	private String getSeverityText(Severity severidad) {
+		String key;
+		if( FacesMessage.SEVERITY_ERROR.equals(severidad) ){
+			key = MessageConstants.ERROR;
+		} else if( FacesMessage.SEVERITY_WARN.equals(severidad) ){
+			key = MessageConstants.WARNING;
+		} else {
+			key = MessageConstants.INFORMATION;
+		}
+		return getMessage(key);
+	}
+
 	protected FacesContext getFacesContext() {
 		return facesContext;
 	}
@@ -98,6 +114,9 @@ public abstract class AbstractBean implements Serializable {
 		return getSessionMap().remove(key);
 	}
 
+	public String getMessage(String key){
+		return bundle.getString(key);
+	}
 ////////// ----- GET/SET ----- ////////////	
 
 	/**

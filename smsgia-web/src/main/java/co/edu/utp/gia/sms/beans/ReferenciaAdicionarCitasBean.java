@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.importutil.FindReferenceCitation;
@@ -54,7 +55,6 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
 
     public void guardarYear(ReferenciaDTO referencia) {
         try {
-            System.out.println(String.format("Actualizando %d-%s", referencia.getId(), referencia.getYear()));
             referenciaEJB.actualizarYear(referencia.getId(), referencia.getYear());
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
@@ -72,9 +72,7 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
 
 
     public void guardarRelevancia(ReferenciaDTO referencia) {
-
         referenciaEJB.actualizarRelevancia(referencia.getId(), referencia.getRelevancia());
-
     }
 
     public void completarCita(ReferenciaDTO referencia) {
@@ -93,7 +91,7 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
                 referenciaEJB.adicionarTopico(referencia.getId(), topico.getId());
             }
         }
-        mostrarMensajeGeneral("Se guardaron los registro");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
 

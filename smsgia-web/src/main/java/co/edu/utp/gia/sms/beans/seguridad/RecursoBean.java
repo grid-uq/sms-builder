@@ -1,6 +1,7 @@
 package co.edu.utp.gia.sms.beans.seguridad;
 
 import co.edu.utp.gia.sms.beans.AbstractBean;
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Recurso;
 import co.edu.utp.gia.sms.negocio.RecursoEJB;
 import lombok.Getter;
@@ -66,7 +67,7 @@ public class RecursoBean extends AbstractBean {
             recursoEJB.registrar(recurso);
             recurso = new Recurso();
             recursos = recursoEJB.listar();
-            mostrarMensajeGeneral("Registro exitoso");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
         }
@@ -81,7 +82,7 @@ public class RecursoBean extends AbstractBean {
         try {
             recursoEJB.eliminar(recurso);
             recursos = recursoEJB.listar();
-            mostrarMensajeGeneral("Registro eliminado");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
         }
@@ -97,7 +98,7 @@ public class RecursoBean extends AbstractBean {
         Recurso recursoActual = event.getObject();
         try {
             recursoEJB.actualizar(recursoActual);
-            mostrarMensajeGeneral("Registro actializado");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
             recursos = recursoEJB.listar();
@@ -111,7 +112,7 @@ public class RecursoBean extends AbstractBean {
      * @param event Evento generado al cancela la edición de un {@link Recurso}
      */
     public void onRowCancel(RowEditEvent event) {
-        mostrarMensajeGeneral("Edición cancelada");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_CANCELADA));
     }
 
 

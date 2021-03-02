@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
@@ -59,7 +60,7 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
         for (ReferenciaDTO referencia : referencias) {
             referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro());
         }
-        mostrarMensajeGeneral("Se guardaron los registro");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
     public void evaluacionAutomatica() {
@@ -68,7 +69,7 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
                 referenciaEJB.evaluacionAutomatica(referencia.getId());
             }
             referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId(), 3);
-            mostrarMensajeGeneral("Se guardaron los registro");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
         }
@@ -76,8 +77,7 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 
     public void onEvaluacionRealizada(SelectEvent<ReferenciaDTO> event) {
         ReferenciaDTO referencia = event.getObject();
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Referencia Evaluada", "Id:" + referencia.getId());
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
 }

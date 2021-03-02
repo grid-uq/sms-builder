@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 import lombok.Getter;
@@ -36,7 +37,7 @@ public class RegistroAtributoCalidadBean extends GenericBean<AtributoCalidad> {
     public void registrar() {
         AtributoCalidad atributo = atributoCalidadEJB.registrar(descripcion, getRevision().getId());
         atributosCalidad.add(atributo);
-        mostrarMensajeGeneral("Registro Adicionado");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         descripcion = "";
     }
 
@@ -54,7 +55,7 @@ public class RegistroAtributoCalidadBean extends GenericBean<AtributoCalidad> {
     public void eliminar(AtributoCalidad atributoCalidad) {
         atributoCalidadEJB.eliminar(atributoCalidad.getId());
         atributosCalidad.remove(atributoCalidad);
-        mostrarMensajeGeneral("Registro eliminado");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
 }

@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.importutil.FindReferenceCitation;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
@@ -46,7 +47,7 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
             referencia.setNota(referencia.getNota() + "\n" + tranduccion);
             actualizarNota(referencia);
         } catch (IOException e) {
-            log.log(Level.WARNING, "No se pudo adicionar el resumen", e);
+            log.log(Level.WARNING, getMessage(MessageConstants.ERROR_ADICIONAR_RESUMEN), e);
         }
     }
 

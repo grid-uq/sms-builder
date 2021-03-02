@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans.util;
 
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -11,11 +12,16 @@ import javax.inject.Inject;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 
+import java.util.ResourceBundle;
+
 @FacesConverter("atributoCalidadConverter")
 public class AtributoCalidadConverter implements Converter<AtributoCalidad> {
 
 	@Inject
 	private AtributoCalidadEJB atributoCalidadEJB;
+	@Inject
+	@ManagedProperty("#{msg}")
+	private ResourceBundle bundle;
 
 	@Override
 	public AtributoCalidad getAsObject(FacesContext facesContext, UIComponent componente, String id) {
@@ -27,7 +33,10 @@ public class AtributoCalidadConverter implements Converter<AtributoCalidad> {
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new ConverterException(
-						new FacesMessage(componente.getClientId() + ":" + "Error al convertir el valor"));
+						new FacesMessage(
+								componente.getClientId() + ":" +
+										bundle.getString(MessageConstants.ERROR_CONVERSION_VALOR))
+				);
 			}
 		}
 		return atributoCalidad;

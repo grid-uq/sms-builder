@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Topico;
@@ -64,7 +65,7 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
 
     public String registrar() {
         preguntaEJB.registrar(codigo, descripcion, listaObjetivos);
-        mostrarMensajeGeneral("Pregunta Adicionada");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         codigo = "";
         descripcion = "";
         return "/revision/registroPregunta";
@@ -94,7 +95,7 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
      */
     public void eliminarTopico(PreguntaDTO pregunta, Topico topico) {
         topicoEJB.eliminar(topico.getId());
-        mostrarMensajeGeneral("Topico eliminado");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         pregunta.getTopicos().remove(topico);
     }
 
@@ -108,7 +109,7 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
     }
 
     public void onTopicoCreado(SelectEvent<Topico> event) {
-        mostrarMensajeGeneral(String.format("Topico Adicionado - %s", event.getObject().getDescripcion()));
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         inicializar();
     }
 

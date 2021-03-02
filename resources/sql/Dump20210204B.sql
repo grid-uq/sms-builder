@@ -492,15 +492,15 @@ DROP TABLE IF EXISTS `USUARIO`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `USUARIO` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `CLAVE` varchar(50) NOT NULL,
-  `ESTADO` varchar(255) DEFAULT NULL,
-  `INTENTOS` int(11) DEFAULT NULL,
-  `NOMBREUSUARIO` varchar(50) NOT NULL,
-  `EMAIL` varchar(150) DEFAULT NULL,
-  `NOMBRE` varchar(70) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `NOMBREUSUARIO` (`NOMBREUSUARIO`)
+                           `ID` int(11) NOT NULL AUTO_INCREMENT,
+                           `CLAVE` varchar(50) NOT NULL,
+                           `EMAIL` varchar(150) DEFAULT NULL,
+                           `ESTADO` varchar(255) DEFAULT NULL,
+                           `INTENTOS` int(11) DEFAULT NULL,
+                           `NOMBRE` varchar(70) DEFAULT NULL,
+                           `NOMBREUSUARIO` varchar(50) NOT NULL,
+                           PRIMARY KEY (`ID`),
+                           UNIQUE KEY `NOMBREUSUARIO` (`NOMBREUSUARIO`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -510,7 +510,7 @@ CREATE TABLE `USUARIO` (
 
 LOCK TABLES `USUARIO` WRITE;
 /*!40000 ALTER TABLE `USUARIO` DISABLE KEYS */;
-INSERT INTO `USUARIO` VALUES (1,'Persona','12345','ACTIVO',0,'root','root@email.com','root','1','7342126'),(2,'Persona','12345','ACTIVO',0,'usuario',NULL,'usuario',NULL,NULL);
+INSERT INTO `USUARIO` VALUES (1,'12345','root@email.com','ACTIVO',0,'root','root'),(2,'12345','usuario@email.com','ACTIVO',0,'usuario','usuario');
 /*!40000 ALTER TABLE `USUARIO` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 import lombok.Getter;
@@ -33,11 +34,11 @@ public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTO
     private List<String> topicos;
 
     public void inicializar() {
-        setTitulo("Referencias x Topico");
-        setEjeX("Topicos");
-        setEjeY("# Referencias");
+        setEjeX(getMessage(MessageConstants.TOPICOS));
+        setEjeY("# "+getMessage(MessageConstants.REFERENCIA));
         setTipoGrafica("bar");
         setTiposGrafica(new String[]{"bar"});
+        setTitulo(getEjeY() + " - " + getEjeX());
 
         if (getRevision() != null) {
             onChangePregunta();

@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 import lombok.Getter;
@@ -29,9 +30,9 @@ public class ReferenciasYearBean extends EstaditicaSerieDatoDTOBaseBean {
     private List<String> years;
 
     public void inicializar() {
-        setTitulo("Referencias por Año");
-        setEjeX("Año");
-        setEjeY("# Referencias");
+        setEjeX(getMessage(MessageConstants.YEAR));
+        setEjeY("# "+getMessage(MessageConstants.REFERENCIA));
+        setTitulo(getEjeY() + " - " + getEjeX());
         setTipoGrafica("bar");
         setTiposGrafica(new String[]{"bar"});
         if (getRevision() != null) {

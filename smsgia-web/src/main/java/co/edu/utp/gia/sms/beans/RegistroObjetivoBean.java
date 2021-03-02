@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.negocio.ObjetivoEJB;
 import lombok.Getter;
@@ -40,7 +41,7 @@ public class RegistroObjetivoBean extends GenericBean<Objetivo> {
     public void registrar() {
         Objetivo objetivo = objetivoEJB.registrar(codigo, descripcion, getRevision().getId());
         objetivos.add(objetivo);
-        mostrarMensajeGeneral("Objetivo Adicionado");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         codigo = "";
         descripcion = "";
     }
@@ -60,7 +61,7 @@ public class RegistroObjetivoBean extends GenericBean<Objetivo> {
     public void eliminar(Objetivo objetivo) {
         objetivoEJB.eliminar(objetivo.getId());
         objetivos.remove(objetivo);
-        mostrarMensajeGeneral("Registro eliminado");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
 }

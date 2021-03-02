@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
@@ -41,23 +42,19 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
     }
 
     public void incluirExcluirTopico(ReferenciaDTO referencia, Topico topico) {
-        //TODO Pendiente por definir si es mejor que al momento de incluir/excluir de una vez se afecte la BD
+        String topicosText = "\n" + getMessage(MessageConstants.TOPICOS)+": " + topico.getDescripcion();
+        String nota;
         if (referencia.getTopicos().contains(topico)) {
             referencia.getTopicos().remove(topico);
             referenciaEJB.removerTopico(referencia.getId(), topico.getId());
-            String t = "\n" + "Tópico: " + topico.getDescripcion();
-            String nota = referencia.getNota().replace(t, "");
-            referenciaEJB.actualizarNota(referencia.getId(), nota);
-            referencia.setNota(nota);
+            nota = referencia.getNota().replace(topicosText, "");
         } else {
             referencia.getTopicos().add(topico);
             referenciaEJB.adicionarTopico(referencia.getId(), topico.getId());
-            String nota = referencia.getNota() + "\n" + "Tópico: " + topico.getDescripcion();
-            referenciaEJB.actualizarNota(referencia.getId(), nota);
-            referencia.setNota(nota);
-
+            nota = referencia.getNota() + topicosText;
         }
-
+        referenciaEJB.actualizarNota(referencia.getId(), nota);
+        referencia.setNota(nota);
     }
 
     public void guardar() {
@@ -67,7 +64,8 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
                 referenciaEJB.adicionarTopico(referencia.getId(), topico.getId());
             }
         }
-        mostrarMensajeGeneral("Se guardaron los registro");
+
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
 

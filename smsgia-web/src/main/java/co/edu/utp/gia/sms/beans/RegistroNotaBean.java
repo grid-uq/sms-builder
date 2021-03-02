@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.negocio.TerminoEJB;
 import lombok.Getter;
@@ -38,7 +39,7 @@ public class RegistroNotaBean extends GenericBean<Termino> {
     public void registrar() {
         Termino termino = terminoEJB.registrar(descripcion, getRevision().getId());
         terminos.add(termino);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Registro Adicionado"));
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         descripcion = "";
     }
 
@@ -55,9 +56,7 @@ public class RegistroNotaBean extends GenericBean<Termino> {
     public void eliminar(Termino termino) {
         terminoEJB.eliminar(termino.getId());
         terminos.remove(termino);
-        FacesMessage msg = new FacesMessage("Registro eliminado");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
-
 
 }

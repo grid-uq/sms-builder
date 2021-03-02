@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.negocio.RevisoresEJB;
@@ -34,7 +35,7 @@ public class RevisoresBean extends GenericBean<Objetivo> {
     public void guardar() {
         try {
             revisoresEJB.guardar(getRevision().getId(), usuarios);
-            mostrarMensajeGeneral("Datos guardados");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
         }

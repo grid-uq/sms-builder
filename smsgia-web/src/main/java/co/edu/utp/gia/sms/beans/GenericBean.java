@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import org.primefaces.event.RowEditEvent;
 
 import javax.faces.application.FacesMessage;
@@ -16,7 +17,7 @@ public abstract class GenericBean<T> extends AbstractRevisionBean {
         T objeto = event.getObject();
         try {
             actualizar(objeto);
-            mostrarMensajeGeneral("Registro actualizado");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
         }
@@ -27,8 +28,7 @@ public abstract class GenericBean<T> extends AbstractRevisionBean {
     }
 
     public void onRowCancel(RowEditEvent<T> event) {
-        FacesMessage msg = new FacesMessage("Edicion cancelada");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_CANCELADA));
     }
 
 

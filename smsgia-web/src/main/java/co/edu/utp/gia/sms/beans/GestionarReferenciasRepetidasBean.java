@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import lombok.Getter;
@@ -49,7 +50,7 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
         for (ReferenciaDTO referencia : referencias) {
             referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro());
         }
-        mostrarMensajeGeneral("Se guardaron los registro");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
 

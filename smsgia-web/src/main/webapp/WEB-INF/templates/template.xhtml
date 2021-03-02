@@ -25,7 +25,7 @@
 
 </h:head>
 
-<body>
+<h:body>
 	<ui:debug hotkey="x"
 		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
 
@@ -51,7 +51,7 @@
 			<p:panelGrid columns="1"
 				style="text-align:center; background-color:#123456; height: 30px"
 				layout="grid">
-				ESTUDIO DE MAPEO SISTEMÁTICO
+				#{msg['aplicacion.titulo']}
 			</p:panelGrid>
 			<!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
 			<!-- <ui:include src="header.xhtml"/> -->
@@ -108,6 +108,6 @@
 	</div>
 
 
-</body>
+</h:body>
 
 </html>

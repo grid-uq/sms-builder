@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParse;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParseFactory;
@@ -49,7 +50,7 @@ public class RegistroReferenciasBean extends GenericBean<Referencia> {
             FileMultipleRegisterParse parser = FileMultipleRegisterParseFactory.getInstance(fuente);
             List<Referencia> referencias = parser.parse(file.getInputStream());
             referenciaEJB.registrar(referencias, getRevision().getId());
-            mostrarMensajeGeneral("Se adicionaron " + referencias.size() + " referencias");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA)+" "+referencias.size());
         } catch (IOException e) {
             log.log(Level.WARNING, "Error al procesar un archivo", e);
         }

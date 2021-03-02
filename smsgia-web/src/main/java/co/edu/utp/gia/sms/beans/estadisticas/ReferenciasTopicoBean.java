@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +20,9 @@ public class ReferenciasTopicoBean extends EstaditicaDatoDTOBaseBean {
     private String codigo;
 
     public void inicializar() {
-        setTitulo("Referencias x Topico");
-        setEjeX("Topicos");
-        setEjeY("# Referencias");
+        setEjeX(getMessage(MessageConstants.TOPICOS));
+        setEjeY("# "+getMessage(MessageConstants.REFERENCIA));
+        setTitulo(getEjeY() + " - " + getEjeX());
         if (getRevision() != null) {
             onChangePregunta();
         }

@@ -1,6 +1,7 @@
 package co.edu.utp.gia.sms.beans.seguridad;
 
 import co.edu.utp.gia.sms.beans.AbstractBean;
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.negocio.RolEJB;
 import lombok.Getter;
@@ -66,7 +67,7 @@ public class RolBean extends AbstractBean {
             rolEJB.registrar(rol);
             rol = new Rol();
             roles = rolEJB.listar();
-            mostrarMensajeGeneral("Registro exitoso");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
         }
@@ -81,7 +82,7 @@ public class RolBean extends AbstractBean {
         try {
             rolEJB.eliminar(rol);
             roles = rolEJB.listar();
-            mostrarMensajeGeneral("Registro eliminado");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
         }
@@ -97,7 +98,7 @@ public class RolBean extends AbstractBean {
         Rol rol = event.getObject();
         try {
             rolEJB.actualizar(rol);
-            mostrarMensajeGeneral("Registro actualizado");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
             roles = rolEJB.listar();
@@ -111,7 +112,7 @@ public class RolBean extends AbstractBean {
      * @param event Evento generado al cancela la edición de un {@link Rol}
      */
     public void onRowCancel(RowEditEvent event) {
-        mostrarMensajeGeneral("Edición cancelada");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_CANCELADA));
     }
 
 

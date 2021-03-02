@@ -1,5 +1,7 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -14,9 +16,9 @@ public class ReferenciasPreguntaBean extends EstaditicaDatoDTOBaseBean {
 	private static final long serialVersionUID = 5565581996776858682L;
 
 	public void inicializar() {
-		setTitulo("Referencias x Pregunta");
-		setEjeX("Preguntas");
-		setEjeY("# Referencias");
+		setEjeX(getMessage(MessageConstants.PREGUNTAS));
+		setEjeY("# "+getMessage(MessageConstants.REFERENCIA));
+		setTitulo(getEjeY() + " - " + getEjeX());
 		if (getRevision() != null) {
 			setDatos(getEstadisticaEJB().obtenerReferenciasPregunta(getRevision().getId()));
 			crearModelo();

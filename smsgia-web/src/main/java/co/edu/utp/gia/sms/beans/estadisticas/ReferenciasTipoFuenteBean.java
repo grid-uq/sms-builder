@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.importutil.TipoFuente;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +21,9 @@ public class ReferenciasTipoFuenteBean extends EstaditicaDatoDTOBaseBean {
     private TipoFuente tipo;
 
     public void inicializar() {
-        setTitulo("Referencias por Tipo de Fuente");
-        setEjeX("Fuente");
-        setEjeY("# Referencias");
+        setEjeX(getMessage(MessageConstants.FUENTE));
+        setEjeY("# "+getMessage(MessageConstants.REFERENCIA));
+        setTitulo(getEjeY() + " - " + getEjeX());
 
         if (getRevision() != null) {
             setDatos(getEstadisticaEJB().obtenerReferenciasTipoFuente(getRevision().getId()));

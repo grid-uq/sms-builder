@@ -1,17 +1,20 @@
 package co.edu.utp.gia.sms.beans.seguridad;
 
 import co.edu.utp.gia.sms.beans.AbstractBean;
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.EstadoUsuario;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.negocio.UsuarioEJB;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.java.Log;
 import org.primefaces.event.RowEditEvent;
 
 import javax.faces.annotation.ManagedProperty;
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Clase de negocio encargada la interacción del usuario con las funcionalidades
@@ -24,7 +27,7 @@ import java.util.List;
  * @version 1.0
  * @since 2015-12-02
  */
-
+@Log
 public abstract class UsuarioBean extends AbstractBean {
     /**
      * Variable que representa el atributo usuarioAutenticado de la clase.
@@ -122,8 +125,9 @@ public abstract class UsuarioBean extends AbstractBean {
             setUsuario(newUsuario());
             verificacionClave = "";
             usuarios = usuarioEJB.listar();
-            mostrarMensajeGeneral("Registro exitoso");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
+            log.log(Level.INFO,"Error al registar un usuario "+e.getMessage(),e);
             mostrarErrorGeneral(e.getMessage());
         }
         return null;
@@ -138,7 +142,7 @@ public abstract class UsuarioBean extends AbstractBean {
         try {
             usuarioEJB.eliminar(usuario);
             usuarios = usuarioEJB.listar();
-            mostrarMensajeGeneral("Registro eliminado");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
         }
@@ -166,8 +170,7 @@ public abstract class UsuarioBean extends AbstractBean {
             usuarioEJB.actualizar(usuario, verificacionClaveEdit);
             exito = true;
             verificacionClaveEdit = "";
-            mostrarMensajeGeneral("Registro actializado");
-
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
             usuarios = usuarioEJB.listar();
@@ -183,7 +186,7 @@ public abstract class UsuarioBean extends AbstractBean {
      */
     public void onRowCancel(RowEditEvent<Usuario> event) {
         verificacionClaveEdit = "";
-        mostrarMensajeGeneral("Edición cancelada");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_CANCELADA));
     }
 
 
@@ -211,7 +214,7 @@ public abstract class UsuarioBean extends AbstractBean {
         try {
             usuarioEJB.actualizar(usuario);
             setEditId(null);
-            mostrarMensajeGeneral("Registro actualizado");
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
 
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
@@ -223,7 +226,7 @@ public abstract class UsuarioBean extends AbstractBean {
      */
     public void actualizar() {
         if (!usuarioAutenticado.getClave().equals(claveActual)) {
-            mostrarErrorGeneral("Error al actualizar la información");
+            mostrarErrorGeneral(getMessage(MessageConstants.OPERACION_ERROR));
         } else {
             String anterior = usuarioAutenticado.getClave();
             usuarioAutenticado.setClave(nuevaClave);

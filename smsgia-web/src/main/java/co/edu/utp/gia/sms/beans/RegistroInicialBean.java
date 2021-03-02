@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.negocio.RevisionEJB;
 import lombok.Getter;
@@ -74,16 +75,16 @@ public class RegistroInicialBean extends AbstractBean {
     public void onRowEdit(RowEditEvent<Revision> event) {
         Revision revisionActual = event.getObject();
         revisionEJB.actualizar(revisionActual);
-        mostrarMensajeGeneral("Registro editado");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
     public void onRowCancel(RowEditEvent<Revision> event) {
-        mostrarMensajeGeneral(String.format("Edición cancelada - Revisión %s",event.getObject().getNombre()));
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_CANCELADA));
     }
 
     public void onRowSelect(SelectEvent<Revision> event) {
 		addToSession("revision", event.getObject());
-        mostrarMensajeGeneral(String.format("Revisión Seleccionada - %s ", event.getObject().getNombre()));
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
     /**
@@ -95,7 +96,7 @@ public class RegistroInicialBean extends AbstractBean {
         revisionEJB.eliminar(revision.getId());
         revisiones.remove(revision);
         this.revision = null;
-        mostrarMensajeGeneral("Registro eliminado");
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
 

@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
@@ -54,10 +55,10 @@ public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
     }
 
     public void guardar() {
-        mostrarMensajeGeneral("Registro Adicionado");
         for (EvaluacionCalidad evaluacion : evaluaciones) {
             referenciaEJB.guardarEvaluacion(evaluacion);
         }
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         getAndRemoveFromSession("referenciaDTO");
         PrimeFaces.current().dialog().closeDynamic(referencia);
     }
