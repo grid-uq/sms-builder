@@ -48,6 +48,8 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
     @Setter
     private List<PreguntaDTO> preguntas;
 
+    @Getter
+    @Setter
     private List<Objetivo> listaObjetivos;
 
 

@@ -14,7 +14,7 @@
 			<p:panelGrid columns="2">
 				<p:outputLabel for="fuente" value="#{msg.etiquetaFuente}:" />
 				<p:selectOneMenu id="fuente" value="#{registroReferenciasBean.fuente}">
-					<f:selectItem itemLabel="Seleccione una fuente" itemValue="" noSelectionOption="true" />
+					<f:selectItem itemLabel="#{msg.etiquetaSeleccionarOpcion}" itemValue="" noSelectionOption="true" />
 					<f:selectItems value="#{registroReferenciasBean.fuentes}" var="referencia" itemLabel="#{referencia}" itemValue="#{referencia}" />
 				</p:selectOneMenu>
 				<p:outputLabel value="#{msg.etiquetaArchivo}:" />

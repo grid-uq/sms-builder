@@ -88,7 +88,7 @@
 						rendered="#{registroInicialBean.revision != null and seguridadBean.verifivarAcceso('/revision/tablaResumenEvaluacionReferenciasAtributo.xhtml') }" />
 		</p:submenu>
 		<p:submenu label="#{msg.etiquetaMenuAnalisisDatos}" icon="pi pi-cog"
-				   rendered="#{registroInicialBean.revision != null and seguridadBean.verifivarAcceso(this.value) }">
+				   rendered="#{registroInicialBean.revision != null }">
 
 			<p:menuitem
 				value="#{msg.etiquetaMenuAnalisisTablaReferenciaPregunta}"
