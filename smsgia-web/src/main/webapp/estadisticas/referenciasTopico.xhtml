@@ -31,8 +31,12 @@
 						model="#{referenciasTopicoBean.pieModel}" style="height:300px" />
 
 			<p:barChart id="graficaBar" rendered="#{referenciasTopicoBean.tipoGrafica.equals('bar')}"
-						model="#{referenciasTopicoBean.barModel}" style="height:300px" />
+						model="#{referenciasTopicoBean.barModel}" style="height:300px" widgetVar="chart" />
+			<p:commandButton type="button" value="#{msg.botonExportar}"
+							 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"
+							 onclick="downloadImage('chart')"/>
 		</h:form>
+		<ui:include src="util/imageExporter.xhtml" />
 
 
 

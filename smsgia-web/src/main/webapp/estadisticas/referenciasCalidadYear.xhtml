@@ -21,11 +21,15 @@
 				</p:selectOneMenu>
 			</p:panelGrid>
 			<p:pieChart id="graficaPie" rendered="#{referenciasCalidadYearBean.tipoGrafica.equals('pie')}"
-						model="#{referenciasCalidadYearBean.pieModel}" style="height:300px" />
+						model="#{referenciasCalidadYearBean.pieModel}" style="height:300px" widgetVar="chart" />
 
 			<p:barChart id="graficaBar" rendered="#{referenciasCalidadYearBean.tipoGrafica.equals('bar')}"
-						model="#{referenciasCalidadYearBean.barModel}" style="height:300px" />
+						model="#{referenciasCalidadYearBean.barModel}" style="height:300px" widgetVar="chart" />
+			<p:commandButton type="button" value="#{msg.botonExportar}"
+							 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"
+							 onclick="downloadImage('chart')"/>
 		</h:form>
+		<ui:include src="util/imageExporter.xhtml" />
 
 
 		<br />

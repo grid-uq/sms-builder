@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<div  xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" class="ui-card">
+	<script type="text/javascript">
+		//<![CDATA[
+		function exportChart(chart) {
+			//export image
+			$('#output').empty().append(PF(chart).exportAsImage());
+
+			//show the dialog
+			PF('dlg').show();
+		}
+
+		function downloadImage(chart){
+			var image = PF(chart).exportAsImage();
+			var imageSrc = $(image).attr('src');
+			var url = imageSrc.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
+			var link = document.createElement('a');
+			link.download = "chart.png";
+			link.href = url;
+
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+			return false;
+		}
+		//]]>
+	</script>
+	<p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Chart as an Image" resizable="false" appendToBody="true">
+		<p id="output" layout="block" style="width:500px;height:300px"/>
+	</p:dialog>
+</div>
+

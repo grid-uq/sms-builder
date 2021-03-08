@@ -30,11 +30,15 @@
 			</p:panelGrid>
 
 			<p:pieChart id="graficaPie" rendered="#{referenciasTipoFuenteBean.tipoGrafica.equals('pie')}"
-						model="#{referenciasTipoFuenteBean.pieModel}" style="height:300px" />
+						model="#{referenciasTipoFuenteBean.pieModel}" style="height:300px" widgetVar="chart" />
 
 			<p:barChart id="graficaBar" rendered="#{referenciasTipoFuenteBean.tipoGrafica.equals('bar')}"
-						model="#{referenciasTipoFuenteBean.barModel}" style="height:300px" />
+						model="#{referenciasTipoFuenteBean.barModel}" style="height:300px" widgetVar="chart" />
+			<p:commandButton type="button" value="#{msg.botonExportar}"
+							 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"
+							 onclick="downloadImage('chart')"/>
 		</h:form>
+		<ui:include src="util/imageExporter.xhtml" />
 
 
 

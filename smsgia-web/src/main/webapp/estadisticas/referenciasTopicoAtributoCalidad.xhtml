@@ -20,10 +20,15 @@
 						listener="#{referenciasTopicoAtributoCalidadBean.onChangePregunta}" />
 				</p:selectOneMenu>
 			</p:panelGrid>
-		</h:form>
 
-		<p:barChart id="grafica"
-			model="#{referenciasTopicoAtributoCalidadBean.barModel}" style="height:300px" />
+
+			<p:barChart id="grafica"
+						model="#{referenciasTopicoAtributoCalidadBean.barModel}" style="height:300px" widgetVar="chart" />
+			<p:commandButton type="button" value="#{msg.botonExportar}"
+						 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"
+						 onclick="downloadImage('chart')"/>
+		</h:form>
+	<ui:include src="util/imageExporter.xhtml" />
 			 
 
 		<br />
