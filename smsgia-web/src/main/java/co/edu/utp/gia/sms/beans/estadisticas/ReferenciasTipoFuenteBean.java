@@ -35,6 +35,7 @@ public class ReferenciasTipoFuenteBean extends EstaditicaDatoDTOBaseBean {
 
 
     public void onChangeTipoFuente() {
+        getDatosSeries().clear();
         if (tipo == null) {
             setDatos(getEstadisticaEJB().obtenerReferenciasTipoFuente(getRevision().getId()));
         } else {

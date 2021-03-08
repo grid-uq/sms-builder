@@ -1,11 +1,13 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
+import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.charts.bar.BarChartDataSet;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -46,34 +48,29 @@ public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTO
     }
 
     public void onChangePregunta() {
-        getSeries().clear();
-        ChartSeries serie;
+        getDatosSeries().clear();
         if (codigo != null) {
-            serie = crearSerieFromListDatoDTO(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo));
+            addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo),"SPSs");
         } else {
-            serie = crearSerieFromListDatoDTO(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId()));
+            addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId()),"SPSs");
         }
-        serie.setLabel("SPSs");
-        addSerie(serie);
-        inicializarTopicos(serie);
+        inicializarTopicos(getDatosSeries().get("SPSs").getDatos());
 
         List<AtributoCalidad> atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
         for (AtributoCalidad atributoCalidad : atributosCalidad) {
             if (codigo != null) {
-                serie = crearSerieFromListDatoDTO(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo, atributoCalidad.getId()));
+                addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo, atributoCalidad.getId()),atributoCalidad.getDescripcion());
             } else {
-                serie = crearSerieFromListDatoDTO(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), atributoCalidad.getId()));
+                addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), atributoCalidad.getId()),atributoCalidad.getDescripcion());
             }
-            serie.setLabel(atributoCalidad.getDescripcion());
-            addSerie(serie);
         }
 
         crearModelo();
     }
 
-    private void inicializarTopicos(ChartSeries serie) {
+    private void inicializarTopicos(List<DatoDTO> datos) {
         topicos = new ArrayList<>();
-        serie.getData().keySet().forEach(y -> topicos.add(y.toString()));
+        datos.forEach(y -> topicos.add(y.getEtiqueta()));
     }
 
 

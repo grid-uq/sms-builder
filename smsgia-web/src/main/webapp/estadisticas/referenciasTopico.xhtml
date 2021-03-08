@@ -9,7 +9,7 @@
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
-		<h:form>
+		<h:form id="grafica">
 			<p:panelGrid columns="2">
 				<p:outputLabel for="codigo" value="#{msg.etiquetaPregunta}" />
 				<p:selectOneMenu id="codigo"
@@ -27,10 +27,14 @@
 						listener="#{referenciasTopicoBean.onChangeTipoGrafica}" />
 				</p:selectOneMenu>
 			</p:panelGrid>
+			<p:pieChart id="graficaPie" rendered="#{referenciasTopicoBean.tipoGrafica.equals('pie')}"
+						model="#{referenciasTopicoBean.pieModel}" style="height:300px" />
+
+			<p:barChart id="graficaBar" rendered="#{referenciasTopicoBean.tipoGrafica.equals('bar')}"
+						model="#{referenciasTopicoBean.barModel}" style="height:300px" />
 		</h:form>
 
-		<p:chart id="grafica" type="#{referenciasTopicoBean.tipoGrafica}"
-			model="#{referenciasTopicoBean.model}" style="height:300px" />
+
 
 		<br />
 		<h:form prependId="">

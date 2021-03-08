@@ -1,14 +1,27 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
+import co.edu.utp.gia.sms.beans.estadisticas.util.SerieDatos;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.BarChartModel;
-import org.primefaces.model.chart.ChartSeries;
-import org.primefaces.model.chart.PieChartModel;
+import org.primefaces.model.charts.ChartData;
+import org.primefaces.model.charts.ChartOptions;
+import org.primefaces.model.charts.axes.cartesian.CartesianScales;
+import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
+import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearTicks;
+import org.primefaces.model.charts.bar.BarChartDataSet;
+import org.primefaces.model.charts.bar.BarChartModel;
+import org.primefaces.model.charts.bar.BarChartOptions;
+import org.primefaces.model.charts.optionconfig.animation.Animation;
+import org.primefaces.model.charts.optionconfig.legend.Legend;
+import org.primefaces.model.charts.optionconfig.legend.LegendLabel;
+import org.primefaces.model.charts.optionconfig.title.Title;
+import org.primefaces.model.charts.pie.PieChartDataSet;
+import org.primefaces.model.charts.pie.PieChartModel;
+import org.primefaces.model.charts.pie.PieChartOptions;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
 
@@ -16,45 +29,141 @@ public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
      * Variable que representa el atributo serialVersionUID de la clase
      */
     private static final long serialVersionUID = -6652760630318393603L;
-
+    List<String> borderColor = new ArrayList<>();
     @Getter
     @Setter
     private List<DatoDTO> datos;
+    @Getter
+    private Map<String, SerieDatos> datosSeries;
+
+
+    public List<SerieDatos> getSeries(){
+        return datosSeries.values().stream().collect(Collectors.toList());
+    }
+
+    public EstaditicaDatoDTOBaseBean() {
+        datosSeries = new HashMap<>();
+    }
+
+    protected void addSerie(List<DatoDTO> datos, String etiqueta) {
+        setDatos(datos);
+        datosSeries.put(etiqueta, new SerieDatos(etiqueta, datos));
+    }
+
+
+    protected ChartData createData(ChartOptions options) {
+        ChartData data = new ChartData();
+
+        if (datosSeries.isEmpty()) {
+            addSerie(datos, "");
+        }
+
+        getDatosSeries().keySet().forEach(key -> {
+            if (options instanceof PieChartOptions) {
+                data.addChartDataSet(crearPieDataSet(key));
+            } else {
+                data.addChartDataSet(crearBarDataSet(key));
+            }
+        });
+
+        if (getTitulo() != null) {
+            Title title = new Title();
+            title.setDisplay(true);
+            title.setText(getTitulo());
+            options.setTitle(title);
+        }
+
+
+        if (datos != null) {
+            data.setLabels(datos.stream().map(DatoDTO::getEtiqueta).collect(Collectors.toList()));
+        }
+
+        Legend legend = new Legend();
+        legend.setDisplay(true);
+        legend.setPosition("top");
+        LegendLabel legendLabels = new LegendLabel();
+        legendLabels.setFontStyle("bold");
+        legendLabels.setFontColor("#2980B9");
+        legendLabels.setFontSize(24);
+        legend.setLabels(legendLabels);
+        options.setLegend(legend);
+
+        // disable animation
+        Animation animation = new Animation();
+        animation.setDuration(0);
+        options.setAnimation(animation);
+
+        return data;
+    }
 
     protected PieChartModel crearPieModel() {
         PieChartModel model = new PieChartModel();
+        PieChartOptions options = new PieChartOptions();
+        model.setData(createData(options));
 
-        for (DatoDTO datoDTO : datos) {
-            model.set(datoDTO.getEtiqueta(), datoDTO.getValor());
-        }
-
-        model.setTitle(getTitulo());
-        model.setLegendPosition("w");
-        model.setShadow(false);
+        model.setOptions(options);
         return model;
     }
 
     protected BarChartModel crearBarModel() {
         BarChartModel model = new BarChartModel();
+        BarChartOptions options = new BarChartOptions();
+        model.setData(createData(options));
 
-        ChartSeries referencias = new ChartSeries();
+        CartesianScales cScales = new CartesianScales();
+        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+        linearAxes.setOffset(true);
+        CartesianLinearTicks ticks = new CartesianLinearTicks();
+        ticks.setBeginAtZero(true);
+        linearAxes.setTicks(ticks);
+        cScales.addYAxesData(linearAxes);
+        options.setScales(cScales);
 
-
-//        referencias.setLabel("Referencias");
-//		referencias.setLabel(titulo);
-        for (DatoDTO datoDTO : datos) {
-            referencias.set(datoDTO.getEtiqueta(), datoDTO.getValor());
-        }
-
-        model.addSeries(referencias);
-
-        model.setTitle(getTitulo());
-//		model.setLegendPosition("ne");
-
-        model.getAxis(AxisType.X).setLabel(getEjeX());
-        model.getAxis(AxisType.Y).setLabel(getEjeY());
-
+        model.setOptions(options);
         return model;
+    }
+
+
+    protected PieChartDataSet crearPieDataSet(String key) {
+        PieChartDataSet serie = new PieChartDataSet();
+        List<String> bgColors = new ArrayList<>();
+        List<String> borderColors = new ArrayList<>();
+        Random random = new Random();
+
+        datos.forEach(d -> {
+            int r = random.nextInt(256);
+            int g = random.nextInt(256);
+            int b = random.nextInt(256);
+            bgColors.add(String.format("rgba(%d, %d, %d, 0.2)", r, g, b));
+            borderColors.add(String.format("rgb(%d, %d, %d)", r, g, b));
+        });
+
+//        serie.setLabel(label);
+        serie.setData(getDatosSeries().get(key).getDatos().stream().map(DatoDTO::getValor).collect(Collectors.toList()));
+        serie.setBackgroundColor(bgColors);
+        serie.setBorderColor(borderColors);
+        return serie;
+    }
+
+    private BarChartDataSet crearBarDataSet(String key) {
+        BarChartDataSet barDataSet = new BarChartDataSet();
+        barDataSet.setLabel(key);
+        barDataSet.setData(getDatosSeries().get(key).getDatos().stream().map(DatoDTO::getValor).collect(Collectors.toList()));
+
+        Random random = new Random();
+        int r = random.nextInt(256);
+        int g = random.nextInt(256);
+        int b = random.nextInt(256);
+
+        String bgColor = String.format("rgba(%d, %d, %d, 0.2)", r, g, b);
+
+        barDataSet.setBackgroundColor(bgColor);
+
+        String borderColor = String.format("rgb(%d, %d, %d)", r, g, b);
+        barDataSet.setBorderColor(borderColor);
+        barDataSet.setBorderWidth(1);
+
+        return barDataSet;
     }
 
 }

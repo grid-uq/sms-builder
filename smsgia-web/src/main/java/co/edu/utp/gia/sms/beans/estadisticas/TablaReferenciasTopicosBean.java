@@ -41,7 +41,7 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
     private Integer idAtributoCalidad;
     @Getter
     @Setter
-    private String evaluacion;
+    private EvaluacionCualitativa evaluacion;
 
     public void inicializar() {
 
@@ -56,13 +56,12 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
             referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
         } else if (evaluacion != null) {
             referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad,
-                    EvaluacionCualitativa.valueOf(evaluacion), 3);
+                    evaluacion, 3);
         } else {
             referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad,
                     3);
         }
     }
-
 
     /**
      * Permite obtener un arreglo con los valores de la
@@ -70,12 +69,8 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
      *
      * @return Arreglo de valores de la {@link EvaluacionCualitativa}
      */
-    public List<SelectItem> getListaValores() {
-        List<SelectItem> valores = new ArrayList<>();
-        valores.add(new SelectItem(null, "", "", false, false, true));
-        for (EvaluacionCualitativa valor : EvaluacionCualitativa.values()) {
-            valores.add(new SelectItem(valor));
-        }
-        return valores;
+    public EvaluacionCualitativa[] getListaValores() {
+        return EvaluacionCualitativa.values();
     }
+
 }

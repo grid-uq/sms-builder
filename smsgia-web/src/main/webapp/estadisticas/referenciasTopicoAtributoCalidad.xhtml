@@ -22,8 +22,8 @@
 			</p:panelGrid>
 		</h:form>
 
-		<p:chart id="grafica" type="#{referenciasTopicoAtributoCalidadBean.tipoGrafica}"
-			model="#{referenciasTopicoAtributoCalidadBean.model}" style="height:300px" /> 
+		<p:barChart id="grafica"
+			model="#{referenciasTopicoAtributoCalidadBean.barModel}" style="height:300px" />
 			 
 
 		<br />
@@ -36,8 +36,8 @@
 				<p:column headerText="#{referenciasTopicoAtributoCalidadBean.ejeX}">
 					<h:outputText value="#{topico}" />
 				</p:column>
-				<p:columns value="#{referenciasTopicoAtributoCalidadBean.series}" var="serie" headerText="#{serie.label}" >
-					<h:outputText value="#{serie.data.get(topico)}" />
+				<p:columns value="#{referenciasTopicoAtributoCalidadBean.series}" var="serie" headerText="#{serie.etiqueta}" >
+					<h:outputText value="#{serie.get(topico)}" />
 				</p:columns>
 
 				<f:facet name="footer">

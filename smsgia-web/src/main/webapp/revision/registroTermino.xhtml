@@ -24,7 +24,7 @@
 					<f:facet name="footer">
 						<p:commandButton value="#{msg.botonAceptar}"
 							action="#{registroTerminoBean.registrar}"
-							update=":tabla,:formulario" />
+							update=":tabla :msgs :formulario" />
 					</f:facet>
 
 				</p:panelGrid>
@@ -32,13 +32,12 @@
 			</div>
 		</h:form>
 		<h:form id="tabla">
-			<p:growl id="msgs" showDetail="true" />
 			<p:dataTable value="#{registroTerminoBean.terminos}" var="termino"
 				editable="true">
 				<p:ajax event="rowEdit" listener="#{registroTerminoBean.onRowEdit}"
-					update=":tabla:msgs" />
+					update=":msgs" />
 				<p:ajax event="rowEditCancel"
-					listener="#{registroTerminoBean.onRowCancel}" update=":tabla:msgs" />
+					listener="#{registroTerminoBean.onRowCancel}" update=":msgs" />
 				<p:column headerText="#{msg.etiquetaTermino}">
 					<p:cellEditor>
 						<f:facet name="output">
@@ -50,22 +49,22 @@
 					</p:cellEditor>
 				</p:column>
 				<p:column style="width:35px">
-					<p:rowEditor />
-					<p:commandLink action="#{registroTerminoBean.eliminar(termino)}"
-						update=":tabla">
-						<span class="ui-icon ui-icon-trash"></span>
+					<p:rowEditor   />
+					<p:commandButton action="#{registroTerminoBean.eliminar(termino)}" immediate="true"
+									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
+
 						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
 							message="#{msg['dialogoConfirmacion.eliminar']}"
 							icon="ui-icon ui-icon-alert" />
-					</p:commandLink>
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 
-			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				<p:commandButton value="#{msg.si}" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon ui-icon-check" />
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
 				<p:commandButton value="#{msg.no}" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon ui-icon-close" />
+								 styleClass="ui-confirmdialog-no ui-button-flat"  />
+				<p:commandButton value="#{msg.si}" type="button"
+								 styleClass="ui-confirmdialog-yes"  />
 			</p:confirmDialog>
 
 		</h:form>

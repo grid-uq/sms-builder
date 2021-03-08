@@ -22,10 +22,13 @@ public class ValidarRevisionBean extends GenericBean<Revision> {
 //		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath());
 //		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestPathInfo());
 //		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestServletPath());
+
         String[] urls = {"/revision/registroRevision.xhtml", "/revision/seleccionarRevision.xhtml",
                 "/revision/registroInicial.xhtml"};
         String[] pattern = {"/seguridad", "/administracion"};
         String path = getFacesContext().getExternalContext().getRequestServletPath();
+
+        log.info("Validando path: "+path);
         if (getRevision() == null && !Arrays.asList(urls).contains(path) && Arrays.stream(pattern).noneMatch(path::startsWith)) {
             irInicio();
         }
@@ -39,6 +42,7 @@ public class ValidarRevisionBean extends GenericBean<Revision> {
 
     private void irInicio() {
         try {
+            log.info("REDIRECCIONANDO A INICIO");
             getFacesContext().getExternalContext()
                     .redirect(getFacesContext().getExternalContext().getRequestContextPath() + "/");
             getFacesContext().responseComplete();

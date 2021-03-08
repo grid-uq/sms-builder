@@ -42,7 +42,7 @@
 
 		<h:form id="tabla">
 
-			<p:growl id="msgs" showDetail="true" />
+
 
 			<p:dataTable value="#{registroInicialBean.revisiones}" var="revision"
 				editable="true" selection="#{registroInicialBean.revision}"
@@ -53,9 +53,9 @@
 				<p:ajax event="rowSelectRadio" update=":tabla,:menu" listener="#{registroInicialBean.onRowSelect}"/>
 
 				<p:ajax event="rowEdit" listener="#{registroInicialBean.onRowEdit}"
-					update=":tabla:msgs" />
+					update=":msgs" />
 				<p:ajax event="rowEditCancel"
-					listener="#{registroInicialBean.onRowCancel}" update=":tabla:msgs" />
+					listener="#{registroInicialBean.onRowCancel}" update=":msgs" />
 
 				<p:column headerText="#{msg.etiquetaNombre}">
 					<p:cellEditor>
@@ -89,26 +89,24 @@
 
 					<p:rowEditor
 						rendered="#{registroInicialBean.revision.id == revision.id}" />
-					<p:commandLink action="#{registroInicialBean.eliminar(revision)}"
-						update=":tabla,menu"
+					<p:commandButton action="#{registroInicialBean.eliminar(revision)}" immediate="true"
+						update=":tabla,menu" icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain"
 						rendered="#{revision.equals(registroInicialBean.revision)}">
-						<span class="ui-icon ui-icon-trash"></span>
 						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
 							message="#{msg['dialogoConfirmacion.eliminar']}"
-							icon="ui-icon ui-icon-alert" />
-					</p:commandLink>
-
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
 				</p:column>
 
 
 
 			</p:dataTable>
 
-			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				<p:commandButton value="#{msg.si}" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon ui-icon-check" />
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
 				<p:commandButton value="#{msg.no}" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon ui-icon-close" />
+								 styleClass="ui-confirmdialog-no ui-button-flat"  />
+				<p:commandButton value="#{msg.si}" type="button"
+								 styleClass="ui-confirmdialog-yes"  />
 			</p:confirmDialog>
 		</h:form>
 

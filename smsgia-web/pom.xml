@@ -14,7 +14,7 @@
 		<omnifaces.version>1.14.1</omnifaces.version>
 		<junit.jupiter.version>5.5.2</junit.jupiter.version>
 		<junit.platform.version>1.5.2</junit.platform.version>
-		<primefaces.version>8.0</primefaces.version>
+		<primefaces.version>10.0.0-RC2</primefaces.version>
 		<jee.version>8.0.1</jee.version>
 		<!-- <jsf-impl.version>2.2.20</jsf-impl.version>  -->
 		<jsf-impl.version>2.3.9.SP08</jsf-impl.version>

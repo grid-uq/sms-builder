@@ -55,11 +55,13 @@ public class RegistroInicialBean extends AbstractBean {
     }
 
     public void registrar() {
-        Revision r = revisionEJB.registrar(nombre, descripcion);
+        Revision r = revisionEJB.registrar(nombre, descripcion,seguridadBean.getUsuario().getId());
+        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         id = r.getId();
         revisiones.add(r);
         limpiarCampos();
         revision = r;
+
     }
 
     private void limpiarCampos() {

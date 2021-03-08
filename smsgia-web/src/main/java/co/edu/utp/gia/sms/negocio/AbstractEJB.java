@@ -44,7 +44,7 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 	public E registrar(E entidad) {
 		try {
 			if (obtener(entidad.getId()) != null) {
-				throw new LogicException(exceptionMessage.getRegistroExistente());
+				throw new LogicException(entityClass.getName()+":"+exceptionMessage.getRegistroExistente());
 			}
 			entityManager.persist(entidad);
 			return entidad;
@@ -55,9 +55,7 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 
 	public void actualizar(E entidad) {
 		try {
-			if (obtener(entidad.getId()) == null) {
-				throw new LogicException(exceptionMessage.getRegistroNoEncontrado());
-			}
+			obtenerOrThrow(entidad.getId());
 			entityManager.merge(entidad);
 		} catch (Throwable t) {
 			throw new TecnicalException(t);
@@ -67,7 +65,7 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 	public void eliminar(E entidad) {
 		try {
 			if (!entityManager.contains(entidad) && obtener(entidad.getId()) == null) {
-				throw new LogicException(exceptionMessage.getRegistroNoEncontrado());
+				throw new LogicException(entityClass.getName()+":"+exceptionMessage.getRegistroNoEncontrado());
 			}
 			entityManager.remove(entidad);
 		} catch (Throwable t) {
@@ -77,11 +75,9 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 
 	public void eliminar(TipoId id) {
 		try {
-			E entidad = obtener(id);
-			if (entidad == null) {
-				throw new LogicException(exceptionMessage.getRegistroNoEncontrado());
-			}
-			eliminar(entidad);
+			eliminar(
+					obtenerOrThrow(id)
+			);
 		} catch (Throwable t) {
 			throw new TecnicalException(t);
 		}
@@ -93,6 +89,14 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 		} catch (Throwable t) {
 			throw new TecnicalException(t);
 		}
+	}
+
+	public E obtenerOrThrow(TipoId id) {
+		E registro = obtener(id);
+		if (registro == null) {
+			throw new LogicException(entityClass.getName()+":"+exceptionMessage.getRegistroNoEncontrado());
+		}
+		return registro;
 	}
 
 	public List<E> listar() {

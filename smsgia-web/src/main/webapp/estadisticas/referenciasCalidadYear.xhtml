@@ -10,7 +10,7 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
 
-		<h:form>
+		<h:form id="grafica">
 			<p:panelGrid columns="2">
 				<p:outputLabel for="tipoGrafico" value="#{msg.etiquetaTipoGrafico}" />
 				<p:selectOneMenu id="tipoGrafico"
@@ -20,10 +20,13 @@
 						listener="#{referenciasCalidadYearBean.onChangeTipoGrafica}" />
 				</p:selectOneMenu>
 			</p:panelGrid>
+			<p:pieChart id="graficaPie" rendered="#{referenciasCalidadYearBean.tipoGrafica.equals('pie')}"
+						model="#{referenciasCalidadYearBean.pieModel}" style="height:300px" />
+
+			<p:barChart id="graficaBar" rendered="#{referenciasCalidadYearBean.tipoGrafica.equals('bar')}"
+						model="#{referenciasCalidadYearBean.barModel}" style="height:300px" />
 		</h:form>
 
-		<p:chart id="grafica" type="#{referenciasCalidadYearBean.tipoGrafica}"
-			model="#{referenciasCalidadYearBean.model}" style="height:300px" />
 
 		<br />
 		<h:form>

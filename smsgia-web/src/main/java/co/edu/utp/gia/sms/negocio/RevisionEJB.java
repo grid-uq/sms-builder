@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.query.Queries;
 
 import javax.ejb.Stateless;
@@ -13,13 +14,16 @@ import java.util.List;
 public class RevisionEJB extends AbstractEJB<Revision, Integer> {
     @Inject
     private AtributoCalidadEJB atributoCalidadEJB;
+    @Inject
+    private UsuarioEJB usuarioEJB;
 
     public RevisionEJB() {
         super(Revision.class);
     }
 
-    public Revision registrar(String nombre, String descripcion) {
-        Revision revision = new Revision(nombre, descripcion);
+    public Revision registrar(String nombre, String descripcion,Integer idUsuario) {
+        Usuario usuario = usuarioEJB.obtenerOrThrow(idUsuario);
+        Revision revision = new Revision(nombre, descripcion,usuario);
         registrar(revision);
         atributoCalidadEJB.crearAtributosCalidadPorDefecto(revision);
         return revision;
@@ -86,4 +90,9 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
                 .getResultList();
     }
 
+    @Override
+    public void eliminar(Integer id) {
+        atributoCalidadEJB.eliminarAtributosCalidad(id);
+        super.eliminar(id);
+    }
 }

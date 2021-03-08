@@ -56,16 +56,16 @@
 			<!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
 			<!-- <ui:include src="header.xhtml"/> -->
 		</ui:insert>
-
-		<ui:include src="/WEB-INF/templates/menu.xhtml"></ui:include>
-
 		<br />
-
+	</div>
+	<div align='left'>
+		<ui:include src="/WEB-INF/templates/menu.xhtml"></ui:include>
+		<br />
 	</div>
 
 
 	<div id="content" align='center'>
-
+		<p:growl id="msgs" />
 		<h:panelGrid rendered="#{!seguridadBean.autenticado}">
 			<h:form prependId="false">
 				<p:outputLabel value="#{msg['usuario.nombreUsuario']}: "
@@ -81,7 +81,7 @@
 								 action="#{seguridadBean.ingresar}" ajax="false" />
 				<p:commandButton value="#{msg['seguridad.boton.registrarse']}"
 								 action="/seguridad/usuario/registro" ajax="false" immediate="true" />
-				<p:growl />
+
 			</h:form>
 		</h:panelGrid>
 		<h:panelGroup id="panelContenido" style="width:100%">

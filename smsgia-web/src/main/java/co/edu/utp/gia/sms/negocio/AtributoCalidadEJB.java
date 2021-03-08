@@ -97,10 +97,21 @@ public class AtributoCalidadEJB extends AbstractEJB<AtributoCalidad, Integer> {
         }
     }
 
+    /**
+     * Permite crear los atributos de calidad por defecto para una Revision
+     * @param revision Revision para la que se crearan los atributos de calidad
+     */
     public void crearAtributosCalidadPorDefecto(Revision revision) {
         registrar(SCI, revision);
         registrar(CVI, revision);
         registrar(RRQI, revision);
     }
 
+    /**
+     * Permite eliminar los atributos de calidad de una revision
+     * @param idRevision Id de la revision a la cual se le desean eliminar los atributos de calidad
+     */
+    public void eliminarAtributosCalidad(Integer idRevision){
+        obtenerAtributosCalidad(idRevision).stream().forEach( this::eliminar );
+    }
 }

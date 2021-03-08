@@ -10,7 +10,7 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
 		
-		<h:form>
+		<h:form id="grafica">
 			<p:panelGrid columns="2">
 				<p:outputLabel for="tipoFuente" value="#{msg.etiquetaTipoFuente}" />
 				<p:selectOneMenu id="tipoFuente"
@@ -28,13 +28,18 @@
 						listener="#{referenciasTipoFuenteBean.onChangeTipoGrafica}" />
 				</p:selectOneMenu>
 			</p:panelGrid>
+
+			<p:pieChart id="graficaPie" rendered="#{referenciasTipoFuenteBean.tipoGrafica.equals('pie')}"
+						model="#{referenciasTipoFuenteBean.pieModel}" style="height:300px" />
+
+			<p:barChart id="graficaBar" rendered="#{referenciasTipoFuenteBean.tipoGrafica.equals('bar')}"
+						model="#{referenciasTipoFuenteBean.barModel}" style="height:300px" />
 		</h:form>
 
-		<p:chart id="grafica" type="#{referenciasTipoFuenteBean.tipoGrafica}"
-			model="#{referenciasTipoFuenteBean.model}" style="height:300px" />
+
 
 		<br />
-		<h:form prependId="">
+		<h:form prependId="false">
 			<p:dataTable id="tablaDatos" value="#{referenciasTipoFuenteBean.datos}" var="dato">
 				<f:facet name="header">
 					<h:outputText  value="#{referenciasTipoFuenteBean.titulo}" />

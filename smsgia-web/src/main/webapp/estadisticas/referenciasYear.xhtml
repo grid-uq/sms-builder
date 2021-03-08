@@ -10,19 +10,12 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
 		<h:form>
-			<p:panelGrid columns="2">
-				<p:outputLabel for="tipoGrafico" value="#{msg.etiquetaTipoGrafico}" />
-				<p:selectOneMenu id="tipoGrafico"
-					value="#{referenciasYearBean.tipoGrafica}">
-					<f:selectItems value="#{referenciasYearBean.tiposGrafica}" />
-					<p:ajax update="grafica"
-						listener="#{referenciasYearBean.onChangeTipoGrafica}" />
-				</p:selectOneMenu>
-			</p:panelGrid>
+
+			<p:barChart id="grafica"
+						model="#{referenciasYearBean.barModel}" style="height:300px" />
 		</h:form>
 
-		<p:chart id="grafica" type="#{referenciasYearBean.tipoGrafica}"
-			model="#{referenciasYearBean.model}" style="height:300px" />
+
 
 		<br />
 		<h:form>
@@ -34,8 +27,8 @@
 				<p:column headerText="#{referenciasYearBean.ejeX}">
 					<h:outputText value="#{year}" />
 				</p:column>
-				<p:columns value="#{referenciasYearBean.series}" var="serie" headerText="#{serie.label}" >
-					<h:outputText value="#{serie.data.get(year)}" />
+				<p:columns value="#{referenciasYearBean.series}" var="serie" headerText="#{serie.etiqueta}" >
+					<h:outputText value="#{serie.get(year)}" />
 				</p:columns>
 
 				<f:facet name="footer">

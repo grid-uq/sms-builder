@@ -27,7 +27,7 @@
 
 				<p:column headerText="#{msg.etiquetaNombre}"
 					sortBy="#{referencia.nombre}" filterBy="#{referencia.nombre}"
-					filterMatchMode="contains" style="width:76%">
+					filterMatchMode="contains" style="width:70%">
 					
 					<p:link href="https://scholar.google.com/scholar" target="_blank" value="#{referencia.nombre}">
 						<f:param name="hl" value="es" />
@@ -43,7 +43,7 @@
 					<p:commandButton value="#{msg.botonCompletarCitas}" action="#{referenciaAdicionarCitasBean.completarCita(referencia)}" update="tabla" />
 				</p:column>
 				<p:column headerText="#{msg.etiquetaYear}" sortBy="#{referencia.year}" filterBy="referencia.year" filterMatchMode="contains">
-					<p:inputMask value="#{referencia.year}" mask="9999"  inputStyle="width: 90%" >
+					<p:inputMask value="#{referencia.year}" mask="9999"  style="width: 90%" >
 						<p:ajax event="blur"
 							listener="#{referenciaAdicionarCitasBean.guardarYear(referencia)}" update="mensajes"  />
 					</p:inputMask>

@@ -180,7 +180,7 @@ public abstract class SeguridadBean extends AbstractBean {
         cargarRecursos();
         FacesContext.getCurrentInstance().getExternalContext()
                 .invalidateSession();
-        return "/administracion/index.xhtml";
+        return "/administracion/index";
     }
 
     /**

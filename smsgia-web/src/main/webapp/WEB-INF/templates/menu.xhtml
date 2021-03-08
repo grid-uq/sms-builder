@@ -159,9 +159,13 @@
 							rendered="#{seguridadBean.verifivarAcceso('/seguridad/usuario/index.xhtml')}" />
 			</p:submenu>
 		</p:submenu>
-		<p:menuitem value="#{msg['menu.salir']}"
-					action="#{seguridadBean.cerrarSesion}" icon="ui-icon-circle-close"
+		<p:menuitem value="#{msg['menu.salir']}" immediate="true"
+					actionListener="#{seguridadBean.cerrarSesion}" icon="pi pi-fw pi-power-off"
 					ajax="false" rendered="#{seguridadBean.autenticado}" />
+
+		<f:facet name="options">
+			<p:commandButton value="#{msg['menu.salir']}" action="#{seguridadBean.cerrarSesion}" ajax="false" immediate="true" icon="pi pi-fw pi-sign-out" styleClass="rounded-button ui-button-info" rendered="#{seguridadBean.autenticado}" />
+		</f:facet>
 	</p:menubar>
 </h:form>
 

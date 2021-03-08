@@ -4,9 +4,9 @@ import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.model.chart.BarChartModel;
-import org.primefaces.model.chart.ChartModel;
-import org.primefaces.model.chart.PieChartModel;
+import org.primefaces.model.charts.ChartModel;
+import org.primefaces.model.charts.bar.BarChartModel;
+import org.primefaces.model.charts.pie.PieChartModel;
 
 import javax.inject.Inject;
 
@@ -63,6 +63,21 @@ public abstract class EstadisticaBean extends AbstractRevisionBean {
     protected abstract PieChartModel crearPieModel();
 
     protected abstract BarChartModel crearBarModel();
+
+    public BarChartModel getBarModel() {
+        if (!(model instanceof BarChartModel)) {
+            model = crearBarModel();
+        }
+        return (BarChartModel) model;
+
+    }
+
+    public PieChartModel getPieModel() {
+        if (!(model instanceof PieChartModel)) {
+            model = crearPieModel();
+        }
+        return (PieChartModel) model;
+    }
 
     public void onChangeTipoGrafica() {
         crearModelo();

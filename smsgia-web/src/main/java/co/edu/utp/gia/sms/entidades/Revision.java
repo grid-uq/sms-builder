@@ -70,6 +70,7 @@ public class Revision implements Entidad<Integer> {
     @Getter
     @Setter
     @EqualsAndHashCode.Exclude
+    @NonNull
     private Usuario propietario;
 
     /**

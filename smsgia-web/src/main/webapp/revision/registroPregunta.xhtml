@@ -23,7 +23,7 @@
 					
 					<p:inputText value="#{registroPreguntaBean.codigo}" maxlength="3" required="true"/>
 					<p:inputText value="#{registroPreguntaBean.descripcion}" required="true"/>
-					<p:selectManyCheckbox id="basic"
+					<p:selectManyCheckbox
 						value="#{registroPreguntaBean.listaObjetivos}" required="true" >
 
 
@@ -36,7 +36,7 @@
 					<f:facet name="footer">
 						<p:commandButton value="#{msg.botonAceptar}"
 							action="#{registroPreguntaBean.registrar}"
-							update=":tabla,:formulario" />
+							update=":tabla :formulario :msgs" />
 					</f:facet>
 
 				</p:panelGrid>
@@ -45,13 +45,12 @@
 		</h:form>
 		<br />
 		<h:form id="tabla">
-			<p:growl id="msgs" showDetail="true" />
 			<p:dataTable value="#{registroPreguntaBean.preguntas}" var="pregunta"
 				editable="true">
 				<p:ajax event="rowEdit" listener="#{registroPreguntaBean.onRowEdit}"
-					update=":tabla:msgs" />
+					update=":msgs" />
 				<p:ajax event="rowEditCancel"
-					listener="#{registroPreguntaBean.onRowCancel}" update=":tabla:msgs" />
+					listener="#{registroPreguntaBean.onRowCancel}" update=":msgs" />
 						
 				
 				<p:column headerText="#{msg.etiquetaCodigoPregunta}">
@@ -94,25 +93,26 @@
 				</p:column>
 				
 				<p:column headerText="#{msg.etiquetaTopicos}">
-					<p:commandLink
-						action="#{registroPreguntaBean.adicionarTopico(pregunta.id)}">
-						<span class="ui-icon ui-icon-circle-plus"></span>
+					<p:commandButton
+						action="#{registroPreguntaBean.adicionarTopico(pregunta.id)}"
+						icon="pi pi-plus-circle" styleClass="rounded-button ui-button-flat ui-button-plain">
 						<p:ajax event="dialogReturn"
-							listener="#{registroPreguntaBean.onTopicoCreado}" update=":tabla,formulario" />
-					</p:commandLink>
+							listener="#{registroPreguntaBean.onTopicoCreado}" update=":tabla formulario :msgs" />
+					</p:commandButton>
 
 
 					<p:repeat value="#{pregunta.topicos}" var="topico">
 						<p:panelGrid columns="2">
 							<h:outputText value="#{topico.descripcion}" />
-							<p:commandLink
+							<p:commandButton
 								action="#{registroPreguntaBean.eliminarTopico(pregunta,topico)}"
-								update=":tabla">
-								<span class="ui-icon ui-icon-trash"></span>
+								immediate="true"
+								icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
+
 								<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
 									message="#{msg['dialogoConfirmacion.eliminar']}"
 									icon="ui-icon ui-icon-alert" />
-							</p:commandLink>
+							</p:commandButton>
 						</p:panelGrid>
 					</p:repeat>
 					
@@ -123,21 +123,21 @@
 				
 				<p:column style="width:35px">
 					<p:rowEditor />
-					<p:commandLink action="#{registroPreguntaBean.eliminar(pregunta)}"
-						update=":tabla">
-						<span class="ui-icon ui-icon-trash"></span>
+					<p:commandButton action="#{registroPreguntaBean.eliminar(pregunta)}"
+									 immediate="true"
+									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs" >
 						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
 							message="#{msg['dialogoConfirmacion.eliminar']}"
 							icon="ui-icon ui-icon-alert" />
-					</p:commandLink>
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 
-			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				<p:commandButton value="#{msg.si}" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon ui-icon-check" />
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
 				<p:commandButton value="#{msg.no}" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon ui-icon-close" />
+								 styleClass="ui-confirmdialog-no ui-button-flat"  />
+				<p:commandButton value="#{msg.si}" type="button"
+								 styleClass="ui-confirmdialog-yes"  />
 			</p:confirmDialog>
 
 		</h:form>
