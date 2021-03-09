@@ -1,111 +1,108 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
 
-	<ui:insert name="estilos">
-		<style type="text/css">
-.colorOrange {
-	background-color: #fca752 !important;
-	color: #FFFFFF;
-}
-</style>
-	</ui:insert>
+    <ui:insert name="estilos">
+        <style type="text/css">
+            .colorOrange {
+                background-color: #fca752 !important;
+                color: #FFFFFF;
+            }
+        </style>
+    </ui:insert>
 
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title><ui:insert name="title">Default title</ui:insert></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title><ui:insert name="title">Default title</ui:insert></title>
 
 
 </h:head>
 
 <h:body>
-	<ui:debug hotkey="x"
-		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
+    <ui:debug hotkey="x"
+              rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}"/>
 
-		<h:form>
-			<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}">
-				<p:ajax event="idle" listener="#{validarRevisionBean.onIdle}" />
-				<p:ajax event="active" listener="#{validarRevisionBean.onActive}" />
-			</p:idleMonitor>
-		</h:form>
+    <h:form>
+        <p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}">
+            <p:ajax event="idle" listener="#{validarRevisionBean.onIdle}"/>
+            <p:ajax event="active" listener="#{validarRevisionBean.onActive}"/>
+        </p:idleMonitor>
+    </h:form>
 
-	<h:form>
-		<p:remoteCommand name="redirect"
-			action="#{validarRevisionBean.validar}" />
-	</h:form>
-	<script type="text/javascript">
-		jQuery(document).ready(function() {
-			redirect();
-		});
-	</script>
-	<div id="header" align='center'>
-		<ui:insert name="header">
+    <h:form>
+        <p:remoteCommand name="redirect"
+                         action="#{validarRevisionBean.validar}"/>
+    </h:form>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            redirect();
+        });
+    </script>
+    <div id="header" align='center'>
+        <ui:insert name="header">
 
-			<p:panelGrid columns="1"
-				style="text-align:center; background-color:#123456; height: 30px"
-				layout="grid">
-				#{msg['aplicacion.titulo']}
-			</p:panelGrid>
-			<!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
-			<!-- <ui:include src="header.xhtml"/> -->
-		</ui:insert>
-		<br />
-	</div>
-	<div align='left'>
-		<ui:include src="/WEB-INF/templates/menu.xhtml"></ui:include>
-		<br />
-	</div>
-
-
-	<div id="content" align='center'>
-		<p:growl id="msgs" />
-		<h:panelGrid rendered="#{!seguridadBean.autenticado}">
-			<h:form prependId="false">
-				<p:outputLabel value="#{msg['usuario.nombreUsuario']}: "
-							   for="nombreUsuario" />
-				<p:inputText id="nombreUsuario"
-							 value="#{seguridadBean.nombreUsuario}" required="true" size="28" />
-				&nbsp;
-				<p:outputLabel value="#{msg['usuario.clave']}: " for="clave" />
-
-				<p:password id="clave" value="#{seguridadBean.clave}" size="28" />
-				&nbsp;
-				<p:commandButton value="#{msg['seguridad.boton.ingresar']}"
-								 action="#{seguridadBean.ingresar}" ajax="false" />
-				<p:commandButton value="#{msg['seguridad.boton.registrarse']}"
-								 action="/seguridad/usuario/registro" ajax="false" immediate="true" />
-
-			</h:form>
-		</h:panelGrid>
-		<h:panelGroup id="panelContenido" style="width:100%">
-
-			<h:panelGroup rendered="#{seguridadBean.tienePermiso}">
-				<ui:insert name="content">
-					Pagina en construccion
-
-					<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
-					<!-- <div> -->
-					<!-- <ui:include src="content.xhtml"/> -->
-					<!-- </div> -->
-				</ui:insert>
-			</h:panelGroup>
-			<ui:insert name="publicContent"></ui:insert>
-		</h:panelGroup>
-		<h:panelGroup rendered="#{! seguridadBean.tienePermiso}"
-					  style="width:100%">
-			#{msg['seguridad.notienepermiso']}
-		</h:panelGroup>
+            <p:panelGrid columns="1"
+                         style="text-align:center; background-color:#123456; height: 30px"
+                         layout="grid">
+                #{msg['aplicacion.titulo']}
+            </p:panelGrid>
+            <!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
+            <!-- <ui:include src="header.xhtml"/> -->
+        </ui:insert>
+        <br/>
+    </div>
+    <div align='left'>
+        <ui:include src="/WEB-INF/templates/menu.xhtml"></ui:include>
+        <br/>
+    </div>
 
 
+    <div id="content" align='center'>
+        <p:growl id="msgs"/>
+        <h:panelGrid rendered="#{!seguridadBean.autenticado}">
+            <h:form prependId="false">
+                <p:outputLabel value="#{msg['usuario.nombreUsuario']}: "
+                               for="nombreUsuario"/>
+                <p:inputText id="nombreUsuario"
+                             value="#{seguridadBean.nombreUsuario}" required="true" size="28"/>
+                &nbsp;
+                <p:outputLabel value="#{msg['usuario.clave']}: " for="clave"/>
+                <p:password id="clave" value="#{seguridadBean.clave}" size="28"/>
+                &nbsp;
+                <p:commandButton value="#{msg['seguridad.boton.ingresar']}"
+                                 action="#{seguridadBean.ingresar}" ajax="false"/>
+                &nbsp;
+                <p:commandButton value="#{msg['seguridad.boton.registrarse']}"
+                                 action="/seguridad/usuario/registro" ajax="false" immediate="true"/>
 
-	</div>
+            </h:form>
+        </h:panelGrid>
+        <h:panelGroup id="panelContenido" style="width:100%">
+
+            <h:panelGroup rendered="#{seguridadBean.tienePermiso}">
+                <ui:insert name="content">
+                    Pagina en construccion
+
+                    <!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
+                    <!-- <div> -->
+                    <!-- <ui:include src="content.xhtml"/> -->
+                    <!-- </div> -->
+                </ui:insert>
+            </h:panelGroup>
+            <ui:insert name="publicContent"></ui:insert>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{! seguridadBean.tienePermiso}"
+                      style="width:100%">
+            #{msg['seguridad.notienepermiso']}
+        </h:panelGroup>
+
+
+    </div>
 
 
 </h:body>
