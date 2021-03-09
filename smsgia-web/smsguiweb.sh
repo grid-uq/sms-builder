@@ -1,1 +1,0 @@
-java -jar smsgia-web.jar --port 8080

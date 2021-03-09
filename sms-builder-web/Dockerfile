@@ -1,4 +1,4 @@
 FROM payara/server-full
-COPY ./target/smsgia-web.war ${DEPLOY_DIR}
+COPY ./target/sms-builder-web.war ${DEPLOY_DIR}
 #VOLUME ./target /opt/payara/deployments
 # comentario
