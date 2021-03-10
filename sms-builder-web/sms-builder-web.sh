@@ -1,7 +1,4 @@
 #!/bin/sh
-mvn clean package && docker build -t co.edu.utp.gia.sms/sms-builder-web .
-docker rm -f sms-builder-web || true && docker run -d -p 8080:8080 -p 4848:4848 --name sms-builder-web co.edu.utp.gia.sms/sms-builder-web
-
-docker logs sms-builder-web
-
-open http://localhost:8080/sms-builder-web/revision/seleccionarRevision.xhtml
+docker rm -f sms-builder || true && docker run -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 -p 8080:8080 --name sms-builder sms-builder
+docker logs sms-builder
+open http://localhost:8080/sms-builder-web/

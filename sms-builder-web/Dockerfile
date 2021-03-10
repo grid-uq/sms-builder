@@ -1,24 +1,3 @@
-FROM mariadb
-ENV DEBIAN_FRONTEND=noninteractive
-ENV MYSQL_ROOT_PASSWORD=12345
-RUN apt-get update
-RUN apt-get -y install openjdk-11-jdk
-#RUN apt-get -y install systemd
-#RUN pwd
-#RUN cd /docker-entrypoint-initdb.d
-COPY ./recursos/setup-sms.sql /docker-entrypoint-initdb.d/
-#RUN mysql -u root -p12345 < setup-sms.sql
+FROM sms-builder-db-jdk
 COPY ./target/sms-builder-web.jar .
-#COPY smsbuilderweb.sh /docker-entrypoint-initdb.d/
-COPY smsbuilderweb.sh .
-EXPOSE 8080
-EXPOSE 3306
-RUN /usr/local/bin/docker-entrypoint.sh
-
-#RUN mysqld &
-#USER mysql
 CMD ["sh","smsbuilderweb.sh"]
-#FROM payara/server-full
-#COPY ./target/sms-builder-web.war ${DEPLOY_DIR}
-#VOLUME ./target /opt/payara/deployments
-# comentario
