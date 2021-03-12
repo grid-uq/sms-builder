@@ -20,23 +20,39 @@
 
 				<p:column headerText="#{msg.etiquetaNombre}" style="width:75%" sortBy="#{referencia.spsid}" filterBy="#{referencia.spsid} #{referencia.nombre}"
 					filterMatchMode="contains">
-					<h:outputText value="#{referencia.spsid}"
-						style="font-weight:bold; color:blue" />
+					<p:panelGrid styleClass="ui-panelgrid-blank">
+						<p:row>
+							<p:column style="width: 80px">
+								<h:outputText value="#{referencia.spsid}"
+											  style="font-weight:bold; color:blue"/>
+							</p:column>
+							<p:column style="width: 98%">|&nbsp;
+								<h:outputText value="#{referencia.nombre}"
+											  style="font-weight:bold; color:blue"/>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
 					<hr />
-					<h:outputText value="#{referencia.nombre}"
-						style="font-weight:bold; color:blue" />
-					<hr />
-					<p:column>
-
-						<p:rating value="#{referencia.relevancia}">
-							<p:ajax event="rate"
-								listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}" />
-							<p:ajax event="cancel"
-								listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}" />
-						</p:rating>
-
-
-					</p:column>
+					<p:panelGrid styleClass="ui-panelgrid-blank" >
+						<p:row>
+							<p:column style="width: 200px">
+								<p:rating value="#{referencia.relevancia}">
+									<p:ajax event="rate"
+											listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}" />
+									<p:ajax event="cancel"
+											listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}" />
+								</p:rating>
+							</p:column>
+							<p:column style="width: 180px">
+								|&nbsp;<h:outputLabel value="#{msg.etiquetaKeywords}:"
+											   style="font-weight:bold; color:blue" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{referencia.keywords}"
+											  style="font-weight:bold; color:blue" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
 
 					<hr />
 					<h:outputLabel value="#{msg.etiquetaAbstract}"

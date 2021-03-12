@@ -1,123 +1,139 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
-	<ui:define name="content">
-		<h:form id="tabla" enctype="multipart/form-data" prependId="false">
-			<p:growl id="mensajes" showDetail="true" />
+    <ui:define name="content">
+        <h:form id="tabla" enctype="multipart/form-data" prependId="false">
+            <p:growl id="mensajes" showDetail="true"/>
 
 
-			<p:dataTable id="revisionRadio"
-				value="#{analizarReferenciasBean.referencias}" var="referencia"
-				paginator="true" rows="1" rowsPerPageTemplate="1,5,10,20,100,200"
-				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}">
+            <p:dataTable id="revisionRadio"
+                         value="#{analizarReferenciasBean.referencias}" var="referencia"
+                         paginator="true" rows="1" rowsPerPageTemplate="1,5,10,20,100,200"
+                         rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}">
 
-				<p:column headerText="#{msg.etiquetaNombre}" style="width:75%"
-					sortBy="#{referencia.spsid}"
-					filterBy="#{referencia.spsid} #{referencia.nombre}"
-					filterMatchMode="contains">
-					<h:outputText value="#{referencia.spsid}"
-						style="font-weight:bold; color:blue" />
-					<hr />
-					<h:outputText value="#{referencia.nombre}"
-						style="font-weight:bold; color:blue" />
-					<hr />
+                <p:column headerText="#{msg.etiquetaNombre}" style="width:75%"
+                          sortBy="#{referencia.spsid}"
+                          filterBy="#{referencia.spsid} #{referencia.nombre}"
+                          filterMatchMode="contains">
+                    <p:panelGrid styleClass="ui-panelgrid-blank">
+                        <p:row>
+                            <p:column style="width: 80px">
+                                <h:outputText value="#{referencia.spsid}"
+                                              style="font-weight:bold; color:blue"/>
+                            </p:column>
+                            <p:column style="width: 98%">|&nbsp;
+                                <h:outputText value="#{referencia.nombre}"
+                                              style="font-weight:bold; color:blue"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <hr/>
 
-					<p:rating value="#{referencia.relevancia}">
-						<p:ajax event="rate"
-							listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}" />
-						<p:ajax event="cancel"
-							listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}" />
-					</p:rating>
 
+                    <p:panelGrid styleClass="ui-panelgrid-blank">
+                        <p:row>
+                            <p:column style="width: 200px">
+                                <p:rating value="#{referencia.relevancia}">
+                                    <p:ajax event="rate"
+                                            listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}"/>
+                                    <p:ajax event="cancel"
+                                            listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}"/>
+                                </p:rating>
+                            </p:column>
+                            <p:column style="width: 180px">
+								|&nbsp;<h:outputLabel value="#{msg.etiquetaKeywords}:"
+                                               style="font-weight:bold; color:blue"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{referencia.keywords}"
+                                              style="font-weight:bold; color:blue"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
 
-
-					<hr />
-					<h:outputLabel value="#{msg.etiquetaAbstract}"
-						style="font-weight:bold; color:blue" />
-					<hr />
-					<!--  
-					<h:outputText value="#{referencia.resumen}" />
+                    <hr/>
+                    <h:outputLabel value="#{msg.etiquetaAbstract}"
+                                   style="font-weight:bold; color:blue"/>
+                    <hr/>
+                    <!--
+                    <h:outputText value="#{referencia.resumen}" />
 -->
-					<p:inputTextarea value="#{referencia.resumen}" rows="8" 
-						style="width: 99%;" autoResize="false">
-						<p:ajax event="blur"
-							listener="#{analizarReferenciasBean.actualizarResumen(referencia)}" />
-					</p:inputTextarea>
+                    <p:inputTextarea value="#{referencia.resumen}" rows="8"
+                                     style="width: 99%;" autoResize="false">
+                        <p:ajax event="blur"
+                                listener="#{analizarReferenciasBean.actualizarResumen(referencia)}"/>
+                    </p:inputTextarea>
 
-					<hr />
+                    <hr/>
 
-					<h:outputLabel value="#{msg.etiquetaNota}"
-						style="font-weight:bold; color:blue" />
-
-
-					<hr />
-					<p:inputTextarea value="#{referencia.nota}"
-						style="width: 99%;" rows="8" autoResize="false">
-						<p:ajax event="blur"
-							listener="#{analizarReferenciasBean.actualizarNota(referencia)}" />
-					</p:inputTextarea>
-				</p:column>
+                    <h:outputLabel value="#{msg.etiquetaNota}"
+                                   style="font-weight:bold; color:blue"/>
 
 
-				<!--  
-				<p:column headerText="#{msg.etiquetaAutores}">
-					<h:outputText value="#{referencia.autores}" />
-				</p:column>
-				<p:column headerText="#{msg.etiquetaKeywords}">
-					<h:outputText value="#{referencia.keywords}" />
-				</p:column>
-
-				<p:column headerText="#{msg.etiquetaAbstract}" style="width:30%">
-					<h:outputText value="#{referencia.resumen}" />
-				</p:column>
-
-				-->
-
-				<p:column headerText="#{msg.etiquetaTopicos}">
-
-					<p:dataList value="#{analizarReferenciasBean.topicos}" var="topico"
-						type="none">
-						<p:panelGrid columns="2"
-							style="padding-left:0px; padding:0; border:1">
-							<p:column>
-								<h:outputText
-									value="#{topico.pregunta.codigo} - #{topico.descripcion}" />
-							</p:column>
-
-							<p:column>
-								<p:commandButton
-									styleClass="#{referencia.topicos.contains(topico) ? 'ui-state-highlight': 'colorOrange'}"
-									action="#{analizarReferenciasBean.incluirExcluirTopico(referencia,topico)}"
-									icon="#{referencia.topicos.contains(topico) ? 'ui-icon ui-icon-minus' : 'ui-icon ui-icon-plus'}"
-									update=":tabla" process="@this" />
-							</p:column>
-
-						</p:panelGrid>
-
-					</p:dataList>
+                    <hr/>
+                    <p:inputTextarea value="#{referencia.nota}"
+                                     style="width: 99%;" rows="8" autoResize="false">
+                        <p:ajax event="blur"
+                                listener="#{analizarReferenciasBean.actualizarNota(referencia)}"/>
+                    </p:inputTextarea>
+                </p:column>
 
 
+                <!--
+                <p:column headerText="#{msg.etiquetaAutores}">
+                    <h:outputText value="#{referencia.autores}" />
+                </p:column>
+                <p:column headerText="#{msg.etiquetaKeywords}">
+                    <h:outputText value="#{referencia.keywords}" />
+                </p:column>
+
+                <p:column headerText="#{msg.etiquetaAbstract}" style="width:30%">
+                    <h:outputText value="#{referencia.resumen}" />
+                </p:column>
+
+                -->
+
+                <p:column headerText="#{msg.etiquetaTopicos}">
+
+                    <p:dataList value="#{analizarReferenciasBean.topicos}" var="topico"
+                                type="none">
+                        <p:panelGrid columns="2"
+                                     style="padding-left:0px; padding:0; border:1">
+                            <p:column>
+                                <h:outputText
+                                        value="#{topico.pregunta.codigo} - #{topico.descripcion}"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:commandButton
+                                        styleClass="#{referencia.topicos.contains(topico) ? 'ui-state-highlight': 'colorOrange'}"
+                                        action="#{analizarReferenciasBean.incluirExcluirTopico(referencia,topico)}"
+                                        icon="#{referencia.topicos.contains(topico) ? 'ui-icon ui-icon-minus' : 'ui-icon ui-icon-plus'}"
+                                        update=":tabla" process="@this"/>
+                            </p:column>
+
+                        </p:panelGrid>
+
+                    </p:dataList>
 
 
-				</p:column>
-				<f:facet name="footer">
-					<p:commandButton update="mensajes" icon="pi pi-search"
-						value="#{msg.botonGuardar}"
-						action="#{analizarReferenciasBean.guardar}" />
-				</f:facet>
-			</p:dataTable>
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton update="mensajes" icon="pi pi-search"
+                                     value="#{msg.botonGuardar}"
+                                     action="#{analizarReferenciasBean.guardar}"/>
+                </f:facet>
+            </p:dataTable>
 
 
-
-
-		</h:form>
-	</ui:define>
+        </h:form>
+    </ui:define>
 </ui:composition>
 </html>

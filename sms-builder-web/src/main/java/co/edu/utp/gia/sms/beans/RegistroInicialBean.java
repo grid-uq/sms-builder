@@ -101,5 +101,8 @@ public class RegistroInicialBean extends AbstractBean {
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
+    public String getTitutlo(){
+        return revision == null ? "" : revision.getNombre();
+    }
 
 }

@@ -1,13 +1,16 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.seguridad.SeguridadBean;
+import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Usuario;
+import co.edu.utp.gia.sms.negocio.RevisionEJB;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-
+import java.util.List;
 
 
 /**
@@ -35,5 +38,22 @@ public class SeguridadBeanImpl extends SeguridadBean {
 	@Getter
 	@Setter
 	private Usuario usuario = null;
+	@Inject
+	private RevisionEJB revisionEJB;
 
+
+	/**
+	 * Realiza la verificación de los datos de autenticación proporcioandos por
+	 * el {@link Usuario}
+	 */
+	@Override
+	public void ingresar() {
+		super.ingresar();
+		if(isAutenticado()){
+			List<Revision> revisiones = revisionEJB.obtenerTodas(getUsuario().getId());
+			if( revisiones.size() > 0 ){
+				addToSession("revision", revisiones.get(0));
+			}
+		}
+	}
 }

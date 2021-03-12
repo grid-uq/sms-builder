@@ -50,7 +50,7 @@
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10">
 
-				<p:ajax event="rowSelectRadio" update=":tabla,:menu" listener="#{registroInicialBean.onRowSelect}"/>
+				<p:ajax event="rowSelectRadio" update=":tabla :menu :tituloApp" listener="#{registroInicialBean.onRowSelect}"/>
 
 				<p:ajax event="rowEdit" listener="#{registroInicialBean.onRowEdit}"
 					update=":msgs" />

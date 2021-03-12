@@ -85,15 +85,15 @@
 					</h:commandLink>
 
 				</f:facet>
-				<p:column headerText="#{msg.etiquetaPregunta}">
+				<p:column headerText="#{msg.etiquetaPregunta}" width="10%">
 					<h:outputText value="#{topico.pregunta.codigo}" />
 				</p:column>
 
-				<p:column headerText="#{msg.etiquetaTopicos}">
+				<p:column headerText="#{msg.etiquetaTopicos}" width="15%">
 					<h:outputText value="#{topico.descripcion}" />
 				</p:column>
 				
-				<p:column headerText="#{msg.etiquetaSPSId}">
+				<p:column headerText="#{msg.etiquetaSPSId}" width="75%">
 					<ui:repeat value="#{tablaReferenciasTopicosBean.referencias}" var="referencia">
 						<h:outputText
 						value="#{referencia.topicos.contains(topico) ? referencia.spsid : '' } " />
