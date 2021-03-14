@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.query.ReferenciaQuery;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -41,7 +42,7 @@ public class NotaEJB extends AbstractEJB<Nota, Integer> {
     }
 
     public Nota obtener(Integer id, int filtro) {
-        List<Nota> lista = entityManager.createNamedQuery(Queries.REFERENCIA_NOTA_ETAPA_GET_ALL, Nota.class).setParameter("id", id)
+        List<Nota> lista = entityManager.createNamedQuery(ReferenciaQuery.REFERENCIA_NOTA_ETAPA_GET_ALL, Nota.class).setParameter("id", id)
                 .setParameter("filtro", filtro).getResultList();
         if (!lista.isEmpty()) {
             return lista.get(0);

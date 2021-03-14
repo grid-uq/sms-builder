@@ -5,6 +5,7 @@ import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.query.ReferenciaQuery;
 import lombok.extern.java.Log;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 
@@ -68,7 +69,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
      */
     public List<ReferenciaDTO> obtenerTodas(int idRevision, int filtro) {
         List<ReferenciaDTO> referencias = entityManager
-                .createNamedQuery(Queries.REFERENCIA_GET_ALL, ReferenciaDTO.class)
+                .createNamedQuery(ReferenciaQuery.REFERENCIA_GET_ALL, ReferenciaDTO.class)
                 .setParameter("idRevision", idRevision).setParameter("filtro", filtro).getResultList();
 
         return poblarReferenciaDTOS(referencias);
@@ -319,13 +320,13 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     }
 
     private long calcularTotalPreguntasRelacionadas(Integer id) {
-        return entityManager.createNamedQuery(Queries.REFERENCIA_CANTIDAD_RELACION_PREGUNTAS, Long.class)
+        return entityManager.createNamedQuery(ReferenciaQuery.REFERENCIA_CANTIDAD_RELACION_PREGUNTAS, Long.class)
                 .setParameter("id", id).getSingleResult();
 
     }
 
     private List<Float> obtenerSCIs(Integer idRevision) {
-        return entityManager.createNamedQuery(Queries.REFERENCIA_SCIS, Float.class)
+        return entityManager.createNamedQuery(ReferenciaQuery.REFERENCIA_SCIS, Float.class)
                 .setParameter("idRevision", idRevision).getResultList();
     }
 
@@ -340,7 +341,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
                                                                            Integer idAtributoCalidad, EvaluacionCualitativa valorEvaluacion, int filtro) {
 
         List<ReferenciaDTO> referencias = entityManager
-                .createNamedQuery(Queries.REFERENCIA_GET_EVALUACION_ATRIBUTO_CALIDAD, ReferenciaDTO.class)
+                .createNamedQuery(ReferenciaQuery.REFERENCIA_GET_EVALUACION_ATRIBUTO_CALIDAD, ReferenciaDTO.class)
                 .setParameter("idRevision", idRevision).setParameter("filtro", filtro)
                 .setParameter("idAtributoCalidad", idAtributoCalidad).setParameter("valorEvaluacion", valorEvaluacion)
                 .getResultList();
@@ -352,7 +353,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
                                                                            Integer idAtributoCalidad, int filtro) {
 
         List<ReferenciaDTO> referencias = entityManager
-                .createNamedQuery(Queries.REFERENCIA_GET_ATRIBUTO_CALIDAD, ReferenciaDTO.class)
+                .createNamedQuery(ReferenciaQuery.REFERENCIA_GET_ATRIBUTO_CALIDAD, ReferenciaDTO.class)
                 .setParameter("idRevision", idRevision).setParameter("filtro", filtro)
                 .setParameter("idAtributoCalidad", idAtributoCalidad).getResultList();
 
@@ -373,7 +374,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 
     public List<ReferenciaDTO> obtenerDestacadas(Integer idRevision) {
         List<ReferenciaDTO> referencias = entityManager
-                .createNamedQuery(Queries.REFERENCIA_GET_ALL_DESTACADAS, ReferenciaDTO.class)
+                .createNamedQuery(ReferenciaQuery.REFERENCIA_GET_ALL_DESTACADAS, ReferenciaDTO.class)
                 .setParameter("idRevision", idRevision).getResultList();
 
         return poblarReferenciaDTOS(referencias);

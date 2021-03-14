@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.query.ReferenciaQuery;
 
 import javax.ejb.Stateless;
 import java.util.List;
@@ -28,7 +29,7 @@ public class MetadatoEJB extends AbstractEJB<Metadato, Integer> {
     }
 
     public List<Metadato> obtenerMetadatos(Integer idReferencia) {
-        return entityManager.createNamedQuery(Queries.REFERENCIA_METADATO_GET_ALL, Metadato.class)
+        return entityManager.createNamedQuery(ReferenciaQuery.REFERENCIA_METADATO_GET_ALL, Metadato.class)
                 .setParameter("id", idReferencia).getResultList();
     }
 

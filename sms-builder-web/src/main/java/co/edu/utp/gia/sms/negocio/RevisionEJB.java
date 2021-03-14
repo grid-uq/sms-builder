@@ -5,6 +5,7 @@ import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.query.RevisionQuery;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -49,7 +50,7 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
      */
     @Override
     public List<Revision> listar() {
-        return entityManager.createNamedQuery(Queries.REVISION_GET_ALL, Revision.class).getResultList();
+        return entityManager.createNamedQuery(RevisionQuery.REVISION_GET_ALL, Revision.class).getResultList();
     }
 
     /**
@@ -58,7 +59,7 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
      * @return Listado de las {@link Revision} registradas
      */
     public List<Revision> obtenerTodas(Integer idUsuario) {
-        return entityManager.createNamedQuery(Queries.REVISION_GET_ALL_RELATED, Revision.class)
+        return entityManager.createNamedQuery(RevisionQuery.REVISION_GET_ALL_RELATED, Revision.class)
                 .setParameter("id", idUsuario)
                 .getResultList();
     }
@@ -90,9 +91,43 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
                 .getResultList();
     }
 
+    /**
+     * Permite eliminar una Revision
+     * @param id Ide de la revisión que se desea eliminar
+     */
     @Override
     public void eliminar(Integer id) {
         atributoCalidadEJB.eliminarAtributosCalidad(id);
         super.eliminar(id);
+    }
+
+    /**
+     * Permite obterner el total de referencias de una revision
+     * @param id Id de la revision
+     * @return El número de referencias de la revision
+     */
+    public long totalReferencias(Integer id){
+        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS,Long.class)
+                .setParameter("id",id).getSingleResult();
+    }
+
+    /**
+     * Permite obterner el total de referencias repetidas de una revision
+     * @param id Id de la revision
+     * @return El número de referencias repetidas de la revision
+     */
+    public long totalReferenciasRepetidas(Integer id){
+        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS_REPETIDAS,Long.class)
+                .setParameter("id",id).getSingleResult();
+    }
+
+    /**
+     * Permite obterner el total de referencias seleccionafas de una revision
+     * @param id Id de la revision
+     * @return El número de referencias repetidas de la revision
+     */
+    public long totalReferenciasSeleccionadas(Integer id) {
+        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS_SELECCIONADAS,Long.class)
+                .setParameter("id",id).getSingleResult();
     }
 }
