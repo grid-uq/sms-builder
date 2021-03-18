@@ -10,7 +10,7 @@ import java.util.List;
 
 @Stateless
 public class AtributoCalidadEJB extends AbstractEJB<AtributoCalidad, Integer> {
-    public static final String RRQI = "RRQI";
+    public static final String IRRQ = "IRRQ";
     public static final String CVI = "CVI";
     public static final String SCI = "SCI";
 
@@ -104,7 +104,7 @@ public class AtributoCalidadEJB extends AbstractEJB<AtributoCalidad, Integer> {
     public void crearAtributosCalidadPorDefecto(Revision revision) {
         registrar(SCI, revision);
         registrar(CVI, revision);
-        registrar(RRQI, revision);
+        registrar(IRRQ, revision);
     }
 
     /**

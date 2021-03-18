@@ -93,7 +93,7 @@
 					<h:outputText value="#{topico.descripcion}" />
 				</p:column>
 				
-				<p:column headerText="#{msg.etiquetaSPSId}" width="75%">
+				<p:column headerText="#{msg.etiquetaSPSId} (#{msg.etiquetaReferencia})" width="75%">
 					<ui:repeat value="#{tablaReferenciasTopicosBean.referencias}" var="referencia">
 						<h:outputText
 						value="#{referencia.topicos.contains(topico) ? referencia.spsid : '' } " />

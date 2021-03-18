@@ -11,19 +11,8 @@
 	<ui:define name="content">
 
 		<h:form id="grafica">
-			<p:panelGrid columns="2">
-				<p:outputLabel for="tipoGrafico" value="#{msg.etiquetaTipoGrafico}" />
-				<p:selectOneMenu id="tipoGrafico"
-					value="#{referenciasCalidadYearBean.tipoGrafica}">
-					<f:selectItems value="#{referenciasCalidadYearBean.tiposGrafica}" />
-					<p:ajax update="grafica"
-						listener="#{referenciasCalidadYearBean.onChangeTipoGrafica}" />
-				</p:selectOneMenu>
-			</p:panelGrid>
-			<p:pieChart id="graficaPie" rendered="#{referenciasCalidadYearBean.tipoGrafica.equals('pie')}"
-						model="#{referenciasCalidadYearBean.pieModel}" style="height:300px" widgetVar="chart" />
 
-			<p:barChart id="graficaBar" rendered="#{referenciasCalidadYearBean.tipoGrafica.equals('bar')}"
+			<p:barChart id="graficaBar"
 						model="#{referenciasCalidadYearBean.barModel}" style="height:300px" widgetVar="chart" />
 			<p:commandButton type="button" value="#{msg.botonExportar}"
 							 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"
@@ -34,42 +23,42 @@
 
 		<br />
 		<h:form>
-			<p:dataTable id="tablaDatos"
-				value="#{referenciasCalidadYearBean.datos}" var="dato">
+			<p:dataTable id="tablaDatos" value="#{referenciasCalidadYearBean.years}"
+						 var="year">
 				<f:facet name="header">
 					<h:outputText value="#{referenciasCalidadYearBean.titulo}" />
 				</f:facet>
 				<p:column headerText="#{referenciasCalidadYearBean.ejeX}">
-					<h:outputText value="#{dato.etiqueta}" />
+					<h:outputText value="#{year}" />
 				</p:column>
-				<p:column headerText="#{referenciasCalidadYearBean.ejeY}">
-					<h:outputText value="#{dato.valor}" />
-				</p:column>
+				<p:columns value="#{referenciasCalidadYearBean.series}" var="serie" headerText="#{serie.etiqueta}" >
+					<h:outputText value="#{serie.get(year)}" />
+				</p:columns>
 
 				<f:facet name="footer">
 
 					<h:commandLink>
 						<p:graphicImage name="/imagenes/excel.png" width="24" />
 						<p:dataExporter type="xls" target="tablaDatos"
-							fileName="tablaDatos_#{referenciasCalidadYearBean.titulo}" />
+										fileName="tablaDatos_#{referenciasCalidadYearBean.titulo}" />
 					</h:commandLink>
 
 					<h:commandLink>
 						<p:graphicImage name="/imagenes/pdf.png" width="24" />
 						<p:dataExporter type="pdf" target="tablaDatos"
-							fileName="tablaDatos_#{referenciasCalidadYearBean.titulo}" />
+										fileName="tablaDatos_#{referenciasCalidadYearBean.titulo}" />
 					</h:commandLink>
 
 					<h:commandLink>
 						<p:graphicImage name="/imagenes/csv.png" width="24" />
 						<p:dataExporter type="csv" target="tablaDatos"
-							fileName="tablaDatos_#{referenciasCalidadYearBean.titulo}" />
+										fileName="tablaDatos_#{referenciasCalidadYearBean.titulo}" />
 					</h:commandLink>
 
 					<h:commandLink>
 						<p:graphicImage name="/imagenes/xml.png" width="24" />
 						<p:dataExporter type="xml" target="tablaDatos"
-							fileName="tablaDatos_#{referenciasCalidadYearBean.titulo}" />
+										fileName="tablaDatos_#{referenciasCalidadYearBean.titulo}" />
 					</h:commandLink>
 
 				</f:facet>

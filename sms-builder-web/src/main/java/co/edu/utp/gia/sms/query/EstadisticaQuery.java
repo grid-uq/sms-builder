@@ -9,6 +9,7 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name = EstadisticaQuery.ESTADISTICA_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, COUNT(1) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year")
 @NamedQuery(name = EstadisticaQuery.ESTADISTICA_TIPO, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.tipo, COUNT(1) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.tipo ORDER BY r.tipo")
 @NamedQuery(name = EstadisticaQuery.ESTADISTICA_CALIDAD_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, AVG(r.totalEvaluacionCalidad) ) from Referencia r where r.revision.id = :idRevision and r.filtro = 3 GROUP BY r.year ORDER BY r.year")
+@NamedQuery(name = EstadisticaQuery.ESTADISTICA_ATRIBUTO_CALIDAD_CALIDAD_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( e.referencia.year, AVG(e.evaluacionCuantitativa) ) from EvaluacionCalidad e where e.referencia.revision.id = :idRevision and e.referencia.filtro >= 3 and e.atributoCalidad.id = :idAtributoCalidad GROUP BY e.referencia.year ORDER BY e.referencia.year")
 @NamedQuery(name = EstadisticaQuery.ESTADISTICA_ATRIBUTO_CALIDAD_YEAR, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, COUNT(1) ) from Referencia r inner join r.evaluacionCalidad e where r.revision.id = :idRevision and r.filtro >= 3 and e.atributoCalidad.id = :idAtributoCalidad and e.evaluacionCualitativa = co.edu.utp.gia.sms.entidades.EvaluacionCualitativa.CUMPLE GROUP BY r.year ORDER BY r.year")
 @NamedQuery(name = EstadisticaQuery.ESTADISTICA_REFERENCIA_TOPICO, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( CONCAT( t.pregunta.codigo,'-', t.descripcion ), COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.id ORDER BY t.pregunta.id, t.descripcion")
 @NamedQuery(name = EstadisticaQuery.ESTADISTICA_REFERENCIA_TOPICO_ATRIBUTO_CALIDAD, query = "select new co.edu.utp.gia.sms.dtos.DatoDTO( CONCAT( t.pregunta.codigo,'-', t.descripcion ), COUNT(1) ) from Referencia r LEFT JOIN r.topicos t inner join r.evaluacionCalidad e where r.revision.id = :idRevision and r.filtro >= 3 and e.atributoCalidad.id = :idAtributoCalidad and e.evaluacionCualitativa = co.edu.utp.gia.sms.entidades.EvaluacionCualitativa.CUMPLE GROUP BY t.id ORDER BY t.pregunta.id,t.descripcion")
@@ -41,6 +42,13 @@ public class EstadisticaQuery extends Queries{
      */
     public static final String ESTADISTICA_CALIDAD_YEAR = "Referencia.calidadYear";
     /**
+     * Consulta el promedio de la evaluación cualitativa de un atributo de calidad por año <br />
+     * @param idRevision Id de la revision
+     * @param idAtributoCalidad Id del atributo de calidad evaluado
+     *                          <br />
+     * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( e.referencia.year, AVG(e.evaluacionCuantitativa) ) from EvaluacionCalidad e where e.referencia.revision.id = :idRevision and e.referencia.filtro >= 3 and e.atributoCalidad.id = :idAtributoCalidad GROUP BY e.referencia.year ORDER BY e.referencia.year </code>
+     */
+    public static final String ESTADISTICA_ATRIBUTO_CALIDAD_CALIDAD_YEAR = "Referencia.atributoCalidadCalidadYear"; /**
      * Consulta que permite obtener las referencias por tipo <br />
      * <code>select new co.edu.utp.gia.sms.dtos.DatoDTO( t.descripcion, COUNT(1) ) from Referencia r LEFT JOIN r.topicos t  where r.revision.id = :idRevision and r.filtro = 3 GROUP BY t.id ORDER BY t.descripcion </code>
      */

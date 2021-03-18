@@ -50,11 +50,11 @@ public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTO
     public void onChangePregunta() {
         getDatosSeries().clear();
         if (codigo != null) {
-            addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo),"SPSs");
+            addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo),"All");
         } else {
-            addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId()),"SPSs");
+            addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId()),"All");
         }
-        inicializarTopicos(getDatosSeries().get("SPSs").getDatos());
+        inicializarTopicos(getDatosSeries().get("All").getDatos());
 
         List<AtributoCalidad> atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
         for (AtributoCalidad atributoCalidad : atributosCalidad) {

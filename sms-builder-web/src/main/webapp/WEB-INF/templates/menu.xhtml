@@ -19,6 +19,8 @@
 				action="/revision/seleccionarRevision.xhtml" rendered="#{seguridadBean.verifivarAcceso('/revision/seleccionarRevision.xhtml')}" />
 			<p:menuitem value="#{msg.etiquetaMenuRevisionRevisores}"
 						action="/revision/revisores/index" rendered="#{registroInicialBean.revision != null and seguridadBean.verifivarAcceso('/revision/revisores/index.xhtml')}" />
+			<p:menuitem value="#{msg.etiquetaMenuResumen}"
+						action="/index" rendered="#{registroInicialBean.revision != null and seguridadBean.verifivarAcceso('/index.xhtml')}" />
 		</p:submenu>
 
 		<p:menuitem value="#{msg.etiquetaMenuObjetivo}"
@@ -159,9 +161,7 @@
 							rendered="#{seguridadBean.verifivarAcceso('/seguridad/usuario/index.xhtml')}" />
 			</p:submenu>
 		</p:submenu>
-		<p:menuitem value="#{msg['menu.salir']}" immediate="true"
-					actionListener="#{seguridadBean.cerrarSesion}" icon="pi pi-fw pi-power-off"
-					ajax="false" rendered="#{seguridadBean.autenticado}" />
+
 
 		<f:facet name="options">
 			<p:commandButton value="#{msg['menu.salir']}" action="#{seguridadBean.cerrarSesion}" ajax="false" immediate="true" icon="pi pi-fw pi-sign-out" styleClass="rounded-button ui-button-info" rendered="#{seguridadBean.autenticado}" />

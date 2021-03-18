@@ -40,6 +40,12 @@ public class EstadisticaEJB {
 				.setParameter("idRevision", revisionId).getResultList();
 	}
 
+	public List<DatoDTO> obtenerReferenciasCalidadYear(Integer revisionId, Integer idAtributoCalidad) {
+		return entityManager.createNamedQuery(EstadisticaQuery.ESTADISTICA_ATRIBUTO_CALIDAD_CALIDAD_YEAR, DatoDTO.class)
+				.setParameter("idRevision", revisionId).setParameter("idAtributoCalidad", idAtributoCalidad)
+				.getResultList();
+	}
+
 	public List<DatoDTO> obtenerReferenciasPregunta(Integer revisionId) {
 		return entityManager.createNamedQuery(EstadisticaQuery.ESTADISTICA_REFERENCIA_PREGUNTA, DatoDTO.class)
 				.setParameter("idRevision", revisionId).getResultList();

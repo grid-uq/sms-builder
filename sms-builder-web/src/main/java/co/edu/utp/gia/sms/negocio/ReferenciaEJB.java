@@ -298,7 +298,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     }
 
     private void evaluarSegunPreguntas(Referencia referencia) {
-        AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.RRQI,
+        AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.IRRQ,
                 referencia.getRevision().getId());
         EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
