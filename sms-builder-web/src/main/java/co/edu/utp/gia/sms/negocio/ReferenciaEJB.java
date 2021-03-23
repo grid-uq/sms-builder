@@ -306,7 +306,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
         int totalPreguntasRelacionadas = (int) calcularTotalPreguntasRelacionadas(referencia.getId());
         float porcentaje = totalPreguntasRelacionadas * 100.0f / totalPreguntas;
 
-        if (porcentaje >= 80) {
+        if (porcentaje >= 75) {
             evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
         } else if (porcentaje >= 50) {
             evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);

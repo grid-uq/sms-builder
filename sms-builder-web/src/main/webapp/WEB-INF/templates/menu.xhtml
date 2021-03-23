@@ -137,8 +137,6 @@
 
 		<p:submenu label="#{msg['menu.gestionar']}" icon="ui-icon-gear"
 				   rendered="#{seguridadBean.urlRecursos.contains('/seguridad/usuario/index.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/recurso/index.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/rol/index.xhtml')  or seguridadBean.urlRecursos.contains('/seguridad/usuario/actualizar.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/usuario/index.xhtml') }">
-			<p:submenu label="#{msg['menu.seguridad']}" icon="ui-icon-gear"
-					   rendered="#{seguridadBean.urlRecursos.contains('/seguridad/usuario/index.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/recurso/index.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/rol/index.xhtml')  or seguridadBean.urlRecursos.contains('/seguridad/usuario/actualizar.xhtml') or seguridadBean.urlRecursos.contains('/seguridad/usuario/index.xhtml') }">
 				<p:menuitem value="#{msg['menu.usuarios']}"
 							action="/usuario/index.xhtml" update=":panelContenido"
 							icon="ui-icon-person"
@@ -159,7 +157,6 @@
 							action="/seguridad/usuario/index.xhtml"
 							update=":panelContenido" icon="ui-icon-person"
 							rendered="#{seguridadBean.verifivarAcceso('/seguridad/usuario/index.xhtml')}" />
-			</p:submenu>
 		</p:submenu>
 
 
