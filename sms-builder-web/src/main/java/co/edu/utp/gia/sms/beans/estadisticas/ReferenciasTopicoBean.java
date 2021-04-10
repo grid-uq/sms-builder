@@ -21,7 +21,7 @@ public class ReferenciasTopicoBean extends EstaditicaDatoDTOBaseBean {
 
     public void inicializar() {
         setEjeX(getMessage(MessageConstants.TOPICOS));
-        setEjeY("# "+getMessage(MessageConstants.REFERENCIA));
+        setEjeY("# "+getMessage(MessageConstants.SPS));
         setTitulo(getEjeY() + " - " + getEjeX());
         if (getRevision() != null) {
             onChangePregunta();

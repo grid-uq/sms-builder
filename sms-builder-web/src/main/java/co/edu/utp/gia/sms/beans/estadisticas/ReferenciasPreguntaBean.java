@@ -17,7 +17,7 @@ public class ReferenciasPreguntaBean extends EstaditicaDatoDTOBaseBean {
 
 	public void inicializar() {
 		setEjeX(getMessage(MessageConstants.PREGUNTAS));
-		setEjeY("# "+getMessage(MessageConstants.REFERENCIA));
+		setEjeY("# "+getMessage(MessageConstants.SPS));
 		setTitulo(getEjeY() + " - " + getEjeX());
 		if (getRevision() != null) {
 			setDatos(getEstadisticaEJB().obtenerReferenciasPregunta(getRevision().getId()));

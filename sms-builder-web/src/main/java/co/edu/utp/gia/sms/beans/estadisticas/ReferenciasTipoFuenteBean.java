@@ -22,7 +22,7 @@ public class ReferenciasTipoFuenteBean extends EstaditicaDatoDTOBaseBean {
 
     public void inicializar() {
         setEjeX(getMessage(MessageConstants.FUENTE));
-        setEjeY("# "+getMessage(MessageConstants.REFERENCIA));
+        setEjeY("# "+getMessage(MessageConstants.SPS));
         setTitulo(getEjeY() + " - " + getEjeX());
 
         if (getRevision() != null) {

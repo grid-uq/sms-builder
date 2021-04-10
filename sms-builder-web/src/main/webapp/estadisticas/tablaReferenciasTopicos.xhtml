@@ -20,7 +20,7 @@
 					<f:selectItems value="#{registroAtributoCalidadBean.atributosCalidad}" var="atributo" itemLabel="#{atributo.descripcion}" itemValue="#{atributo.id}" />
 					<p:ajax listener="#{tablaReferenciasTopicosBean.consultarReferencias}" update="tabla"></p:ajax>
 				</p:selectOneMenu>
-				<p:outputLabel for="evaluacion" value="#{msg.etiquetaAtributoCalidad}" />
+				<p:outputLabel for="evaluacion" value="#{msg.etiquetaEvaluacion}" />
 				<p:selectOneMenu id="evaluacion" value="#{tablaReferenciasTopicosBean.evaluacion}">
 					<f:selectItem itemValue="null" itemLabel="" />
 					<f:selectItems value="#{tablaReferenciasTopicosBean.listaValores}" var="evaluacion" itemValue="#{evaluacion}" itemLabel="#{evaluacion}" />

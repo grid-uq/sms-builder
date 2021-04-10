@@ -16,7 +16,7 @@ public class ReferenciasTipoBean extends EstaditicaDatoDTOBaseBean {
 
 	public void inicializar() {
 		setEjeX(getMessage(MessageConstants.TIPO_REFERENCIA));
-		setEjeY("# "+getMessage(MessageConstants.REFERENCIA));
+		setEjeY("# "+getMessage(MessageConstants.SPS));
 		setTitulo(getEjeY() + " - " + getEjeX());
 		if (getRevision() != null) {
 			setDatos(getEstadisticaEJB().obtenerReferenciasTipo(getRevision().getId()));

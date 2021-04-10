@@ -4,6 +4,7 @@ import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.entidades.Usuario;
+import co.edu.utp.gia.sms.importutil.TipoFuente;
 import co.edu.utp.gia.sms.query.Queries;
 import co.edu.utp.gia.sms.query.RevisionQuery;
 
@@ -109,6 +110,29 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
     public long totalReferencias(Integer id){
         return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS,Long.class)
                 .setParameter("id",id).getSingleResult();
+    }
+
+    /**
+     * Permite obterner el total de referencias de una revision
+     * @param id Id de la revision
+     * @param tipoFuente Tipo de la fuente de la que se desea contar las referencias
+     * @return El número de referencias de la revision
+     */
+    public long totalReferencias(Integer id, TipoFuente tipoFuente){
+        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS_TIPO_FUENTE,Long.class)
+                .setParameter("id",id).setParameter("tipoFuente",tipoFuente).getSingleResult();
+    }
+
+    /**
+     * Permite obterner el total de referencias de una revision
+     * @param id Id de la revision
+     * @param tipoFuente Tipo de la fuente de la que se desea contar las referencias
+     * @param filtro filtro que indica la etapata en la que se quieren contar las referencias
+     * @return El número de referencias de la revision
+     */
+    public long totalReferencias(Integer id, TipoFuente tipoFuente,int filtro){
+        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS_TIPO_FUENTE_FILTRO,Long.class)
+                .setParameter("id",id).setParameter("tipoFuente",tipoFuente).setParameter("filtro",filtro).getSingleResult();
     }
 
     /**

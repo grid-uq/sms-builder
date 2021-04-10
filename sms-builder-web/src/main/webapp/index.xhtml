@@ -1,59 +1,81 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	  xmlns:h="http://xmlns.jcp.org/jsf/html"
-	  xmlns:f="http://xmlns.jcp.org/jsf/core"
-	  xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 
-	<ui:define name="content">
-	    <p:panel rendered="#{seguridadBean.autenticado}">
-			<f:facet name="header">
-				<h:outputText value="#{registroInicialBean.revision.nombre}" />
-			</f:facet>
-			<p:panelGrid style="width: 100%">
-			<p:row>
-				<p:column>
-					<h:outputText value="#{msg.etiquetaTotalReferencias}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{resumenBean.numeroReferencias}" />
-				</p:column>
-			</p:row>
-			<p:row>
-				<p:column>
-					<h:outputText value="#{msg.etiquetaTotalReferenciasRepetidas}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{resumenBean.numeroReferenciasRepetidas}" />
-				</p:column>
-			</p:row>
-			<p:row>
-				<p:column>
-					<h:outputText value="#{msg.etiquetaTotalReferenciasSelecciondas}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{resumenBean.numeroReferenciasSeleccionadas}" />
-				</p:column>
-			</p:row>
-
-
-			<p:repeat value="#{resumenBean.referenciasPorFuente}" var="dato">
+    <ui:define name="content">
+        <p:panel rendered="#{seguridadBean.autenticado}">
+            <f:facet name="header">
+                <h:outputText value="#{registroInicialBean.revision.nombre}"/>
+            </f:facet>
+            <p:panelGrid style="width: 100%">
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg.etiquetaTotalReferenciasBaseDatos}"/>
+                    </p:column>
+                    <p:column style="text-align: right">
+                        <h:outputText value="+ #{resumenBean.numeroReferenciasBaseDatos}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="#{msg.etiquetaTotalReferenciasRepetidas}"/>
+                    </p:column>
+                    <p:column style="text-align: right">
+                        <h:outputText value="- #{resumenBean.numeroReferenciasRepetidas}"/>
+                    </p:column>
+                </p:row>
 				<p:row>
 					<p:column>
-						<h:outputText value="#{dato.etiqueta}" />
+						<h:outputText value="#{msg.etiquetaTotalReferenciasDescartadas}"/>
 					</p:column>
-					<p:column>
-						<h:outputText value="#{dato.valor}" />
+					<p:column style="text-align: right">
+						<h:outputText value="- #{resumenBean.numeroReferenciasDescartadas}"/>
 					</p:column>
 				</p:row>
-			</p:repeat>
-			</p:panelGrid>
-		</p:panel>
+				<p:row>
+					<p:column>
+						<h:outputText value="#{msg.etiquetaBaseDatos}"/>
+					</p:column>
+					<p:column style="text-align: right">
+						<h:outputText value="#{resumenBean.numeroReferenciasSeleccionadasBaseDatos}"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<h:outputText value="#{msg.etiquetaBolaNieve}"/>
+					</p:column>
+					<p:column style="text-align: right">
+						<h:outputText value="+ #{resumenBean.numeroReferenciasSeleccionadasBolaNieve}"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<h:outputText value="#{msg.etiquetaInclusionDirecta}"/>
+					</p:column>
+					<p:column style="text-align: right">
+						<h:outputText value="+ #{resumenBean.numeroReferenciasSeleccionadasInclusionDirecta}"/>
+					</p:column>
+				</p:row>
 
-	</ui:define>
+
+				<p:row>
+					<p:column>
+						<h:outputText value="#{msg.etiquetaTotalReferenciasSelecciondas}"/>
+					</p:column>
+					<p:column style="text-align: right">
+						<h:outputText value="#{resumenBean.numeroReferenciasSeleccionadas}"/>
+					</p:column>
+				</p:row>
+            </p:panelGrid>
+        </p:panel>
+
+    </ui:define>
 
 </ui:composition>
 </html>

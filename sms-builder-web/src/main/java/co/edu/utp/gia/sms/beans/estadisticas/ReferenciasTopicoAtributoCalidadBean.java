@@ -6,8 +6,6 @@ import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.model.chart.ChartSeries;
-import org.primefaces.model.charts.bar.BarChartDataSet;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -37,7 +35,7 @@ public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTO
 
     public void inicializar() {
         setEjeX(getMessage(MessageConstants.TOPICOS));
-        setEjeY("# "+getMessage(MessageConstants.REFERENCIA));
+        setEjeY("# "+getMessage(MessageConstants.SPS));
         setTipoGrafica("bar");
         setTiposGrafica(new String[]{"bar"});
         setTitulo(getEjeY() + " - " + getEjeX());

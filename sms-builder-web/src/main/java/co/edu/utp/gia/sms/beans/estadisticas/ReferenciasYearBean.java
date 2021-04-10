@@ -47,7 +47,7 @@ public class ReferenciasYearBean extends EstaditicaSerieDatoDTOBaseBean {
 
     public void inicializar() {
         setEjeX(getMessage(MessageConstants.YEAR));
-        setEjeY("# "+getMessage(MessageConstants.REFERENCIA));
+        setEjeY("# "+getMessage(MessageConstants.SPS));
         setTitulo(getEjeY() + " - " + getEjeX());
         setTipoGrafica("bar");
         setTiposGrafica(new String[]{"bar"});

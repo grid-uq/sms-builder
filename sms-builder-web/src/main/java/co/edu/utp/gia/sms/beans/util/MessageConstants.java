@@ -8,7 +8,7 @@ public class MessageConstants {
     public static final String YEAR = "etiquetaYear";
     public static final String PROMEDIO_CALIDAD = "etiquetaPromedioCalidad";
     public static final String PREGUNTAS = "etiquetaPreguntas";
-    public static final String REFERENCIA = "etiquetaReferencia";
+    public static final String SPS = "etiquetaSPSs";
     public static final String FUENTE = "etiquetaFuente";
     public static final String TIPO_REFERENCIA = "etiquetaTipoReferencia";
     public static final String INFORMATION = "severityInfo";

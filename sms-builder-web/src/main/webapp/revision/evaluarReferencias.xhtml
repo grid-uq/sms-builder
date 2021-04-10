@@ -78,7 +78,7 @@
 							value="#{evaluacion.atributoCalidad.descripcion} - #{evaluacion.evaluacionCualitativa}" />
 					</p:dataList>
 
-					<p:commandButton value="#{msg.etiquetaMenuEvaluarReferencia}"
+					<p:commandButton value="#{msg.botonEvaluacionManual}"
 						action="#{evaluarReferenciasBean.evaluar(referencia)}"
 						process="@this" >
 						<p:ajax event="dialogReturn"
