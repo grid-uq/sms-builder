@@ -82,4 +82,12 @@ public class Revision implements Entidad<Integer> {
     @EqualsAndHashCode.Exclude
     private List<Usuario> revisores;
 
+    /**
+     * Lista de los pasos para la ejecución del proceso de SMS
+     */
+    @OneToMany(mappedBy = "revision")
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private List<PasoProceso> pasoProcesos;
 }

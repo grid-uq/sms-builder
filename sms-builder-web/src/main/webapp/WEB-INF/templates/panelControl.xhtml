@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="menu">
+
+        <p:menu>
+			<p:submenu label="Stage 1 Planing" >
+				<p:menuitem value="Step 1" />
+				<p:menuitem value="Step 2" />
+			</p:submenu>
+        </p:menu>
+        <p:menu model="#{procesoBean.model}">
+        </p:menu>
+
+    </h:form>
+</ui:composition>
