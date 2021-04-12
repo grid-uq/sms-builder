@@ -33,8 +33,8 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
 
     public void inicializar() {
         if (getRevision() != null) {
-            //referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 0);
-            referencias = referenciaEJB.obtenerTodas(paso);
+            referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 0);
+            //referencias = referenciaEJB.obtenerTodas(paso);
         }
     }
 

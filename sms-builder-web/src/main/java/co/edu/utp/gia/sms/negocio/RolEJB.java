@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.negocio;
 
+import co.edu.utp.gia.sms.entidades.Recurso;
 import co.edu.utp.gia.sms.entidades.Rol;
 
 import javax.ejb.LocalBean;
@@ -38,4 +39,13 @@ public class RolEJB extends AbstractEJB<Rol, Integer> {
         return entityManager.createNamedQuery(Rol.GET_ALL, Rol.class).getResultList();
     }
 
+    /**
+     * Permite adicionar un recurso a un rol
+     * @param id Id del recurso al que se desea adicionar un recurso
+     * @param recurso Recurso a ser adicionado
+     */
+    public void addRecurso(Integer id,Recurso recurso){
+        Rol rol = obtenerOrThrow(id);
+        rol.getRecursos().add(recurso);
+    }
 }

@@ -14,9 +14,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Named
 @ViewScoped
@@ -46,12 +44,13 @@ public class ProcesoBean extends AbstractRevisionBean {
     private void configurarMenu() {
         model = new DefaultMenuModel();
         configurarStage1(model);
-        configurarStage2(model);
+        configurarStage2Static(model);
         configurarStage3(model);
         configurarStage4(model);
         configurarStage5(model);
         configurarStage6(model);
-        configurarGestionas(model);
+        configurarAyuda(model);
+//        configurarGestionas(model);
 //        DefaultMenuItem item = DefaultMenuItem.builder()
 //                .value("Step 1")
 //                .icon("pi pi-save")
@@ -70,28 +69,45 @@ public class ProcesoBean extends AbstractRevisionBean {
                 .build();
         pasosProceso.forEach(paso -> {
             final String url = paso.getPaso().getRecurso().getUrl();
-            DefaultMenuItem menuItem= addItem(stage, paso.getPaso().getNombre(), url);
+            DefaultMenuItem menuItem = addItem(stage, paso.getPaso().getNombre(), url);
 //            DefaultMenuItem menuItem= addItem(stage, paso.getPaso().getNombre(), url+"?paso="+paso.getId(),
 //                    getRevision() != null&&seguridadBean.verifivarAcceso(url));
-            menuItem.setParam("paso",paso.getId());
+            menuItem.setParam("paso", paso.getId());
 
         });
+        stage.setExpanded(false);
+        model.getElements().add(stage);
+    }
+
+    private void configurarStage2Static(MenuModel model) {
+        String[] labels = {"etiquetaMenuReferenciasImportar", "etiquetaMenuReferenciasDuplicadas",
+                "etiquetaMenuReferenciasSeleccionar", "etiquetaMenuReferenciasSeleccionadas"};
+        String[] urls = {"/revision/registroReferencias.xhtml", "/revision/gestionarReferenciasRepetidas.xhtml",
+                "/revision/aplicarCriterios.xhtml", "/revision/resumenReferenciasSeleccionadas.xhtml"};
+        DefaultSubMenu stage = DefaultSubMenu.builder()
+                .label("Stage 2 Planing")
+                .build();
+        for (int i = 0; i < urls.length; i++) {
+            addItem(stage, getMessage(labels[i]), urls[i]);
+        }
+        stage.setExpanded(false);
         model.getElements().add(stage);
     }
 
     private void configurarStage1(MenuModel model) {
-        String[] urls = {"/revision/registroRevision.xhtml", "/revision/seleccionarRevision.xhtml",
+        String[] urls = {"/revision/registroRevision.xhtml",
                 "/revision/registroObjetivo.xhtml", "/revision/registroPregunta.xhtml", "/revision/registroTermino.xhtml",
                 "/revision/registroAtributoCalidad.xhtml"};
-        String[] labels = {"etiquetaMenuRevisionNueva", "etiquetaMenuRevisionSeleccionar", "etiquetaMenuObjetivo",
+        String[] labels = {"etiquetaMenuRevisionNueva", "etiquetaMenuObjetivo",
                 "etiquetaMenuPregunta", "etiquetaTermino", "etiquetaMenuAtributosCalidad"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
                 .label("Stage 1 Planing")
                 .build();
-        addItem(stage, getMessage(labels[0]), urls[0],seguridadBean.verifivarAcceso(urls[0]));
+        addItem(stage, getMessage(labels[0]), urls[0], seguridadBean.verifivarAcceso(urls[0]));
         for (int i = 1; i < urls.length; i++) {
             addItem(stage, getMessage(labels[i]), urls[i]);
         }
+        stage.setExpanded(false);
         model.getElements().add(stage);
     }
 
@@ -106,6 +122,7 @@ public class ProcesoBean extends AbstractRevisionBean {
         for (int i = 0; i < urls.length; i++) {
             addItem(stage, getMessage(labels[i]), urls[i]);
         }
+        stage.setExpanded(false);
         model.getElements().add(stage);
     }
 
@@ -118,6 +135,7 @@ public class ProcesoBean extends AbstractRevisionBean {
         for (int i = 0; i < urls.length; i++) {
             addItem(stage, getMessage(labels[i]), urls[i]);
         }
+        stage.setExpanded(false);
         model.getElements().add(stage);
     }
 
@@ -132,6 +150,7 @@ public class ProcesoBean extends AbstractRevisionBean {
         for (int i = 0; i < urls.length; i++) {
             addItem(stage, getMessage(labels[i]), urls[i]);
         }
+        stage.setExpanded(false);
         model.getElements().add(stage);
     }
 
@@ -150,27 +169,43 @@ public class ProcesoBean extends AbstractRevisionBean {
         for (int i = 0; i < urls.length; i++) {
             addItem(stage, getMessage(labels[i]), urls[i]);
         }
+        stage.setExpanded(false);
         model.getElements().add(stage);
     }
 
     private void configurarGestionas(MenuModel model) {
-        String[] urls = {"/usuario/index.xhtml","/seguridad/recurso/index.xhtml","/seguridad/rol/index.xhtml",
-        "/seguridad/usuario/actualizar.xhtml","/seguridad/usuario/index.xhtml"};
-        String[] labels = {"menu.usuarios","menu.recurso","menu.rol","menu.usuario.actualizar","menu.usuario.registrar"};
+        String[] urls = {"/usuario/index.xhtml", "/seguridad/recurso/index.xhtml", "/seguridad/rol/index.xhtml",
+                "/seguridad/usuario/actualizar.xhtml", "/seguridad/usuario/index.xhtml"};
+        String[] labels = {"menu.usuarios", "menu.recurso", "menu.rol", "menu.usuario.actualizar", "menu.usuario.registrar"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
                 .label(getMessage("menu.gestionar"))
                 .build();
         for (int i = 0; i < urls.length; i++) {
-            addItem(stage, getMessage(labels[i]), urls[i],seguridadBean.verifivarAcceso(urls[i]));
+            addItem(stage, getMessage(labels[i]), urls[i], seguridadBean.verifivarAcceso(urls[i]));
         }
+        stage.setExpanded(false);
+        model.getElements().add(stage);
+    }
+
+    private void configurarAyuda(MenuModel model) {
+        String[] urls = {"/ayuda/proceso.xhtml"};
+        String[] labels = {"menu.ayuda.proceso"};
+        DefaultSubMenu stage = DefaultSubMenu.builder()
+                .label(getMessage("menu.ayuda"))
+                .build();
+        for (int i = 0; i < urls.length; i++) {
+            addItem(stage, getMessage(labels[i]), urls[i], seguridadBean.verifivarAcceso(urls[i]));
+        }
+        stage.setExpanded(false);
+
         model.getElements().add(stage);
     }
 
     private DefaultMenuItem addItem(DefaultSubMenu stage, String label, String url) {
-        return addItem(stage,label,url,getRevision() != null&&seguridadBean.verifivarAcceso(url));
+        return addItem(stage, label, url, getRevision() != null && seguridadBean.verifivarAcceso(url));
     }
 
-    private DefaultMenuItem addItem(DefaultSubMenu stage, String label, String url,boolean rendered) {
+    private DefaultMenuItem addItem(DefaultSubMenu stage, String label, String url, boolean rendered) {
 
         DefaultMenuItem item = DefaultMenuItem.builder()
                 .value(label)

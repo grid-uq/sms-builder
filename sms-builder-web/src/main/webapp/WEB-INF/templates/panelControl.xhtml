@@ -7,44 +7,79 @@
 
     <p:sidebar widgetVar="controlPanel" baseZIndex="10000" rendered="#{seguridadBean.autenticado}"
                style="width: 1000px">
-        <h3>Left Sidebar</h3>
+        <h3>#{msg.etiquetaPanelControlTitulo}</h3>
         <p:panelGrid styleClass="ui-panelgrid-blank">
             <p:row>
                 <p:column style="vertical-align: text-top">
                     <ui:include src="/WEB-INF/templates/revision/resumen.xhtml"/>
+                    <br />
+                    <p:panel>
+                        <f:facet name="header">
+                            <h:outputText value="Configuration"/>
+                        </f:facet>
+                        <h:form id="menuConfigurar">
+                            <p:menu toggleable="true" >
+                                <p:menuitem value="#{msg['menu.usuarios']}"
+                                            action="/usuario/index.xhtml" update=":panelContenido"
+                                            icon="ui-icon-person"
+                                            rendered="#{seguridadBean.verifivarAcceso('/usuario/index.xhtml')}" />
+                                <p:menuitem value="#{msg['menu.recurso']}"
+                                            action="/seguridad/recurso/index.xhtml" update=":panelContenido"
+                                            icon="ui-icon-plus"
+                                            rendered="#{seguridadBean.verifivarAcceso('/seguridad/recurso/index.xhtml')}" />
+                                <p:menuitem value="#{msg['menu.rol']}"
+                                            action="/seguridad/rol/index.xhtml" update=":panelContenido"
+                                            icon="ui-icon-plus"
+                                            rendered="#{seguridadBean.verifivarAcceso('/seguridad/rol/index.xhtml')}" />
+                                <p:menuitem value="#{msg['menu.usuario.actualizar']}"
+                                            action="/seguridad/usuario/actualizar.xhtml"
+                                            update=":panelContenido" icon="ui-icon-person"
+                                            rendered="#{seguridadBean.verifivarAcceso('/seguridad/usuario/actualizar.xhtml')}" />
+                                <p:menuitem value="#{msg['menu.usuario.registrar']}"
+                                            action="/seguridad/usuario/index.xhtml"
+                                            update=":panelContenido" icon="ui-icon-person"
+                                            rendered="#{seguridadBean.verifivarAcceso('/seguridad/usuario/index.xhtml')}" />
+                            </p:menu>
+                        </h:form>
+                    </p:panel>
                 </p:column>
                 <p:column style="vertical-align: text-top">
-                    <h:form id="menu">
-                        <p:menu model="#{procesoBean.model}" toggleable="true" style="width: 450px">
-                        </p:menu>
-                    </h:form>
+                    <p:panel rendered="#{seguridadBean.autenticado}">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.etiquetaMenuTitulo}"/>
+                        </f:facet>
+                        <h:form id="menu">
+                            <p:menu model="#{procesoBean.model}" toggleable="true"  style="width: 450px">
+                            </p:menu>
+                        </h:form>
+                    </p:panel>
                 </p:column>
             </p:row>
         </p:panelGrid>
 
-<!--
+        <!--
 
-        <style type="text/css">
-            .loading-icon {
-                font-size: 3rem;
-                color: var(- -primary-color);
-            }
-        </style>
-        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
+                <style type="text/css">
+                    .loading-icon {
+                        font-size: 3rem;
+                        color: var(- -primary-color);
+                    }
+                </style>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
 
-        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-            <div class="p-text-center">
-                <i class="pi pi-spinner loading-icon" ></i>
-            </div>
-        </p:dialog>
-        <div style="position: absolute; right: -50px; top: 400px">
-            <h:form>
-                <p:commandButton icon="pi pi-bars" type="button" onclick="if( PF('controlPanel').isVisible() ){PF('controlPanel').hide()}else PF('controlPanel').show()"
-                                 styleClass="rounded-button ui-button-flat ui-button-plain"
-                                 rendered="#{seguridadBean.autenticado}"/>
-            </h:form>
-        </div>
-        -->
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <div class="p-text-center">
+                        <i class="pi pi-spinner loading-icon" ></i>
+                    </div>
+                </p:dialog>
+                <div style="position: absolute; right: -50px; top: 400px">
+                    <h:form>
+                        <p:commandButton icon="pi pi-bars" type="button" onclick="if( PF('controlPanel').isVisible() ){PF('controlPanel').hide()}else PF('controlPanel').show()"
+                                         styleClass="rounded-button ui-button-flat ui-button-plain"
+                                         rendered="#{seguridadBean.autenticado}"/>
+                    </h:form>
+                </div>
+                -->
     </p:sidebar>
 
 </ui:composition>

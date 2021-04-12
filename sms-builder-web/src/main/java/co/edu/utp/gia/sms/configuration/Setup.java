@@ -13,9 +13,11 @@ import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.negocio.RecursoEJB;
 import co.edu.utp.gia.sms.negocio.RolEJB;
 import co.edu.utp.gia.sms.negocio.UsuarioEJB;
+import lombok.extern.java.Log;
 
 @Startup
 @javax.ejb.Singleton
+@Log
 public class Setup {
 
 	@PersistenceContext
@@ -86,7 +88,8 @@ public class Setup {
 			"/estadisticas/referenciasTopicoAtributoCalidad.xhtml",
 			"/estadisticas/referenciasYear.xhtml",
 			"/estadisticas/tablaReferenciasPreguntas.xhtml",
-			"/estadisticas/tablaReferenciasTopicos.xhtml"
+			"/estadisticas/tablaReferenciasTopicos.xhtml",
+			"/ayuda/proceso.xhtml"
 	};
 
 	/**
@@ -118,10 +121,10 @@ public class Setup {
 	 * aplicacion
 	 */
 	private void setupRol() {
-		if (rolBO.listar().isEmpty()) {
+//		if (rolBO.listar().isEmpty()) {
 			registrarRecursosRol(1,"Administrador", recursosAdministrador);
 			registrarRecursosRol(2,"Usuario", recursosUsuario);
-		}
+//		}
 	}
 
 	private void registrarRecursosRol(Integer id,String nombre,String[] recursos){
@@ -132,8 +135,13 @@ public class Setup {
 				rol.getRecursos().add(recurso);
 			}
 		}
-		rolBO.registrar(rol);
+		if( rolBO.obtener(id) == null ){
+			rolBO.registrar(rol);
+		} else {
+			rolBO.actualizar(rol);
+		}
 	}
+
 	/**
 	 * Método encargado de registrar los recursos usados por la aplicación
 	 */
