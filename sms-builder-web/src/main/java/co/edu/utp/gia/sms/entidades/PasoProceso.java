@@ -39,5 +39,6 @@ public class PasoProceso implements Entidad<Integer> {
     @Setter
     @EqualsAndHashCode.Exclude
     @OneToMany
+    @OrderBy("nombre ASC")
     private List<Referencia> referencias;
 }

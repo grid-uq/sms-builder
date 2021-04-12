@@ -40,16 +40,20 @@
 
 <h:body>
     <f:view>
-        <p:sidebar widgetVar="controlPanel" baseZIndex="10000" rendered="#{seguridadBean.autenticado}">
-            <h3>Left Sidebar</h3>
-            <ui:include src="/WEB-INF/templates/panelControl.xhtml"></ui:include>
-        </p:sidebar>
+        <ui:include src="/WEB-INF/templates/panelControl.xhtml"></ui:include>
 
         <div id="header" align='center'>
             <div style="position: absolute; left: 10px; top: 10px">
                 <h:form>
                     <p:commandButton icon="pi pi-bars" type="button" onclick="PF('controlPanel').show()"
                                      styleClass="rounded-button ui-button-flat ui-button-plain"
+                                     rendered="#{seguridadBean.autenticado}"/>
+                </h:form>
+            </div>
+            <div style="position: absolute; right: 10px; top: 10px">
+                <h:form>
+                    <p:commandButton value="#{msg['menu.salir']}" action="#{seguridadBean.cerrarSesion}" ajax="false"
+                                     immediate="true" icon="pi pi-fw pi-sign-out" styleClass="rounded-button ui-button-info"
                                      rendered="#{seguridadBean.autenticado}"/>
                 </h:form>
             </div>
@@ -64,23 +68,26 @@
                 <!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
                 <!-- <ui:include src="header.xhtml"/> -->
             </ui:insert>
-            <br/>
+            <br />
         </div>
+        <br />
         <div id="content" align='center'>
             <p:growl id="msgs"/>
             <h:panelGrid rendered="#{!seguridadBean.autenticado}">
                 <h:form prependId="false">
                     <p:outputLabel value="#{msg['usuario.nombreUsuario']}: "
                                    for="nombreUsuario"/>
+                    <h:outputText value=" " />
                     <p:inputText id="nombreUsuario"
                                  value="#{seguridadBean.nombreUsuario}" required="true" size="28"/>
-
+                    <h:outputText value=" " />
                     <p:outputLabel value="#{msg['usuario.clave']}: " for="clave"/>
+                    <h:outputText value=" " />
                     <p:password id="clave" value="#{seguridadBean.clave}" size="28"/>
-
+                    <h:outputText value=" " />
                     <p:commandButton value="#{msg['seguridad.boton.ingresar']}"
                                      action="#{seguridadBean.ingresar}" ajax="false"/>
-
+                    <h:outputText value=" " />
                     <p:commandButton value="#{msg['seguridad.boton.registrarse']}"
                                      action="/seguridad/usuario/registro" ajax="false" immediate="true"/>
 

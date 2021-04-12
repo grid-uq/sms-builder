@@ -1,20 +1,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="menu">
+    <p:sidebar widgetVar="controlPanel" baseZIndex="10000" rendered="#{seguridadBean.autenticado}"
+               style="width: 1000px">
+        <h3>Left Sidebar</h3>
+        <p:panelGrid styleClass="ui-panelgrid-blank">
+            <p:row>
+                <p:column style="vertical-align: text-top">
+                    <ui:include src="/WEB-INF/templates/revision/resumen.xhtml"/>
+                </p:column>
+                <p:column style="vertical-align: text-top">
+                    <h:form id="menu">
+                        <p:menu model="#{procesoBean.model}" toggleable="true" style="width: 450px">
+                        </p:menu>
+                    </h:form>
+                </p:column>
+            </p:row>
+        </p:panelGrid>
 
-        <p:menu>
-			<p:submenu label="Stage 1 Planing" >
-				<p:menuitem value="Step 1" />
-				<p:menuitem value="Step 2" />
-			</p:submenu>
-        </p:menu>
-        <p:menu model="#{procesoBean.model}">
-        </p:menu>
+<!--
 
-    </h:form>
+        <style type="text/css">
+            .loading-icon {
+                font-size: 3rem;
+                color: var(- -primary-color);
+            }
+        </style>
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <div class="p-text-center">
+                <i class="pi pi-spinner loading-icon" ></i>
+            </div>
+        </p:dialog>
+        <div style="position: absolute; right: -50px; top: 400px">
+            <h:form>
+                <p:commandButton icon="pi pi-bars" type="button" onclick="if( PF('controlPanel').isVisible() ){PF('controlPanel').hide()}else PF('controlPanel').show()"
+                                 styleClass="rounded-button ui-button-flat ui-button-plain"
+                                 rendered="#{seguridadBean.autenticado}"/>
+            </h:form>
+        </div>
+        -->
+    </p:sidebar>
+
 </ui:composition>

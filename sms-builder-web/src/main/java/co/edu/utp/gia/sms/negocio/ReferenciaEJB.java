@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 // TODO Pendiente la indicación de las revistas con mayor frecuencia dentro del SMS.
 //      importante para la toma de decisión sobre el destino de publicación.
@@ -33,6 +34,8 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     private AtributoCalidadEJB atributoCalidadEJB;
     @Inject
     private PreguntaEJB preguntaEJB;
+    @Inject
+    private ProcesoEJB procesoEJB;
 
     public ReferenciaEJB() {
         super(Referencia.class);
@@ -73,6 +76,11 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
                 .setParameter("idRevision", idRevision).setParameter("filtro", filtro).getResultList();
 
         return poblarReferenciaDTOS(referencias);
+    }
+
+    public List<ReferenciaDTO> obtenerTodas(int idPaso) {
+        PasoProceso paso = procesoEJB.obtenerOrThrow(idPaso);
+        return poblarReferenciaDTOS(paso.getReferencias().stream().map(ReferenciaDTO::new).collect(Collectors.toList()));
     }
 
     private List<ReferenciaDTO> poblarReferenciaDTOS(List<ReferenciaDTO> referencias) {

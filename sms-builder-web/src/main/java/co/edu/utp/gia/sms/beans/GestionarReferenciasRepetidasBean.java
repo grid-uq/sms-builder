@@ -5,7 +5,9 @@ import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Named
 @ViewScoped
+@Log
 public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO> {
 
     /**
@@ -25,9 +28,13 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
     @Inject
     private ReferenciaEJB referenciaEJB;
 
+    @Inject @ManagedProperty("#{param.paso}")
+    private Integer paso;
+
     public void inicializar() {
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 0);
+            //referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 0);
+            referencias = referenciaEJB.obtenerTodas(paso);
         }
     }
 

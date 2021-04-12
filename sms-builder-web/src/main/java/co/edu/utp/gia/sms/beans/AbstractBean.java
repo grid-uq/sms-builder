@@ -5,8 +5,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
-import javax.faces.annotation.ManagedProperty;
-import javax.faces.annotation.SessionMap;
+import javax.faces.annotation.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
@@ -14,6 +13,7 @@ import javax.inject.Inject;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Revision;
+import lombok.Getter;
 
 /**
  * Clase que define los elementos basicos de los Bean a ser usados en el
@@ -41,7 +41,9 @@ public abstract class AbstractBean implements Serializable {
 	private FacesContext facesContext;
 	@Inject
 	@SessionMap
+	@Getter
 	private Map<String, Object> sessionMap;
+
 
 	@Inject
 	@ManagedProperty("#{msg}")
@@ -114,18 +116,22 @@ public abstract class AbstractBean implements Serializable {
 		return getSessionMap().remove(key);
 	}
 
+	protected Object getParameterRequest(String key) {
+		return getFacesContext().getExternalContext().getRequestParameterMap().get(key);
+	}
+
 	public String getMessage(String key){
 		return bundle.getString(key);
 	}
 ////////// ----- GET/SET ----- ////////////	
 
-	/**
-	 * Metodo que permite obtener el valor del atributo sessionMap
-	 * 
-	 * @return El valor del atributo sessionMap
-	 */
-	protected Map<String, Object> getSessionMap() {
-		return sessionMap;
-	}
+//	/**
+//	 * Metodo que permite obtener el valor del atributo sessionMap
+//	 *
+//	 * @return El valor del atributo sessionMap
+//	 */
+//	protected Map<String, Object> getSessionMap() {
+//		return sessionMap;
+//	}
 
 }
