@@ -2,9 +2,9 @@
 .project
 .idea
 sms.iml
-/smsgia-web/smsgia-web.iml
+/sms-builder.iml/sms-builder-web.iml
 .classpath
-/smsgia-web/.gitignore
+/sms-builder-web/.gitignore
 .settings
 .metadata
 .project

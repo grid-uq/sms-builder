@@ -22,7 +22,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(name = "region",
+@Table(name = "Metadato",
         indexes = {@Index(name = "identifierIndex",  columnList="identifier", unique = false),
                 @Index(name = "referenciaIndex", columnList="referencia_id,identifier",     unique = false)})
 @EqualsAndHashCode

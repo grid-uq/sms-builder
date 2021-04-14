@@ -6,7 +6,7 @@ import javax.annotation.sql.DataSourceDefinitions;
 @DataSourceDefinitions({
 	
 	@DataSourceDefinition(
-			name = "java:app/smsgia-web/smsDS",
+			name = "java:app/sms-builder-web/smsDS",
 			className = "org.h2.jdbcx.JdbcDataSource",
 			initialPoolSize = 10,
 			minPoolSize = 10,
@@ -15,7 +15,7 @@ import javax.annotation.sql.DataSourceDefinitions;
 			url = "jdbc:h2:file:./sms"
 			),
 //	@DataSourceDefinition(
-//	name = "java:app/smsgia-web/mysql",
+//	name = "java:app/sms-builder-web/mysql",
 ////	className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
 ////	className = "com.mysql.jdbc.Driver",
 //	className = "com.mysql.cj.jdbc.MysqlDataSource",
@@ -31,7 +31,7 @@ import javax.annotation.sql.DataSourceDefinitions;
 	
 	
 	@DataSourceDefinition(
-			name = "java:app/smsgia-web/mysql", //
+			name = "java:app/sms-builder-web/mysql", //
 //	className = "com.mysql.cj.jdbc.MysqlDataSource", //
 			className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
 			initialPoolSize = 2,
