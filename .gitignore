@@ -2,9 +2,10 @@
 .project
 .idea
 sms.iml
-/sms-builder.iml/sms-builder-web.iml
+/sms-builder.iml
 .classpath
 /sms-builder-web/.gitignore
+/sms-builder-web/sms-builder-web.iml
 .settings
 .metadata
 .project
