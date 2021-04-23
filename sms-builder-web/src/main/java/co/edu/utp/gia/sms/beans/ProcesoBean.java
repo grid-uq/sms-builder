@@ -85,7 +85,7 @@ public class ProcesoBean extends AbstractRevisionBean {
         String[] urls = {"/revision/registroReferencias.xhtml", "/revision/gestionarReferenciasRepetidas.xhtml",
                 "/revision/aplicarCriterios.xhtml", "/revision/resumenReferenciasSeleccionadas.xhtml"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
-                .label("Stage 2 Planing")
+                .label("Stage 2 Search for studies")
                 .build();
         for (int i = 0; i < urls.length; i++) {
             addItem(stage, getMessage(labels[i]), urls[i]);

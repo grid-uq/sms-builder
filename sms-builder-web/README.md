@@ -29,7 +29,7 @@ $ sh build-image.sh
 ```
 # RUN
 ```
-$ docker rm -f sms-builder-web || true && docker run -d -p 8080:8080 -p 4848:4848 -p 3306:3306 --name sms-builder-web griduq/sms-builder-web 
+$ docker run -d -p 8080:8080 -p 4848:4848 -p 3306:3306 --name sms-builder-web griduq/sms-builder-web 
 ```
 or
 ```
