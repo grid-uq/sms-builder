@@ -75,15 +75,6 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
         referenciaEJB.actualizarRelevancia(referencia.getId(), referencia.getRelevancia());
     }
 
-    public void completarCita(ReferenciaDTO referencia) {
-        try {
-            FindReferenceCitation.getInstans().findCitation(referencia.getReferencia());
-            guardarCita(referencia);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void guardar() {
         for (ReferenciaDTO referencia : referencias) {
             referenciaEJB.limpiarTopicos(referencia.getId());

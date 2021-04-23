@@ -57,29 +57,6 @@ public class FindReferenceCitation {
 	}
 
 	/**
-	 * Metodo que permite obtener el numero de citas de una {@link Referencia}
-	 * 
-	 * @param referencia
-	 * @return
-	 * @throws IOException
-	 */
-	public int findCitation(Referencia referencia) throws IOException {
-		// TODO incluir doi en la consulta
-		HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
-		HttpRequest request = requestFactory.buildGetRequest(new GenericUrl(
-				String.format("https://scholar.google.com/scholar?hl=es&q=%s", URLEncoder.encode(referencia.getNombre(), "UTF-8"))
-		));
-		String rawResponse = request.execute().parseAsString();
-		int i = rawResponse.indexOf("Citado por ");
-		if (i >= 0) {
-			String aux = rawResponse.substring(i + 11, i + 20);
-			referencia.setCitas(Integer.parseInt(aux.substring(0, aux.indexOf('<'))));
-			return referencia.getCitas();
-		}
-		return 0;
-	}
-
-	/**
 	 * Metodo que permite obtener la traduccion del resumen de una
 	 * {@link Referencia}
 	 * 
