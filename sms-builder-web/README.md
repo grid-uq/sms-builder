@@ -33,6 +33,10 @@ $ docker run -d -p 8080:8080 -p 4848:4848 -p 3306:3306 --name sms-builder-web gr
 ```
 or
 ```
+docker run -e MYSQL_ROOT_PASSWORD=YOUR_PASSWORD -d -p 3306:3306 -p 8080:8080 --name sms-builder griduq/sms-builder
+```
+or
+```
 $ java -jar ./target/sms-builder-web.jar --port 8080
 ```
 or
