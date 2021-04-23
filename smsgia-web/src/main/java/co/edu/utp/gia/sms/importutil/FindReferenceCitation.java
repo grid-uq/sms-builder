@@ -96,50 +96,12 @@ public class FindReferenceCitation {
 	 * Metodo que permite obtener la traduccion del resumen de una
 	 * {@link Referencia}
 	 * 
-	 * @param referencia
+	 * @param texto
 	 * @return
 	 * @throws IOException
 	 */
 	public String findTranslate(String texto) throws IOException {
-		HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
-		String url = "https://microsoft-translator-text.p.rapidapi.com/translate?profanityAction=NoAction&textType=plain&to=es&api-version=3.0";
-		HttpRequest postRequest = requestFactory.buildPostRequest(new GenericUrl(url),
-				ByteArrayContent.fromString("application/json", String.format("[ {  \"Text\": \"%s\" }]" , texto)));
-//		postRequest.set
-		JacksonFactory jsonFactory = new JacksonFactory();
-		postRequest.setParser(new JsonObjectParser(jsonFactory));
-		
-		postRequest.getHeaders().put("x-rapidapi-host", "microsoft-translator-text.p.rapidapi.com");
-
-		postRequest.getHeaders().put("x-rapidapi-key", "4df3d75ac5msh32f12134161df56p19e4d4jsn387ae08ca2f9");
-		postRequest.getHeaders().setAccept("application/json");
-//		postRequest.getHeaders().setAcceptEncoding("gzip;q=0,deflate,sdch");
-		postRequest.getHeaders().setAcceptEncoding("gzip;q=0");
-//		Accept-Encoding: gzip;q=0,deflate,sdch
-//		postRequest.getHeaders().setContentType("gzip;q=0,deflate,sdch");
-
-		try {
-			HttpResponse response = postRequest.execute();
-			
-			InputStreamReader reader = new InputStreamReader(response.getContent());
-			BufferedReader in = new BufferedReader(reader);
-
-			String readed ;
-			String respuesta = "";
-			while ((readed = in.readLine()) != null) {
-				respuesta = respuesta + readed;
-			}
-//			String respuesta =  new String(  IOUtils.toByteArray(response.getContent()) );
-			System.out.println(respuesta);
-			return new JSONArray(respuesta).getJSONObject(0).getJSONArray("translations").getJSONObject(0).getString("text");
-//			return ((JSONObject) ((JSONArray) ((JSONObject) new JSONArray(postRequest.execute().parseAsString()).get(0))
-//					.get("translations")).get(0)).get("text").toString();
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			return "";
-		}
-
+		return texto;
 	}
 
 }
