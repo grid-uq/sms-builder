@@ -1,6 +1,5 @@
 #!/bin/bash
-docker rmi sms-builder:latest
+
+docker rmi griduq/sms-builder
 sh ./sms-builder-web-uberjar.sh
-docker build -t sms-builder:latest .
-docker tag sms-builder christiancandela/sms-builder
-#docker push christiancandela/sms-builder
+docker build -t griduq/sms-builder .

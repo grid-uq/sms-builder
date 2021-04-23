@@ -1,1 +1,0 @@
-insert into METADATO select null,'YEAR',year,id from referencia where filtro >= 3;

@@ -1,2 +1,2 @@
 #!/bin/sh
-java -jar sms-builder-web.jar --port 8080
+java -jar ./target/sms-builder-web.jar --port 8080
