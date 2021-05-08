@@ -28,13 +28,13 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
     @Inject
     private ReferenciaEJB referenciaEJB;
 
-    @Inject @ManagedProperty("#{param.paso}")
-    private Integer paso;
+//    @Inject @ManagedProperty("#{param.paso}")
+//    private Integer paso;
 
     public void inicializar() {
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 0);
-            //referencias = referenciaEJB.obtenerTodas(paso);
+            //referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 0);
+            referencias = referenciaEJB.obtenerTodas(paso-1);
         }
     }
 
@@ -55,7 +55,17 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
 
     public void guardar() {
         for (ReferenciaDTO referencia : referencias) {
-            referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro());
+            if( referencia.isSeleccionada() ){
+                if( referencia.getFiltro() < paso ) {
+                    referencia.setFiltro(paso);
+                    referenciaEJB.actualizarFiltro(referencia.getId(), paso);
+                }
+            } else {
+                if( referencia.getFiltro() >= paso ){
+                    referencia.setFiltro(paso-1);
+                    referenciaEJB.actualizarFiltro(referencia.getId(), paso-1);
+                }
+            }
         }
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }

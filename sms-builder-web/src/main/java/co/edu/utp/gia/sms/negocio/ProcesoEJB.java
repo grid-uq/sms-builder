@@ -1,6 +1,7 @@
 package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.entidades.PasoProceso;
+import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.query.ProcesoQuery;
@@ -27,4 +28,13 @@ public class ProcesoEJB extends AbstractEJB<PasoProceso, Integer> {
         //return entityManager.createNamedQuery(ProcesoQuery.PROCESO_PASOS,PasoProceso.class).setParameter("id",id).getResultList();
     }
 
+    public void addReferencia(Integer idPasoProceso, Referencia referencia) {
+        PasoProceso paso = obtenerOrThrow(idPasoProceso);
+        paso.getReferencias().add(referencia);
+    }
+
+    public void removeReferencia(Integer idPasoProceso, Referencia referencia) {
+        PasoProceso paso = obtenerOrThrow(idPasoProceso);
+        paso.getReferencias().remove(referencia);
+    }
 }

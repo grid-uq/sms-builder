@@ -10,20 +10,20 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
 		<h:form enctype="multipart/form-data">
-			<p:growl id="messages" showDetail="true" />
+
 			<p:panelGrid columns="2">
 				<p:outputLabel for="fuente" value="#{msg.etiquetaFuente}:" />
-				<p:selectOneMenu id="fuente" value="#{importarReferenciaBD.fuente}">
-					<f:selectItems value="#{importarReferenciaBD.fuentes}" var="referencia" itemLabel="#{referencia}" itemValue="#{referencia}" />
+				<p:selectOneMenu id="fuente" value="#{importarReferenciaManual.fuente}">
+					<f:selectItems value="#{importarReferenciaManual.fuentes}" var="referencia" itemLabel="#{referencia}" itemValue="#{referencia}" />
 				</p:selectOneMenu>
 				<p:outputLabel value="#{msg.etiquetaArchivo}:" />
-				<p:fileUpload value="#{importarReferenciaBD.file}" mode="simple"
+				<p:fileUpload value="#{importarReferenciaManual.file}" mode="simple"
 					skinSimple="true" />
 
 
 				<f:facet name="footer">
 					<p:commandButton value="#{msg.botonAceptar}"
-						action="#{importarReferenciaBD.upload}" ajax="false" />
+						action="#{importarReferenciaManual.upload}" ajax="true" update="msgs" />
 				</f:facet>
 
 			</p:panelGrid>

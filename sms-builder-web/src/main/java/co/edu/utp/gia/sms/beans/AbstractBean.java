@@ -101,6 +101,9 @@ public abstract class AbstractBean implements Serializable {
 	}
 
 	protected FacesContext getFacesContext() {
+		if( facesContext == null ){
+			facesContext = FacesContext.getCurrentInstance();
+		}
 		return facesContext;
 	}
 

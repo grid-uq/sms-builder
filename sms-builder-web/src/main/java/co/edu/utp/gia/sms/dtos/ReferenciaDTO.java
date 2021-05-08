@@ -216,14 +216,14 @@ public class ReferenciaDTO implements Serializable {
      * @param seleccionada Valor a ser asignado al atributo seleccionada
      */
     public void setSeleccionada(boolean seleccionada) {
-        if (this.seleccionada != seleccionada) {
-            int base = (etapa << 1) | 1;
-            if (seleccionada) {
-                setFiltro(getFiltro() | base);
-            } else {
-                setFiltro(getFiltro() & etapa);
-            }
-        }
+//        if (this.seleccionada != seleccionada) {
+//            int base = (etapa << 1) | 1;
+//            if (seleccionada) {
+//                setFiltro(getFiltro() | base);
+//            } else {
+//                setFiltro(getFiltro() & etapa);
+//            }
+//        }
         this.seleccionada = seleccionada;
     }
 

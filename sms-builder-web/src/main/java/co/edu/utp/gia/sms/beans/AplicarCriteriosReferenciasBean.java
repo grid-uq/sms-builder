@@ -33,7 +33,10 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
 
     public void inicializar() {
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 1);
+//            referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 1);
+            log.info("Aplicar criterios paso "+paso);
+            referencias = referenciaEJB.obtenerTodas(paso-1);
+            log.info("Numero referecias "+referencias.size());
         }
     }
 
@@ -52,7 +55,18 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
     }
 
     public void seleccionarReferencia(ReferenciaDTO referencia) {
-        referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro());
+        if( referencia.isSeleccionada() ){
+            if( referencia.getFiltro() < paso ) {
+                referencia.setFiltro(paso);
+                referenciaEJB.actualizarFiltro(referencia.getId(), paso);
+            }
+        } else {
+            if( referencia.getFiltro() >= paso ){
+                referencia.setFiltro(paso-1);
+                referenciaEJB.actualizarFiltro(referencia.getId(), paso-1);
+            }
+        }
+        //referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro());
     }
 
     public void actualizarRelevancia(ReferenciaDTO referencia) {

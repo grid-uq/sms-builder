@@ -52,6 +52,7 @@ public class FileMultipleRegisterParseFactory {
 //		case WOS_MENDELEY:
 //			return new MendeleyRisFileMultipleRegisterParse(Fuente.WOS);
 		case MANUAL:
+		case INCLUSION_DIRECTA:
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.MANUAL);
 		case SNOWBALL_BACKWARD:
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.SNOWBALL_BACKWARD);

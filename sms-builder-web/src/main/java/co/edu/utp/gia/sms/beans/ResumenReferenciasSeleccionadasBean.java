@@ -11,6 +11,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.exportutil.ReferenceToRIS;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
@@ -34,7 +35,8 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 	public void inicializar() {
 
 		if (getRevision() != null) {
-			referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
+//			referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
+			referencias = referenciaEJB.obtenerTodas(paso-1);
 		}
 	}
 	
@@ -85,5 +87,9 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 			referenciaEJB.actualizarSPS( referencia.getId() , referencia.getSpsid() );
 		}
 	}
-	
+
+	public void siguientePaso(){
+		referenciaEJB.avanzarReferecias(paso-1);
+		mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
+	}
 }

@@ -12,17 +12,15 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 import org.primefaces.model.file.UploadedFile;
 
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
-@Named
-@ViewScoped
 @Log
-public class RegistroReferenciasBean extends GenericBean<Referencia> {
+public abstract class ImportarReferenciasBean extends GenericBean<Referencia> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
@@ -38,21 +36,30 @@ public class RegistroReferenciasBean extends GenericBean<Referencia> {
     @Setter
     private Fuente fuente;
 
+
+
+    @Setter
     private TipoFuente tipoFuente;
 
+    protected ImportarReferenciasBean() {
+        super();
+        this.tipoFuente = null;
+    }
 
     public void upload() {
-        if (file != null) {
+        if (file != null && file.getFileName() != null) {
             procesarArchivo();
+        } else {
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         }
+        referenciaEJB.avanzarReferecias(paso-1);
     }
 
     private void procesarArchivo() {
-
         try {
             FileMultipleRegisterParse parser = FileMultipleRegisterParseFactory.getInstance(fuente);
             List<Referencia> referencias = parser.parse(file.getInputStream());
-            referenciaEJB.registrar(referencias, getRevision().getId(),1);
+            referenciaEJB.registrar(referencias, getRevision().getId(),paso);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA)+" "+referencias.size());
         } catch (IOException e) {
             log.log(Level.WARNING, "Error al procesar un archivo", e);
@@ -64,8 +71,14 @@ public class RegistroReferenciasBean extends GenericBean<Referencia> {
      *
      * @return Arreglo de fuentes soportadas
      */
-    public Fuente[] getFuentes() {
-        return Fuente.values();
+    public List<Fuente> getFuentes() {
+        List<Fuente> lista;
+        if( tipoFuente != null ){
+            lista = Arrays.stream(Fuente.values()).filter(f->f.getTipo().equals(tipoFuente)).collect(Collectors.toList());
+        } else {
+            lista = Arrays.asList( Fuente.values() );
+        }
+        return lista;
     }
 
     @Override

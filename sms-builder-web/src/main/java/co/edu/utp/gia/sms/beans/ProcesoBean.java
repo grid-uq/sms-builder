@@ -45,6 +45,7 @@ public class ProcesoBean extends AbstractRevisionBean {
         model = new DefaultMenuModel();
         configurarStage1(model);
         configurarStage2Static(model);
+        configurarStage2(model);
         configurarStage3(model);
         configurarStage4(model);
         configurarStage5(model);
@@ -65,13 +66,13 @@ public class ProcesoBean extends AbstractRevisionBean {
 
     private void configurarStage2(MenuModel model) {
         DefaultSubMenu stage = DefaultSubMenu.builder()
-                .label("Stage 2 Search for studies")
+                .label("Stage (2) Search for studies")
                 .build();
         pasosProceso.forEach(paso -> {
             final String url = paso.getPaso().getRecurso().getUrl();
-            DefaultMenuItem menuItem = addItem(stage, paso.getPaso().getNombre(), url);
-//            DefaultMenuItem menuItem= addItem(stage, paso.getPaso().getNombre(), url+"?paso="+paso.getId(),
-//                    getRevision() != null&&seguridadBean.verifivarAcceso(url));
+//            DefaultMenuItem menuItem = addItem(stage, paso.getPaso().getNombre(), url);
+            DefaultMenuItem menuItem= addItem(stage, paso.getPaso().getNombre(), url+"?paso="+paso.getId(),
+                    getRevision() != null&&seguridadBean.verifivarAcceso(url));
             menuItem.setParam("paso", paso.getId());
 
         });

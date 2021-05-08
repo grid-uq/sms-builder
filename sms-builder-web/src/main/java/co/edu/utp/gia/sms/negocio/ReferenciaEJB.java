@@ -41,22 +41,25 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
         super(Referencia.class);
     }
 
-    public Referencia registrar(Referencia referencia, Integer idRevision) {
+    public Referencia registrar(Referencia referencia, Integer idRevision,Integer idPasoProceso) {
         Revision revision = revisionEJB.obtener(idRevision);
+
         referencia.setRevision(revision);
-        for (Metadato metadato : referencia.getMetadatos()) {
-            if (metadato.getIdentifier().equals(TipoMetadato.FUENTE)
-                    && metadato.getValue().equalsIgnoreCase(Fuente.INCLUSION_DIRECTA.toString())) {
-                referencia.setFiltro(3);
-            }
-        }
+        referencia.setFiltro(idPasoProceso);
+//        for (Metadato metadato : referencia.getMetadatos()) {
+//            if (metadato.getIdentifier().equals(TipoMetadato.FUENTE)
+//                    && metadato.getValue().equalsIgnoreCase(Fuente.INCLUSION_DIRECTA.toString())) {
+//                referencia.setFiltro(3);
+//            }
+//        }
         registrar(referencia);
+        procesoEJB.addReferencia(idPasoProceso,referencia);
         return referencia;
     }
 
-    public void registrar(List<Referencia> referencias, Integer idRevision) {
+    public void registrar(List<Referencia> referencias, Integer idRevision,Integer idPasoProceso) {
         for (Referencia referencia : referencias) {
-            registrar(referencia, idRevision);
+            registrar(referencia, idRevision,idPasoProceso);
         }
     }
 
@@ -80,7 +83,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 
     public List<ReferenciaDTO> obtenerTodas(int idPaso) {
         PasoProceso paso = procesoEJB.obtenerOrThrow(idPaso);
-        return poblarReferenciaDTOS(paso.getReferencias().stream().map(ReferenciaDTO::new).collect(Collectors.toList()));
+        return poblarReferenciaDTOS(paso.getReferencias().stream().map(r->new ReferenciaDTO(r,idPaso)).collect(Collectors.toList()));
     }
 
     private List<ReferenciaDTO> poblarReferenciaDTOS(List<ReferenciaDTO> referencias) {
@@ -151,6 +154,18 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 
     public void actualizarFiltro(Integer id, Integer filtro) {
         Referencia referencia = obtener(id);
+        Integer filtroActual = referencia.getFiltro();
+        if( filtroActual < filtro ){
+            while (filtroActual < filtro) {
+                filtroActual++;
+                procesoEJB.addReferencia(filtroActual,referencia);
+            }
+        } else {
+            while (filtroActual > filtro) {
+                procesoEJB.removeReferencia(filtroActual,referencia);
+                filtroActual--;
+            }
+        }
         referencia.setFiltro(filtro);
     }
 
@@ -386,5 +401,22 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
                 .setParameter("idRevision", idRevision).getResultList();
 
         return poblarReferenciaDTOS(referencias);
+    }
+
+    public void avanzarReferecias(int idPaso) {
+        if( idPaso >= 1 ) {
+            PasoProceso paso = procesoEJB.obtenerOrThrow(idPaso);
+            PasoProceso pasoSiguiente = procesoEJB.obtenerOrThrow(idPaso + 1);
+            paso.getReferencias().forEach(
+                    r->{
+                        if( r.getFiltro() < (idPaso +1) ) {
+                            r.setFiltro(idPaso +1);
+                            if (!pasoSiguiente.getReferencias().contains(r)) {
+                                pasoSiguiente.getReferencias().add(r);
+                            }
+                        }
+                    }
+            );
+        }
     }
 }
