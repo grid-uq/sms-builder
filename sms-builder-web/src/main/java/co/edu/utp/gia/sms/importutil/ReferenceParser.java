@@ -43,9 +43,9 @@ public abstract class ReferenceParser {
 		
 		Referencia referencia = new Referencia();
 		
-		if ( fuente.equals(Fuente.MANUAL) || fuente.equals(Fuente.SNOWBALL_BACKWARD ) || fuente.equals(Fuente.SNOWBALL_FORWARD ) )  {
-			referencia.setFiltro(3);
-		}
+//		if ( fuente.equals(Fuente.MANUAL) || fuente.equals(Fuente.SNOWBALL_BACKWARD ) || fuente.equals(Fuente.SNOWBALL_FORWARD ) )  {
+//			referencia.setFiltro(3);
+//		}
 		
 		referencia.addElement(TipoMetadato.FUENTE, fuente.toString());
 		procesarTexto(referencia, texto);

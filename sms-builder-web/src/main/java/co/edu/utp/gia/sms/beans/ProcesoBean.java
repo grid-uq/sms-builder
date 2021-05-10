@@ -44,7 +44,7 @@ public class ProcesoBean extends AbstractRevisionBean {
     private void configurarMenu() {
         model = new DefaultMenuModel();
         configurarStage1(model);
-        configurarStage2Static(model);
+//        configurarStage2Static(model);
         configurarStage2(model);
         configurarStage3(model);
         configurarStage4(model);
@@ -71,7 +71,7 @@ public class ProcesoBean extends AbstractRevisionBean {
         pasosProceso.forEach(paso -> {
             final String url = paso.getPaso().getRecurso().getUrl();
 //            DefaultMenuItem menuItem = addItem(stage, paso.getPaso().getNombre(), url);
-            DefaultMenuItem menuItem= addItem(stage, paso.getPaso().getNombre(), url+"?paso="+paso.getId(),
+            DefaultMenuItem menuItem= addItem(stage, getMessage(paso.getPaso().getNombre()), url+"?paso="+paso.getId(),
                     getRevision() != null&&seguridadBean.verifivarAcceso(url));
             menuItem.setParam("paso", paso.getId());
 
@@ -96,11 +96,11 @@ public class ProcesoBean extends AbstractRevisionBean {
     }
 
     private void configurarStage1(MenuModel model) {
-        String[] urls = {"/revision/registroRevision.xhtml",
+        String[] urls = {"/revision/editarRevision.xhtml",
                 "/revision/registroObjetivo.xhtml", "/revision/registroPregunta.xhtml", "/revision/registroTermino.xhtml",
-                "/revision/registroAtributoCalidad.xhtml"};
-        String[] labels = {"etiquetaMenuRevisionNueva", "etiquetaMenuObjetivo",
-                "etiquetaMenuPregunta", "etiquetaTermino", "etiquetaMenuAtributosCalidad"};
+                "/revision/registroAtributoCalidad.xhtml","/revision/configurarProceso.xhtml"};
+        String[] labels = {"etiquetaMenuRevisionEditar", "etiquetaMenuObjetivo",
+                "etiquetaMenuPregunta", "etiquetaTermino", "etiquetaMenuAtributosCalidad","etiquetaProceso"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
                 .label("Stage 1 Planing")
                 .build();

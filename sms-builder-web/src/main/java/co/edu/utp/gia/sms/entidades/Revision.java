@@ -89,5 +89,14 @@ public class Revision implements Entidad<Integer> {
     @Getter
     @Setter
     @EqualsAndHashCode.Exclude
-    private List<PasoProceso> pasoProcesos;
+    private List<PasoProceso> pasosProceso;
+
+    /**
+     * Representa el paso seleccionado para la evaluación y extracción de estadísticas
+     */
+    @OneToOne
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private PasoProceso pasoSeleccionado;
 }

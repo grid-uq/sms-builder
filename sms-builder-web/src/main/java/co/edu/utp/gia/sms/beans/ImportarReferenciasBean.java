@@ -12,15 +12,19 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 import org.primefaces.model.file.UploadedFile;
 
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+@Named
+@ViewScoped
 @Log
-public abstract class ImportarReferenciasBean extends GenericBean<Referencia> {
+public class ImportarReferenciasBean extends GenericBean<Referencia> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<head>
+
+
+</head>
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+
+		<h:form id="registro">
+			<div  class="ui-fluid" style="width: 70%;">
+			
+				<p:panelGrid columns="2" style="width:70%">
+				
+					<p:outputLabel for="nombre" value="#{msg.etiquetaNombre}:" />
+					<p:inputText id="nombre" value="#{configurarRevisionBean.revision.nombre}" />
+					
+					<p:outputLabel for="descripcion" value="#{msg.etiquetaDescripcion}:" />
+					<p:inputTextarea id="descripcion" value="#{configurarRevisionBean.revision.descripcion}" />
+
+					<p:outputLabel for="paso" value="#{msg.etiquetaPasoEvaluacion}:" />
+					<p:selectOneMenu id="paso" value="#{configurarRevisionBean.revision.pasoSeleccionado}" converter="selectItemObjectConverter">
+						<f:selectItems value="#{configurarRevisionBean.pasos}" var="paso" itemLabel="#{paso.id}-#{paso.paso.nombre}" itemValue="#{paso}" />
+					</p:selectOneMenu>
+
+					<f:facet name="footer">
+						<p:commandButton value="#{msg.botonAceptar}"
+							action="#{configurarRevisionBean.actualizar}"
+							update=":registro,:menu, :msgs" />
+					</f:facet>
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

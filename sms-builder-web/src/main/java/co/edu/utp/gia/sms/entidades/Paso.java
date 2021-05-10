@@ -2,10 +2,7 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -23,6 +20,7 @@ public class Paso implements Entidad<Integer>{
     @Setter
     @EqualsAndHashCode.Exclude
     @NonNull
+    @Column(unique = true,length = 50)
     private String nombre;
     @Getter
     @Setter
