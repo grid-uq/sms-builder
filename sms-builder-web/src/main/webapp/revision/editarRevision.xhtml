@@ -26,7 +26,7 @@
 
 					<p:outputLabel for="paso" value="#{msg.etiquetaPasoEvaluacion}:" />
 					<p:selectOneMenu id="paso" value="#{configurarRevisionBean.revision.pasoSeleccionado}" converter="selectItemObjectConverter">
-						<f:selectItems value="#{configurarRevisionBean.pasos}" var="paso" itemLabel="#{paso.id}-#{paso.paso.nombre}" itemValue="#{paso}" />
+						<f:selectItems value="#{configurarRevisionBean.pasos}" var="paso" itemLabel="#{paso.id}-#{msg[paso.paso.nombre]}" itemValue="#{paso}" />
 					</p:selectOneMenu>
 
 					<f:facet name="footer">

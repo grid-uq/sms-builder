@@ -51,10 +51,10 @@ public class EstadisticaEJB {
 				.setParameter("idRevision", revisionId).getResultList();
 	}
 
-	public List<DatoDTO> obtenerReferenciasTipoFuente(Integer revisionId) {
+	public List<DatoDTO> obtenerReferenciasTipoFuente(Integer id) {
 		List<DatoDTO> resultado = entityManager
 				.createNamedQuery(EstadisticaQuery.ESTADISTICA_REFERENCIA_TIPO_FUENTE, DatoDTO.class)
-				.setParameter("idRevision", revisionId).getResultList();
+				.setParameter("id", id).getResultList();
 
 		for (TipoFuente fuente : TipoFuente.values()) {
 			if (!resultado.stream().anyMatch(d -> d.getEtiqueta().equals(fuente.toString()))) {
@@ -107,8 +107,7 @@ public class EstadisticaEJB {
 	}
 
 	public List<DatoDTO> obtenerPalabrasClave(Integer revisionId, int minimo) {
-		return entityManager.createNamedQuery(EstadisticaQuery.ESTADISTICA_PALABRAS_CLAVE, DatoDTO.class)
-				.setParameter("idRevision", revisionId).setParameter("minimo", minimo).getResultList();
+		return EstadisticaQuery.PalabrasClave.createQuery(entityManager,revisionId,minimo).getResultList();
 	}
 
 	public List<Referencia> obtenerReferencias(Integer revisionId, String keyword, List<TipoMetadato> metadatos) {

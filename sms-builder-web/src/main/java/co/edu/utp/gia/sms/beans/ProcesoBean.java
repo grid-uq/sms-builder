@@ -98,9 +98,9 @@ public class ProcesoBean extends AbstractRevisionBean {
     private void configurarStage1(MenuModel model) {
         String[] urls = {"/revision/editarRevision.xhtml",
                 "/revision/registroObjetivo.xhtml", "/revision/registroPregunta.xhtml", "/revision/registroTermino.xhtml",
-                "/revision/registroAtributoCalidad.xhtml","/revision/configurarProceso.xhtml"};
+                "/revision/registroAtributoCalidad.xhtml","/revision/cadenabusqueda/registro.xhtml","/revision/configurarProceso.xhtml"};
         String[] labels = {"etiquetaMenuRevisionEditar", "etiquetaMenuObjetivo",
-                "etiquetaMenuPregunta", "etiquetaTermino", "etiquetaMenuAtributosCalidad","etiquetaProceso"};
+                "etiquetaMenuPregunta", "etiquetaTermino", "etiquetaMenuAtributosCalidad","etiquetaMenuCadenaBusqueda","etiquetaProceso"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
                 .label("Stage 1 Planing")
                 .build();

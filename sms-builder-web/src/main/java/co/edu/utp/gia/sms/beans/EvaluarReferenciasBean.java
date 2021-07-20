@@ -9,8 +9,6 @@ import lombok.Setter;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -34,7 +32,7 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 
     public void inicializar() {
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId(), 3);
+            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId());
         }
     }
 
@@ -68,7 +66,7 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
             for (ReferenciaDTO referencia : referencias) {
                 referenciaEJB.evaluacionAutomatica(referencia.getId());
             }
-            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId(), 3);
+            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId());
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());

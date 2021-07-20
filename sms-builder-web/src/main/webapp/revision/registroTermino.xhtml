@@ -48,6 +48,38 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
+				<p:column headerText="#{msg.etiquetaSinonimo}">
+					<p:commandButton
+							action="#{registroTerminoBean.adicionarSinonimo(termino.id)}"
+							icon="pi pi-plus-circle" styleClass="rounded-button ui-button-flat ui-button-plain">
+						<p:ajax event="dialogReturn"
+								listener="#{registroTerminoBean.onTopicoCreado}" update=":tabla formulario :msgs" />
+					</p:commandButton>
+
+
+					<p:repeat value="#{termino.sinonimos}" var="sinonimo">
+						<p:panelGrid >
+							<p:row>
+								<p:column>
+									<h:outputText value="#{sinonimo}" />
+								</p:column>
+								<p:column style="width: 70px">
+									<p:commandButton
+											action="#{registroTerminoBean.eliminarSinonimo(termino,sinonimo)}"
+											immediate="true"
+											icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
+
+										<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+												   message="#{msg['dialogoConfirmacion.eliminar']}"
+												   icon="ui-icon ui-icon-alert" />
+									</p:commandButton>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:repeat>
+
+				</p:column>
+
 				<p:column style="width:35px">
 					<p:rowEditor   />
 					<p:commandButton action="#{registroTerminoBean.eliminar(termino)}" immediate="true"

@@ -9,11 +9,9 @@ import co.edu.utp.gia.sms.negocio.RevisionEJB;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -46,20 +44,19 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
     public void inicializar() {
 
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
+            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
             topicos = revisionEJB.obtenerTopicos(getRevision().getId());
         }
     }
 
     public void consultarReferencias() {
         if (idAtributoCalidad == null) {
-            referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
+            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
         } else if (evaluacion != null) {
             referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad,
-                    evaluacion, 3);
+                    evaluacion);
         } else {
-            referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad,
-                    3);
+            referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad);
         }
     }
 

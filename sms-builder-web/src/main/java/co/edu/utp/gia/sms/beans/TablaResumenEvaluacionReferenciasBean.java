@@ -40,7 +40,7 @@ public class TablaResumenEvaluacionReferenciasBean extends GenericBean<Referenci
 
     public void inicializar() {
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId(), 3);
+            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId());
             atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
         }
     }

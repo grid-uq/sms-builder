@@ -46,7 +46,7 @@ public class TablaResumenEvaluacionReferenciasAtributoBean extends GenericBean<R
 
     public void inicializar() {
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId(), 3);
+            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId());
             atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
             atributoCalidad = atributosCalidad.stream().findFirst().orElse(null);
             idAtributo = atributoCalidad != null ? atributoCalidad.getId() : null;
@@ -65,7 +65,7 @@ public class TablaResumenEvaluacionReferenciasAtributoBean extends GenericBean<R
 
 
     public void atributoSeleccionado() {
-        atributoCalidad = atributosCalidad.stream().filter(a -> a.getId() == idAtributo).findFirst().orElse(atributoCalidad);
+        atributoCalidad = atributosCalidad.stream().filter(a -> a.getId().equals( idAtributo )).findFirst().orElse(atributoCalidad);
     }
 
 

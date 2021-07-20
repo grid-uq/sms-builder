@@ -39,13 +39,14 @@ public class ResumenBean extends AbstractRevisionBean{
         if( getRevision() != null ) {
             numeroReferencias = revisionEJB.totalReferencias(getRevision().getId());
             numeroReferenciasBaseDatos = revisionEJB.totalReferencias(getRevision().getId(), TipoFuente.BASE_DATOS);
+            //TODO las referencias repetidas no se pueden calcular como antes
             numeroReferenciasRepetidas = revisionEJB.totalReferenciasRepetidas(getRevision().getId());
-            numeroReferenciasSeleccionadas = revisionEJB.totalReferenciasSeleccionadas(getRevision().getId());
-            referenciasPorFuente = estadisticaEJB.obtenerReferenciasTipoFuente(getRevision().getId());
-            numeroReferenciasDescartadas = revisionEJB.totalReferencias(getRevision().getId(), TipoFuente.BASE_DATOS,1);
-            numeroReferenciasSeleccionadasBaseDatos = revisionEJB.totalReferencias(getRevision().getId(), TipoFuente.BASE_DATOS,3);
-            numeroReferenciasSeleccionadasBolaNieve = revisionEJB.totalReferencias(getRevision().getId(), TipoFuente.BOLA_NIEVE,3);
-            numeroReferenciasSeleccionadasInclusionDirecta = revisionEJB.totalReferencias(getRevision().getId(), TipoFuente.INCLUSION_DIRECTA,3);
+            numeroReferenciasSeleccionadas = revisionEJB.totalReferenciasSeleccionadas(getRevision().getPasoSeleccionado().getId());
+            referenciasPorFuente = estadisticaEJB.obtenerReferenciasTipoFuente(getRevision().getPasoSeleccionado().getId());
+            numeroReferenciasDescartadas = numeroReferencias - numeroReferenciasSeleccionadas;
+            numeroReferenciasSeleccionadasBaseDatos = revisionEJB.totalReferenciasPaso(getRevision().getPasoSeleccionado().getId(), TipoFuente.BASE_DATOS);
+            numeroReferenciasSeleccionadasBolaNieve = revisionEJB.totalReferenciasPaso(getRevision().getPasoSeleccionado().getId(), TipoFuente.BOLA_NIEVE);
+            numeroReferenciasSeleccionadasInclusionDirecta = revisionEJB.totalReferenciasPaso(getRevision().getPasoSeleccionado().getId(), TipoFuente.INCLUSION_DIRECTA);
         }
     }
 }

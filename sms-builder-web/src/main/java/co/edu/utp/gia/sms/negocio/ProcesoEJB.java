@@ -33,7 +33,7 @@ public class ProcesoEJB extends AbstractEJB<PasoProceso, Integer> {
         var paso = pasoEJB.obtenerOrThrow(idPaso);
         var revision = revisionEJB.obtenerOrThrow(idRevision);
         verificarOrden( revision.getPasosProceso() );
-        var pasoProceso = new PasoProceso(revision.getPasosProceso().size(),paso,revision);
+        var pasoProceso = new PasoProceso(revision.getPasosProceso().size()+1,paso,revision);
         entityManager.persist(pasoProceso);
         revision.getPasosProceso().add(pasoProceso);
         revision.setPasoSeleccionado(pasoProceso);

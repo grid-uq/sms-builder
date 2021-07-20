@@ -42,6 +42,7 @@ public final class RecursosConstants {
             "/revision/tablaResumenEvaluacionReferencias.xhtml",
             "/revision/tablaResumenEvaluacionReferenciasAtributo.xhtml",
             "/revision/revisores/index.xhtml",
+            "/revision/cadenabusqueda/registro.xhtml",
             "/estadisticas/palabrasClave.xhtml",
             "/estadisticas/referenciaPalabrasClave.xhtml",
             "/estadisticas/referenciasCalidadYear.xhtml",

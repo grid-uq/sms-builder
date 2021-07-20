@@ -35,7 +35,8 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 	@Inject
 	@Getter
 	protected ExceptionMessage exceptionMessage;
-	
+
+	public AbstractEJB(){}
 
 	public AbstractEJB(Class<E> entityClass) {
 		this.entityClass = entityClass;
@@ -47,6 +48,7 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 				throw new LogicException(entityClass.getName()+":"+exceptionMessage.getRegistroExistente());
 			}
 			entityManager.persist(entidad);
+			entityManager.flush();
 			return entidad;
 		} catch (Throwable t) {
 			throw new TecnicalException(t);
@@ -106,6 +108,7 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 	protected javax.persistence.TypedQuery<E> createQuery(String name){
 		return entityManager.createNamedQuery(name,entityClass);
 	}
+
 //	protected abstract EntityManager getEntityManager();
 //	public List<E> listar(String consulta) {
 //		return listar(consulta, null);

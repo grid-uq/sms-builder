@@ -76,14 +76,18 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     public List<ReferenciaDTO> obtenerTodas(int idRevision, int filtro) {
         List<ReferenciaDTO> referencias = entityManager
                 .createNamedQuery(ReferenciaQuery.REFERENCIA_GET_ALL, ReferenciaDTO.class)
-                .setParameter("idRevision", idRevision).setParameter("filtro", filtro).getResultList();
+                .setParameter("idRevision", idRevision).getResultList();
 
         return poblarReferenciaDTOS(referencias);
     }
 
     public List<ReferenciaDTO> obtenerTodas(int idPaso) {
         PasoProceso paso = procesoEJB.obtenerOrThrow(idPaso);
-        return poblarReferenciaDTOS(paso.getReferencias().stream().map(r->new ReferenciaDTO(r,idPaso)).collect(Collectors.toList()));
+        return obtenerTodas(paso);
+    }
+
+    private List<ReferenciaDTO> obtenerTodas(PasoProceso paso) {
+        return poblarReferenciaDTOS(paso.getReferencias().stream().map(r->new ReferenciaDTO(r, paso.getId())).collect(Collectors.toList()));
     }
 
     private List<ReferenciaDTO> poblarReferenciaDTOS(List<ReferenciaDTO> referencias) {
@@ -113,17 +117,16 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
      * un determinado filtro
      *
      * @param idRevision Identificador de la revision
-     * @param filtro     Filtro que se debe haber pasado 0 indica ningun filtro se
-     *                   mostrarian todas referencias de la revision
+     *
      * @return Listado de {@link Pregunta} de la {@link Revision} identificada con
      * el id dado
      */
-    public List<ReferenciaDTO> obtenerTodasConEvaluacion(int idRevision, int filtro) {
-        List<ReferenciaDTO> referencias = obtenerTodas(idRevision, filtro);
+    public List<ReferenciaDTO> obtenerTodasConEvaluacion(int idRevision) {
+        Revision revision = revisionEJB.obtenerOrThrow(idRevision);
+        List<ReferenciaDTO> referencias = obtenerTodas(revision.getPasoSeleccionado());
         for (ReferenciaDTO referencia : referencias) {
             referencia.setEvaluaciones(evaluacionCalidadEJB.obtenerEvaluaciones(referencia.getId()));
         }
-
         return referencias;
     }
 
@@ -361,24 +364,26 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     }
 
     public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(Integer idRevision,
-                                                                           Integer idAtributoCalidad, EvaluacionCualitativa valorEvaluacion, int filtro) {
+                                                                           Integer idAtributoCalidad, EvaluacionCualitativa valorEvaluacion) {
 
         List<ReferenciaDTO> referencias = entityManager
                 .createNamedQuery(ReferenciaQuery.REFERENCIA_GET_EVALUACION_ATRIBUTO_CALIDAD, ReferenciaDTO.class)
-                .setParameter("idRevision", idRevision).setParameter("filtro", filtro)
-                .setParameter("idAtributoCalidad", idAtributoCalidad).setParameter("valorEvaluacion", valorEvaluacion)
+                .setParameter("idRevision", idRevision)
+                .setParameter("idAtributoCalidad", idAtributoCalidad)
+                .setParameter("valorEvaluacion", valorEvaluacion)
                 .getResultList();
 
         return poblarReferenciaDTOS(referencias);
     }
 
     public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(Integer idRevision,
-                                                                           Integer idAtributoCalidad, int filtro) {
+                                                                           Integer idAtributoCalidad) {
 
         List<ReferenciaDTO> referencias = entityManager
                 .createNamedQuery(ReferenciaQuery.REFERENCIA_GET_ATRIBUTO_CALIDAD, ReferenciaDTO.class)
-                .setParameter("idRevision", idRevision).setParameter("filtro", filtro)
-                .setParameter("idAtributoCalidad", idAtributoCalidad).getResultList();
+                .setParameter("idRevision", idRevision)
+                .setParameter("idAtributoCalidad", idAtributoCalidad)
+                .getResultList();
 
         return poblarReferenciaDTOS(referencias);
     }

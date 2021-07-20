@@ -125,14 +125,13 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
 
     /**
      * Permite obterner el total de referencias de una revision
-     * @param id Id de la revision
+     * @param id id del Paso que indica la etapata en la que se quieren contar las referencias
      * @param tipoFuente Tipo de la fuente de la que se desea contar las referencias
-     * @param filtro filtro que indica la etapata en la que se quieren contar las referencias
      * @return El número de referencias de la revision
      */
-    public long totalReferencias(Integer id, TipoFuente tipoFuente,int filtro){
-        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS_TIPO_FUENTE_FILTRO,Long.class)
-                .setParameter("id",id).setParameter("tipoFuente",tipoFuente).setParameter("filtro",filtro).getSingleResult();
+    public long totalReferenciasPaso(Integer id, TipoFuente tipoFuente){
+        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS_TIPO_FUENTE_PASO,Long.class)
+                .setParameter("id",id).setParameter("tipoFuente",tipoFuente).getSingleResult();
     }
 
     /**
@@ -147,8 +146,8 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
 
     /**
      * Permite obterner el total de referencias seleccionafas de una revision
-     * @param id Id de la revision
-     * @return El número de referencias repetidas de la revision
+     * @param id Id del paso seleccionado
+     * @return El número de referencias en el paso
      */
     public long totalReferenciasSeleccionadas(Integer id) {
         return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS_SELECCIONADAS,Long.class)

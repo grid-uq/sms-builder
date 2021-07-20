@@ -3,12 +3,14 @@ package co.edu.utp.gia.sms.dtos;
 import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.importutil.Fuente;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 public class ReferenciaDTO implements Serializable {
     /**
      * Variable que representa el atributo serialVersionUID de la clase

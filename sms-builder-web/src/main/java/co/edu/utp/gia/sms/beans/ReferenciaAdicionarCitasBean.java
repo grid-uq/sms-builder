@@ -40,7 +40,8 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
     public void inicializar() {
 
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
+            //referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
+            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
             topicos = revisionEJB.obtenerTopicos(getRevision().getId());
         }
     }

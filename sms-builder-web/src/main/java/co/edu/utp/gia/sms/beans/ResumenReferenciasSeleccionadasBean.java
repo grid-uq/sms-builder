@@ -68,6 +68,7 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 
 	public void nombrar() {
 		long n = referencias.stream().filter( r->r.getSpsid()!=null ).count();
+		int digitos = 1 + (int)Math.log10( referencias.size() );
 		if( n > 0 ) {
 //			ReferenciaDTO re = referencias.stream().filter( r->r.getSpsid()!=null ).sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).findFirst().get();
 			ReferenciaDTO re = referencias.stream().filter( r->r.getSpsid()!=null ).sorted( (r1,r2)->r2.getSpsid().compareTo(r1.getSpsid()) ).findFirst().get();
@@ -76,7 +77,7 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 		
 		for (ReferenciaDTO referencia : referencias.stream().filter(r->r.getSpsid() == null).collect(Collectors.toList())) {
 			n++;
-			referencia.setSpsid( String.format("SPS%03d", n));
+			referencia.setSpsid( String.format("SPS%0"+digitos+"d", n));
 			referenciaEJB.actualizarSPS( referencia.getId() , referencia.getSpsid() );
 		}
 	}

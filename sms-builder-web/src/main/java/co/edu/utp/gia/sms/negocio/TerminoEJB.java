@@ -62,4 +62,13 @@ public class TerminoEJB extends AbstractEJB<Termino, Integer>{
 		}
 	}
 
+    public void adicionarSinonimo(Integer id, String sinonimo) {
+		Termino termino = obtenerOrThrow(id);
+		termino.adicionarSinonimo( sinonimo );
+    }
+
+	public void removerSinonimo(Integer id, String sinonimo) {
+		Termino termino = obtenerOrThrow(id);
+		termino.removerSinonimo( sinonimo );
+	}
 }

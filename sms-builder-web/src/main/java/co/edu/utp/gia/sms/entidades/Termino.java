@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
@@ -18,7 +21,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @EqualsAndHashCode
-@NoArgsConstructor
 @RequiredArgsConstructor
 public class Termino implements Entidad<Integer> {
     /**
@@ -55,4 +57,26 @@ public class Termino implements Entidad<Integer> {
     @NonNull
     private Revision revision;
 
+    /**
+     * Lista de sinonimos del termino
+     */
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "TERMINO_SINONIMO")
+    @Column(name = "sinonimo",length = 50)
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private List<String> sinonimos;
+
+    public Termino(){
+        sinonimos = new ArrayList<>();
+    }
+
+    public void adicionarSinonimo(String sinonimo) {
+        getSinonimos().add(sinonimo);
+    }
+
+    public void removerSinonimo(String sinonimo) {
+        getSinonimos().remove(sinonimo);
+    }
 }
