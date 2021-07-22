@@ -5,12 +5,15 @@ import co.edu.utp.gia.sms.entidades.CadenaBusqueda;
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.negocio.CadenaBusquedaEJB;
 import co.edu.utp.gia.sms.negocio.ObjetivoEJB;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.Date;
 import java.util.List;
 
 @Named
@@ -20,12 +23,17 @@ public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
      * Variable que representa el atributo serialVersionUID de la clase
      */
     private static final long serialVersionUID = 9060626480979863537L;
-    @Getter
-    @Setter
+    @Getter @Setter
     private String baseDatos;
-    @Getter
-    @Setter
+    @Getter @Setter
     private String consulta;
+    @Getter @Setter
+    private Date fechaConsulta;
+    @Getter @Setter
+    private Integer resultadoPreliminar;
+    @Getter @Setter
+    private Integer resultadoFinal;
+
     @Getter
     @Setter
     private List<CadenaBusqueda> cadenasBusqueda;
@@ -42,7 +50,7 @@ public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
 
 
     public void registrar() {
-        CadenaBusqueda cadenaBusqueda = cadenaBusquedaEJB.registrar(baseDatos, consulta, getRevision().getId());
+        CadenaBusqueda cadenaBusqueda = cadenaBusquedaEJB.registrar(baseDatos, consulta,fechaConsulta,resultadoPreliminar,resultadoFinal, getRevision().getId());
         cadenasBusqueda.add(cadenaBusqueda);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         baseDatos = "";

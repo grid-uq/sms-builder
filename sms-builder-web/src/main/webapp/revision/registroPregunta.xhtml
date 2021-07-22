@@ -22,7 +22,7 @@
 					<p:outputLabel value="#{msg.etiquetaObjetivo}: " />
 					
 					<p:inputText value="#{registroPreguntaBean.codigo}" maxlength="3" required="true"/>
-					<p:inputText value="#{registroPreguntaBean.descripcion}" required="true"/>
+					<p:inputTextarea value="#{registroPreguntaBean.descripcion}" required="true"/>
 					<p:selectManyCheckbox
 						value="#{registroPreguntaBean.listaObjetivos}" required="true" >
 
@@ -72,7 +72,7 @@
 							
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{pregunta.descripcion}" />
+							<p:inputTextarea value="#{pregunta.descripcion}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>

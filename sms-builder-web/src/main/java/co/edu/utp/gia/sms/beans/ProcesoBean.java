@@ -66,7 +66,7 @@ public class ProcesoBean extends AbstractRevisionBean {
 
     private void configurarStage2(MenuModel model) {
         DefaultSubMenu stage = DefaultSubMenu.builder()
-                .label("Stage (2) Search for studies")
+                .label("Stage 2 Search for studies")
                 .build();
         pasosProceso.forEach(paso -> {
             final String url = paso.getPaso().getRecurso().getUrl();

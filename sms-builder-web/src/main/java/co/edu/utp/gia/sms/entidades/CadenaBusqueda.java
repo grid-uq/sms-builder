@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import java.util.Date;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -31,6 +33,21 @@ public class CadenaBusqueda implements Entidad<Integer> {
     @EqualsAndHashCode.Exclude
     @NonNull
     private String consulta;
+
+    @Getter @Setter
+    @EqualsAndHashCode.Exclude
+    @NonNull
+    private Date    fechaConsulta;
+
+    @Getter @Setter
+    @EqualsAndHashCode.Exclude
+    @NonNull
+    private Integer resultadoPreliminar;
+
+    @Getter @Setter
+    @EqualsAndHashCode.Exclude
+    @NonNull
+    private Integer resultadoFinal;
 
     @ManyToOne
     @Getter @Setter

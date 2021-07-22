@@ -11,18 +11,22 @@
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 
-	<ui:define name="content">
+	<ui:define name="content" >
 
 		<h:form id="formulario">
 
-			<div class="ui-fluid">
-				<p:panelGrid columns="2">
+			<div class="ui-fluid" >
+				<p:panelGrid columns="2" >
 					<p:outputLabel value="#{msg.etiquetaBaseDatos}: " />
 					<p:inputText value="#{cadenaBusquedaBean.baseDatos}" />
 					<p:outputLabel value="#{msg.etiquetaQuery}: " />
-					<p:inputTextarea value="#{cadenaBusquedaBean.consulta}" />
-
-
+					<p:inputTextarea value="#{cadenaBusquedaBean.consulta}" style="width: 800px" />
+					<p:outputLabel value="#{msg.etiquetaFecha}: " />
+					<p:datePicker value="#{cadenaBusquedaBean.fechaConsulta}" pattern="yyyy-MM-dd" />
+					<p:outputLabel value="#{msg.etiquetaResultadoPreliminar}: " />
+					<p:inputNumber value="#{cadenaBusquedaBean.resultadoPreliminar}" decimalPlaces="0" />
+					<p:outputLabel value="#{msg.etiquetaResultadoFinal}: " />
+					<p:inputNumber value="#{cadenaBusquedaBean.resultadoFinal}" decimalPlaces="0" />
 					<f:facet name="footer">
 						<p:commandButton value="#{msg.botonAceptar}"
 							action="#{cadenaBusquedaBean.registrar}"
@@ -39,14 +43,14 @@
 		<h:form id="tabla">
 
 			<p:dataTable value="#{cadenaBusquedaBean.cadenasBusqueda}" var="cadenaBusqueda"
-				editable="true">
+				editable="true" resizableColumns="true" >
 				<p:ajax event="rowEdit" listener="#{cadenaBusquedaBean.onRowEdit}"
 					update=":msgs" />
 
 				<p:ajax event="rowEditCancel"
 					listener="#{cadenaBusquedaBean.onRowCancel}" update=":msgs" />
 
-				<p:column headerText="#{msg.etiquetaBaseDatos}">
+				<p:column headerText="#{msg.etiquetaBaseDatos}" width="200">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{cadenaBusqueda.baseDatos}" />
@@ -62,11 +66,42 @@
 							<h:outputText value="#{cadenaBusqueda.consulta}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{cadenaBusqueda.consulta}" />
+							<p:inputTextarea value="#{cadenaBusqueda.consulta}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-
+				<p:column headerText="#{msg.etiquetaFecha}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{cadenaBusqueda.fechaConsulta}"  >
+								<f:convertDateTime pattern="yyyy-MM-dd" />
+							</h:outputText>
+						</f:facet>
+						<f:facet name="input">
+							<p:datePicker value="#{cadenaBusqueda.fechaConsulta}" pattern="yyyy-MM-dd" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg.etiquetaResultadoPreliminar}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{cadenaBusqueda.resultadoPreliminar}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputNumber value="#{cadenaBusqueda.resultadoPreliminar}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg.etiquetaResultadoFinal}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{cadenaBusqueda.resultadoFinal}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputNumber value="#{cadenaBusqueda.resultadoFinal}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
 				<p:column style="width:35px">
 					<p:rowEditor />
 					<p:commandButton type="submit" action="#{cadenaBusquedaBean.eliminar(cadenaBusqueda)}" immediate="true"

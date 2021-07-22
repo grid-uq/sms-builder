@@ -414,7 +414,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
             PasoProceso pasoSiguiente = procesoEJB.obtenerOrThrow(idPaso + 1);
             paso.getReferencias().forEach(
                     r->{
-                        if( r.getFiltro() < (idPaso +1) ) {
+                        if( r.getFiltro() == null || r.getFiltro() < (idPaso +1) ) {
                             r.setFiltro(idPaso +1);
                             if (!pasoSiguiente.getReferencias().contains(r)) {
                                 pasoSiguiente.getReferencias().add(r);

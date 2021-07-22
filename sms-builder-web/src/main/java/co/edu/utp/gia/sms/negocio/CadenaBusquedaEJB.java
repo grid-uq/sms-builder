@@ -4,11 +4,11 @@ import co.edu.utp.gia.sms.entidades.CadenaBusqueda;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.query.CadenaBusquedaQuery;
-import co.edu.utp.gia.sms.query.Queries;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,11 +31,11 @@ public class CadenaBusquedaEJB extends AbstractEJB<CadenaBusqueda, Integer>{
 	 *                    Cadena de busqueda
 	 * @return La {@link CadenaBusqueda} registrada
 	 */
-	public CadenaBusqueda registrar(String baseDatos,String consulta, Integer idRevision) {
+	public CadenaBusqueda registrar(String baseDatos, String consulta, Date fecha,Integer resultadoPreliminar,Integer resultadoFinal, Integer idRevision) {
 		CadenaBusqueda cadenaBusqueda = null;
 		Revision revision = revisionEJB.obtener(idRevision);
 		if (revision != null) {
-			cadenaBusqueda = new CadenaBusqueda(baseDatos,consulta,revision);
+			cadenaBusqueda = new CadenaBusqueda(baseDatos,consulta,fecha,resultadoPreliminar,resultadoFinal,revision);
 			registrar(cadenaBusqueda);
 		}
 		return cadenaBusqueda;
@@ -59,11 +59,14 @@ public class CadenaBusquedaEJB extends AbstractEJB<CadenaBusqueda, Integer>{
 	 * @param baseDatos Nuevo nombre de la base de datos de la Cande de Busqueda
 	 * @param consulta Nueva consulta de la Cande de Busqueda
 	 */
-	public void actualizar(Integer id, String baseDatos,String consulta) {
+	public void actualizar(Integer id, String baseDatos,String consulta, Date fecha,Integer resultadoPreliminar,Integer resultadoFinal) {
 		CadenaBusqueda cadenaBusqueda = obtenerOrThrow(id);
 		if (cadenaBusqueda != null) {
 			cadenaBusqueda.setBaseDatos(baseDatos);
 			cadenaBusqueda.setConsulta(consulta);
+			cadenaBusqueda.setFechaConsulta(fecha);
+			cadenaBusqueda.setResultadoPreliminar(resultadoPreliminar);
+			cadenaBusqueda.setResultadoFinal(resultadoFinal);
 		}
 	}
 
@@ -71,9 +74,7 @@ public class CadenaBusquedaEJB extends AbstractEJB<CadenaBusqueda, Integer>{
 		List<Termino> terminos = terminoEJB.obtenerTerminos(id);
 
 		 return terminos.stream().map(
-				termino->{
-					return construirQueryFromTermino(termino);
-				}
+				 this::construirQueryFromTermino
 		).collect(Collectors.joining(" AND "));
 	}
 
@@ -84,7 +85,7 @@ public class CadenaBusquedaEJB extends AbstractEJB<CadenaBusqueda, Integer>{
 		if( termino.getSinonimos().size() > 0 ){
 			stringBuilder.append(" OR ");
 			stringBuilder.append(
-				termino.getSinonimos().stream().collect(Collectors.joining(" OR "))
+					String.join(" OR ", termino.getSinonimos())
 			);
 		}
 
