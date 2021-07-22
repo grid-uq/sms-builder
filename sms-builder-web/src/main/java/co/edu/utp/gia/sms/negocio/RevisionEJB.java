@@ -7,6 +7,7 @@ import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.importutil.TipoFuente;
 import co.edu.utp.gia.sms.query.Queries;
 import co.edu.utp.gia.sms.query.RevisionQuery;
+import co.edu.utp.gia.sms.query.topico.TopicoFindAll;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -30,19 +31,6 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
         atributoCalidadEJB.crearAtributosCalidadPorDefecto(revision);
         return revision;
     }
-
-    /**
-     * Permite obtener el listado de preguntas de una revision
-     *
-     * @param id Identificador de la revision
-     * @return Listado de {@link Pregunta} de la {@link Revision} identificada con
-     * el id dado
-     */
-    public List<Pregunta> obtenerPreguntas(Integer id) {
-        return entityManager.createNamedQuery(Queries.PREGUNTA_GET_ALL, Pregunta.class).setParameter("id", id)
-                .getResultList();
-    }
-
 
     /**
      * Permite obtener el listado de preguntas de una revision
@@ -88,8 +76,7 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
      * id dado
      */
     public List<Topico> obtenerTopicos(Integer id) {
-        return entityManager.createNamedQuery(Queries.TOPICO_REVISION_GET_ALL, Topico.class).setParameter("id", id)
-                .getResultList();
+        return TopicoFindAll.createQuery(entityManager,id).getResultList();
     }
 
     /**

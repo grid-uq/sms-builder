@@ -6,6 +6,7 @@ import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.query.Queries;
 import co.edu.utp.gia.sms.query.ReferenciaQuery;
+import co.edu.utp.gia.sms.query.referencia.ReferenciaGetTotalEvaluacionCalidad;
 import lombok.extern.java.Log;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 
@@ -178,9 +179,14 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
         referencia.setTotalEvaluacionCalidad(calcularTotalEvaluacionCalidad(referencia.getId()).floatValue());
     }
 
+    /**
+     * Consulta que permite obtener el total de las evaluaciones de calidad registradas en el sistema para una referencia
+     *
+     * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
+     * @return Double con el total de la evaluación de calidad de la referencia dada
+     */
     private Double calcularTotalEvaluacionCalidad(Integer id) {
-        return entityManager.createNamedQuery(Queries.EVALUACION_TOTAL_CALIDAD, Double.class).setParameter("id", id)
-                .getSingleResult();
+        return ReferenciaGetTotalEvaluacionCalidad.createQuery(entityManager,id).getSingleResult();
     }
 
     public void adicionarTopico(Integer id, Integer idTopico) {

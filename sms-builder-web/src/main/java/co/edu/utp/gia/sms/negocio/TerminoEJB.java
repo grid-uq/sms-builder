@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Termino;
-import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.query.revision.RevisionGetTerminos;
 
 @Stateless
 @LocalBean
@@ -45,8 +45,7 @@ public class TerminoEJB extends AbstractEJB<Termino, Integer>{
 	 *         el id dado
 	 */
 	public List<Termino> obtenerTerminos(Integer id) {
-		return entityManager.createNamedQuery(Queries.TERMINO_GET_ALL, Termino.class).setParameter("id", id)
-				.getResultList();
+		return RevisionGetTerminos.createQuery(entityManager,id).getResultList();
 	}
 
 	/**

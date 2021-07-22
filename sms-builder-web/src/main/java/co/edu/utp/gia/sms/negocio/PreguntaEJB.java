@@ -5,6 +5,8 @@ import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.query.pregunta.PreguntaCount;
+import co.edu.utp.gia.sms.query.pregunta.PreguntaFindAll;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -47,16 +49,11 @@ public class PreguntaEJB extends AbstractEJB<Pregunta, Integer> {
      * el id dado
      */
     public List<PreguntaDTO> obtenerPreguntas(Integer id) {
-
-        List<PreguntaDTO> preguntas = entityManager.createNamedQuery(Queries.PREGUNTA_GET_ALL, PreguntaDTO.class).setParameter("id", id)
-                .getResultList();
-
-
+        List<PreguntaDTO> preguntas = PreguntaFindAll.createQuery(entityManager,id).getResultList();
         for (PreguntaDTO pregunta : preguntas) {
             pregunta.setTopicos(topicoEJB.obtenerTopicos(pregunta.getId()));
             pregunta.setObjetivos(objetivoEJB.obtenerObjetivosPregunta(pregunta.getId()));
         }
-
         return preguntas;
     }
 
@@ -84,8 +81,13 @@ public class PreguntaEJB extends AbstractEJB<Pregunta, Integer> {
         }
     }
 
+    /**
+     * Consulta que permite obtener el número de preguntas registradas en el sistema para una revision <br />
+     * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
+     * @return Número de preguntas registradas en el sistema para una revision
+     */
     public long totalPreguntas(Integer id) {
-        return entityManager.createNamedQuery(Queries.PREGUNTA_GET_CANTIDAD, Long.class).setParameter("id", id).getSingleResult();
+        return PreguntaCount.createQuery(entityManager,id).getSingleResult();
     }
 
 }

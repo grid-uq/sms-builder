@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidadPK;
 import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.query.referencia.ReferenciaGetEvaluacionesCalidad;
 
 @Stateless
 public class EvaluacionCalidadEJB extends AbstractEJB<EvaluacionCalidad, EvaluacionCalidadPK> {
@@ -26,11 +27,16 @@ public class EvaluacionCalidadEJB extends AbstractEJB<EvaluacionCalidad, Evaluac
 		} else {
 			registrar(evaluacion);
 		}
-	}	
-	
+	}
+
+	/**
+	 * Consulta que permite obtener las evaluaciones de calidad registradas en el sistema para una referencia
+	 *
+	 * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
+	 * @return List< EvaluacionCalidad > Lista de las {@link EvaluacionCalidad} de la {@link co.edu.utp.gia.sms.entidades.Referencia} dada
+	 */
 	public List<EvaluacionCalidad> obtenerEvaluaciones(Integer id) {
-		return entityManager.createNamedQuery(Queries.EVALUACION_CALIDAD_GET_ALL, EvaluacionCalidad.class)
-				.setParameter("id", id).getResultList();
+		return ReferenciaGetEvaluacionesCalidad.createQuery(entityManager,id).getResultList();
 	}
 
 }

@@ -12,7 +12,6 @@ import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.importutil.TipoFuente;
 import co.edu.utp.gia.sms.query.EstadisticaQuery;
-import co.edu.utp.gia.sms.query.Queries;
 
 @Stateless
 public class EstadisticaEJB {
@@ -51,10 +50,14 @@ public class EstadisticaEJB {
 				.setParameter("idRevision", revisionId).getResultList();
 	}
 
+	/**
+	 * Consulta que permite obtener el número de referencias por tipo de fuente en una revision <br />
+	 *
+	 * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
+	 * @return List< DatoDTO > con Estadisticas de los datos obtenidos
+	 */
 	public List<DatoDTO> obtenerReferenciasTipoFuente(Integer id) {
-		List<DatoDTO> resultado = entityManager
-				.createNamedQuery(EstadisticaQuery.ESTADISTICA_REFERENCIA_TIPO_FUENTE, DatoDTO.class)
-				.setParameter("id", id).getResultList();
+		List<DatoDTO> resultado = EstadisticaQuery.ReferenciaByTipoFuente.createQuery(entityManager,id).getResultList();
 
 		for (TipoFuente fuente : TipoFuente.values()) {
 			if (!resultado.stream().anyMatch(d -> d.getEtiqueta().equals(fuente.toString()))) {
@@ -64,10 +67,15 @@ public class EstadisticaEJB {
 		return resultado;
 	}
 
-	public List<DatoDTO> obtenerReferenciasTipoFuenteNombre(Integer revisionId, TipoFuente tipo) {
-		List<DatoDTO> resultado = entityManager
-				.createNamedQuery(EstadisticaQuery.ESTADISTICA_REFERENCIA_TIPO_FUENTE_NOMBRE, DatoDTO.class)
-				.setParameter("idRevision", revisionId).setParameter("tipo", tipo).getResultList();
+	/**
+	 * Permite obtener el número de referencias por cada fuente de un determinado tipo de fuente en una revision
+	 * @param id Id de la revision
+	 * @param tipo Tipo de fuente a consultar
+	 * @return List< DatoDTO > Con Estadisticas de referencia por tipo de fuente.
+	 */
+	public List<DatoDTO> obtenerReferenciasTipoFuenteNombre(Integer id, TipoFuente tipo) {
+		List<DatoDTO> resultado = EstadisticaQuery.ReferenciaByTipoFuenteAndNombre.createQuery(entityManager,id,tipo)
+				.getResultList();
 		for (Fuente fuente : Fuente.values()) {
 			if (fuente.getTipo() == tipo
 					&& !resultado.stream().anyMatch(d -> d.getEtiqueta().equals(fuente.toString()))) {
@@ -110,10 +118,17 @@ public class EstadisticaEJB {
 		return EstadisticaQuery.PalabrasClave.createQuery(entityManager,revisionId,minimo).getResultList();
 	}
 
-	public List<Referencia> obtenerReferencias(Integer revisionId, String keyword, List<TipoMetadato> metadatos) {
-		return entityManager.createNamedQuery(EstadisticaQuery.ESTADISTICA_REFERENCIA_PALABRAS_CLAVE, Referencia.class)
-				.setParameter("idRevision", revisionId).setParameter("value", String.format("%%%s%%", keyword))
-				.setParameter("identifiers", metadatos).getResultList();
+	/**
+	 *
+	 * Consulta que permite obtener las Referencias que contienen en uno de sus metadatos la palabra dada <br />
+	 *
+	 * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
+	 * @param keyword Palabra a buscar
+	 * @param metadatos Listado de tipos de metadatos a incluir en la búsqueda.
+	 * @return List< Referencia > que contienen la keyword buscada en uno de sus metadatos
+	 */
+	public List<Referencia> obtenerReferencias(Integer id, String keyword, List<TipoMetadato> metadatos) {
+		return EstadisticaQuery.ReferenciaByPalabrasClave.createQuery(entityManager,id,keyword,metadatos).getResultList();
 	}
 
 }

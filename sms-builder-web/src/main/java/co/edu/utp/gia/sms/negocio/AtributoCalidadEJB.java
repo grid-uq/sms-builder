@@ -3,6 +3,8 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.query.revision.RevisionFindAtributoCalidadByDescription;
+import co.edu.utp.gia.sms.query.revision.RevisionGetAtributosCalidad;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -53,11 +55,11 @@ public class AtributoCalidadEJB extends AbstractEJB<AtributoCalidad, Integer> {
      * Permite obtener un atributo de calidad basado en su descripción y la revisión a la que pertenece
      *
      * @param descripcion Descripcion del atributo de calidad
-     * @param idRevision  Identificador de la revision
-     * @return La {@link AtributoCalidad} que se corresponde con el Identificador dado
+     * @param id  Identificador de la revision
+     * @return El {@link AtributoCalidad} que se corresponde con el Identificador y descripción dados
      */
-    public AtributoCalidad obtener(String descripcion, Integer idRevision) {
-        return entityManager.createNamedQuery(Queries.ATRIBUTO_CALIDAD_GET_BY_DESCRIPTION_AND_REVISION, AtributoCalidad.class).setParameter("descripcion", descripcion).setParameter("idRevision", idRevision)
+    public AtributoCalidad obtener(String descripcion, Integer id) {
+        return RevisionFindAtributoCalidadByDescription.createQuery(entityManager,id,descripcion)
                 .getResultList().stream().findFirst().orElse(null);
     }
 
@@ -69,10 +71,8 @@ public class AtributoCalidadEJB extends AbstractEJB<AtributoCalidad, Integer> {
      * el id dado
      */
     public List<AtributoCalidad> obtenerAtributosCalidad(Integer id) {
-        return entityManager.createNamedQuery(Queries.ATRIBUTO_CALIDAD_GET_ALL, AtributoCalidad.class).setParameter("id", id)
-                .getResultList();
+        return RevisionGetAtributosCalidad.createQuery(entityManager,id).getResultList();
     }
-
 
     /**
      * Premite actualizar un {@link AtributoCalidad}

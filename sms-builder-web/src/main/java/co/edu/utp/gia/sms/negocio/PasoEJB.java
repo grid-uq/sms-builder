@@ -12,13 +12,12 @@ public class PasoEJB extends AbstractEJB<Paso, Integer> {
     }
 
     public Paso findByName(String nombre){
-        return entityManager.createNamedQuery(PasoQuery.PASOS_FIND_BY_NAME,Paso.class)
-                .setParameter("nombre",nombre)
+        return PasoQuery.FindByName.createQuery(entityManager,nombre)
                 .getResultStream().findFirst().orElse(null);
     }
 
     @Override
     public List<Paso> listar() {
-        return createQuery(PasoQuery.PASOS_FIND_ALL).getResultList();
+        return PasoQuery.FindAll.createQuery(entityManager).getResultList();
     }
 }

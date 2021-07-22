@@ -1,14 +1,13 @@
 package co.edu.utp.gia.sms.negocio;
 
-import java.util.List;
+import co.edu.utp.gia.sms.entidades.Pregunta;
+import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.query.topico.TopicoFindAllByPregunta;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
-import co.edu.utp.gia.sms.entidades.Pregunta;
-import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.query.Queries;
+import java.util.List;
 
 @Stateless
 @LocalBean
@@ -44,8 +43,7 @@ public class TopicoEJB extends AbstractEJB<Topico, Integer> {
 	 *         id dado
 	 */
 	public List<Topico> obtenerTopicos(Integer id) {
-		return entityManager.createNamedQuery(Queries.TOPICO_PREGUNTA_GET_ALL, Topico.class).setParameter("id", id)
-				.getResultList();
+		return TopicoFindAllByPregunta.createQuery(entityManager,id).getResultList();
 	}
 	
 }

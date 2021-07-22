@@ -1,14 +1,14 @@
 package co.edu.utp.gia.sms.negocio;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.query.objetivo.ObjetivoFindAll;
+import co.edu.utp.gia.sms.query.pregunta.PreguntaGetObjetivos;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import java.util.List;
 
 @Stateless
 public class ObjetivoEJB extends AbstractEJB<Objetivo, Integer> {
@@ -46,8 +46,7 @@ public class ObjetivoEJB extends AbstractEJB<Objetivo, Integer> {
 	 *         el id indicado
 	 */
 	public List<Objetivo> obtenerObjetivo(Integer id) {
-		return entityManager.createNamedQuery(Queries.OBJETIVO_GET_ALL, Objetivo.class).setParameter("id", id)
-				.getResultList();
+		return ObjetivoFindAll.createQuery(entityManager,id).getResultList();
 	}
 
 
@@ -66,18 +65,13 @@ public class ObjetivoEJB extends AbstractEJB<Objetivo, Integer> {
 		}
 	}
 
-	public List<Objetivo> obtenerObjetivo(List<Integer> listaIdObjetivos) {
-		List<Objetivo> objetivos = new ArrayList<Objetivo>();
-		for (Integer id : listaIdObjetivos) {
-			objetivos.add(obtener(id));
-		}
-
-		return objetivos;
-	}
-
+	/**
+	 * Permite obtener los objetivos relacionados a una pregunta
+	 * @param id Id de la pregunta
+	 * @return List< Objetivo > relacionados con la preguna
+	 */
 	public List<Objetivo> obtenerObjetivosPregunta(Integer id) {
-		return entityManager.createNamedQuery(Queries.PREGUNTA_OBJETIVO_GET_ALL, Objetivo.class).setParameter("id", id)
-				.getResultList();
+		return PreguntaGetObjetivos.createQuery(entityManager,id).getResultList();
 	}
 
 }

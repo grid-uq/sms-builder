@@ -2,8 +2,8 @@ package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.query.Queries;
 import co.edu.utp.gia.sms.query.ReferenciaQuery;
+import co.edu.utp.gia.sms.query.referencia.ReferenciaGetNotas;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -29,9 +29,8 @@ public class NotaEJB extends AbstractEJB<Nota, Integer> {
         return nota;
     }
 
-    public List<Nota> obtenerNotas(Integer idReferencia) {
-        return entityManager.createNamedQuery(Queries.NOTA_GET_ALL, Nota.class).setParameter("id", idReferencia)
-                .getResultList();
+    public List<Nota> obtenerNotas(Integer id) {
+        return ReferenciaGetNotas.createQuery(entityManager,id).getResultList();
     }
 
     public void actualizar(Integer id, String descripcion) {
