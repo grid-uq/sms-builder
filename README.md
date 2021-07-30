@@ -1,4 +1,4 @@
-# SMS-Builder
+# *SMS-Builder (https://hub.docker.com/repository/docker/griduq/sms-builder)*
 
 SMS-Builder is a software tool building to help researchers follow a SMS building process. The software is adapted to the stages of the SMS building process 1) Planning, 2) Study search, 3) Quality analysis, 4) Data collection, 5) Study analysis and classification, and 6) Results.
 
@@ -12,3 +12,4 @@ SMS-Builder was build using:
 - Docker as tools to deploy the software
 
 ![SMS Process](resources/images/SMS-Process.png)
+
