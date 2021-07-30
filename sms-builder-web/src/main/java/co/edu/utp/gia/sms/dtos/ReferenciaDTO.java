@@ -398,6 +398,14 @@ public class ReferenciaDTO implements Serializable {
         referencia.setSrrqi(srrqi);
     }
 
+    public Boolean getDuplicada() {
+        return referencia.getDuplicada();
+    }
+
+    public void setDuplicada(Boolean duplicada) {
+        referencia.setDuplicada(duplicada);
+    }
+
     public String getValorEvaluacion(AtributoCalidad atributo) {
         EvaluacionCalidad evaluacion = getEvaluacionCalidad(atributo);
         if (evaluacion == null) {

@@ -2,10 +2,7 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import java.util.Date;
 
@@ -27,11 +24,13 @@ public class CadenaBusqueda implements Entidad<Integer> {
     @Getter @Setter
     @EqualsAndHashCode.Exclude
     @NonNull
+    @Column(length = 30)
     private String baseDatos;
 
     @Getter @Setter
     @EqualsAndHashCode.Exclude
     @NonNull
+    @Lob
     private String consulta;
 
     @Getter @Setter

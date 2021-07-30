@@ -16,7 +16,7 @@
 				value="#{gestionarReferenciasRepetidasBean.referencias}"
 				var="referencia" paginator="true" rows="20"
 				rowsPerPageTemplate="20,50,100"
-				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight' : null}"
+				rowStyleClass="#{referencia.duplicada ? 'ui-state-highlight' : null}"
 				
 				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
 				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}" 
@@ -31,7 +31,7 @@
 
 
 				<p:column style="width:20px">
-					<p:selectBooleanCheckbox value="#{referencia.seleccionada}">
+					<p:selectBooleanCheckbox value="#{referencia.duplicada}">
 						<p:ajax update=":tabla" />
 					</p:selectBooleanCheckbox>
 				</p:column>

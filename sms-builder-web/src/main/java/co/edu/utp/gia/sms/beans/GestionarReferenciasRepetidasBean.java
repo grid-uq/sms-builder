@@ -45,9 +45,10 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
     private void sugerirSeleccion() {
         ReferenciaDTO anterior = null;
         for (ReferenciaDTO actual : referencias) {
-            if (anterior == null || anterior.getNombre() == null || actual.getNombre() == null || !anterior.getNombre().equalsIgnoreCase(actual.getNombre())) {
-                actual.setSeleccionada(true);
+            if( !(anterior == null || anterior.getNombre() == null || actual.getNombre() == null || !anterior.getNombre().equalsIgnoreCase(actual.getNombre())) ){
+                actual.setDuplicada(true);
             }
+
             anterior = actual;
         }
 
@@ -55,7 +56,8 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
 
     public void guardar() {
         for (ReferenciaDTO referencia : referencias) {
-            if( referencia.isSeleccionada() ){
+            referenciaEJB.referenciaDuplicada(referencia.getId(),referencia.getDuplicada());
+            if( !referencia.getDuplicada() ){
                 if( referencia.getFiltro() < paso ) {
                     referencia.setFiltro(paso);
                     referenciaEJB.actualizarFiltro(referencia.getId(), paso);

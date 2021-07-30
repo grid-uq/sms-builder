@@ -5,8 +5,13 @@ import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.importutil.TipoFuente;
-import co.edu.utp.gia.sms.query.Queries;
-import co.edu.utp.gia.sms.query.RevisionQuery;
+import co.edu.utp.gia.sms.query.estadistica.EstadisticaGetTotalReferenciasRepetidas;
+import co.edu.utp.gia.sms.query.paso.PasoGetTotalReferencias;
+import co.edu.utp.gia.sms.query.paso.PasoGetTotalReferenciasByTipoFuente;
+import co.edu.utp.gia.sms.query.revision.RevisionFindAll;
+import co.edu.utp.gia.sms.query.revision.RevisionFindByUsuarioId;
+import co.edu.utp.gia.sms.query.revision.RevisionGetTotalReferencias;
+import co.edu.utp.gia.sms.query.revision.RevisionGetTotalReferenciasByTipoFuente;
 import co.edu.utp.gia.sms.query.topico.TopicoFindAll;
 
 import javax.ejb.Stateless;
@@ -39,7 +44,7 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
      */
     @Override
     public List<Revision> listar() {
-        return entityManager.createNamedQuery(RevisionQuery.REVISION_GET_ALL, Revision.class).getResultList();
+        return RevisionFindAll.createQuery(entityManager).getResultList();
     }
 
     /**
@@ -48,9 +53,7 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
      * @return Listado de las {@link Revision} registradas
      */
     public List<Revision> obtenerTodas(Integer idUsuario) {
-        return entityManager.createNamedQuery(RevisionQuery.REVISION_GET_ALL_RELATED, Revision.class)
-                .setParameter("id", idUsuario)
-                .getResultList();
+        return RevisionFindByUsuarioId.createQuery(entityManager,idUsuario).getResultList();
     }
 
     /**
@@ -95,8 +98,7 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
      * @return El número de referencias de la revision
      */
     public long totalReferencias(Integer id){
-        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS,Long.class)
-                .setParameter("id",id).getSingleResult();
+        return RevisionGetTotalReferencias.createQuery(entityManager,id).getSingleResult();
     }
 
     /**
@@ -106,8 +108,7 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
      * @return El número de referencias de la revision
      */
     public long totalReferencias(Integer id, TipoFuente tipoFuente){
-        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS_TIPO_FUENTE,Long.class)
-                .setParameter("id",id).setParameter("tipoFuente",tipoFuente).getSingleResult();
+        return RevisionGetTotalReferenciasByTipoFuente.createQuery(entityManager,id,tipoFuente).getSingleResult();
     }
 
     /**
@@ -117,8 +118,7 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
      * @return El número de referencias de la revision
      */
     public long totalReferenciasPaso(Integer id, TipoFuente tipoFuente){
-        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS_TIPO_FUENTE_PASO,Long.class)
-                .setParameter("id",id).setParameter("tipoFuente",tipoFuente).getSingleResult();
+        return PasoGetTotalReferenciasByTipoFuente.createQuery(entityManager,id,tipoFuente).getSingleResult();
     }
 
     /**
@@ -127,17 +127,15 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
      * @return El número de referencias repetidas de la revision
      */
     public long totalReferenciasRepetidas(Integer id){
-        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS_REPETIDAS,Long.class)
-                .setParameter("id",id).getSingleResult();
+        return EstadisticaGetTotalReferenciasRepetidas.createQuery(entityManager,id).getSingleResult();
     }
 
     /**
-     * Permite obterner el total de referencias seleccionafas de una revision
+     * Permite obterner el total de referencias seleccionadas de una revision
      * @param id Id del paso seleccionado
      * @return El número de referencias en el paso
      */
     public long totalReferenciasSeleccionadas(Integer id) {
-        return entityManager.createNamedQuery(RevisionQuery.REVISION_TOTAL_REFERENCIAS_SELECCIONADAS,Long.class)
-                .setParameter("id",id).getSingleResult();
+        return PasoGetTotalReferencias.createQuery(entityManager,id).getSingleResult();
     }
 }

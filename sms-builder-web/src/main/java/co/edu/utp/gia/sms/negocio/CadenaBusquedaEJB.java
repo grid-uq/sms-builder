@@ -3,7 +3,7 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.entidades.CadenaBusqueda;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Termino;
-import co.edu.utp.gia.sms.query.CadenaBusquedaQuery;
+import co.edu.utp.gia.sms.query.revision.RevisionGetCadenaBusquedaQuery;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -49,7 +49,7 @@ public class CadenaBusquedaEJB extends AbstractEJB<CadenaBusqueda, Integer>{
 	 *         el id dado
 	 */
 	public List<CadenaBusqueda> obtenerCadenasBusqueda(Integer id) {
-		return CadenaBusquedaQuery.FindAll.createQuery(entityManager,id).getResultList();
+		return RevisionGetCadenaBusquedaQuery.createQuery(entityManager,id).getResultList();
 	}
 
 	/**

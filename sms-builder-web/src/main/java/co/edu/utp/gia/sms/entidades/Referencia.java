@@ -124,6 +124,11 @@ public class Referencia implements Entidad<Integer> {
     @EqualsAndHashCode.Exclude
     private Float srrqi;
 
+    @Getter
+    @Setter
+    @EqualsAndHashCode.Exclude
+    private Boolean duplicada;
+
     /**
      * Variable que representa el atributo metadatos de la clase
      */
@@ -159,6 +164,7 @@ public class Referencia implements Entidad<Integer> {
      */
     public Referencia() {
         filtro = 0;
+        duplicada = false;
     }
 
     /**

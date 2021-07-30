@@ -13,6 +13,7 @@ import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
@@ -88,7 +89,9 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     }
 
     private List<ReferenciaDTO> obtenerTodas(PasoProceso paso) {
-        return poblarReferenciaDTOS(paso.getReferencias().stream().map(r->new ReferenciaDTO(r, paso.getId())).collect(Collectors.toList()));
+        return poblarReferenciaDTOS(paso.getReferencias().stream()
+                .sorted(Comparator.comparing(Referencia::getNombre))
+                .map(r->new ReferenciaDTO(r, paso.getId())).collect(Collectors.toList()));
     }
 
     private List<ReferenciaDTO> poblarReferenciaDTOS(List<ReferenciaDTO> referencias) {
@@ -429,5 +432,10 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
                     }
             );
         }
+    }
+
+    public void referenciaDuplicada(Integer id, Boolean duplicada) {
+        Referencia referencia = obtenerOrThrow(id);
+        referencia.setDuplicada(duplicada);
     }
 }

@@ -49,6 +49,7 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 			}
 			entityManager.persist(entidad);
 			entityManager.flush();
+			entityManager.refresh(entidad);
 			return entidad;
 		} catch (Throwable t) {
 			throw new TecnicalException(t);
