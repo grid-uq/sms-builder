@@ -43,6 +43,9 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
     @Getter @Setter
     private EvaluacionCualitativa evaluacion;
 
+    @Getter @Setter
+    private Boolean year;
+
     public void inicializar() {
 
         if (getRevision() != null) {
