@@ -54,6 +54,9 @@ public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
         cadenasBusqueda.add(cadenaBusqueda);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         baseDatos = "";
+        fechaConsulta = null;
+        resultadoPreliminar = null;
+        resultadoFinal = null;
         sugerirConsulta();
     }
 

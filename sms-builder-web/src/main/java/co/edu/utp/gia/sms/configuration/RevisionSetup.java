@@ -12,6 +12,8 @@ public class RevisionSetup implements SetupInterface{
 
     @Override
     public void setup() {
-        revisionEJB.registrar("","",1);
+        if( revisionEJB.listar().size() == 0 ) {
+            revisionEJB.registrar("", "", 1);
+        }
     }
 }

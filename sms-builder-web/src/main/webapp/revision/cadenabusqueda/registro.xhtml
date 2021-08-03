@@ -63,7 +63,7 @@
 				<p:column headerText="#{msg.etiquetaQuery}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{cadenaBusqueda.consulta}" />
+							<p:outputPanel>#{cadenaBusqueda.consulta}</p:outputPanel>
 						</f:facet>
 						<f:facet name="input">
 							<p:inputTextarea value="#{cadenaBusqueda.consulta}" />
