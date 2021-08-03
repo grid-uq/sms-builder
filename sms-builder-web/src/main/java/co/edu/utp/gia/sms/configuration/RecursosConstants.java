@@ -49,6 +49,7 @@ public final class RecursosConstants {
             "/estadisticas/referenciasPregunta.xhtml",
             "/estadisticas/referenciasTipo.xhtml",
             "/estadisticas/referenciasTipoFuente.xhtml",
+            "/estadisticas/referenciasTermino.xhtml",
             "/estadisticas/referenciasTopico.xhtml",
             "/estadisticas/referenciasTopicoAtributoCalidad.xhtml",
             "/estadisticas/referenciasYear.xhtml",

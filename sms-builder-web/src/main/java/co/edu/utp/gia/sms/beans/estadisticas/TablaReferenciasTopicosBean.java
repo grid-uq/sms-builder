@@ -4,6 +4,7 @@ import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import co.edu.utp.gia.sms.negocio.RevisionEJB;
 import lombok.Getter;
@@ -29,16 +30,17 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
     private ReferenciaEJB referenciaEJB;
     @Inject
     private RevisionEJB revisionEJB;
+    @Inject
+    private EstadisticaEJB estadisticaEJB;
 
-    @Getter
-    @Setter
+    @Getter @Setter
+    private List<String> years;
+    @Getter @Setter
     private List<Topico> topicos;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer idAtributoCalidad;
-    @Getter
-    @Setter
+    @Getter @Setter
     private EvaluacionCualitativa evaluacion;
 
     public void inicializar() {
@@ -46,6 +48,7 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
         if (getRevision() != null) {
             referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
             topicos = revisionEJB.obtenerTopicos(getRevision().getId());
+            years = estadisticaEJB.obtenerYears( getRevision().getId() );
         }
     }
 

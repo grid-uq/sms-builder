@@ -1,17 +1,19 @@
 package co.edu.utp.gia.sms.negocio;
 
-import java.util.List;
-
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.importutil.TipoFuente;
 import co.edu.utp.gia.sms.query.EstadisticaQuery;
+import co.edu.utp.gia.sms.query.estadistica.EstadisticaGetYears;
+import co.edu.utp.gia.sms.query.estadistica.EstadisticaNumeroReferenciasByTermino;
+import co.edu.utp.gia.sms.query.estadistica.EstadisticaNumeroReferenciasBySinonimo;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 public class EstadisticaEJB {
@@ -129,6 +131,36 @@ public class EstadisticaEJB {
 	 */
 	public List<Referencia> obtenerReferencias(Integer id, String keyword, List<TipoMetadato> metadatos) {
 		return EstadisticaQuery.ReferenciaByPalabrasClave.createQuery(entityManager,id,keyword,metadatos).getResultList();
+	}
+
+	/**
+	 * Consulta que permite obtener el número de referencias por termino
+	 *
+	 * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
+	 * @return List< DatoDTO > Con Estadisticas de referencia por termino.
+	 */
+	public List<DatoDTO> obtenerReferenciasTermino(Integer id) {
+		return EstadisticaNumeroReferenciasByTermino.createQuery(entityManager,id).getResultList();
+	}
+
+	/**
+	 * Consulta que permite obtener el número de referencias por termino y sinonimo
+	 *
+	 * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
+	 * @return List< DatoDTO > Con Estadisticas de referencia por termino y sinonimo.
+	 */
+	public List<DatoDTO> obtenerReferenciasSinonimo(Integer id) {
+		return EstadisticaNumeroReferenciasBySinonimo.createQuery(entityManager,id).getResultList();
+	}
+
+	/**
+	 * Consulta que permite obtener el listado de años que comprenden las Referencias de la Revision
+	 *
+	 * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
+	 * @return List< String > Listado de años que comprenden las Referencias de la Revision
+	 */
+	public List<String> obtenerYears(Integer id) {
+		return EstadisticaGetYears.createQuery(entityManager,id).getResultList();
 	}
 
 }

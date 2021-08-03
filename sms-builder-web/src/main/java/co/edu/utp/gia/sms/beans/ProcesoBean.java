@@ -159,11 +159,11 @@ public class ProcesoBean extends AbstractRevisionBean {
         String[] urls = {"/estadisticas/referenciasYear.xhtml", "/estadisticas/referenciasTipo.xhtml",
                 "/estadisticas/referenciasTipoFuente.xhtml", "/estadisticas/referenciasTopico.xhtml",
                 "/estadisticas/referenciasTopicoAtributoCalidad.xhtml", "/estadisticas/referenciasPregunta.xhtml",
-                "/estadisticas/referenciasCalidadYear.xhtml"};
+                "/estadisticas/referenciasCalidadYear.xhtml","/estadisticas/referenciasTermino.xhtml"};
         String[] labels = {"etiquetaMenuAnalisisReferenciaYear", "etiquetaMenuAnalisisReferenciaTipo",
                 "etiquetaMenuAnalisisReferenciaTipoFuente", "etiquetaMenuAnalisisReferenciaTopico",
                 "etiquetaMenuAnalisisReferenciaTopicoAtributoCalidad", "etiquetaMenuAnalisisReferenciaPregunta",
-                "etiquetaMenuAnalisisCalidadYear"};
+                "etiquetaMenuAnalisisCalidadYear","etiquetaMenuAnalisisReferenciaTermino"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
                 .label("Stage 6 Results")
                 .build();

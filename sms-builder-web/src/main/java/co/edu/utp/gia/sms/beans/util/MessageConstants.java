@@ -4,6 +4,7 @@ public class MessageConstants {
     public static final String OPERACION_FINALIZADA = "operacionFinalizada";
     public static final String OPERACION_CANCELADA = "operacionCancelada";
     public static final String OPERACION_ERROR = "operacionError";
+    public static final String TERMINO = "etiquetaTermino";
     public static final String TOPICOS = "etiquetaTopicos";
     public static final String YEAR = "etiquetaYear";
     public static final String PROMEDIO_CALIDAD = "etiquetaPromedioCalidad";

@@ -99,6 +99,7 @@ public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
     protected PieChartModel crearPieModel() {
         PieChartModel model = new PieChartModel();
         PieChartOptions options = new PieChartOptions();
+        datosSeries = new HashMap<>();
         model.setData(createData(options));
 
         model.setOptions(options);
@@ -108,6 +109,7 @@ public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
     protected BarChartModel crearBarModel() {
         BarChartModel model = new BarChartModel();
         BarChartOptions options = new BarChartOptions();
+        datosSeries = new HashMap<>();
         model.setData(createData(options));
 
         CartesianScales cScales = new CartesianScales();
