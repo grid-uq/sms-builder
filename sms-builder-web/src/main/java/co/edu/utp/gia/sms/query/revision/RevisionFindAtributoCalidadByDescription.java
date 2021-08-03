@@ -15,7 +15,7 @@ import javax.persistence.TypedQuery;
 @NamedQuery(name = RevisionFindAtributoCalidadByDescription.NAME, query = RevisionFindAtributoCalidadByDescription.QUERY)
 public class RevisionFindAtributoCalidadByDescription extends Queries{
     public static final String NAME = "Revision.findAtributoCalidadByDescription";
-    public static final String QUERY = "select a from AtributoCalidad a where a.revision.id = :idRevision and a.descripcion = :descripcion";
+    public static final String QUERY = "select a from AtributoCalidad a where a.revision.id = :id and a.descripcion = :descripcion";
 
     /**
      * Consulta que permite obtener un atributo de calidad de una revision basado en la descripcion

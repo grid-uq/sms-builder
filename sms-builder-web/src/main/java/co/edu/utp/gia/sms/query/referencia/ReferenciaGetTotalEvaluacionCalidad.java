@@ -22,7 +22,7 @@ public class ReferenciaGetTotalEvaluacionCalidad extends Queries{
      *
      * @param entityManager Para la ejecución de la consulta
      * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
-     * @return TypedQuery< EvaluacionCalidad > que representa la consulta de las {@link EvaluacionCalidad}
+     * @return TypedQuery< Double > que representa la consulta
      */
     public static TypedQuery<Double> createQuery(EntityManager entityManager, Integer id){
         return entityManager.createNamedQuery(NAME, Double.class)

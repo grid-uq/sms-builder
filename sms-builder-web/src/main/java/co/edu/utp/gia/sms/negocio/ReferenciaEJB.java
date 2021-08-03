@@ -4,9 +4,7 @@ import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.importutil.Fuente;
-import co.edu.utp.gia.sms.query.Queries;
-import co.edu.utp.gia.sms.query.ReferenciaQuery;
-import co.edu.utp.gia.sms.query.referencia.ReferenciaGetTotalEvaluacionCalidad;
+import co.edu.utp.gia.sms.query.referencia.*;
 import lombok.extern.java.Log;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 
@@ -43,7 +41,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
         super(Referencia.class);
     }
 
-    public Referencia registrar(Referencia referencia, Integer idRevision,Integer idPasoProceso) {
+    public Referencia registrar(Referencia referencia, Integer idRevision, Integer idPasoProceso) {
         Revision revision = revisionEJB.obtener(idRevision);
 
         referencia.setRevision(revision);
@@ -55,32 +53,25 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 //            }
 //        }
         registrar(referencia);
-        procesoEJB.addReferencia(idPasoProceso,referencia);
+        procesoEJB.addReferencia(idPasoProceso, referencia);
         return referencia;
     }
 
-    public void registrar(List<Referencia> referencias, Integer idRevision,Integer idPasoProceso) {
+    public void registrar(List<Referencia> referencias, Integer idRevision, Integer idPasoProceso) {
         for (Referencia referencia : referencias) {
-            registrar(referencia, idRevision,idPasoProceso);
+            registrar(referencia, idRevision, idPasoProceso);
         }
     }
 
     /**
-     * Permite obtener el listado de referencias de una revision que han pasado por
-     * un determinado filtro
+     * Permite obtener el listado de referencias seleccionadas de una revision
      *
-     * @param idRevision Identificador de la revision
-     * @param filtro     Filtro que se debe haber pasado 0 indica ningun filtro se
-     *                   mostrarian todas referencias de la revision
-     * @return Listado de {@link Pregunta} de la {@link Revision} identificada con
+     * @param id Identificador de la revision
+     * @return Listado de {@link Referencia} seleccionadas de la {@link Revision} identificada con
      * el id dado
      */
-    public List<ReferenciaDTO> obtenerTodas(int idRevision, int filtro) {
-        List<ReferenciaDTO> referencias = entityManager
-                .createNamedQuery(ReferenciaQuery.REFERENCIA_GET_ALL, ReferenciaDTO.class)
-                .setParameter("idRevision", idRevision).getResultList();
-
-        return poblarReferenciaDTOS(referencias);
+    public List<ReferenciaDTO> obtenerSeleccionadas(int id) {
+        return poblarReferenciaDTOS(ReferenciaGetAll.createQuery(entityManager,id).getResultList());
     }
 
     public List<ReferenciaDTO> obtenerTodas(int idPaso) {
@@ -91,7 +82,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     private List<ReferenciaDTO> obtenerTodas(PasoProceso paso) {
         return poblarReferenciaDTOS(paso.getReferencias().stream()
                 .sorted(Comparator.comparing(Referencia::getNombre))
-                .map(r->new ReferenciaDTO(r, paso.getId())).collect(Collectors.toList()));
+                .map(r -> new ReferenciaDTO(r, paso.getId())).collect(Collectors.toList()));
     }
 
     private List<ReferenciaDTO> poblarReferenciaDTOS(List<ReferenciaDTO> referencias) {
@@ -121,7 +112,6 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
      * un determinado filtro
      *
      * @param idRevision Identificador de la revision
-     *
      * @return Listado de {@link Pregunta} de la {@link Revision} identificada con
      * el id dado
      */
@@ -162,14 +152,14 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     public void actualizarFiltro(Integer id, Integer filtro) {
         Referencia referencia = obtener(id);
         Integer filtroActual = referencia.getFiltro();
-        if( filtroActual < filtro ){
+        if (filtroActual < filtro) {
             while (filtroActual < filtro) {
                 filtroActual++;
-                procesoEJB.addReferencia(filtroActual,referencia);
+                procesoEJB.addReferencia(filtroActual, referencia);
             }
         } else {
             while (filtroActual > filtro) {
-                procesoEJB.removeReferencia(filtroActual,referencia);
+                procesoEJB.removeReferencia(filtroActual, referencia);
                 filtroActual--;
             }
         }
@@ -189,7 +179,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
      * @return Double con el total de la evaluación de calidad de la referencia dada
      */
     private Double calcularTotalEvaluacionCalidad(Integer id) {
-        return ReferenciaGetTotalEvaluacionCalidad.createQuery(entityManager,id).getSingleResult();
+        return ReferenciaGetTotalEvaluacionCalidad.createQuery(entityManager, id).getSingleResult();
     }
 
     public void adicionarTopico(Integer id, Integer idTopico) {
@@ -354,15 +344,24 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 
     }
 
+    /**
+     * Consulta que permite obtener el número de preguntas relacionadas con una referencia
+     *
+     * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
+     * @return número de preguntas relacionadas con una referencia
+     */
     private long calcularTotalPreguntasRelacionadas(Integer id) {
-        return entityManager.createNamedQuery(ReferenciaQuery.REFERENCIA_CANTIDAD_RELACION_PREGUNTAS, Long.class)
-                .setParameter("id", id).getSingleResult();
-
+        return ReferenciaCountPreguntaRelacionada.createQuery(entityManager, id).getSingleResult();
     }
 
-    private List<Float> obtenerSCIs(Integer idRevision) {
-        return entityManager.createNamedQuery(ReferenciaQuery.REFERENCIA_SCIS, Float.class)
-                .setParameter("idRevision", idRevision).getResultList();
+    /**
+     * Consulta que permite obtener los SCI de las referencia de una revision
+     *
+     * @param id Id de la Revision
+     * @return List<Float> listado de los SCI de las referencias de una revision
+     */
+    private List<Float> obtenerSCIs(Integer id) {
+        return ReferenciaGetAllSCI.createQuery(entityManager, id).getResultList();
     }
 
     public void actualizarSPS(Integer id, String spsid) {
@@ -372,29 +371,32 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
         }
     }
 
-    public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(Integer idRevision,
+    /**
+     * Consulta que permite obtener las referencias con una determinada calificación de un atributo de calidad dado
+     *
+     * @param id                Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
+     * @param idAtributoCalidad Id del atributo de calidad
+     * @param valorEvaluacion   Evaluación que deben cumplir las referencias seleccionadas
+     * @return List<ReferenciaDTO> listado de las referencias que cumplen con la evaluación solicitada en el atributo de calidad dado
+     */
+    public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(Integer id,
                                                                            Integer idAtributoCalidad, EvaluacionCualitativa valorEvaluacion) {
-
-        List<ReferenciaDTO> referencias = entityManager
-                .createNamedQuery(ReferenciaQuery.REFERENCIA_GET_EVALUACION_ATRIBUTO_CALIDAD, ReferenciaDTO.class)
-                .setParameter("idRevision", idRevision)
-                .setParameter("idAtributoCalidad", idAtributoCalidad)
-                .setParameter("valorEvaluacion", valorEvaluacion)
-                .getResultList();
-
-        return poblarReferenciaDTOS(referencias);
+        return poblarReferenciaDTOS(
+                ReferenciaGetAllByEvaluacionOfAtributoCalidad
+                        .createQuery(entityManager, id, idAtributoCalidad, valorEvaluacion).getResultList());
     }
 
-    public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(Integer idRevision,
+    /**
+     * Consulta que permite obtener las referencias con evaliacón de un atributo de calidad dado
+     *
+     * @param id                Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
+     * @param idAtributoCalidad Id del atributo de calidad
+     * @return List<ReferenciaDTO> Listado de las con evaliacón de un atributo de calidad del id dado
+     */
+    public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(Integer id,
                                                                            Integer idAtributoCalidad) {
-
-        List<ReferenciaDTO> referencias = entityManager
-                .createNamedQuery(ReferenciaQuery.REFERENCIA_GET_ATRIBUTO_CALIDAD, ReferenciaDTO.class)
-                .setParameter("idRevision", idRevision)
-                .setParameter("idAtributoCalidad", idAtributoCalidad)
-                .getResultList();
-
-        return poblarReferenciaDTOS(referencias);
+        return poblarReferenciaDTOS(ReferenciaGetAllWithEvaluacionOfAtributoCalidad.createQuery(
+                entityManager, id, idAtributoCalidad).getResultList());
     }
 
     public void actualizarYear(Integer id, String year) {
@@ -409,22 +411,24 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
         }
     }
 
-    public List<ReferenciaDTO> obtenerDestacadas(Integer idRevision) {
-        List<ReferenciaDTO> referencias = entityManager
-                .createNamedQuery(ReferenciaQuery.REFERENCIA_GET_ALL_DESTACADAS, ReferenciaDTO.class)
-                .setParameter("idRevision", idRevision).getResultList();
-
-        return poblarReferenciaDTOS(referencias);
+    /**
+     * Consulta que permite obtener los Referencias que han recivido una valoración de su contenido
+     *
+     * @param id Id de la Revision
+     * @return List<ReferenciaDTO> listado de las referencias destacadas, en caso de no haber ninguna el listado sera vacio
+     */
+    public List<ReferenciaDTO> obtenerDestacadas(Integer id) {
+        return poblarReferenciaDTOS(ReferenciaGetDestacadas.createQuery(entityManager, id).getResultList());
     }
 
     public void avanzarReferecias(int idPaso) {
-        if( idPaso >= 1 ) {
+        if (idPaso >= 1) {
             PasoProceso paso = procesoEJB.obtenerOrThrow(idPaso);
             PasoProceso pasoSiguiente = procesoEJB.obtenerOrThrow(idPaso + 1);
             paso.getReferencias().forEach(
-                    r->{
-                        if( r.getFiltro() == null || r.getFiltro() < (idPaso +1) ) {
-                            r.setFiltro(idPaso +1);
+                    r -> {
+                        if (r.getFiltro() == null || r.getFiltro() < (idPaso + 1)) {
+                            r.setFiltro(idPaso + 1);
                             if (!pasoSiguiente.getReferencias().contains(r)) {
                                 pasoSiguiente.getReferencias().add(r);
                             }
