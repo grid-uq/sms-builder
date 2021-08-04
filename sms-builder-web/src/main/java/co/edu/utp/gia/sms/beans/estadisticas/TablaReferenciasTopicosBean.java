@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
+import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
@@ -13,7 +14,9 @@ import lombok.Setter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
@@ -49,7 +52,8 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
     public void inicializar() {
 
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
+            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId())
+                    .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
             topicos = revisionEJB.obtenerTopicos(getRevision().getId());
             years = estadisticaEJB.obtenerYears( getRevision().getId() );
         }
@@ -57,12 +61,15 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
 
     public void consultarReferencias() {
         if (idAtributoCalidad == null) {
-            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
+            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId())
+                    .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
         } else if (evaluacion != null) {
             referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad,
-                    evaluacion);
+                    evaluacion)
+                    .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
         } else {
-            referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad);
+            referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad)
+                    .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
         }
     }
 

@@ -15,7 +15,8 @@ import javax.persistence.TypedQuery;
 @NamedQuery(name = TopicoFindAll.NAME, query = TopicoFindAll.QUERY)
 public class TopicoFindAll extends Queries{
     public static final String NAME = "Topico.findAll";
-    public static final String QUERY = "select t from Topico t , IN(t.pregunta.objetivos) o where o.revision.id = :id order by t.pregunta.codigo";
+    public static final String QUERY = "select t from Topico t , IN(t.pregunta.objetivos) o " +
+            "where o.revision.id = :id order by t.pregunta.codigo,t.descripcion";
 
     /**
      * Consulta que permite obtener los topicos registradas en el sistema para una revision <br />
