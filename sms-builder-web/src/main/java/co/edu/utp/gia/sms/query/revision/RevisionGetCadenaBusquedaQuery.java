@@ -15,7 +15,7 @@ import javax.persistence.TypedQuery;
 @NamedQuery(name = RevisionGetCadenaBusquedaQuery.NAME, query = RevisionGetCadenaBusquedaQuery.QUERY)
 public class RevisionGetCadenaBusquedaQuery extends Queries {
     public static final String NAME = "Revision.getCadenasBusqueda";
-    public static final String QUERY = "select c from CadenaBusqueda c where c.revision.id = :id";
+    public static final String QUERY = "select c from CadenaBusqueda c where c.revision.id = :id order by c.baseDatos";
 
     /**
      * Permite encontrar todas las cadenas de busqueda registradas en una revision
