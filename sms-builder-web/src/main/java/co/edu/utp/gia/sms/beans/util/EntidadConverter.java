@@ -32,7 +32,8 @@ public abstract class EntidadConverter<E extends Entidad> implements Converter<E
 				throw new ConverterException(
 						new FacesMessage(
 								componente.getClientId() + ":" +
-										bundle.getString(MessageConstants.ERROR_CONVERSION_VALOR))
+										bundle.getString(MessageConstants.ERROR_CONVERSION_VALOR)),
+						e
 				);
 			}
 		}

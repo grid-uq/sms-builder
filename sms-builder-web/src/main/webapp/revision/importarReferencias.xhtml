@@ -14,7 +14,7 @@
 			<p:panelGrid columns="2">
 				<p:outputLabel for="fuente" value="#{msg.etiquetaFuente}:" />
 				<p:selectOneMenu id="fuente" value="#{importarReferenciasBean.fuente}" converter="fuenteConverter">
-					<f:selectItems value="#{importarReferenciasBean.fuentes}" var="referencia" itemLabel="#{referencia}" itemValue="#{referencia}" />
+					<f:selectItems value="#{importarReferenciasBean.fuentes}" var="fuente" itemLabel="#{fuente.nombre}" itemValue="#{fuente}" />
 				</p:selectOneMenu>
 				<p:outputLabel for="formato" value="#{msg.etiquetaFormato}:" />
 				<p:selectOneMenu id="formato" value="#{importarReferenciasBean.tipoArchivo}">

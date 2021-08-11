@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.importutil;
 
+import co.edu.utp.gia.sms.importutil.bibtex.BibtexFileMultipleRegisterParse;
 import co.edu.utp.gia.sms.importutil.ris.RisFileMultipleRegisterParse;
 
 public class FileMultipleRegisterParseFactory {
@@ -12,7 +13,7 @@ public class FileMultipleRegisterParseFactory {
 				return new RisFileMultipleRegisterParse(fuente,tipoFuente);
 			case BIBTEX:
 			default:
-				return new RisFileMultipleRegisterParse(fuente,tipoFuente);
+				return new BibtexFileMultipleRegisterParse(fuente,tipoFuente);
 		}
 	}
 

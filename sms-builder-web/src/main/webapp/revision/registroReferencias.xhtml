@@ -15,7 +15,7 @@
 				<p:outputLabel for="fuente" value="#{msg.etiquetaFuente}:" />
 				<p:selectOneMenu id="fuente" value="#{registroReferenciasBean.fuente}" converter="fuenteConverter">
 					<f:selectItem itemLabel="#{msg.etiquetaSeleccionarOpcion}" itemValue="" noSelectionOption="true" />
-					<f:selectItems value="#{registroReferenciasBean.fuentes}" var="referencia" itemLabel="#{referencia}" itemValue="#{referencia}" />
+					<f:selectItems value="#{registroReferenciasBean.fuentes}" var="fuente" itemLabel="#{fuente.nombre}" itemValue="#{fuente}" />
 				</p:selectOneMenu>
 				<p:outputLabel for="formato" value="#{msg.etiquetaFormato}:" />
 				<p:selectOneMenu id="formato" value="#{registroReferenciasBean.tipoArchivo}">
