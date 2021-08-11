@@ -1,4 +1,4 @@
-package co.edu.utp.gia.sms.importutil;
+package co.edu.utp.gia.sms.entidades;
 
 import co.edu.utp.gia.sms.util.ApplicationGeneralProducer;
 

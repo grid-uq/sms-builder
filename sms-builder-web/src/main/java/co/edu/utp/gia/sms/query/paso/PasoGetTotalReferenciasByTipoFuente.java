@@ -1,6 +1,6 @@
 package co.edu.utp.gia.sms.query.paso;
 
-import co.edu.utp.gia.sms.importutil.TipoFuente;
+import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.query.Queries;
 
 import javax.persistence.Entity;

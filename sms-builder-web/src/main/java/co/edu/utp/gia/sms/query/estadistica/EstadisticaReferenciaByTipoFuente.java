@@ -15,10 +15,15 @@ import javax.persistence.TypedQuery;
 @NamedQuery(name = EstadisticaReferenciaByTipoFuente.NAME, query = EstadisticaReferenciaByTipoFuente.QUERY)
 public class EstadisticaReferenciaByTipoFuente extends Queries {
     public static final String NAME = "Estadistica.referenciaTipoFuente";
-    public static final String QUERY = "select new co.edu.utp.gia.sms.dtos.DatoDTO( f.tipo , count(1)) " +
-            "from Revision revision inner join revision.pasoSeleccionado.referencias r inner join r.metadatos m,Fuente f " +
-            "where revision.id = :id and m.identifier = co.edu.utp.gia.sms.entidades.TipoMetadato.FUENTE " +
-            "and m.value = f.nombre group by f.tipo ";
+    public static final String QUERY = "select new co.edu.utp.gia.sms.dtos.DatoDTO( m.value , count(1)) " +
+            "from Revision revision inner join revision.pasoSeleccionado.referencias r inner join r.metadatos m " +
+            "where revision.id = :id and m.identifier = co.edu.utp.gia.sms.entidades.TipoMetadato.TIPO_FUENTE " +
+            "group by m.value ";
+
+//    public static final String QUERY = "select new co.edu.utp.gia.sms.dtos.DatoDTO( f.tipo , count(1)) " +
+//            "from Revision revision inner join revision.pasoSeleccionado.referencias r inner join r.metadatos m,Fuente f " +
+//            "where revision.id = :id and m.identifier = co.edu.utp.gia.sms.entidades.TipoMetadato.FUENTE " +
+//            "and m.value = f.nombre group by f.tipo ";
 
     /**
      * Consulta que permite obtener el número de referencias por tipo de fuente en una revision <br />

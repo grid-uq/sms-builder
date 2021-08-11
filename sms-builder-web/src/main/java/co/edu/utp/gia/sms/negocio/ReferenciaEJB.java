@@ -3,8 +3,6 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.exceptions.LogicException;
-import co.edu.utp.gia.sms.importutil.Fuente;
-import co.edu.utp.gia.sms.query.paso.PasoGetReferencias;
 import co.edu.utp.gia.sms.query.referencia.*;
 import lombok.extern.java.Log;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
@@ -81,7 +79,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     }
 
     private List<ReferenciaDTO> obtenerTodas(PasoProceso paso) {
-        return poblarReferenciaDTOS( PasoGetReferencias.createQuery(entityManager,paso.getId()).getResultList().stream()
+        return poblarReferenciaDTOS(paso.getReferencias().stream()
                 .sorted(Comparator.comparing(Referencia::getNombre))
                 .map(r -> new ReferenciaDTO(r, paso.getId())).collect(Collectors.toList()));
     }
@@ -105,7 +103,8 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
      * corresponde al id proporcionado
      */
     private Fuente obtenerFuente(Integer id) {
-        return Fuente.valueOf(metadatoEJB.obtenerStringMetadatoByTipo(id, TipoMetadato.FUENTE));
+        return ReferenciaGetFuentes.createQuery(entityManager,id).getResultList().stream().findFirst().orElse(null);
+        //return Fuente.valueOf(metadatoEJB.obtenerStringMetadatoByTipo(id, TipoMetadato.FUENTE));
     }
 
     /**
@@ -426,8 +425,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
         if (idPaso >= 1) {
             PasoProceso paso = procesoEJB.obtenerOrThrow(idPaso);
             PasoProceso pasoSiguiente = procesoEJB.obtenerOrThrow(idPaso + 1);
-            //paso.getReferencias().forEach(
-            PasoGetReferencias.createQuery(entityManager,idPaso).getResultList().forEach(
+            paso.getReferencias().forEach(
                     r -> {
                         if (r.getFiltro() == null || r.getFiltro() < (idPaso + 1)) {
                             r.setFiltro(idPaso + 1);

@@ -1,7 +1,6 @@
 package co.edu.utp.gia.sms.dtos;
 
 import co.edu.utp.gia.sms.entidades.*;
-import co.edu.utp.gia.sms.importutil.Fuente;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

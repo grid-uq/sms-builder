@@ -20,15 +20,17 @@ public abstract class ReferenceParser {
 	/**
 	 * Variable que representa el atributo fuente de la clase
 	 */
-	private final Fuente fuente;
+	private final String fuente;
+	private final String tipoFuente;
 
 	/**
 	 * Metodo que permite inicializar los elementos de la clase ReferenceParser
 	 * 
 	 * @param fuente
 	 */
-	public ReferenceParser(Fuente fuente) {
+	public ReferenceParser(String fuente,String tipoFuente) {
 		this.fuente = fuente;
+		this.tipoFuente = tipoFuente;
 	}
 
 	/**
@@ -47,7 +49,8 @@ public abstract class ReferenceParser {
 //			referencia.setFiltro(3);
 //		}
 		
-		referencia.addElement(TipoMetadato.FUENTE, fuente.toString());
+		referencia.addElement(TipoMetadato.FUENTE, fuente);
+		referencia.addElement(TipoMetadato.TIPO_FUENTE, tipoFuente);
 		procesarTexto(referencia, texto);
 		return referencia;
 	}

@@ -1,21 +1,18 @@
-package co.edu.utp.gia.sms.importutil.acm;
+package co.edu.utp.gia.sms.importutil.ris;
+
+import co.edu.utp.gia.sms.entidades.Referencia;
+import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParse;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParse;
+public class RisFileMultipleRegisterParse extends FileMultipleRegisterParse {
 
-
-public class ACMFileMultipleRegisterParse
-		extends FileMultipleRegisterParse {
-
-	public ACMFileMultipleRegisterParse() {
-		super(new ACMReferenceParcer());
+	public RisFileMultipleRegisterParse(String fuente,String tipoFuente) {
+		super(new RisReferenceParcer(fuente,tipoFuente));
 	}
-	
 
 	@Override
 	public List<Referencia> parse(InputStream input) {
@@ -25,7 +22,7 @@ public class ACMFileMultipleRegisterParse
 
 			while (lector.hasNextLine()) {
 				String stringRerence = readReference(lector);
-				if (stringRerence != null && !"".equals(stringRerence)) {
+				if (!"".equals(stringRerence)) {
 					Referencia reference = getReferenceParser().parse(stringRerence);
 					if (reference != null) {
 						references.add(reference);
@@ -40,18 +37,12 @@ public class ACMFileMultipleRegisterParse
 	private String readReference(Scanner lector) {
 		StringBuilder build = new StringBuilder();
 		String linea = null;
-		while (lector.hasNextLine() && !"".equals(linea)) {
+		while (lector.hasNextLine() && !"ER  -".equals(linea)) {
 			linea = lector.nextLine().trim();
-			if (!"".equals(linea)) {
-				build.append(linea + "\n");
+			if (!"ER  -".equals(linea)) {
+				build.append(linea).append("\n");
 			}
 		}
 		return build.toString();
 	}
-	
-	
-	
-	
-	
-	
 }

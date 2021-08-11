@@ -13,9 +13,13 @@
 			<p:growl id="messages" showDetail="true" />
 			<p:panelGrid columns="2">
 				<p:outputLabel for="fuente" value="#{msg.etiquetaFuente}:" />
-				<p:selectOneMenu id="fuente" value="#{registroReferenciasBean.fuente}">
+				<p:selectOneMenu id="fuente" value="#{registroReferenciasBean.fuente}" converter="fuenteConverter">
 					<f:selectItem itemLabel="#{msg.etiquetaSeleccionarOpcion}" itemValue="" noSelectionOption="true" />
 					<f:selectItems value="#{registroReferenciasBean.fuentes}" var="referencia" itemLabel="#{referencia}" itemValue="#{referencia}" />
+				</p:selectOneMenu>
+				<p:outputLabel for="formato" value="#{msg.etiquetaFormato}:" />
+				<p:selectOneMenu id="formato" value="#{registroReferenciasBean.tipoArchivo}">
+					<f:selectItems value="#{registroReferenciasBean.tiposArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}" />
 				</p:selectOneMenu>
 				<p:outputLabel value="#{msg.etiquetaArchivo}:" />
 				<p:fileUpload value="#{registroReferenciasBean.file}" mode="simple"
