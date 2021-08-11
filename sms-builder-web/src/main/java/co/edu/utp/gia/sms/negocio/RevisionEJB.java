@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.entidades.Usuario;
-import co.edu.utp.gia.sms.importutil.TipoFuente;
+import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.query.estadistica.EstadisticaGetTotalReferenciasRepetidas;
 import co.edu.utp.gia.sms.query.paso.PasoGetTotalReferencias;
 import co.edu.utp.gia.sms.query.paso.PasoGetTotalReferenciasByTipoFuente;
@@ -23,6 +23,8 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
     @Inject
     private AtributoCalidadEJB atributoCalidadEJB;
     @Inject
+    private FuenteEJB fuenteEJB;
+    @Inject
     private UsuarioEJB usuarioEJB;
 
     public RevisionEJB() {
@@ -34,6 +36,7 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
         Revision revision = new Revision(nombre, descripcion,usuario);
         registrar(revision);
         atributoCalidadEJB.crearAtributosCalidadPorDefecto(revision);
+        fuenteEJB.crearFuentesPorDefecto(revision);
         return revision;
     }
 

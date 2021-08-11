@@ -1,11 +1,13 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
+import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.entidades.Referencia;
+import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParse;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParseFactory;
-import co.edu.utp.gia.sms.importutil.Fuente;
-import co.edu.utp.gia.sms.importutil.TipoFuente;
+import co.edu.utp.gia.sms.importutil.TipoArchivo;
+import co.edu.utp.gia.sms.negocio.FuenteEJB;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +18,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
@@ -32,13 +32,16 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
 
     @Inject
     private ReferenciaEJB referenciaEJB;
-
-    @Getter
-    @Setter
+    @Inject
+    private FuenteEJB fuenteEJB;
+    @Getter @Setter
     private UploadedFile file;
-    @Getter
-    @Setter
+    @Getter @Setter
     private Fuente fuente;
+    @Getter @Setter
+    private TipoArchivo tipoArchivo;
+    @Getter
+    private List<Fuente> fuentes;
 
 
 
@@ -48,6 +51,7 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
     protected ImportarReferenciasBean() {
         super();
         this.tipoFuente = null;
+        this.tipoArchivo = TipoArchivo.RIS;
     }
 
     public void upload() {
@@ -61,7 +65,8 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
 
     private void procesarArchivo() {
         try {
-            FileMultipleRegisterParse parser = FileMultipleRegisterParseFactory.getInstance(fuente);
+            FileMultipleRegisterParse parser = FileMultipleRegisterParseFactory
+                    .getInstance(tipoArchivo,fuente.getNombre(),fuente.getTipo().toString());
             List<Referencia> referencias = parser.parse(file.getInputStream());
             referenciaEJB.registrar(referencias, getRevision().getId(),paso);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA)+" "+referencias.size());
@@ -70,24 +75,17 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
         }
     }
 
-    /**
-     * Arreglo de fuentes soportadas
-     *
-     * @return Arreglo de fuentes soportadas
-     */
-    public List<Fuente> getFuentes() {
-        List<Fuente> lista;
-        if( tipoFuente != null ){
-            lista = Arrays.stream(Fuente.values()).filter(f->f.getTipo().equals(tipoFuente)).collect(Collectors.toList());
-        } else {
-            lista = Arrays.asList( Fuente.values() );
-        }
-        return lista;
-    }
-
     @Override
     public void inicializar() {
-        // No se requiere la inicialiación de ningún elemento
+        if( tipoFuente != null ){
+            fuentes = fuenteEJB.listarByTipoFuente(tipoFuente, getRevision().getId());
+        } else {
+            fuentes = fuenteEJB.listar(getRevision().getId());
+        }
+    }
+
+    public TipoArchivo[] getTiposArchivo(){
+        return TipoArchivo.values();
     }
 
 }

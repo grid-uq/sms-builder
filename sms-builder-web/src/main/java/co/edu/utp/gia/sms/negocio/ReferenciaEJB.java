@@ -3,7 +3,6 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.exceptions.LogicException;
-import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.query.referencia.*;
 import lombok.extern.java.Log;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
@@ -104,7 +103,8 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
      * corresponde al id proporcionado
      */
     private Fuente obtenerFuente(Integer id) {
-        return Fuente.valueOf(metadatoEJB.obtenerStringMetadatoByTipo(id, TipoMetadato.FUENTE));
+        return ReferenciaGetFuentes.createQuery(entityManager,id).getResultList().stream().findFirst().orElse(null);
+        //return Fuente.valueOf(metadatoEJB.obtenerStringMetadatoByTipo(id, TipoMetadato.FUENTE));
     }
 
     /**

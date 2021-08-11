@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.dtos.DatoDTO;
-import co.edu.utp.gia.sms.importutil.TipoFuente;
+import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 import co.edu.utp.gia.sms.negocio.RevisionEJB;
 import lombok.Getter;

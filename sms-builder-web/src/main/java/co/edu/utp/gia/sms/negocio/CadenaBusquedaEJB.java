@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.entidades.CadenaBusqueda;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Termino;
+import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.query.revision.RevisionGetCadenaBusquedaQuery;
 
 import javax.ejb.LocalBean;
@@ -19,6 +20,8 @@ public class CadenaBusquedaEJB extends AbstractEJB<CadenaBusqueda, Integer>{
 	private RevisionEJB revisionEJB;
 	@Inject
 	private TerminoEJB terminoEJB;
+	@Inject
+	private FuenteEJB fuenteEJB;
 
 	public CadenaBusquedaEJB() {
 		super(CadenaBusqueda.class);
@@ -37,6 +40,8 @@ public class CadenaBusquedaEJB extends AbstractEJB<CadenaBusqueda, Integer>{
 		if (revision != null) {
 			cadenaBusqueda = new CadenaBusqueda(baseDatos,consulta,fecha,resultadoPreliminar,resultadoFinal,revision);
 			registrar(cadenaBusqueda);
+			//TODO hacer interface para registrar las bases de datos y que al registrar una cadena se use la base de datos ya creada
+			fuenteEJB.registrar(baseDatos, TipoFuente.BASE_DATOS,revision);
 		}
 		return cadenaBusqueda;
 	}

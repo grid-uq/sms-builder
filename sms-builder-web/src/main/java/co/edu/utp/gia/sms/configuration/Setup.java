@@ -15,8 +15,6 @@ public class Setup implements SetupInterface {
     @Inject
     private UsuariosSetup usuariosSetup;
     @Inject
-    private FuenteSetup fuenteSetup;
-    @Inject
     private PasosSetup pasosSetup;
     @Inject
     private RevisionSetup revisionSetup;
@@ -36,11 +34,6 @@ public class Setup implements SetupInterface {
         }
         try{
             usuariosSetup.setup();
-        }catch ( Exception e ){
-            e.printStackTrace();
-        }
-        try{
-            fuenteSetup.setup();
         }catch ( Exception e ){
             e.printStackTrace();
         }

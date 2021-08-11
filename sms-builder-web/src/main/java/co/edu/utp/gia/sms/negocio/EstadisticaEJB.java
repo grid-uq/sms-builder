@@ -1,13 +1,14 @@
 package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.dtos.DatoDTO;
+import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
-import co.edu.utp.gia.sms.importutil.Fuente;
-import co.edu.utp.gia.sms.importutil.TipoFuente;
+import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.query.estadistica.*;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -17,6 +18,8 @@ public class EstadisticaEJB {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Inject
+    private FuenteEJB fuenteEJB;
     /**
      * Consulta que permite obtener el número de referencias por año en una revision
      *
@@ -90,7 +93,7 @@ public class EstadisticaEJB {
 
         for (TipoFuente fuente : TipoFuente.values()) {
             if (resultado.stream().noneMatch(d -> d.getEtiqueta().equals(fuente.toString()))) {
-                resultado.add(new DatoDTO(fuente, 0L));
+                resultado.add(new DatoDTO(fuente.toString(), 0L));
             }
         }
         return resultado;
@@ -106,10 +109,10 @@ public class EstadisticaEJB {
     public List<DatoDTO> obtenerReferenciasTipoFuenteNombre(Integer id, TipoFuente tipo) {
         List<DatoDTO> resultado = EstadisticaReferenciaByTipoFuenteAndNombre.createQuery(entityManager, id, tipo)
                 .getResultList();
-        for (Fuente fuente : Fuente.values()) {
-            if (fuente.getTipo() == tipo
-                    && resultado.stream().noneMatch(d -> d.getEtiqueta().equals(fuente.toString()))) {
-                resultado.add(new DatoDTO(fuente, 0L));
+        List<Fuente> fuentes = fuenteEJB.listarByTipoFuente(tipo,id);
+        for (Fuente fuente : fuentes) {
+            if ( resultado.stream().noneMatch(d -> d.getEtiqueta().equals(fuente.getNombre()))) {
+                resultado.add(new DatoDTO(fuente.getNombre(), 0L));
             }
         }
 

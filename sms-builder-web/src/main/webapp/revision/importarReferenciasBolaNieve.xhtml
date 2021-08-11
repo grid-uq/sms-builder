@@ -13,8 +13,12 @@
 
 			<p:panelGrid columns="2">
 				<p:outputLabel for="fuente" value="#{msg.etiquetaFuente}:" />
-				<p:selectOneMenu id="fuente" value="#{importarReferenciaBolaNieve.fuente}">
+				<p:selectOneMenu id="fuente" value="#{importarReferenciaBolaNieve.fuente}" converter="fuenteConverter">
 					<f:selectItems value="#{importarReferenciaBolaNieve.fuentes}" var="referencia" itemLabel="#{referencia}" itemValue="#{referencia}" />
+				</p:selectOneMenu>
+				<p:outputLabel for="formato" value="#{msg.etiquetaFormato}:" />
+				<p:selectOneMenu id="formato" value="#{importarReferenciaBolaNieve.tipoArchivo}">
+					<f:selectItems value="#{importarReferenciaBolaNieve.tiposArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}" />
 				</p:selectOneMenu>
 				<p:outputLabel value="#{msg.etiquetaArchivo}:" />
 				<p:fileUpload value="#{importarReferenciaBolaNieve.file}" mode="simple"

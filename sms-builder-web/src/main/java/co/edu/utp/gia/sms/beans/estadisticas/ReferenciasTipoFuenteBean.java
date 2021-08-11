@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
-import co.edu.utp.gia.sms.importutil.TipoFuente;
+import co.edu.utp.gia.sms.entidades.TipoFuente;
 import lombok.Getter;
 import lombok.Setter;
 

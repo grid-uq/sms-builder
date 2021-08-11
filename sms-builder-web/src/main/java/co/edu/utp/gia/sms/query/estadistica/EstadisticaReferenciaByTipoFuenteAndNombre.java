@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
 import co.edu.utp.gia.sms.dtos.DatoDTO;
-import co.edu.utp.gia.sms.importutil.TipoFuente;
+import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.query.Queries;
 
 import javax.persistence.Entity;

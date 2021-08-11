@@ -13,17 +13,21 @@
 			<p:growl id="messages" showDetail="true" />
 			<p:panelGrid columns="2">
 				<p:outputLabel for="fuente" value="#{msg.etiquetaFuente}:" />
-				<p:selectOneMenu id="fuente" value="#{importarReferencia.fuente}">
-					<f:selectItems value="#{importarReferencia.fuentes}" var="referencia" itemLabel="#{referencia}" itemValue="#{referencia}" />
+				<p:selectOneMenu id="fuente" value="#{importarReferenciasBean.fuente}" converter="fuenteConverter">
+					<f:selectItems value="#{importarReferenciasBean.fuentes}" var="referencia" itemLabel="#{referencia}" itemValue="#{referencia}" />
+				</p:selectOneMenu>
+				<p:outputLabel for="formato" value="#{msg.etiquetaFormato}:" />
+				<p:selectOneMenu id="formato" value="#{importarReferenciasBean.tipoArchivo}">
+					<f:selectItems value="#{importarReferenciasBean.tiposArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}" />
 				</p:selectOneMenu>
 				<p:outputLabel value="#{msg.etiquetaArchivo}:" />
-				<p:fileUpload value="#{importarReferencia.file}" mode="simple"
+				<p:fileUpload value="#{importarReferenciasBean.file}" mode="simple"
 					skinSimple="true" />
 
 
 				<f:facet name="footer">
 					<p:commandButton value="#{msg.botonAceptar}"
-						action="#{importarReferencia.upload}" ajax="false" />
+						action="#{importarReferenciasBean.upload}" ajax="false" />
 				</f:facet>
 
 			</p:panelGrid>
