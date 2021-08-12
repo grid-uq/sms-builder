@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import java.util.Objects;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
@@ -14,7 +16,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  * tema o aspecto particular de una {@link Pregunta}
  */
 @Entity
-@EqualsAndHashCode
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Topico implements Entidad<Integer> {
@@ -46,5 +47,17 @@ public class Topico implements Entidad<Integer> {
     @NonNull
     private Pregunta pregunta;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Topico topico = (Topico) o;
 
+        return Objects.equals(id, topico.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 517866516;
+    }
 }

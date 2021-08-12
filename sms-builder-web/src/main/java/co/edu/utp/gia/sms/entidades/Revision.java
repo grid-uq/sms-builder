@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -18,7 +19,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @since 13/06/2019
  */
 @Entity
-@EqualsAndHashCode
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Revision implements Entidad<Integer> {
@@ -99,4 +99,18 @@ public class Revision implements Entidad<Integer> {
     @Setter
     @EqualsAndHashCode.Exclude
     private PasoProceso pasoSeleccionado;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Revision revision = (Revision) o;
+
+        return Objects.equals(id, revision.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 953636847;
+    }
 }

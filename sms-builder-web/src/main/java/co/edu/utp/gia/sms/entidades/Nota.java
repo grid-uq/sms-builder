@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.Objects;
+
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -20,7 +22,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@EqualsAndHashCode
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Nota implements Entidad<Integer> {
@@ -66,4 +67,17 @@ public class Nota implements Entidad<Integer> {
     @NonNull
     private Referencia referencia;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Nota nota = (Nota) o;
+
+        return Objects.equals(id, nota.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1831415248;
+    }
 }

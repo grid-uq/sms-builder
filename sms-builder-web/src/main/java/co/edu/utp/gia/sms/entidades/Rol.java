@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Clase que representa la entidad Rol, la cual representa los diferentes roles
@@ -25,7 +26,6 @@ import java.util.List;
 @NamedQuery(name = Rol.GET_ALL, query = "select rol from Rol rol")
 @NamedQuery(name = Rol.FIND_BY_USUARIO, query = "select rol from Usuario usuario inner join usuario.roles rol where usuario = :usuario")
 
-@EqualsAndHashCode
 @NoArgsConstructor
 public class Rol implements Entidad<Integer> {
 
@@ -90,4 +90,17 @@ public class Rol implements Entidad<Integer> {
         recursos = new ArrayList<>();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rol rol = (Rol) o;
+
+        return Objects.equals(id, rol.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 707023552;
+    }
 }

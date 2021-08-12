@@ -4,10 +4,11 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.Objects;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@EqualsAndHashCode
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Paso implements Entidad<Integer>{
@@ -28,4 +29,18 @@ public class Paso implements Entidad<Integer>{
     @NonNull
     @ManyToOne
     private Recurso recurso;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Paso paso = (Paso) o;
+
+        return Objects.equals(id, paso.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1701416093;
+    }
 }

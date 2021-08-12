@@ -5,11 +5,11 @@ import lombok.*;
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@EqualsAndHashCode
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class CadenaBusqueda implements Entidad<Integer> {
@@ -53,4 +53,18 @@ public class CadenaBusqueda implements Entidad<Integer> {
     @EqualsAndHashCode.Exclude
     @NonNull
     private Revision revision;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CadenaBusqueda that = (CadenaBusqueda) o;
+
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1706480392;
+    }
 }

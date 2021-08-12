@@ -5,8 +5,10 @@ import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.inject.Named;
 
-@FacesConverter("atributoCalidadConverter")
+@Named
+@FacesConverter(value = "atributoCalidadConverter",managed = true)
 public class AtributoCalidadConverter extends EntidadConverter<AtributoCalidad> {
 
 	@Inject

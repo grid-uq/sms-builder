@@ -13,6 +13,12 @@ import java.util.Locale;
 @ApplicationScoped
 @Log
 public class ApplicationGeneralProducer {
+    private static final ApplicationGeneralProducer instance = new ApplicationGeneralProducer();
+
+    public static ApplicationGeneralProducer getInstance(){
+        return instance;
+    }
+
     @Produces
     @Named("defaultLocale")
     public Locale getDefaultLocale(){

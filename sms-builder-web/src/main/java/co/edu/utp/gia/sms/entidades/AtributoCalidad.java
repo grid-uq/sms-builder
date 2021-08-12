@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.Objects;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
@@ -17,7 +19,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @since 13/06/2019
  */
 @Entity
-@EqualsAndHashCode
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class AtributoCalidad implements Entidad<Integer> {
@@ -55,4 +56,17 @@ public class AtributoCalidad implements Entidad<Integer> {
     @NonNull
     private Revision revision;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AtributoCalidad that = (AtributoCalidad) o;
+
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1251423725;
+    }
 }

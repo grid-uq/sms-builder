@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.FetchType.EAGER;
@@ -25,7 +26,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @since 6/06/2019
  */
 @Entity
-@EqualsAndHashCode
 public class Referencia implements Entidad<Integer> {
 
     /**
@@ -206,4 +206,17 @@ public class Referencia implements Entidad<Integer> {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Referencia that = (Referencia) o;
+
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 524246431;
+    }
 }

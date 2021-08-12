@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.Objects;
+
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -22,9 +24,8 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(indexes = {@Index(name = "identifierIndex",  columnList="identifier", unique = false),
-                @Index(name = "referenciaIndex", columnList="referencia_id,identifier",     unique = false)})
-@EqualsAndHashCode
+@Table(indexes = {@Index(name = "identifierIndex",  columnList="identifier"),
+                @Index(name = "referenciaIndex", columnList="referencia_id,identifier")})
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Metadato implements Entidad<Integer> {
@@ -81,5 +82,19 @@ public class Metadato implements Entidad<Integer> {
         this.identifier = identifier;
         this.value = value;
         this.referencia = referencia;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Metadato metadato = (Metadato) o;
+
+        return Objects.equals(id, metadato.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1915190472;
     }
 }

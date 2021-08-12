@@ -1,23 +1,28 @@
 package co.edu.utp.gia.sms.beans.util;
 
 import co.edu.utp.gia.sms.entidades.Entidad;
+import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.inject.Inject;
-import java.util.ResourceBundle;
-
 
 public abstract class EntidadConverter<E extends Entidad> implements Converter<E> {
 
+//	@Inject
+//	@ManagedProperty("#{msg}")
+//	private ResourceBundle bundle;
+	/**
+	 * Instancia que perite obtener los mensajes de las excepciones generadas.
+	 */
 	@Inject
-	@ManagedProperty("#{msg}")
-	private ResourceBundle bundle;
-
+	@Getter @Setter
+	protected ExceptionMessage exceptionMessage;
 
 	protected abstract E findById(String id);
 
@@ -32,7 +37,7 @@ public abstract class EntidadConverter<E extends Entidad> implements Converter<E
 				throw new ConverterException(
 						new FacesMessage(
 								componente.getClientId() + ":" +
-										bundle.getString(MessageConstants.ERROR_CONVERSION_VALOR)),
+										exceptionMessage.getConversionError()),
 						e
 				);
 			}
