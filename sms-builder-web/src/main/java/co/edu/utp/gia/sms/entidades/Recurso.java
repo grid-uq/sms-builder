@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Clase que representa la entidad Recurso, la cual permite modelar en el
@@ -23,7 +24,6 @@ import javax.persistence.*;
 @NamedQuery(name = Recurso.FIND_BY_ROL, query = "select recurso from Rol rol inner join rol.recursos recurso where rol = :rol")
 @NamedQuery(name = Recurso.FIND_BY_URL, query = "select recurso from Recurso recurso where recurso.url = :url")
 
-@EqualsAndHashCode
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Recurso implements Entidad<Integer> {
@@ -107,5 +107,19 @@ public class Recurso implements Entidad<Integer> {
      */
     public Boolean isPublico() {
         return publico;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recurso recurso = (Recurso) o;
+
+        return Objects.equals(id, recurso.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1158230854;
     }
 }

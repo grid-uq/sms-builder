@@ -4,12 +4,12 @@ import lombok.*;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Clase que representa el ID de una {@link EvaluacionCalidad}
  */
 @Embeddable
-@EqualsAndHashCode
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class EvaluacionCalidadPK implements Serializable {
@@ -34,4 +34,20 @@ public class EvaluacionCalidadPK implements Serializable {
     @NonNull
     private Integer atributoCalidadId;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EvaluacionCalidadPK that = (EvaluacionCalidadPK) o;
+
+        if (!Objects.equals(referenciaId, that.referenciaId)) return false;
+        return Objects.equals(atributoCalidadId, that.atributoCalidadId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(referenciaId);
+        result = 31 * result + (Objects.hashCode(atributoCalidadId));
+        return result;
+    }
 }

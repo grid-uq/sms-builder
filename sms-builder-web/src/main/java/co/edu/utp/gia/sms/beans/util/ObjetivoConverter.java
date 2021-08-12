@@ -5,8 +5,10 @@ import co.edu.utp.gia.sms.negocio.ObjetivoEJB;
 
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.inject.Named;
 
-@FacesConverter("objetivoConverter")
+@Named
+@FacesConverter(value = "objetivoConverter",managed = true)
 public class ObjetivoConverter extends EntidadConverter<Objetivo> {
 
 	@Inject

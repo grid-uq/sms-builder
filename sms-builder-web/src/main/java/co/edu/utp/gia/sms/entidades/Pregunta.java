@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -18,7 +19,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @since 13/06/2019
  */
 @Entity
-@EqualsAndHashCode
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Pregunta implements Entidad<Integer> {
@@ -86,4 +86,17 @@ public class Pregunta implements Entidad<Integer> {
         this.objetivos = objetivos;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pregunta pregunta = (Pregunta) o;
+
+        return Objects.equals(id, pregunta.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 119604760;
+    }
 }

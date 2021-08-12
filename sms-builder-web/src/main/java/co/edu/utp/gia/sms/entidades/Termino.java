@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -20,7 +21,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @since 13/06/2019
  */
 @Entity
-@EqualsAndHashCode
 @RequiredArgsConstructor
 public class Termino implements Entidad<Integer> {
     /**
@@ -78,5 +78,19 @@ public class Termino implements Entidad<Integer> {
 
     public void removerSinonimo(String sinonimo) {
         getSinonimos().remove(sinonimo);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Termino termino = (Termino) o;
+
+        return Objects.equals(id, termino.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1361059416;
     }
 }

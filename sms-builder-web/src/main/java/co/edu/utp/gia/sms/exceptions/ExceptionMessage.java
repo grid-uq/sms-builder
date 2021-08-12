@@ -23,4 +23,6 @@ public interface ExceptionMessage extends Config {
     String getReferenciaSinFecha(int id,String spsid);
     @Key("message.exception.referencia.errorEvaluacion")
     String getReferenciaErrorEvaluacion(int id,String spsid);
+    @Key("message.error.conversion")
+    String getConversionError();
 }

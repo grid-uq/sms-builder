@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -35,4 +36,17 @@ public class Fuente implements Entidad<Integer> {
     @Getter @Setter @NonNull
     private Revision revision;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fuente fuente = (Fuente) o;
+
+        return Objects.equals(id, fuente.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 25312639;
+    }
 }

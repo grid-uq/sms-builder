@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * @author Christian A. Candela
@@ -18,7 +19,6 @@ import javax.persistence.*;
  * @since 23/06/2019
  */
 @Entity
-@EqualsAndHashCode
 @NoArgsConstructor
 public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
 
@@ -111,4 +111,17 @@ public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EvaluacionCalidad that = (EvaluacionCalidad) o;
+
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

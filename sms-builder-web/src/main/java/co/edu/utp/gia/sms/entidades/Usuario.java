@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Clase que implementa la entidad Usuario, la cual representa los usuarios de
@@ -20,7 +21,6 @@ import java.util.List;
 @NamedQuery(name = Usuario.FIND_BY_ID, query = "select usuario from Usuario usuario where usuario.id = :id")
 @NamedQuery(name = Usuario.GET_ALL, query = "select usuario from Usuario usuario")
 @NamedQuery(name = Usuario.AUTENTICAR, query = "select usuario from Usuario usuario where usuario.nombreUsuario = :nombreUsuario and usuario.estado = co.edu.utp.gia.sms.entidades.EstadoUsuario.ACTIVO")
-@EqualsAndHashCode
 @NoArgsConstructor
 public class Usuario implements Entidad<Integer> {
 
@@ -116,5 +116,17 @@ public class Usuario implements Entidad<Integer> {
     @EqualsAndHashCode.Exclude
     private String email;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
 
+        return Objects.equals(id, usuario.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1225039686;
+    }
 }
