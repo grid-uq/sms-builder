@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.query.Queries;
 import co.edu.utp.gia.sms.query.revision.RevisionFindAtributoCalidadByDescription;
 import co.edu.utp.gia.sms.query.revision.RevisionGetAtributosCalidad;
 
@@ -27,25 +26,27 @@ public class AtributoCalidadEJB extends AbstractEJB<AtributoCalidad, Integer> {
      * Permite registrar un atributo de calidad
      *
      * @param descripcion Descripcion del atributo de calidad
+     * @param objetivo Determina si el atributo de calidad es de caracter objetivo (true) o subjetivo (false)
      * @param idRevision  Id de la {@link Revision} a la que se desea adicionar el atributo de calidad
      * @return El atributo de calidad registrado
      */
-    public AtributoCalidad registrar(String descripcion, Integer idRevision) {
+    public AtributoCalidad registrar(String descripcion,Boolean objetivo, Integer idRevision) {
         Revision revision = revisionEJB.obtener(idRevision);
-        return registrar(descripcion, revision);
+        return registrar(descripcion,objetivo,revision);
     }
 
     /**
      * Permite registrar un atributo de calidad
      *
      * @param descripcion Descripcion del atributo de calidad
+     * @param objetivo Determina si el atributo de calidad es de caracter objetivo (true) o subjetivo (false)
      * @param revision    {@link Revision} a la que se desea adicionar el atributo de calidad
      * @return El atributo de calidad registrado
      */
-    private AtributoCalidad registrar(String descripcion, Revision revision) {
+    private AtributoCalidad registrar(String descripcion,Boolean objetivo, Revision revision) {
         AtributoCalidad atributoCalidad = null;
         if (revision != null) {
-            atributoCalidad = new AtributoCalidad(descripcion, revision);
+            atributoCalidad = new AtributoCalidad(descripcion,objetivo,revision);
             entityManager.persist(atributoCalidad);
         }
         return atributoCalidad;
@@ -102,9 +103,9 @@ public class AtributoCalidadEJB extends AbstractEJB<AtributoCalidad, Integer> {
      * @param revision Revision para la que se crearan los atributos de calidad
      */
     public void crearAtributosCalidadPorDefecto(Revision revision) {
-        registrar(SCI, revision);
-        registrar(CVI, revision);
-        registrar(IRRQ, revision);
+        registrar(SCI,true, revision);
+        registrar(CVI,false,revision);
+        registrar(IRRQ,false,revision);
     }
 
     /**

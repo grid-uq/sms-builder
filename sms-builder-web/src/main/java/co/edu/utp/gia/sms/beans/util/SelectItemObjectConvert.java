@@ -1,13 +1,12 @@
 package co.edu.utp.gia.sms.beans.util;
 
-import java.util.Collections;
-import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Clase utilitaria usada para converción de objetos en item JSF y los items JSF

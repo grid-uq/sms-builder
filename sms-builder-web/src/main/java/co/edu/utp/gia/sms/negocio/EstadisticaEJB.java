@@ -3,8 +3,8 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.entidades.TipoFuente;
+import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.query.estadistica.*;
 
 import javax.ejb.Stateless;

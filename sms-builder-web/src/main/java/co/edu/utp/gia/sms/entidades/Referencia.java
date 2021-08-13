@@ -190,6 +190,7 @@ public class Referencia implements Entidad<Integer> {
                 break;
             case YEAR:
                 setYear(value);
+                metadatos.add(new Metadato(identifier, value, this));
                 break;
             default:
                 metadatos.add(new Metadato(identifier, value, this));

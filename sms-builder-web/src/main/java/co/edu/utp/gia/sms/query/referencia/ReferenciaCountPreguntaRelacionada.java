@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.query.referencia;
 
-import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.query.Queries;
 
 import javax.persistence.Entity;

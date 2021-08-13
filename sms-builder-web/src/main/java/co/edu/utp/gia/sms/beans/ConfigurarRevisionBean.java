@@ -3,13 +3,10 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.negocio.PasoEJB;
 import co.edu.utp.gia.sms.negocio.ProcesoEJB;
 import co.edu.utp.gia.sms.negocio.RevisionEJB;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.event.RowEditEvent;
-import org.primefaces.event.SelectEvent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;

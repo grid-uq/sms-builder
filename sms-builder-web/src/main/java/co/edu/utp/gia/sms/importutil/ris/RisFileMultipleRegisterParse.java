@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class RisFileMultipleRegisterParse extends FileMultipleRegisterParse {
+public class RisFileMultipleRegisterParse extends FileMultipleRegisterParse<RisReferenceParcer> {
 
 	public RisFileMultipleRegisterParse(String fuente,String tipoFuente) {
 		super(new RisReferenceParcer(fuente,tipoFuente));

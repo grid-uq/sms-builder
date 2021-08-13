@@ -1,7 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.Revision;
-import lombok.Getter;
 import lombok.extern.java.Log;
 
 import javax.faces.annotation.ManagedProperty;

@@ -4,8 +4,8 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoFuente;
-import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParse;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParseFactory;
+import co.edu.utp.gia.sms.importutil.ReferenceParse;
 import co.edu.utp.gia.sms.importutil.TipoArchivo;
 import co.edu.utp.gia.sms.negocio.FuenteEJB;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
@@ -65,7 +65,7 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
 
     private void procesarArchivo() {
         try {
-            FileMultipleRegisterParse parser = FileMultipleRegisterParseFactory
+            ReferenceParse parser = FileMultipleRegisterParseFactory
                     .getInstance(tipoArchivo,fuente.getNombre(),fuente.getTipo().toString());
             List<Referencia> referencias = parser.parse(file.getInputStream());
             referenciaEJB.registrar(referencias, getRevision().getId(),paso);

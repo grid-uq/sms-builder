@@ -8,6 +8,7 @@ import java.io.StringReader;
 import java.util.Scanner;
 
 /**
+ * Clase que interpreta elementos en formato .RIS
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
@@ -18,11 +19,7 @@ import java.util.Scanner;
  * @since 20/06/2019
  *
  */
-
-/*
- * Esta bases de datos se está tratando para archivos exportados en formato .RIS
- */
-public class RisReferenceParcer extends ReferenceParser {
+public class RisReferenceParcer extends ReferenceParser<String> {
 
 	private static final String TITULO = "T1";
 	private static final String KEYWORD = "KW";
@@ -38,7 +35,7 @@ public class RisReferenceParcer extends ReferenceParser {
 		super(fuente,tipoFuente);
 	}
 
-	protected void procesarTexto(Referencia reference, String texto) {
+	protected void procesar(Referencia reference, String texto) {
 
 		try (Scanner lector = new Scanner(new StringReader(texto))) {
 			while (lector.hasNextLine()) {

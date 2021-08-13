@@ -3,9 +3,9 @@ package co.edu.utp.gia.sms.importutil.bibtex;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.importutil.ReferenceParser;
-
-import java.io.StringReader;
-import java.util.Scanner;
+import org.jbibtex.BibTeXEntry;
+import org.jbibtex.Key;
+import org.jbibtex.Value;
 
 /**
  * @author Christian A. Candela
@@ -22,12 +22,12 @@ import java.util.Scanner;
 /*
  * Esta bases de datos se está tratando para archivos exportados en formato .RIS
  */
-public class BibtexReferenceParcer extends ReferenceParser {
+public class BibtexReferenceParcer extends ReferenceParser<BibTeXEntry> {
 
 	private static final String TITULO = "T1";
 	private static final String KEYWORD = "KW";
 	private static final String YEAR = "Y1";
-	private static final String ABSTRACT = "N2";
+	private static final String ABSTRACT = "abstract";
 	private static final String AUTOR = "A1";
 	private static final String DOI = "DO";
 	// private static final String ISBN = "SN";
@@ -38,65 +38,57 @@ public class BibtexReferenceParcer extends ReferenceParser {
 		super(fuente,tipoFuente);
 	}
 
-	protected void procesarTexto(Referencia reference, String texto) {
-
-		try (Scanner lector = new Scanner(new StringReader(texto))) {
-			while (lector.hasNextLine()) {
-				String linea = lector.nextLine();
-				procesarLinea(reference, linea);
-			}
+	protected void procesar(Referencia reference, BibTeXEntry source) {
+		source.getFields().entrySet( ).forEach( field->this.procesarField(field.getKey(), field.getValue(), reference) );
+		if( reference.getMetadatos().stream().noneMatch( m->TipoMetadato.TITLE.equals(m.getIdentifier()) ) ){
+			reference.addElement(TipoMetadato.TITLE,source.getType().getValue());
 		}
 	}
 
-	/**
-	 * Procesa una linea del formato .RIS exportado desde la BD SCOPUS
-	 * 
-	 * @param reference Referencia que se esta procesando
-	 * @param nextLine  Linea a ser procesada
-	 */
-	private void procesarLinea(Referencia reference, String nextLine) {
-		if (nextLine != null && !nextLine.isEmpty()) {
-			if (nextLine.indexOf(" - ") != 3) {
-				return;
-			}
-			String key = nextLine.substring(0, 2).toUpperCase();
-			if (nextLine.length() < 6) {
-				System.out.println(nextLine);
-			}
-			String value = nextLine.substring(5).trim();
-
-			TipoMetadato tipo = identifierOf(key);
-
-			if (TipoMetadato.YEAR.equals(tipo)) {
-				value = value.substring(0,4).trim();
-			}
-			reference.addElement(tipo, value);
+	protected void procesarField( Key key,Value value,Referencia reference){
+		TipoMetadato tipo = identifierOf(key);
+		if( TipoMetadato.AUTOR.equals(tipo) ){
+			adicionarAutores(reference,value.toUserString());
+		} else {
+			reference.addElement(tipo, value.toUserString());
 		}
 	}
 
-	private TipoMetadato identifierOf(String key) {
-		switch (key) {
-		case TITULO:
+	private void adicionarAutores(Referencia reference, String autores) {
+		for (String autor:autores.split(" and ")) {
+			reference.addElement(TipoMetadato.AUTOR, autor);
+		}
+	}
+
+	private TipoMetadato identifierOf(Key key) {
+		if( BibTeXEntry.KEY_TITLE.equals(key) ){
 			return TipoMetadato.TITLE;
-		case AUTOR:
-			return TipoMetadato.AUTOR;
-		case NOMBRE_PUBLICACION:
-			return TipoMetadato.PUBLISHER;
-		case YEAR:
-			return TipoMetadato.YEAR;
-		case ABSTRACT:
-			return TipoMetadato.ABSTRACT;
-//		case ISBN:
-//			return TipoMetadato.ISBN;
-		case DOI:
-			return TipoMetadato.DOI;
-		case KEYWORD:
-			return TipoMetadato.KEYWORD;
-		case TIPO_PUBLICACION:
-			return TipoMetadato.TYPE;
-		default:
-			return TipoMetadato.NOT_SUPORT;
 		}
+		if( BibTeXEntry.KEY_AUTHOR.equals(key) ){
+			return TipoMetadato.AUTOR;
+		}
+		if( BibTeXEntry.KEY_JOURNAL.equals(key) ){
+			return TipoMetadato.PUBLISHER;
+		}
+		if( BibTeXEntry.KEY_YEAR.equals(key) ){
+			return TipoMetadato.YEAR;
+		}
+		if( BibTeXEntry.KEY_DOI.equals(key) ){
+			return TipoMetadato.DOI;
+		}
+		if( BibTeXEntry.KEY_KEY.equals(key) ){
+			return TipoMetadato.KEYWORD;
+		}
+		if( BibTeXEntry.KEY_TYPE.equals(key) ){
+			return TipoMetadato.TYPE;
+		}
+		if( key.getValue().equals(ABSTRACT)  ) {
+			return TipoMetadato.ABSTRACT;
+		}
+
+//		case TIPO_PUBLICACION:
+//			return TipoMetadato.TYPE;
+			return TipoMetadato.NOT_SUPORT;
 	}
 
 }

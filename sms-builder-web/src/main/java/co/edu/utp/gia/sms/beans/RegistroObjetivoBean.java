@@ -5,7 +5,6 @@ import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.negocio.ObjetivoEJB;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.java.Log;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;

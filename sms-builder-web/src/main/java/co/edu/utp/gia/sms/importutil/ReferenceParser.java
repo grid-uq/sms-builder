@@ -15,8 +15,9 @@ import co.edu.utp.gia.sms.entidades.TipoMetadato;
  * @version 1.0
  * @since 20/06/2019
  *
+ * @param <T> Tipo de elemento a procesar para crear la referencia
  */
-public abstract class ReferenceParser {
+public abstract class ReferenceParser<T> {
 	/**
 	 * Variable que representa el atributo fuente de la clase
 	 */
@@ -34,30 +35,40 @@ public abstract class ReferenceParser {
 	}
 
 	/**
-	 * @param texto
-	 * @return
+	 * Permite crear una referencia a partir del source dado
+	 * @param source Elemento base para obtener los datos de la referencia
+	 * @return La {@link Referencia} creada
 	 */
-	public final Referencia parse(String texto) {
-		
-		if ("".equals(texto.trim())) {
+	public final Referencia parse(T source) {
+		if(source == null){
 			return null;
 		}
-		
-		Referencia referencia = new Referencia();
-		
-//		if ( fuente.equals(Fuente.MANUAL) || fuente.equals(Fuente.SNOWBALL_BACKWARD ) || fuente.equals(Fuente.SNOWBALL_FORWARD ) )  {
-//			referencia.setFiltro(3);
+//		if ("".equals(texto.trim())) {
+//			return null;
 //		}
 		
-		referencia.addElement(TipoMetadato.FUENTE, fuente);
-		referencia.addElement(TipoMetadato.TIPO_FUENTE, tipoFuente);
-		procesarTexto(referencia, texto);
+		Referencia referencia = createReference();
+
+		procesar(referencia, source);
 		return referencia;
 	}
 
 	/**
-	 * @param referencia
-	 * @param texto
+	 * Crea una referencia base inicializando su fuente y tipo de fuente
+	 * @return Referencia creada
 	 */
-	protected abstract void procesarTexto(Referencia referencia, String texto);
+	public final Referencia createReference() {
+		Referencia referencia = new Referencia();
+
+		referencia.addElement(TipoMetadato.FUENTE, fuente);
+		referencia.addElement(TipoMetadato.TIPO_FUENTE, tipoFuente);
+		return referencia;
+	}
+
+	/**
+	 * Permite procesar el source para completar los datos de una referencia
+	 * @param referencia Referencia que se esta completando
+	 * @param source Elemento base para obtener los datos de la referencia
+	 */
+	protected abstract void procesar(Referencia referencia, T source);
 }

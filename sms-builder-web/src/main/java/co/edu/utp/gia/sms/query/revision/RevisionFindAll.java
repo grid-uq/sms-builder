@@ -1,7 +1,6 @@
 package co.edu.utp.gia.sms.query.revision;
 
 import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.query.Queries;
 
 import javax.persistence.Entity;

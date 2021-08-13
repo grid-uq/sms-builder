@@ -5,7 +5,6 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;

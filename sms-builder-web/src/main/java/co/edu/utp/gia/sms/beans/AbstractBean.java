@@ -1,19 +1,18 @@
 package co.edu.utp.gia.sms.beans;
 
-import java.io.Serializable;
-import java.util.Map;
-import java.util.ResourceBundle;
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
+import lombok.Getter;
 
 import javax.annotation.PostConstruct;
-import javax.faces.annotation.*;
+import javax.faces.annotation.ManagedProperty;
+import javax.faces.annotation.SessionMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
-import co.edu.utp.gia.sms.beans.util.MessageConstants;
-import co.edu.utp.gia.sms.entidades.Revision;
-import lombok.Getter;
+import java.io.Serializable;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * Clase que define los elementos basicos de los Bean a ser usados en el

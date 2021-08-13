@@ -6,8 +6,6 @@ import co.edu.utp.gia.sms.negocio.TerminoEJB;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;

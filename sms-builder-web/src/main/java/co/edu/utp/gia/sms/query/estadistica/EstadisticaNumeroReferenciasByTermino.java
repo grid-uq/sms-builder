@@ -3,7 +3,10 @@ package co.edu.utp.gia.sms.query.estadistica;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.query.Queries;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.TypedQuery;
 
 /**
  * Consulta que permite obtener el número de referencias por termino

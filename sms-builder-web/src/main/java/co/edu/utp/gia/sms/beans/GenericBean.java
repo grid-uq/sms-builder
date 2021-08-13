@@ -3,9 +3,6 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import org.primefaces.event.RowEditEvent;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
 public abstract class GenericBean<T> extends AbstractRevisionBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase

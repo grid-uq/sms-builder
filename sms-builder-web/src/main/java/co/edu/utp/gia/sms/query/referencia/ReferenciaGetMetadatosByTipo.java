@@ -1,7 +1,6 @@
 package co.edu.utp.gia.sms.query.referencia;
 
 import co.edu.utp.gia.sms.entidades.Metadato;
-import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.query.Queries;
 
