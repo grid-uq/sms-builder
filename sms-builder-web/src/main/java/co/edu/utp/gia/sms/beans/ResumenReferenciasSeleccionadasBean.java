@@ -1,22 +1,21 @@
 package co.edu.utp.gia.sms.beans;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.exportutil.ReferenceToRIS;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Named
 @ViewScoped

@@ -3,7 +3,6 @@ package co.edu.utp.gia.sms.entidades;
 import lombok.*;
 
 import javax.persistence.*;
-
 import java.util.List;
 import java.util.Objects;
 

@@ -1,10 +1,6 @@
 package co.edu.utp.gia.sms.negocio;
 
-import co.edu.utp.gia.sms.entidades.Pregunta;
-import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.entidades.Usuario;
-import co.edu.utp.gia.sms.entidades.TipoFuente;
+import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.query.estadistica.EstadisticaGetTotalReferenciasRepetidas;
 import co.edu.utp.gia.sms.query.paso.PasoGetTotalReferencias;
 import co.edu.utp.gia.sms.query.paso.PasoGetTotalReferenciasByTipoFuente;

@@ -1,7 +1,6 @@
 package co.edu.utp.gia.sms.query.pregunta;
 
 import co.edu.utp.gia.sms.dtos.DatoDTO;
-import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.query.Queries;
 
 import javax.persistence.Entity;

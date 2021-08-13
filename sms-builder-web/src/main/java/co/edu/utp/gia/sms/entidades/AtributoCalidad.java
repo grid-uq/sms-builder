@@ -3,7 +3,6 @@ package co.edu.utp.gia.sms.entidades;
 import lombok.*;
 
 import javax.persistence.*;
-
 import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -46,6 +45,12 @@ public class AtributoCalidad implements Entidad<Integer> {
     @NonNull
     private String descripcion;
 
+    @Column(nullable = false)
+    @Getter @Setter
+    @EqualsAndHashCode.Exclude
+    @NonNull
+    private Boolean objetivo;
+
     /**
      * {@link Revision} a la cual pertenece el atributo de calidad
      */
@@ -55,6 +60,7 @@ public class AtributoCalidad implements Entidad<Integer> {
     @EqualsAndHashCode.Exclude
     @NonNull
     private Revision revision;
+
 
     @Override
     public boolean equals(Object o) {

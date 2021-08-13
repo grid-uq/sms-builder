@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.query.Queries;
 import co.edu.utp.gia.sms.query.objetivo.ObjetivoFindAll;
 import co.edu.utp.gia.sms.query.pregunta.PreguntaGetObjetivos;
 

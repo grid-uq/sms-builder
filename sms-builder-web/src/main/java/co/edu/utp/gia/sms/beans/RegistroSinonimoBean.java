@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.TerminoEJB;
-import co.edu.utp.gia.sms.negocio.TopicoEJB;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;

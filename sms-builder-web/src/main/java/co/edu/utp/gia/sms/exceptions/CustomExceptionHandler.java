@@ -1,9 +1,7 @@
 package co.edu.utp.gia.sms.exceptions;
 
 
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import co.edu.utp.gia.sms.util.PropertiesLoader;
 
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
@@ -13,10 +11,9 @@ import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
-import javax.inject.Inject;
-
-import co.edu.utp.gia.sms.util.PropertiesLoader;
-import lombok.Getter;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**

@@ -7,7 +7,7 @@ public class FileMultipleRegisterParseFactory {
 	private FileMultipleRegisterParseFactory() {
 	}
 
-	public static final FileMultipleRegisterParse getInstance(TipoArchivo tipoArchivo, String fuente,String tipoFuente) {
+	public static final ReferenceParse getInstance(TipoArchivo tipoArchivo, String fuente,String tipoFuente) {
 		switch (tipoArchivo) {
 			case RIS:
 				return new RisFileMultipleRegisterParse(fuente,tipoFuente);

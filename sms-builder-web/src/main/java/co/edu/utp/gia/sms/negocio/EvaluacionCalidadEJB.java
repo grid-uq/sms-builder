@@ -1,13 +1,11 @@
 package co.edu.utp.gia.sms.negocio;
 
-import java.util.List;
-
-import javax.ejb.Stateless;
-
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidadPK;
-import co.edu.utp.gia.sms.query.Queries;
 import co.edu.utp.gia.sms.query.referencia.ReferenciaGetEvaluacionesCalidad;
+
+import javax.ejb.Stateless;
+import java.util.List;
 
 @Stateless
 public class EvaluacionCalidadEJB extends AbstractEJB<EvaluacionCalidad, EvaluacionCalidadPK> {

@@ -4,7 +4,6 @@ import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.query.Queries;
 import co.edu.utp.gia.sms.query.pregunta.PreguntaCount;
 import co.edu.utp.gia.sms.query.pregunta.PreguntaFindAll;
 

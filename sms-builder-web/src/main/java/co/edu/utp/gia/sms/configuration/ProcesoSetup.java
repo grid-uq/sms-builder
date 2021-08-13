@@ -5,7 +5,6 @@ import co.edu.utp.gia.sms.negocio.PasoEJB;
 import co.edu.utp.gia.sms.negocio.ProcesoEJB;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 import java.util.List;
 
 public class ProcesoSetup implements SetupInterface{

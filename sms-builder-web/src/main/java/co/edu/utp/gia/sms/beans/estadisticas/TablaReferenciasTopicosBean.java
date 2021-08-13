@@ -3,7 +3,6 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
-import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;

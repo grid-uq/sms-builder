@@ -3,7 +3,6 @@ package co.edu.utp.gia.sms.entidades;
 import lombok.*;
 
 import javax.persistence.*;
-
 import java.util.Objects;
 
 import static javax.persistence.FetchType.EAGER;

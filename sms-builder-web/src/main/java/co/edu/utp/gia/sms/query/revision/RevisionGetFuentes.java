@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.query.revision;
 
-import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.query.Queries;
 

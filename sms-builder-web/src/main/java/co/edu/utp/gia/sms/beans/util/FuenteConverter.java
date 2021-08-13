@@ -1,11 +1,8 @@
 package co.edu.utp.gia.sms.beans.util;
 
 import co.edu.utp.gia.sms.entidades.Fuente;
-import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.negocio.FuenteEJB;
-import co.edu.utp.gia.sms.negocio.ObjetivoEJB;
 
-import javax.enterprise.inject.spi.CDI;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 import javax.inject.Named;

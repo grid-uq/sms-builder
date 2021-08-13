@@ -19,12 +19,12 @@ public class RegistroAtributoCalidadBean extends GenericBean<AtributoCalidad> {
      * Variable que representa el atributo serialVersionUID de la clase
      */
     private static final long serialVersionUID = 1755642135191615078L;
-    @Getter
-    @Setter
+    @Getter @Setter
     private String descripcion;
-    @Getter
-    @Setter
+    @Getter @Setter
     private List<AtributoCalidad> atributosCalidad;
+    @Getter @Setter
+    private boolean objetivo;
     @Inject
     private AtributoCalidadEJB atributoCalidadEJB;
 
@@ -35,7 +35,7 @@ public class RegistroAtributoCalidadBean extends GenericBean<AtributoCalidad> {
     }
 
     public void registrar() {
-        AtributoCalidad atributo = atributoCalidadEJB.registrar(descripcion, getRevision().getId());
+        AtributoCalidad atributo = atributoCalidadEJB.registrar(descripcion,objetivo,getRevision().getId());
         atributosCalidad.add(atributo);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         descripcion = "";

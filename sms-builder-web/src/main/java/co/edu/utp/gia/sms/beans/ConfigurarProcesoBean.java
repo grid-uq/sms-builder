@@ -11,7 +11,6 @@ import lombok.extern.java.Log;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
 import java.util.List;
 
 @Log

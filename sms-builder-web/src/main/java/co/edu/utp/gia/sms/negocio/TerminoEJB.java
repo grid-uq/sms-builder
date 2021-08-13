@@ -1,14 +1,13 @@
 package co.edu.utp.gia.sms.negocio;
 
-import java.util.List;
+import co.edu.utp.gia.sms.entidades.Revision;
+import co.edu.utp.gia.sms.entidades.Termino;
+import co.edu.utp.gia.sms.query.revision.RevisionGetTerminos;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
-import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.entidades.Termino;
-import co.edu.utp.gia.sms.query.revision.RevisionGetTerminos;
+import java.util.List;
 
 @Stateless
 @LocalBean
