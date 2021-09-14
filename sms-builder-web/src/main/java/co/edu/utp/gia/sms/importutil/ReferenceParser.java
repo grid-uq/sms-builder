@@ -47,28 +47,18 @@ public abstract class ReferenceParser<T> {
 //			return null;
 //		}
 		
-		Referencia referencia = createReference();
-
-		procesar(referencia, source);
+		Referencia referencia = procesar(source);
+		if( referencia != null ){
+			referencia.addElement(TipoMetadato.FUENTE, fuente);
+			referencia.addElement(TipoMetadato.TIPO_FUENTE, tipoFuente);
+		}
 		return referencia;
 	}
 
-	/**
-	 * Crea una referencia base inicializando su fuente y tipo de fuente
-	 * @return Referencia creada
-	 */
-	public final Referencia createReference() {
-		Referencia referencia = new Referencia();
-
-		referencia.addElement(TipoMetadato.FUENTE, fuente);
-		referencia.addElement(TipoMetadato.TIPO_FUENTE, tipoFuente);
-		return referencia;
-	}
 
 	/**
 	 * Permite procesar el source para completar los datos de una referencia
-	 * @param referencia Referencia que se esta completando
 	 * @param source Elemento base para obtener los datos de la referencia
 	 */
-	protected abstract void procesar(Referencia referencia, T source);
+	protected abstract Referencia procesar(T source);
 }

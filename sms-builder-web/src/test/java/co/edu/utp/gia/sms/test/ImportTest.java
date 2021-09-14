@@ -34,13 +34,14 @@ class ImportTest {
 		Assert.assertEquals(cantidadReferencias, datos.size());
 
 		datos.stream().forEach((referencia) -> {
-			Assert.assertTrue(referencia.getResumen() == null || referencia.getYear().length() < 5);
+			Assert.assertTrue(referencia.getYear().length() < 5);
 			Assert.assertTrue(referencia.getResumen() == null || referencia.getResumen().length()>5);
 			System.out.println( referencia.getMetadatos().stream().filter(m->TipoMetadato.AUTOR.equals(m.getIdentifier())).count() );
 			referencia.getMetadatos().stream()
 					.filter(m->TipoMetadato.AUTOR.equals(m.getIdentifier()))
 					.map(Metadato::getValue)
 					.forEach(System.out::println);
+			System.out.println(referencia.getYear());
 		});
 
 	}
