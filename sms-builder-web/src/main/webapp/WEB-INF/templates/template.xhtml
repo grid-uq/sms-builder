@@ -71,6 +71,10 @@
             <br />
         </div>
         <br />
+        <h:form>
+        <p:menubar model="#{procesoBean.model}" rendered="#{seguridadBean.autenticado}">
+        </p:menubar>
+        </h:form>
         <div id="content" align='center'>
             <p:growl id="msgs"/>
             <h:panelGrid rendered="#{!seguridadBean.autenticado}">

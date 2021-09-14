@@ -35,14 +35,15 @@ public class RisReferenceParcer extends ReferenceParser<String> {
 		super(fuente,tipoFuente);
 	}
 
-	protected void procesar(Referencia reference, String texto) {
-
+	protected Referencia procesar(String texto) {
+		Referencia reference = new Referencia();
 		try (Scanner lector = new Scanner(new StringReader(texto))) {
 			while (lector.hasNextLine()) {
 				String linea = lector.nextLine();
 				procesarLinea(reference, linea);
 			}
 		}
+		return reference;
 	}
 
 	/**

@@ -24,42 +24,56 @@ import org.jbibtex.Value;
  */
 public class BibtexReferenceParcer extends ReferenceParser<BibTeXEntry> {
 
-	private static final String TITULO = "T1";
-	private static final String KEYWORD = "KW";
-	private static final String YEAR = "Y1";
 	private static final String ABSTRACT = "abstract";
-	private static final String AUTOR = "A1";
-	private static final String DOI = "DO";
-	// private static final String ISBN = "SN";
-	private static final String NOMBRE_PUBLICACION = "JF";
-	private static final String TIPO_PUBLICACION = "TY";
 
 	public BibtexReferenceParcer(String fuente, String tipoFuente) {
 		super(fuente,tipoFuente);
 	}
 
-	protected void procesar(Referencia reference, BibTeXEntry source) {
-		source.getFields().entrySet( ).forEach( field->this.procesarField(field.getKey(), field.getValue(), reference) );
+	/**
+	 * Permite procesar una referencia en formato Bibtex y al macena su información en la {@link Referencia}
+	 * @param source Elemento base para obtener los datos de la referencia
+	 */
+	protected Referencia procesar(BibTeXEntry source) {
+		Referencia reference = new Referencia();
+		source.getFields().forEach((key, value) -> this.procesarField(key, value, reference));
 		if( reference.getMetadatos().stream().noneMatch( m->TipoMetadato.TITLE.equals(m.getIdentifier()) ) ){
-			reference.addElement(TipoMetadato.TITLE,source.getType().getValue());
+			reference.addElement(TipoMetadato.TITLE,BibtexStringUtil.parse(source.getType().getValue()));
 		}
+		return reference;
 	}
 
+	/**
+	 * Permite procesar un campo del archivo de referencias
+	 * @param key	Llave que identifica el tipo de campo
+	 * @param value	Valor del campo
+	 * @param reference Referencia en la que se va a almacenar el valor del campo
+	 */
 	protected void procesarField( Key key,Value value,Referencia reference){
 		TipoMetadato tipo = identifierOf(key);
 		if( TipoMetadato.AUTOR.equals(tipo) ){
-			adicionarAutores(reference,value.toUserString());
+			adicionarAutores(reference,BibtexStringUtil.parse(value.toUserString()));
 		} else {
-			reference.addElement(tipo, value.toUserString());
+			reference.addElement(tipo, BibtexStringUtil.parse(value.toUserString()));
 		}
 	}
 
+	/**
+	 * Permite adicionar los autores a una referencia a parit de un texto dado separados por " and "
+	 * @param reference Referencia a la que se le desean adicionar los autores
+	 * @param autores Texto que contiene los autores a ser adicionados
+	 */
 	private void adicionarAutores(Referencia reference, String autores) {
 		for (String autor:autores.split(" and ")) {
-			reference.addElement(TipoMetadato.AUTOR, autor);
+			reference.addElement(TipoMetadato.AUTOR, BibtexStringUtil.parse(autor));
 		}
 	}
 
+	/**
+	 * Permite establecer una equivalencia entre una llave dada y un tipo de metadato a almacenar
+	 * @param key Llave a la que se desea obtener la equivalencia
+	 * @return El tipo de metadato correspondiente a la llave dada.
+	 */
 	private TipoMetadato identifierOf(Key key) {
 		if( BibTeXEntry.KEY_TITLE.equals(key) ){
 			return TipoMetadato.TITLE;
@@ -85,10 +99,7 @@ public class BibtexReferenceParcer extends ReferenceParser<BibTeXEntry> {
 		if( key.getValue().equals(ABSTRACT)  ) {
 			return TipoMetadato.ABSTRACT;
 		}
-
-//		case TIPO_PUBLICACION:
-//			return TipoMetadato.TYPE;
-			return TipoMetadato.NOT_SUPORT;
+		return TipoMetadato.NOT_SUPORT;
 	}
 
 }
