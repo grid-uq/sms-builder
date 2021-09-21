@@ -32,8 +32,8 @@ import javax.annotation.sql.DataSourceDefinitions;
 	
 	@DataSourceDefinition(
 			name = "java:app/sms-builder-web/mysql", //
-//	className = "com.mysql.cj.jdbc.MysqlDataSource", //
-			className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
+			className = "com.mysql.cj.jdbc.MysqlDataSource", //
+//			className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
 			initialPoolSize = 2,
 			minPoolSize = 2,
 			maxPoolSize = 10,
