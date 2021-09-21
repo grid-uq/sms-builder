@@ -80,7 +80,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     }
 
     private List<ReferenciaDTO> obtenerTodas(PasoProceso paso) {
-        return poblarReferenciaDTOS(paso.getReferencias().stream()
+        return poblarReferenciaDTOS( PasoGetReferencias.createQuery(entityManager,paso.getId()).getResultList().stream()
                 .sorted(Comparator.comparing(Referencia::getNombre))
                 .map(r -> new ReferenciaDTO(r, paso.getId())).collect(Collectors.toList()));
     }
