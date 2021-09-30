@@ -11,20 +11,14 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Paso implements Entidad<Integer>{
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @Getter @Setter
+    @Id @GeneratedValue(strategy = IDENTITY)
     private Integer id;
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     @Column(unique = true,length = 50)
     private String nombre;
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     @ManyToOne
     private Recurso recurso;

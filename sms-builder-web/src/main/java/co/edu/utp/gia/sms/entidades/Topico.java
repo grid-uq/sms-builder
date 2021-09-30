@@ -24,15 +24,12 @@ public class Topico implements Entidad<Integer> {
      */
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer id;
     /**
      * Variable que representa el atributo descripcion de la clase
      */
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private String descripcion;
     /**
@@ -40,9 +37,7 @@ public class Topico implements Entidad<Integer> {
      * {@link Topico}
      */
     @ManyToOne
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private Pregunta pregunta;
 

@@ -34,25 +34,20 @@ public class Objetivo implements Entidad<Integer> {
      */
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer id;
 
     /**
      * Variable que representa el código del objetivo
      */
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private String codigo;
 
     /**
      * Variable que representa la escripcion del objetivo
      */
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private String descripcion;
 
@@ -60,9 +55,7 @@ public class Objetivo implements Entidad<Integer> {
      * Variable que representa la {@link Revision} a la que pertenece el objetivo
      */
     @ManyToOne
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private Revision revision;
 
@@ -72,9 +65,7 @@ public class Objetivo implements Entidad<Integer> {
      * {@link Objetivo}
      */
     @ManyToMany(mappedBy = "objetivos", fetch = EAGER)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private List<Pregunta> preguntas;
 
     @Override

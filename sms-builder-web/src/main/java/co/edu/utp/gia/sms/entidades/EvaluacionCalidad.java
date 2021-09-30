@@ -31,8 +31,7 @@ public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
      * Atributo que permite identificar de forma unica una instancia de la entidad {@link EvaluacionCalidad}
      */
     @EmbeddedId
-    @Getter
-    @Setter
+    @Getter @Setter
     private EvaluacionCalidadPK id;
 
     /**
@@ -40,9 +39,7 @@ public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
      */
     @ManyToOne
     @MapsId("referenciaId")
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Referencia referencia;
 
     /**
@@ -50,26 +47,20 @@ public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
      */
     @ManyToOne
     @MapsId("atributoCalidadId")
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private AtributoCalidad atributoCalidad;
 
     /**
      * Evaluación cualitativa asignada
      */
     @Enumerated(EnumType.STRING)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private EvaluacionCualitativa evaluacionCualitativa;
 
     /**
      * Variable que representa el atributo evaluacionCuantitativa de la clase
      */
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Float evaluacionCuantitativa;
 
     /**

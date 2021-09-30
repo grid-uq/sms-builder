@@ -21,16 +21,14 @@ public class EvaluacionCalidadPK implements Serializable {
     /**
      * Id de la referencia involucrada en la evaluación
      */
-    @Getter
-    @Setter
+    @Getter @Setter
     @NonNull
     private Integer referenciaId;
 
     /**
      * Id de atributo de calidad involucrado en la evaluación
      */
-    @Getter
-    @Setter
+    @Getter @Setter
     @NonNull
     private Integer atributoCalidadId;
 

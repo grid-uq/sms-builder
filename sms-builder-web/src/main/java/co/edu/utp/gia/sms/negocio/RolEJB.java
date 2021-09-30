@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.entidades.Recurso;
 import co.edu.utp.gia.sms.entidades.Rol;
+import co.edu.utp.gia.sms.query.seguridad.SeguridadRolFindAll;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -36,7 +37,7 @@ public class RolEJB extends AbstractEJB<Rol, Integer> {
      */
     @Override
     public List<Rol> listar() {
-        return entityManager.createNamedQuery(Rol.GET_ALL, Rol.class).getResultList();
+        return SeguridadRolFindAll.createQuery(entityManager).getResultList();
     }
 
     /**

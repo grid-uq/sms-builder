@@ -14,8 +14,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Clase abstracta que define los elementos de logica generales asociados al
@@ -23,7 +23,7 @@ import java.util.List;
  * 
  * 
  */
-public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements Serializable {
+public abstract class AbstractGenericEJB<E extends Entidad<TipoId>, TipoId> implements Serializable {
 
 	/**
 	 * Representa la clase a la que pertenece la entidad que esta manipulando el DAO
@@ -40,11 +40,11 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 	@Getter
 	protected ExceptionMessage exceptionMessage;
 
-	public AbstractEJB(){
+	public AbstractGenericEJB(){
 		entityClass = findGenericType(0);
 	}
 
-	public AbstractEJB(Class<E> entityClass) {
+	public AbstractGenericEJB(Class<E> entityClass) {
 		this.entityClass = entityClass;
 	}
 
@@ -57,9 +57,9 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 		return (Class<E>) ((ParameterizedType)klass.getGenericSuperclass()).getActualTypeArguments()[index];
 	}
 
-	public E registrar(E entidad) {
+	public E create(E entidad) {
 		try {
-			if (obtener(entidad.getId()) != null) {
+			if (find(entidad.getId()).isPresent() ) {
 				throw new LogicException(entityClass.getName()+":"+exceptionMessage.getRegistroExistente());
 			}
 			entityManager.persist(entidad);
@@ -71,53 +71,45 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
 		}
 	}
 
-	public void actualizar(E entidad) {
+	public void update(E entidad) {
 		try {
-			obtenerOrThrow(entidad.getId());
+			findOrThrow(entidad.getId());
 			entityManager.merge(entidad);
 		} catch (Throwable t) {
 			throw new TecnicalException(t);
 		}
 	}
 
-	public void eliminar(E entidad) {
+	public void delete(E entidad) {
 		try {
-			if (!entityManager.contains(entidad) && obtener(entidad.getId()) == null) {
-				throw new LogicException(entityClass.getName()+":"+exceptionMessage.getRegistroNoEncontrado());
-			}
-			entityManager.remove(entidad);
+			entityManager.remove(findOrThrow(entidad.getId()));
 		} catch (Throwable t) {
 			throw new TecnicalException(t);
 		}
 	}
 
-	public void eliminar(TipoId id) {
+	public void delete(TipoId id) {
 		try {
-			eliminar(
-					obtenerOrThrow(id)
-			);
+			delete(	findOrThrow(id) );
 		} catch (Throwable t) {
 			throw new TecnicalException(t);
 		}
 	}
 
-	public E obtener(TipoId id) {
+	public Optional<E> find(TipoId id) {
 		try {
-			return id != null ? entityManager.find(entityClass, id) : null;
+			return Optional.ofNullable(id != null ? entityManager.find(entityClass, id) : null);
 		} catch (Throwable t) {
 			throw new TecnicalException(t);
 		}
 	}
 
-	public E obtenerOrThrow(TipoId id) {
-		E registro = obtener(id);
-		if (registro == null) {
-			throw new LogicException(entityClass.getName()+":"+exceptionMessage.getRegistroNoEncontrado());
-		}
-		return registro;
+	public E findOrThrow(TipoId id) {
+		return find(id).orElseThrow(
+				()->new LogicException(entityClass.getName()+":"+exceptionMessage.getRegistroNoEncontrado()) );
 	}
 
-	public List<E> listar() {
+	public List<E> findAll() {
 		return entityManager.createQuery( listarCriteriaQuery() ).getResultList();
 	}
 	

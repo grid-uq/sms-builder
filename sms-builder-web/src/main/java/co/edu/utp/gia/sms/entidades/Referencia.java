@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.entidades;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,128 +34,91 @@ public class Referencia implements Entidad<Integer> {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer id;
     /**
      * Variable que representa el atributo SPSID
      */
     @Column(length = 50)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private String spsid;
     /**
      * Variable que representa el atributo nombre de la clase
      */
     @Lob
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private String nombre;
     /**
      * Variable que representa el atributo year de la clase
      */
     @Column(length = 4)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private String year;
     /**
      * Variable que representa el atributo resumen de la clase
      */
     @Lob
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private String resumen;
 
     /**
      * Variable que representa el atributo tipo de la clase
      */
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private String tipo;
 
     /**
      * Variable que representa el filtro en el cual esta la referencia, todas
      * inician con 0 y va aumentando
      */
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Integer filtro;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Float totalEvaluacionCalidad;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Integer relevancia;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Integer citas;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Float ponderacionCitas;
 
     @Lob
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private String nota;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Float sci;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Float srrqi;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Boolean duplicada;
 
     /**
      * Variable que representa el atributo metadatos de la clase
      */
     @OneToMany(mappedBy = "referencia", cascade = PERSIST)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private List<Metadato> metadatos;
 
     /**
      * Variable que representa el atributo revision de la clase
      */
     @ManyToOne
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Revision revision;
 
     @ManyToMany(fetch = EAGER)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private List<Topico> topicos;
 
     @OneToMany(mappedBy = "referencia")
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private List<EvaluacionCalidad> evaluacionCalidad;
 
     /**

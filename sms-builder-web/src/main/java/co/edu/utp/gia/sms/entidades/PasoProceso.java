@@ -14,29 +14,20 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class PasoProceso implements Entidad<Integer> {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer id;
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private Integer orden;
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     @ManyToOne
     private Paso paso;
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     @ManyToOne
     private Revision revision;
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @OneToMany
     @OrderBy("nombre ASC")
     private List<Referencia> referencias;

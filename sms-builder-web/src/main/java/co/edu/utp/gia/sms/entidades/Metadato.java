@@ -38,8 +38,7 @@ public class Metadato implements Entidad<Integer> {
      */
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer id;
 
 
@@ -47,9 +46,7 @@ public class Metadato implements Entidad<Integer> {
      * Variable que representa el identificador del elemento
      */
     @Enumerated(STRING)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private TipoMetadato identifier;
 
@@ -57,16 +54,12 @@ public class Metadato implements Entidad<Integer> {
      * Variable que representa el valor asiciado al elemento
      */
     @Lob
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private String value;
 
     @ManyToOne(fetch = EAGER)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private Referencia referencia;
 
 

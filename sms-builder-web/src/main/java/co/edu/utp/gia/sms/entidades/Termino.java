@@ -1,6 +1,9 @@
 package co.edu.utp.gia.sms.entidades;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,16 +36,13 @@ public class Termino implements Entidad<Integer> {
      */
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer id;
     /**
      * Variable que representa el atributo texto de la clase
      */
     @Column(nullable = false)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private String descripcion;
 
@@ -50,9 +50,7 @@ public class Termino implements Entidad<Integer> {
      * Revision a la cual pertenece el Termino
      */
     @ManyToOne
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private Revision revision;
 
@@ -62,9 +60,7 @@ public class Termino implements Entidad<Integer> {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "TERMINO_SINONIMO")
     @Column(name = "sinonimo",length = 50)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private List<String> sinonimos;
 
     public Termino(){
