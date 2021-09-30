@@ -34,16 +34,13 @@ public class Nota implements Entidad<Integer> {
      */
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer id;
 
     /**
      * Variable que representa el identificador del elemento
      */
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private Integer etapa;
 
@@ -52,17 +49,13 @@ public class Nota implements Entidad<Integer> {
      * Variable que representa el valor asiciado al elemento
      */
     @Lob
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private String descripcion;
 
 
     @ManyToOne(fetch = EAGER)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private Referencia referencia;
 

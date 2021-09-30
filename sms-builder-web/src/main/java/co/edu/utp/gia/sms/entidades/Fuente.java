@@ -29,7 +29,6 @@ public class Fuente implements Entidad<Integer> {
      */
     @Enumerated(EnumType.STRING)
     @Getter @Setter @NonNull
-    @EqualsAndHashCode.Exclude
     private TipoFuente tipo;
 
     @ManyToOne

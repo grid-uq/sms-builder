@@ -31,23 +31,19 @@ public class AtributoCalidad implements Entidad<Integer> {
      */
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer id;
 
     /**
      * Variable que representa el atributo texto de la clase
      */
     @Column(nullable = false)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private String descripcion;
 
     @Column(nullable = false)
     @Getter @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private Boolean objetivo;
 
@@ -55,9 +51,7 @@ public class AtributoCalidad implements Entidad<Integer> {
      * {@link Revision} a la cual pertenece el atributo de calidad
      */
     @ManyToOne
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private Revision revision;
 

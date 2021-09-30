@@ -21,35 +21,29 @@ public class CadenaBusqueda implements Entidad<Integer> {
     private Integer id;
 
     @Getter @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     @Column(length = 30)
     private String baseDatos;
 
     @Getter @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     @Lob
     private String consulta;
 
     @Getter @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private Date    fechaConsulta;
 
     @Getter @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private Integer resultadoPreliminar;
 
     @Getter @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private Integer resultadoFinal;
 
     @ManyToOne
     @Getter @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private Revision revision;
 

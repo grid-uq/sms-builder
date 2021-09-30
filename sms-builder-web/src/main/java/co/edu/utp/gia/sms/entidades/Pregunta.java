@@ -32,25 +32,20 @@ public class Pregunta implements Entidad<Integer> {
      */
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer id;
     /**
      * Variable que representa el atributo codigo de la clase
      */
     @Column(length = 3, nullable = false)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private String codigo;
     /**
      * Variable que representa el atributo texto de la clase
      */
     @Column(nullable = false)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private String descripcion;
 
@@ -59,18 +54,14 @@ public class Pregunta implements Entidad<Integer> {
      * Variable que representa los topico de una pregunta
      */
     @OneToMany(mappedBy = "pregunta")
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private List<Topico> topicos;
 
     /**
      * Variable que representa los objetivos con los que se relaciona una pregunta
      */
     @ManyToMany
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private List<Objetivo> objetivos;
 
 

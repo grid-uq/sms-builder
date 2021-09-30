@@ -1,10 +1,12 @@
 package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.entidades.Recurso;
+import co.edu.utp.gia.sms.query.seguridad.SeguridadRecursoFindAll;
+import co.edu.utp.gia.sms.query.seguridad.SeguridadRecursoFindByUrl;
+import co.edu.utp.gia.sms.query.seguridad.SeguridadRecursoFindUrlByPublic;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 
@@ -37,9 +39,8 @@ public class RecursoEJB extends AbstractEJB<Recurso, Integer> {
      */
     @Override
     public List<Recurso> listar() {
-        return entityManager.createNamedQuery(Recurso.GET_ALL, Recurso.class).getResultList();
+        return SeguridadRecursoFindAll.createQuery(entityManager).getResultList();
     }
-
 
     /**
      * Metodo que permite buscar un {@link Recurso} basado en su url
@@ -49,8 +50,7 @@ public class RecursoEJB extends AbstractEJB<Recurso, Integer> {
      * un {@link Recurso} con dicho id registrado en el sistema
      */
     public Recurso buscarRecurso(String url) {
-        return entityManager.createNamedQuery(Recurso.FIND_BY_URL, Recurso.class)
-                .setParameter("url", url)
+        return SeguridadRecursoFindByUrl.createQuery(entityManager,url)
                 .getResultList()
                 .stream()
                 .findFirst()
@@ -64,9 +64,7 @@ public class RecursoEJB extends AbstractEJB<Recurso, Integer> {
      * como públicos
      */
     public List<String> buscarRecursosPublicos() {
-        TypedQuery<String> query = entityManager.createNamedQuery(Recurso.FIND_BY_PUBLIC, String.class);
-        query.setParameter("estado", true);
-        return query.getResultList();
+        return SeguridadRecursoFindUrlByPublic.createQuery(entityManager,true).getResultList();
     }
 
 }

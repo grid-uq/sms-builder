@@ -32,25 +32,20 @@ public class Revision implements Entidad<Integer> {
      */
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer id;
     /**
      * Variable que representa el atributo nombre de la clase
      */
 
     @Column(nullable = false)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private String nombre;
     /**
      * Variable que representa el atributo descripcion de la clase
      */
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private String descripcion;
 
@@ -58,18 +53,14 @@ public class Revision implements Entidad<Integer> {
      * Lista de objetivos de la revision
      */
     @OneToMany(mappedBy = "revision")
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private List<Objetivo> objetivos;
 
     /**
      * Identifica el usuario propieratio de la Revision
      */
     @ManyToOne
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @NonNull
     private Usuario propietario;
 
@@ -77,27 +68,21 @@ public class Revision implements Entidad<Integer> {
      * Lista de usuarios con acceso a la revision
      */
     @ManyToMany
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private List<Usuario> revisores;
 
     /**
      * Lista de los pasos para la ejecución del proceso de SMS
      */
     @OneToMany(mappedBy = "revision")
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private List<PasoProceso> pasosProceso;
 
     /**
      * Representa el paso seleccionado para la evaluación y extracción de estadísticas
      */
     @OneToOne
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private PasoProceso pasoSeleccionado;
 
     @Override

@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.entidades;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,31 +21,9 @@ import java.util.Objects;
  * @since 13/06/2019
  */
 @Entity
-@NamedQuery(name = Rol.FIND_BY_ID, query = "select rol from Rol rol where rol.id = :id")
-@NamedQuery(name = Rol.GET_ALL, query = "select rol from Rol rol")
-@NamedQuery(name = Rol.FIND_BY_USUARIO, query = "select rol from Usuario usuario inner join usuario.roles rol where usuario = :usuario")
-
 @NoArgsConstructor
 public class Rol implements Entidad<Integer> {
 
-    /**
-     * Constante que identifica la consulta que permite buscar un
-     * {@link Rol} por su id <br />
-     * {@code select rol from Rol rol where rol.id = :id}
-     */
-    public static final String FIND_BY_ID = "Rol_findById";
-    /**
-     * Constante que identifica la consulta que permite obtener todos los
-     * {@link Recurso} registrados en el sistema <br />
-     * {@code select rol from Rol rol}
-     */
-    public static final String GET_ALL = "Rol_getAll";
-    /**
-     * Constante que identifica la consulta que permite obtener todos los
-     * {@link Rol} asociados a un {@link Usuario} <br />
-     * {@code select rol from Usuario usuario inner join usuario.roles rol where usuario = :usuario}
-     */
-    public static final String FIND_BY_USUARIO = "Rol_findByUsuario";
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
@@ -57,25 +34,20 @@ public class Rol implements Entidad<Integer> {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer id;
     /**
      * Variable que representa el atributo nombre de la clase. Nombre del Rol
      */
     @Column(nullable = false, length = 20, unique = true)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private String nombre;
     /**
      * Variable que representa el atributo recursos de la clase. Lista de
      * {@link Recurso} a la cual tiene acceso el {@link Rol}
      */
     @ManyToMany
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     private List<Recurso> recursos;
 
     /**
