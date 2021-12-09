@@ -19,6 +19,7 @@
 		<!-- <jsf-impl.version>2.2.20</jsf-impl.version>  -->
 		<jsf-impl.version>2.3.9.SP08</jsf-impl.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<payaraVersion>5.2021.8</payaraVersion>
 	</properties>
 
 	<build>
@@ -27,7 +28,7 @@
 			<plugin>
 				<groupId>fish.payara.maven.plugins</groupId>
 				<artifactId>payara-micro-maven-plugin</artifactId>
-				<version>1.0.5</version>
+				<version>1.4.0</version>
 				<executions>
 					<execution>
 						<id>bundle</id>
@@ -43,6 +44,7 @@
 					</execution>
 				</executions>
 				<configuration>
+					<payaraVersion>${payaraVersion}</payaraVersion>
 					<useUberJar>true</useUberJar>
 				</configuration>
 
@@ -96,7 +98,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.8</version>
+			<version>1.18.22</version>
 			<scope>provided</scope>
 		</dependency>
 
