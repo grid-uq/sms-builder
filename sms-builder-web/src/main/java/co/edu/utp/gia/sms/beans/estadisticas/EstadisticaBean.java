@@ -50,9 +50,6 @@ public abstract class EstadisticaBean extends AbstractRevisionBean {
             case "bar":
                 model = crearBarModel();
                 break;
-//		case "line":
-//			model = crearLineModel();
-//			break;
             case "pie":
             default:
                 model = crearPieModel();

@@ -51,9 +51,6 @@ public abstract class AbstractBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-//		if (registroInicialBean != null) {
-//			revision = registroInicialBean.getRevision();
-//		}
 		inicializar();
 	}
 
@@ -126,15 +123,5 @@ public abstract class AbstractBean implements Serializable {
 	public String getMessage(String key){
 		return bundle.getString(key);
 	}
-////////// ----- GET/SET ----- ////////////	
-
-//	/**
-//	 * Metodo que permite obtener el valor del atributo sessionMap
-//	 *
-//	 * @return El valor del atributo sessionMap
-//	 */
-//	protected Map<String, Object> getSessionMap() {
-//		return sessionMap;
-//	}
 
 }

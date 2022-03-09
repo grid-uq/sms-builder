@@ -31,6 +31,7 @@
 				<version>1.4.0</version>
 				<executions>
 					<execution>
+						<phase>package</phase>
 						<id>bundle</id>
 						<goals>
 							<goal>bundle</goal>

@@ -9,8 +9,6 @@ import javax.inject.Inject;
 
 @Log
 public abstract class AbstractRevisionBean extends AbstractBean {
-//    @Inject
-//    @ManagedProperty("#{registroInicialBean.revision}")
     private Revision revision;
     @Inject @ManagedProperty("#{param.paso}")
     protected Integer paso;
