@@ -29,16 +29,15 @@ public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
      * Variable que representa el atributo serialVersionUID de la clase
      */
     private static final long serialVersionUID = -6652760630318393603L;
-    List<String> borderColor = new ArrayList<>();
     @Getter
     @Setter
     private List<DatoDTO> datos;
     @Getter
-    private Map<String, SerieDatos> datosSeries;
+    private final Map<String, SerieDatos> datosSeries;
 
 
     public List<SerieDatos> getSeries(){
-        return datosSeries.values().stream().collect(Collectors.toList());
+        return new ArrayList<>(datosSeries.values());
     }
 
     public EstaditicaDatoDTOBaseBean() {
@@ -76,6 +75,7 @@ public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
 
         if (datos != null) {
             data.setLabels(datos.stream().map(DatoDTO::getEtiqueta).collect(Collectors.toList()));
+            data.setLabels(generateLabels());
         }
 
         Legend legend = new Legend();
@@ -94,6 +94,16 @@ public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
         options.setAnimation(animation);
 
         return data;
+    }
+
+    private List<String> generateLabels() {
+        ArrayList<String> etiquetas = new ArrayList<>();
+
+        getDatosSeries().values().forEach(datos -> {
+            etiquetas.addAll( datos.getDatos().stream().map(DatoDTO::getEtiqueta).collect(Collectors.toList()) );
+        });
+
+        return etiquetas.stream().distinct().collect(Collectors.toList());
     }
 
     protected PieChartModel crearPieModel() {
