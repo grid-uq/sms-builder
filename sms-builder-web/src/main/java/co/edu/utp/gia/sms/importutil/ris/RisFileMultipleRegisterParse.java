@@ -7,7 +7,16 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ * Clase utilitaria encargada de procesar un archivo con referencias RIS.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
 public class RisFileMultipleRegisterParse extends FileMultipleRegisterParse<RisReferenceParcer> {
 
 	public RisFileMultipleRegisterParse(String fuente,String tipoFuente) {

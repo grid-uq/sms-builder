@@ -1,9 +1,6 @@
 package co.edu.utp.gia.sms.negocio;
 
-import co.edu.utp.gia.sms.entidades.CadenaBusqueda;
-import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.entidades.Termino;
-import co.edu.utp.gia.sms.entidades.TipoFuente;
+import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.query.revision.RevisionGetCadenaBusquedaQuery;
 
 import javax.ejb.LocalBean;
@@ -12,7 +9,17 @@ import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ * Clase de negocio encargada de implementar las funciones correspondientes a la
+ * gestion de la {@link CadenaBusqueda}.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
 @Stateless
 @LocalBean
 public class CadenaBusquedaEJB extends AbstractEJB<CadenaBusqueda, Integer>{

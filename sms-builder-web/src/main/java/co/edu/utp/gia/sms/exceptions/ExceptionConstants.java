@@ -3,8 +3,7 @@ package co.edu.utp.gia.sms.exceptions;
 
 /**
  * Clase que contiene las constantes usadas en el manejo de excepciones
- * 
- * 
+ *
  */
 public class ExceptionConstants {
 	/**

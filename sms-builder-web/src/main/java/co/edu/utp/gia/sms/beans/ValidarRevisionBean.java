@@ -8,7 +8,16 @@ import javax.inject.Named;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
-
+/**
+ * Clase controladora de interfaz web que se encarga de validar una revisión.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @Log
 public class ValidarRevisionBean extends GenericBean<Revision> {

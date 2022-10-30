@@ -11,7 +11,16 @@ import javax.faces.event.ExceptionQueuedEventContext;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * Clase de capturar y procesar excepciones.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
 public class DefaultExceptionHandler extends ExceptionHandlerWrapper {
 
     //@Inject

@@ -53,11 +53,10 @@ public class FindReferenceCitation {
 	 * Metodo que permite obtener la traduccion del resumen de una
 	 * {@link Referencia}
 	 * 
-	 * @param referencia
-	 * @return
-	 * @throws IOException
+	 * @param texto texto a traducir
+	 * @return El texto
 	 */
-	public String findTranslate(String texto) throws IOException {
+	public String findTranslate(String texto){
 		return texto;
 	}
 

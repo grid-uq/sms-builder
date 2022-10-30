@@ -14,13 +14,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
 
 /**
  * Clase abstracta que define los elementos de logica generales asociados al
  * CRUD de una entidad
- * 
  * 
  */
 public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements Serializable {

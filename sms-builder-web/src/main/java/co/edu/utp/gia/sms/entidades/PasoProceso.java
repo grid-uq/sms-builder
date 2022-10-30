@@ -7,7 +7,17 @@ import java.util.List;
 import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
-
+/**
+ * Clase que representa la entidad PasoProceso, la cual permite modelar en el
+ * sistema los pasos para la ejecución del SMS.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor

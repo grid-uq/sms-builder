@@ -5,7 +5,9 @@ import org.aeonbits.owner.Config;
 import org.aeonbits.owner.ConfigFactory;
 
 import java.util.*;
-
+/**
+ * Clase encargada de cargar los mensajes desde archivos de propiedades para ser mostrados en excepciones.
+ */
 @NoArgsConstructor
 public class GenericMessageFactory<T extends Config>{
     private String propertiesName;

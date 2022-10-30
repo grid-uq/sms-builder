@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 
 /**
- * Define de forma general un Parser que traduce convierte un texto a Referencia
+ * Define de forma general un Parser que convierte un texto a Referencia
  * 
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
@@ -28,6 +28,7 @@ public abstract class ReferenceParser<T> {
 	 * Metodo que permite inicializar los elementos de la clase ReferenceParser
 	 * 
 	 * @param fuente
+	 * @param tipoFuente
 	 */
 	public ReferenceParser(String fuente,String tipoFuente) {
 		this.fuente = fuente;

@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.beans;
 
-import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.importutil.FindReferenceCitation;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
@@ -11,10 +10,17 @@ import lombok.extern.java.Log;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-
+/**
+ * Clase controladora de interfaz web que se encarga de la aplicación de los criterios de evaluación.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
 @Log
@@ -45,13 +51,9 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
     }
 
     public void adicionarResumen(ReferenciaDTO referencia) {
-        try {
-            String tranduccion = FindReferenceCitation.getInstans().findTranslate(referencia.getResumen());
-            referencia.setNota(referencia.getNota() + "\n" + tranduccion);
-            actualizarNota(referencia);
-        } catch (IOException e) {
-            log.log(Level.WARNING, getMessage(MessageConstants.ERROR_ADICIONAR_RESUMEN), e);
-        }
+        String tranduccion = FindReferenceCitation.getInstans().findTranslate(referencia.getResumen());
+        referencia.setNota(referencia.getNota() + "\n" + tranduccion);
+        actualizarNota(referencia);
     }
 
     public void seleccionarReferencia(ReferenciaDTO referencia) {

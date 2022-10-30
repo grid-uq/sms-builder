@@ -10,7 +10,7 @@ import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
- * Representa un element del formato RIS
+ * Representa un metadato perteneciente a una referencia.
  *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
@@ -21,7 +21,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 5/06/2019
  */
-
 @Entity
 @Table(indexes = {@Index(name = "identifierIndex",  columnList="identifier"),
                 @Index(name = "referenciaIndex", columnList="referencia_id,identifier")})

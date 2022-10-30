@@ -8,8 +8,10 @@ import java.util.Objects;
 
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
-
 /**
+ * Clase que representa la entidad Objetivo, la cual permite modelar en el
+ * sistema un objetivo del SMS
+ *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Julio Cesar Chavarro

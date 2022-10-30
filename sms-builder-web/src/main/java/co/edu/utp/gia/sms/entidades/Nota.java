@@ -8,18 +8,17 @@ import java.util.Objects;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
-
 /**
- * @author Christian A. Candela
- * @author Luis Eduardo Sepúlveda
+ * Clase que representa la entidad Nota, la cual permite modelar en el
+ * sistema una nota de una referencia.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
  * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
  * @author Universidad del Quindío
- * @author Grupo de Investigacion en Inteligencia Artificial - GIA
- * @author Universidad Tecnológica de Pereira
  * @version 1.0
- * @since 5/06/2019
+ * @since 13/06/2019
  */
-
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor

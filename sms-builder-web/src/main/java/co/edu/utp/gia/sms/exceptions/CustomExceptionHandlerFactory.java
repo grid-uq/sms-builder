@@ -7,7 +7,6 @@ import javax.faces.context.ExceptionHandlerFactory;
  * Factory usado para la creación del Handler encargado del manejo de las
  * excepciones generadas por el sistema.
  * 
- * 
  */
 public class CustomExceptionHandlerFactory extends ExceptionHandlerFactory {
 

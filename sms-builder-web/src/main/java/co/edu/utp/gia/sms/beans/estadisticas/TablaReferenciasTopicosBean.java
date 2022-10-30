@@ -16,7 +16,16 @@ import javax.inject.Named;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ * Clase controladora de interfaz web que se encarga de presentar los datos de las referencias por tópico.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
 public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
