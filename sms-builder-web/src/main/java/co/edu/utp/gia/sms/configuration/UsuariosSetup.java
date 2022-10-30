@@ -5,7 +5,16 @@ import co.edu.utp.gia.sms.negocio.RolEJB;
 import co.edu.utp.gia.sms.negocio.UsuarioEJB;
 
 import javax.inject.Inject;
-
+/**
+ * Clase encargada de realizar la configuración inicial del usuario administrador de la aplicación
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 public class UsuariosSetup implements SetupInterface{
     /**
      * Variable que representa el atributo ID_USUARIO, que debería ser el ID de

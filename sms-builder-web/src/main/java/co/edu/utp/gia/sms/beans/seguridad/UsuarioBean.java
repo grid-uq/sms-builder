@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 /**
- * Clase de negocio encargada la interacción del usuario con las funcionalidades
+ * Clase encargada la interacción del usuario con las funcionalidades
  * de gestion de los {@link Usuario}
  *
  * @author Christian A. Candela <christiancandela@grid.edu.co>

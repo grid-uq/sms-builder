@@ -1,10 +1,7 @@
 package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.dtos.DatoDTO;
-import co.edu.utp.gia.sms.entidades.Fuente;
-import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.entidades.TipoFuente;
-import co.edu.utp.gia.sms.entidades.TipoMetadato;
+import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.query.estadistica.*;
 
 import javax.ejb.Stateless;
@@ -12,7 +9,17 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-
+/**
+ * Clase de negocio encargada de implementar las funciones correspondientes a la
+ * gestion de las Estadisticas.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
 @Stateless
 public class EstadisticaEJB {
     @PersistenceContext

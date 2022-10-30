@@ -21,7 +21,6 @@ import java.util.Optional;
  * Clase abstracta que define los elementos de logica generales asociados al
  * CRUD de una entidad
  * 
- * 
  */
 public abstract class AbstractGenericEJB<E extends Entidad<TipoId>, TipoId> implements Serializable {
 

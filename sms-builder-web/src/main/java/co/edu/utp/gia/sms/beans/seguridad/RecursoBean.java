@@ -16,7 +16,7 @@ import java.util.List;
 
 
 /**
- * Clase de negocio encargada la interacción del usuario con las funcionalidades
+ * Clase encargada la interacción del usuario con las funcionalidades
  * de gestion de la entidad {@link Recurso}
  *
  * @author Christian A. Candela <christiancandela@uniquindio.edu.co>

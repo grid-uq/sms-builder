@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Clase controladora de interfaz web que se encarga de la gestión de preguntas.
+ *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Julio Cesar Chavarro

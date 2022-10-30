@@ -7,7 +7,17 @@ import co.edu.utp.gia.sms.query.referencia.ReferenciaGetNotas;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
-
+/**
+ * Clase de negocio encargada de implementar las funciones correspondientes a la
+ * gestion de la {@link Nota}.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
 @Stateless
 public class NotaEJB extends AbstractEJB<Nota, Integer> {
     @Inject

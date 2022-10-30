@@ -9,7 +9,16 @@ import org.primefaces.PrimeFaces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
+/**
+ * Clase controladora de interfaz web que se encarga de la gestión de tópicos.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
 public class RegistroTopicoBean extends GenericBean<Topico> {

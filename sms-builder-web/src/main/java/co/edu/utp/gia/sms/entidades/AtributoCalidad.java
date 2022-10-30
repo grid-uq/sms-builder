@@ -8,6 +8,7 @@ import java.util.Objects;
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
+ * Modela en el sistema un atributo de calidad usado para evaluar una referencia.
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID

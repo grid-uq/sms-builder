@@ -6,7 +6,16 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import java.io.Serializable;
-
+/**
+ * Clase que encapsula datos estadísticos a ser mostrados al usuario.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @NoArgsConstructor
 public class DatoDTO implements Serializable {
     /**

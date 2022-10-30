@@ -8,6 +8,7 @@ import org.jbibtex.Key;
 import org.jbibtex.Value;
 
 /**
+ * Clase utilitaria encargada de procesar referencias de tipo bibtex
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
@@ -17,10 +18,6 @@ import org.jbibtex.Value;
  * @version 1.0
  * @since 20/06/2019
  *
- */
-
-/*
- * Esta bases de datos se está tratando para archivos exportados en formato .RIS
  */
 public class BibtexReferenceParcer extends ReferenceParser<BibTeXEntry> {
 

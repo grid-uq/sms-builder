@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 /**
  * Wrapper usado para el manejo de las excepciones generadas por el sistema.
  * 
- * 
  */
 public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
@@ -27,7 +26,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 	 * Instancia de logger para realizar el registro en el log
 	 */
 //	@Inject
-	private static Logger LOGGER = Logger.getLogger(CustomExceptionHandler.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(CustomExceptionHandler.class.getName());
 
 	/**
 	 * Variable que representa el atributo exceptionPropertiesLoader de la
@@ -36,16 +35,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 	 */
 //	@Inject
 //	@ExceptionPropertiesLoader
-	private PropertiesLoader exceptionPropertiesLoader;
-
-
-
-	/**
-	 * Variable que representa el atributo facesContext de la clase. Identifica
-	 * la instacia del {@link FacesContext}
-	 */
-//	@Inject
-//	private FacesContext facesContext;
+	private final PropertiesLoader exceptionPropertiesLoader;
 
 	/**
 	 * Constructor de la clase, permite crear una instancia de la ella a partir

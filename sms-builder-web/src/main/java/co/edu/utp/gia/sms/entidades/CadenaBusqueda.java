@@ -8,6 +8,17 @@ import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+/**
+ * Clase que representa la entidad CadenaBusqueda, la cual permite modelar en el
+ * sistema las cadenas usadas durante la búsqueda de estudio en las diferentes base de datos.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor

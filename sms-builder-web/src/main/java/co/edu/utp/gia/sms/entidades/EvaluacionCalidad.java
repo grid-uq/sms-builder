@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.entidades;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +8,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
+ * Clase que representa una evaluación de calidad en un SMS.
+ *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID

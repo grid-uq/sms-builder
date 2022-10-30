@@ -4,7 +4,6 @@ package co.edu.utp.gia.sms.exceptions;
 /**
  * Clase usada para la centralización de funcionalidades para facilitar el manejo de excepciones.
  * 
- * 
  */
 public final class ExceptionUtil {
 	/**
@@ -22,7 +21,7 @@ public final class ExceptionUtil {
 	 *            origen
 	 * @return excepcion principal u origen de la excepcion dada
 	 */
-	public static final  Throwable extractPrincipalException(Throwable exception) {
+	public static Throwable extractPrincipalException(Throwable exception) {
 		while (exception != null
 				&& exception.getCause() != null
 				&& !(exception instanceof LogicException || exception instanceof TecnicalException)) {

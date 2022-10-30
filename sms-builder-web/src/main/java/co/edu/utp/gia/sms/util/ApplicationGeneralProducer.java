@@ -9,7 +9,9 @@ import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.util.Locale;
-
+/**
+ * Clase utilitaria encargada de producir recursos para inyección usados por otras clases.
+ */
 @ApplicationScoped
 @Log
 public class ApplicationGeneralProducer {

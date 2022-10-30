@@ -20,6 +20,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * Clase usada para encapsular datos de una pregunta que serán mostrados al usuario.
+ *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Julio Cesar Chavarro

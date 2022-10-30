@@ -50,10 +50,57 @@
 				</configuration>
 
 			</plugin>
+
+			<!-- JAVADOC -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<doclet>co.edu.utp.javadoc.utpdoclet.UTPDoclet</doclet>
+					<!-- <doclet>co.edu.utp.javadoc.utpdoclet.UTPDoclet</doclet>UTPDocletModel -->
+					<!-- <docletPath>/usr/share/dbdoclet/jars/dbdoclet_8.0.0.jar</docletPath> -->
+					<docletArtifact>
+						<groupId>co.edu.utp.javadoc</groupId>
+						<artifactId>utpdoclet</artifactId>
+						<version>2.0</version>
+					</docletArtifact>
+					<useStandardDocletOptions>false</useStandardDocletOptions>
+					<additionalOptions>
+						<additionalOption>--authors</additionalOption>
+						<additionalOption>"Christian A. Candela"</additionalOption>
+						<additionalOption>--authors</additionalOption>
+						<additionalOption>"Luis Eduardo Sepúlveda"</additionalOption>
+						<additionalOption>--title</additionalOption>
+						<additionalOption>${project.name}</additionalOption>
+						<additionalOption>--subtitle "Herramienta de apoyo para la construccción de SMS"</additionalOption>
+						<additionalOption>--company "Universidad del Quindío"</additionalOption>
+						<additionalOption>--company "Universidad Tecnológica de Pereira"</additionalOption>
+						<additionalOption>--copyright</additionalOption>
+						<additionalOption>${project.build.resources[0].directory}/latex/copyright.tex
+						</additionalOption>
+					</additionalOptions>
+					<encoding>UTF-8</encoding>
+					<!-- <additionalOptions> <additionalOption>-title</additionalOption>
+                        <additionalOption>DocBook Maven Test</additionalOption> <additionalOption>-f</additionalOption>
+                        <additionalOption>${project.artifactId}</additionalOption> <additionalOption>-destination-directory</additionalOption>
+                        <additionalOption>${project.build.directory}/apidocs</additionalOption> </additionalOptions>
+                        <doctitle>DocBook Maven Test</doctitle> <subpackages>co.edu.utp.gia.convexhull.algoritmos</subpackages>
+                        <doclet.locale>es</doclet.locale> <dbdoclet.media>pdf</dbdoclet.media> <author>Christian
+                        A. Candela</author> <f>prueba</f> <finalName>prueba</finalName> <destination-file>prueba</destination-file>
+                        <show>private</show> <nohelp>true</nohelp> <failOnError>false</failOnError>
+                        <detail>true</detail> -->
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>co.edu.utp.javadoc</groupId>
+			<artifactId>utpdoclet</artifactId>
+			<version>2.0</version>
+		</dependency>
 
 		<!-- persistence <dependency> <groupId>org.eclipse.persistence</groupId> 
 			<artifactId>javax.persistence</artifactId> <version>2.2.1</version> </dependency> -->

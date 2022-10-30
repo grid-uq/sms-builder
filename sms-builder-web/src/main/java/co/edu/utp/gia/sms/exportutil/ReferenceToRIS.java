@@ -7,7 +7,16 @@ import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.List;
-
+/**
+ * Clase utilitaria que permite exportar referencias a formato RIS.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
 public class ReferenceToRIS {
 
     private static final String RIS_TITLE = "T1";

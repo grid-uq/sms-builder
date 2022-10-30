@@ -11,6 +11,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+/**
+ * Clase utilitaria encargada de procesar un archivo con referencias tipo bibtex.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
 
 public class BibtexFileMultipleRegisterParse extends FileMultipleRegisterParse<BibtexReferenceParcer> {
 

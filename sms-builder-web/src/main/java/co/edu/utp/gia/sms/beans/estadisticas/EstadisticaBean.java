@@ -9,7 +9,16 @@ import org.primefaces.model.charts.bar.BarChartModel;
 import org.primefaces.model.charts.pie.PieChartModel;
 
 import javax.inject.Inject;
-
+/**
+ * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 public abstract class EstadisticaBean extends AbstractRevisionBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase

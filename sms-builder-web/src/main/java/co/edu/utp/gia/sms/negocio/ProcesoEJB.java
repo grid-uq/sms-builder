@@ -8,7 +8,17 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
-
+/**
+ * Clase de negocio encargada de implementar las funciones correspondientes a la
+ * gestion del {@link PasoProceso}.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
 @Stateless
 @LocalBean
 public class ProcesoEJB extends AbstractEJB<PasoProceso, Integer> {

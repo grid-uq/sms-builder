@@ -17,7 +17,17 @@ import java.util.stream.Collectors;
 
 // TODO Pendiente la indicación de las revistas con mayor frecuencia dentro del SMS.
 //      importante para la toma de decisión sobre el destino de publicación.
-
+/**
+ * Clase de negocio encargada de implementar las funciones correspondientes a la
+ * gestion de la {@link Referencia}.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
 @Stateless
 @Log
 public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
