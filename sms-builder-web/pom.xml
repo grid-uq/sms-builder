@@ -63,23 +63,23 @@
 					<docletArtifact>
 						<groupId>co.edu.utp.javadoc</groupId>
 						<artifactId>utpdoclet</artifactId>
-						<version>2.0</version>
+						<version>1.0</version>
 					</docletArtifact>
 					<useStandardDocletOptions>false</useStandardDocletOptions>
-					<additionalOptions>
-						<additionalOption>--authors</additionalOption>
-						<additionalOption>"Christian A. Candela"</additionalOption>
-						<additionalOption>--authors</additionalOption>
-						<additionalOption>"Luis Eduardo Sepúlveda"</additionalOption>
-						<additionalOption>--title</additionalOption>
-						<additionalOption>${project.name}</additionalOption>
-						<additionalOption>--subtitle "Herramienta de apoyo para la construccción de SMS"</additionalOption>
-						<additionalOption>--company "Universidad del Quindío"</additionalOption>
-						<additionalOption>--company "Universidad Tecnológica de Pereira"</additionalOption>
-						<additionalOption>--copyright</additionalOption>
-						<additionalOption>${project.build.resources[0].directory}/latex/copyright.tex
-						</additionalOption>
-					</additionalOptions>
+<!--					<additionalOptions>-->
+<!--						<additionalOption>&#45;&#45;authors</additionalOption>-->
+<!--						<additionalOption>"Christian A. Candela"</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;authors</additionalOption>-->
+<!--						<additionalOption>"Luis Eduardo Sepúlveda"</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;title</additionalOption>-->
+<!--						<additionalOption>${project.name}</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;subtitle "Herramienta de apoyo para la construccción de SMS"</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;company "Universidad del Quindío"</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;company "Universidad Tecnológica de Pereira"</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;copyright</additionalOption>-->
+<!--						<additionalOption>${project.build.resources[0].directory}/latex/copyright.tex-->
+<!--						</additionalOption>-->
+<!--					</additionalOptions>-->
 					<encoding>UTF-8</encoding>
 					<!-- <additionalOptions> <additionalOption>-title</additionalOption>
                         <additionalOption>DocBook Maven Test</additionalOption> <additionalOption>-f</additionalOption>
@@ -99,7 +99,7 @@
 		<dependency>
 			<groupId>co.edu.utp.javadoc</groupId>
 			<artifactId>utpdoclet</artifactId>
-			<version>2.0</version>
+			<version>1.0</version>
 		</dependency>
 
 		<!-- persistence <dependency> <groupId>org.eclipse.persistence</groupId> 
