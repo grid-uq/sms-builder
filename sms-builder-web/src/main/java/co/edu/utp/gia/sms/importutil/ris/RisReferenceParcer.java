@@ -21,14 +21,14 @@ import java.util.Scanner;
  */
 public class RisReferenceParcer extends ReferenceParser<String> {
 
-	private static final String TITULO = "T1";
+	private static final String TITULO = "TI";
 	private static final String KEYWORD = "KW";
-	private static final String YEAR = "Y1";
-	private static final String ABSTRACT = "N2";
-	private static final String AUTOR = "A1";
+	private static final String YEAR = "PY";
+	private static final String ABSTRACT = "AB";
+	private static final String AUTOR = "AU";
 	private static final String DOI = "DO";
 	// private static final String ISBN = "SN";
-	private static final String NOMBRE_PUBLICACION = "JF";
+	private static final String NOMBRE_PUBLICACION = "T2";
 	private static final String TIPO_PUBLICACION = "TY";
 
 	public RisReferenceParcer(String fuente,String tipoFuente) {
