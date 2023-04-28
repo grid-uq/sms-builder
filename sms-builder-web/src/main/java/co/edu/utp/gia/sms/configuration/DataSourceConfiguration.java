@@ -52,7 +52,7 @@ import javax.annotation.sql.DataSourceDefinitions;
 			password = "sms-12345", //
 			databaseName = "sms", //
 			properties = { //
-			"useSSL=false", "allowPublicKeyRetrieval=True","useInformationSchema=true", "nullCatalogMeansCurrent=true", "nullNamePatternMatchesAll=false" //
+			"useSSL=false", "useInformationSchema=true", "nullCatalogMeansCurrent=true", "nullNamePatternMatchesAll=false", "allowPublicKeyRetrieval=true" //
 			})
 	
 
