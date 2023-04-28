@@ -76,6 +76,9 @@
 			<p:menuitem value="#{msg.etiquetaMenuCalidadTablaResumenAtributo}"
 				action="/revision/tablaResumenEvaluacionReferenciasAtributo"
 				rendered="#{registroInicialBean.revision != null}" />
+			<p:menuitem value="#{msg.etiquetaMenuMetadato}"
+				action="/estadisticas/referenciaPalabrasClave.xhtml"
+				rendered="#{registroInicialBean.revision != null}" />
 		</p:submenu>
 		<p:submenu label="#{msg.etiquetaMenuAnalisisDatos}" icon="pi pi-cog"
 			rendered="#{registroInicialBean.revision != null}">

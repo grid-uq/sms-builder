@@ -169,7 +169,7 @@ public class Queries implements Serializable {
 	/**
 	 * Consulta que permite obtener las preguntas registradas en el sistema para una
 	 * revision <br />
-	 * 
+	 *
 	 * @param idRevision <code>select r.citas from Referencia r where r.revision.id = :idRevision and r.filtro >= 3 </code>
 	 * 
 	 */
@@ -253,7 +253,7 @@ public class Queries implements Serializable {
 	/**
 	 * Consulta que permite obtener las referencias por tipo de fuente <br />
 	 * <code>select DISTINCT( m.referencia ) from Metadato m where m.referencia.revision.id = :idRevision and m.referencia.filtro >= 3 and m.identifier in :identifiers and m.value like :value  </code>
-	 * 
+	 *
 	 */
 	public static final String ESTADISTICA_REFERENCIA_PALABRAS_CLAVE = "Estadistica.referenciaPalabrasClave";
 
@@ -300,7 +300,7 @@ public class Queries implements Serializable {
 	/**
 	 * Consulta que permite obtener un atributo de calidad revision basado en la
 	 * descripcion <br />
-	 * 
+	 *
 	 * @param descripcion
 	 * @param idRevision  <code>select a from AtributoCalidad a where a.revision.id = :idRevision and a.descripcion = :descripcion </code>
 	 * 
