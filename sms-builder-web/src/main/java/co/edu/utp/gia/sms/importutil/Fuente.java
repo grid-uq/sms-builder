@@ -18,11 +18,15 @@ public enum Fuente {
 //	SCIENCEDIRECT_MENDELEY(TipoFuente.BASE_DATOS), SCOPUS_MENDELEY(TipoFuente.BASE_DATOS),
 //	SPRINGER_MENDELEY(TipoFuente.BASE_DATOS), WOS_MENDELEY(TipoFuente.BASE_DATOS), 
 //	MANUAL(TipoFuente.INCLUSION_DIRECTA),
-	SNOWBALL_BACKWARD(TipoFuente.BOLA_NIEVE),SNOWBALL_FORWARD(TipoFuente.BOLA_NIEVE), INCLUSION_DIRECTA(TipoFuente.INCLUSION_DIRECTA);
+	SNOWBALL_BACKWARD(TipoFuente.BOLA_NIEVE),SNOWBALL_FORWARD(TipoFuente.BOLA_NIEVE), INCLUSION_DIRECTA(TipoFuente.INCLUSION_DIRECTA),
 
-	private TipoFuente tipo;
+	BIO_SOURCE(TipoFuente.BASE_DATOS),JGATE(TipoFuente.BASE_DATOS),
+	OXFORD(TipoFuente.BASE_DATOS),PUBMED(TipoFuente.BASE_DATOS),SAGE(TipoFuente.BASE_DATOS),
+	TAYLOR_AND_FRANCIS(TipoFuente.BASE_DATOS);
 
-	private Fuente(TipoFuente tipo) {
+	private final TipoFuente tipo;
+
+	Fuente(TipoFuente tipo) {
 		this.tipo = tipo;
 	}
 
