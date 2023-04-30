@@ -77,6 +77,11 @@ class ImportTest {
 //		}
 //	}
 
+	@Test
+	void testParseTaylorFrancis() {
+		testParse(Fuente.TAYLOR_AND_FRANCIS, "/taylorFrancis.ris", 2);
+	}
+
 	void testParse(Fuente fuente, String nombreArchivo, int cantidadReferencias) {
 
 		FileMultipleRegisterParse frmp = FileMultipleRegisterParseFactory.getInstance(fuente);

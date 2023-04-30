@@ -6,6 +6,7 @@ import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParse;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParseFactory;
 import co.edu.utp.gia.sms.importutil.Fuente;
 import co.edu.utp.gia.sms.importutil.TipoFuente;
+import co.edu.utp.gia.sms.importutil.mendeleyris.MendeleyRisFileMultipleRegisterParse;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,12 +35,14 @@ public class RegistroReferenciasBean extends GenericBean<Referencia> {
     @Getter
     @Setter
     private UploadedFile file;
+
     @Getter
     @Setter
     private Fuente fuente;
 
     private TipoFuente tipoFuente;
 
+    private boolean seleccionMendeley;
 
     public void upload() {
         if (file != null) {
@@ -50,10 +53,21 @@ public class RegistroReferenciasBean extends GenericBean<Referencia> {
     private void procesarArchivo() {
 
         try {
+            if (seleccionMendeley){
+                log.info("se selecciono mendeley");
+                MendeleyRisFileMultipleRegisterParse parser = new MendeleyRisFileMultipleRegisterParse(fuente);
+                List<Referencia> referencias = parser.parse(file.getInputStream());
+                referenciaEJB.registrar(referencias, getRevision().getId(),1);
+                mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA)+" "+referencias.size());
+                return;
+            }
+
+            log.info("No se selecciono mendeley");
             FileMultipleRegisterParse parser = FileMultipleRegisterParseFactory.getInstance(fuente);
             List<Referencia> referencias = parser.parse(file.getInputStream());
             referenciaEJB.registrar(referencias, getRevision().getId(),1);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA)+" "+referencias.size());
+
         } catch (IOException e) {
             log.log(Level.WARNING, "Error al procesar un archivo", e);
         }

@@ -58,6 +58,8 @@ public class FileMultipleRegisterParseFactory {
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.SNOWBALL_BACKWARD);
 		case SNOWBALL_FORWARD:
 			return new MendeleyRisFileMultipleRegisterParse(Fuente.SNOWBALL_FORWARD);
+		case TAYLOR_AND_FRANCIS:
+			return new MendeleyRisFileMultipleRegisterParse(Fuente.TAYLOR_AND_FRANCIS);
 		default:
 			return null;
 		}

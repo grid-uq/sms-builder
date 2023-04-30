@@ -1,0 +1,33 @@
+TY  - JOUR
+AB  - Resurgent social, political, cultural, and economic tensions, in part facilitated by emerging information and communication technologies, underscore the need to cultivate new forms of critical literacy in our digital age. These critical digital literacy (CDL) practices share a specific focus on navigating, interrogating, critiquing, and shaping textual meaning across digital and face-to-face contexts. In this introductory article, the guest editors overview several examples of pedagogical scholarship concerned with these practices, collectively referred to as CDL. Specifically, the guest editors frame this collection of articles in this issue around the following question: In an educational context increasingly marked by volatility and uncertainty, but also connection and creative potential, in what ways might a focus on CDL inform pedagogical theory and practice? Drawing from a variety of disciplinary perspectives and contexts, this article discusses how educators and researchers are currently addressing the nature and role of CDL in contemporary educational settings within and beyond institutions: in K-12 and higher-education classroom pedagogy, pre- and in-service teacher education, affinity spaces, the role of design and imagination, critical computation, and digital civic participation.
+AU  - Aguilera, Earl
+AU  - Pandya, Jessica Z.
+DA  - 2021/4//
+DO  - 10.1080/1554480X.2021.1914059
+IS  - 2
+PB  - Routledge
+PY  - 2021
+SP  - 103
+EP  - 110
+TI  - Critical literacies in a digital age: current and future issues
+T2  - Pedagogies: An International Journal
+UR  - https://www.tandfonline.com/doi/full/10.1080/1554480X.2021.1914059
+VL  - 16
+ER  -
+TY  - JOUR
+AB  - A Cyber-Additive Manufacturing Network (CAMNet) integrates connected additive manufacturing processes with advanced data analytics as computation services to support personalized product realization. However, highly personalized product designs (e.g., geometries) in CAMNet limit the sample size for each design, which may lead to unsatisfactory accuracy for computation services, e.g., a low prediction accuracy for quality modeling. Motivated by the modeling challenge, we proposed a data-driven model called family learning to jointly model similar-but-non-identical products as family members by quantifying the shared information among these products in the CAMNet. Specifically, the amount of shared information for each product is estimated by optimizing a similarity generation model based on design factors, which directly improve the prediction accuracy for the family learning model. The advantages of the proposed method are illustrated by both simulations and a real case study of the selective laser melting process. This family learning method can be broadly applied to data-driven modeling in a network with similar-but-non-identical connected systems.
+AU  - Wang, Lening
+AU  - Chen, Xiaoyu
+AU  - Henkel, Daniel
+AU  - Jin, Ran
+DA  - 2021/2//
+DO  - 10.1080/24725854.2020.1851824
+IS  - 1
+PB  - Taylor & Francis
+PY  - 2021
+SP  - 1
+EP  - 16
+TI  - Family learning: A process modeling method for cyber-additive manufacturing network
+T2  - IISE Transactions
+UR  - https://www.tandfonline.com/doi/full/10.1080/24725854.2020.1851824
+VL  - 54

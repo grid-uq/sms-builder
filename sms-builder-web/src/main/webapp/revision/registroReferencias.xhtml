@@ -21,6 +21,9 @@
 				<p:fileUpload value="#{registroReferenciasBean.file}" mode="simple"
 					skinSimple="true" />
 
+				<p:outputLabel for="ckbx1" value="#{msg.importar.mendeley}:" />
+				<input type="checkbox" name="ckbx1" value="#{registroReferenciasBean.seleccionMendeley}" />
+
 
 				<f:facet name="footer">
 					<p:commandButton value="#{msg.botonAceptar}"
