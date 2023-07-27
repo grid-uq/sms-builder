@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.negocio.RolEJB;
 import co.edu.utp.gia.sms.negocio.UsuarioEJB;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 /**
  * Clase encargada de realizar la configuración inicial del usuario administrador de la aplicación
  *

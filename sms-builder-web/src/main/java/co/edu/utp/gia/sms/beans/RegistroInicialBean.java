@@ -8,10 +8,10 @@ import lombok.Setter;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga del registro inicial.

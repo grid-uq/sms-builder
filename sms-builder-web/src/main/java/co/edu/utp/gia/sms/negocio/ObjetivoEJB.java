@@ -5,8 +5,8 @@ import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.query.objetivo.ObjetivoFindAll;
 import co.edu.utp.gia.sms.query.pregunta.PreguntaGetObjetivos;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la

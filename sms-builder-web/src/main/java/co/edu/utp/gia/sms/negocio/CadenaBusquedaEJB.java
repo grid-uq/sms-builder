@@ -3,9 +3,9 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.query.revision.RevisionGetCadenaBusquedaQuery;
 
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -2,11 +2,11 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Objects;
 
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.FetchType.EAGER;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
  * Clase que representa la entidad Nota, la cual permite modelar en el

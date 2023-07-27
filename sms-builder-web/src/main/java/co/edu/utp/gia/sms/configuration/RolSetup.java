@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.negocio.RecursoEJB;
 import co.edu.utp.gia.sms.negocio.RolEJB;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 /**
  * Clase encargada de realizar la configuración inicial de los roles en la aplicación
  *

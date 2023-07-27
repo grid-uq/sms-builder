@@ -8,7 +8,7 @@ import org.primefaces.model.charts.ChartModel;
 import org.primefaces.model.charts.bar.BarChartModel;
 import org.primefaces.model.charts.pie.PieChartModel;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos.
  *

@@ -5,12 +5,12 @@ import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.inject.Inject;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+import jakarta.inject.Inject;
 /**
  * Clase utilitaria encargada de realizar conversiones de Entidades a elementos web
  *

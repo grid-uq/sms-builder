@@ -1,8 +1,8 @@
 package co.edu.utp.gia.sms.configuration;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.Startup;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.Startup;
+import jakarta.inject.Inject;
 /**
  * Clase encargada de realizar la configuración inicial de la aplicación
  *
@@ -14,7 +14,7 @@ import javax.inject.Inject;
  * @since 13/06/2019
  */
 @Startup
-@javax.ejb.Singleton
+@jakarta.ejb.Singleton
 public class Setup implements SetupInterface {
 
     @Inject

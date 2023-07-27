@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.negocio.PasoEJB;
 import co.edu.utp.gia.sms.negocio.ProcesoEJB;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.List;
 /**
  * Clase encargada de realizar la configuración inicial del proceso del sms en la aplicación

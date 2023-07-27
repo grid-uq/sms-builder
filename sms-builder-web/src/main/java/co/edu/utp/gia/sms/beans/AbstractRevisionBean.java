@@ -3,8 +3,8 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.entidades.Revision;
 import lombok.extern.java.Log;
 
-import javax.faces.annotation.ManagedProperty;
-import javax.inject.Inject;
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.inject.Inject;
 /**
  * Clase controladora de interfaz web que define los elementos básicos de las interfaces para el manejo de referencias.
  *

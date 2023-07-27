@@ -3,9 +3,9 @@ package co.edu.utp.gia.sms.beans.util;
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.negocio.ObjetivoEJB;
 
-import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.faces.convert.FacesConverter;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 /**
  * Clase utilitaria encargada de realizar conversiones de objetos (entidades) a elementos web

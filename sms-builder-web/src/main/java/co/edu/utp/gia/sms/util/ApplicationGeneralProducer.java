@@ -4,10 +4,10 @@ import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessageFactory;
 import lombok.extern.java.Log;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 import java.util.Locale;
 /**
  * Clase utilitaria encargada de producir recursos para inyección usados por otras clases.

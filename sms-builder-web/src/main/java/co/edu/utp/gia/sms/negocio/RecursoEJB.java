@@ -5,8 +5,8 @@ import co.edu.utp.gia.sms.query.seguridad.SeguridadRecursoFindAll;
 import co.edu.utp.gia.sms.query.seguridad.SeguridadRecursoFindByUrl;
 import co.edu.utp.gia.sms.query.seguridad.SeguridadRecursoFindUrlByPublic;
 
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
 import java.util.List;
 
 

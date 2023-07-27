@@ -6,8 +6,8 @@ import co.edu.utp.gia.sms.entidades.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 
 
 /**

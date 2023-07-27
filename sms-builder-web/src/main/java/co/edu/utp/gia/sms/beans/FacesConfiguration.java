@@ -1,6 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
-import javax.faces.annotation.FacesConfig;
+import jakarta.faces.annotation.FacesConfig;
 /**
  * Clase que permite configurar JSF.
  *
@@ -11,7 +11,7 @@ import javax.faces.annotation.FacesConfig;
  * @version 1.0
  * @since 13/06/2019
  */
-@FacesConfig(version = FacesConfig.Version.JSF_2_3)
+@FacesConfig
 public class FacesConfiguration {
 
 }

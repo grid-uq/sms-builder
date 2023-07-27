@@ -8,10 +8,10 @@ import co.edu.utp.gia.sms.negocio.RevisionEJB;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.util.List;
 
 /**

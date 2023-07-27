@@ -3,9 +3,9 @@ package co.edu.utp.gia.sms.beans.util;
 import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.negocio.FuenteEJB;
 
-import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.faces.convert.FacesConverter;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 /**
  * Clase utilitaria encargada de realizar conversiones de Fuentes a elementos web
  *

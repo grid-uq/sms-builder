@@ -2,10 +2,10 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Objects;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
  * Modela en el sistema un atributo de calidad usado para evaluar una referencia.

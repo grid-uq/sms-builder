@@ -7,8 +7,8 @@ import co.edu.utp.gia.sms.query.referencia.*;
 import lombok.extern.java.Log;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;

@@ -11,10 +11,10 @@ import co.edu.utp.gia.sms.negocio.UsuarioEJB;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.annotation.PostConstruct;
-import javax.faces.component.FacesComponent;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import java.util.List;
 
 

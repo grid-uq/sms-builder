@@ -9,8 +9,8 @@
 	<name>SMS-Builder Systematic Mapping Study</name>
 	<properties>
 		<maven.forceversion>3.6.3</maven.forceversion>
-		<maven.compiler.target>11</maven.compiler.target>
-		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -18,19 +18,8 @@
 		<maven>${maven.forceversion}</maven>
 	</prerequisites>
 	<dependencies>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>8.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.22</version>
-			<scope>provided</scope>
-		</dependency>
+
+
 		<!-- https://mvnrepository.com/artifact/org.aeonbits.owner/owner -->
 		<dependency>
 			<groupId>org.aeonbits.owner</groupId>
@@ -65,7 +54,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M5</version>
+				<version>3.1.2</version>
 				<configuration>
 					<argLine>
 						--illegal-access=permit
@@ -83,60 +72,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!-- Establecer la version de EAR a ser usada -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-ear-plugin</artifactId>
-					<version>3.1.0</version>
-					<configuration>
-						<version>7</version>
-						<defaultLibBundleDir>lib</defaultLibBundleDir>
-						<!--defaultJavaBundleDir>lib/</defaultJavaBundleDir -->
-						<skinnyWars>true</skinnyWars>
-						<generateModuleId>true</generateModuleId>
-						<fileNameMapping>no-version</fileNameMapping>
-						<archive>
-							<manifest>
-								<addClasspath>true</addClasspath>
-							</manifest>
-						</archive>
-					</configuration>
-				</plugin>
-				<!-- Establecer la version de EJB -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-ejb-plugin</artifactId>
-					<version>3.1.0</version>
-					<configuration>
-						<ejbVersion>3.2</ejbVersion>
-					</configuration>
-				</plugin>
-				<!-- Establecer la version de WAR -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>3.3.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.1</version>
-					<configuration>
-						<source>${maven.compiler.source}</source>
-						<target>${maven.compiler.target}</target>
-						<annotationProcessorPaths>
-							<path>
-								<groupId>org.projectlombok</groupId>
-								<artifactId>lombok</artifactId>
-								<version>1.18.22</version>
-							</path>
-						</annotationProcessorPaths>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 	<modules>
 		<module>sms-builder-web</module>

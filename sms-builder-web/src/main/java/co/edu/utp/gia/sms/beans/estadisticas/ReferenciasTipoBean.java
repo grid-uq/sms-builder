@@ -2,8 +2,8 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de los tipos de referencias.
  *

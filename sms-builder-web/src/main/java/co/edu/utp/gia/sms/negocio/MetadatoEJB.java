@@ -5,7 +5,7 @@ import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.query.referencia.ReferenciaGetMetadatos;
 import co.edu.utp.gia.sms.query.referencia.ReferenciaGetMetadatosByTipo;
 
-import javax.ejb.Stateless;
+import jakarta.ejb.Stateless;
 import java.util.List;
 import java.util.stream.Collectors;
 /**

@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidadPK;
 import co.edu.utp.gia.sms.query.referencia.ReferenciaGetEvaluacionesCalidad;
 
-import javax.ejb.Stateless;
+import jakarta.ejb.Stateless;
 import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la

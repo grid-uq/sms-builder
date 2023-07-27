@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.entidades.Paso;
 import co.edu.utp.gia.sms.negocio.PasoEJB;
 import co.edu.utp.gia.sms.negocio.RecursoEJB;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 /**
  * Clase encargada de realizar la configuración inicial de los pasos del proceso en la aplicación
  *

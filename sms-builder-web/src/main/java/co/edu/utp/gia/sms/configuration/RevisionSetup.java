@@ -2,7 +2,7 @@ package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.negocio.RevisionEJB;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 /**
  * Clase encargada de realizar la configuración inicial de la revision en la aplicación
  *

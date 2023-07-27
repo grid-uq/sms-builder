@@ -5,9 +5,9 @@ import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 /**

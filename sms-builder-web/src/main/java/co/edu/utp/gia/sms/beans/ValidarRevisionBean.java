@@ -3,8 +3,8 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.entidades.Revision;
 import lombok.extern.java.Log;
 
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;

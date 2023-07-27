@@ -10,8 +10,8 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 import org.primefaces.event.RowEditEvent;
 
-import javax.faces.annotation.ManagedProperty;
-import javax.inject.Inject;
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;

@@ -2,12 +2,12 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Objects;
 
-import static javax.persistence.EnumType.STRING;
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.FetchType.EAGER;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
  * Representa un metadato perteneciente a una referencia.

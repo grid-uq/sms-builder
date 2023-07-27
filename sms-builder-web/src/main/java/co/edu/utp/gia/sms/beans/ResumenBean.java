@@ -6,8 +6,8 @@ import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
 import co.edu.utp.gia.sms.negocio.RevisionEJB;
 import lombok.Getter;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga de presentar un resumen del proceso de SMS.

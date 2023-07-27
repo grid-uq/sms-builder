@@ -10,8 +10,8 @@ import co.edu.utp.gia.sms.query.revision.RevisionGetTotalReferencias;
 import co.edu.utp.gia.sms.query.revision.RevisionGetTotalReferenciasByTipoFuente;
 import co.edu.utp.gia.sms.query.topico.TopicoFindAll;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la

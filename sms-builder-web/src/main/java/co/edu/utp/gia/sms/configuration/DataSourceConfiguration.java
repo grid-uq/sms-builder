@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.configuration;
 
-import javax.annotation.sql.DataSourceDefinition;
-import javax.annotation.sql.DataSourceDefinitions;
+import jakarta.annotation.sql.DataSourceDefinition;
+import jakarta.annotation.sql.DataSourceDefinitions;
 /**
  * Clase encargada de realizar la configuración del datasource en la aplicación
  *

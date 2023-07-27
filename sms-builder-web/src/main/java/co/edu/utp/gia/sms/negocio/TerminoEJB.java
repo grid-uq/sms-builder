@@ -4,9 +4,9 @@ import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.query.revision.RevisionGetTerminos;
 
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la

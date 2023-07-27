@@ -4,8 +4,8 @@ import co.edu.utp.gia.sms.entidades.Nota;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.query.referencia.ReferenciaGetNotas;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la

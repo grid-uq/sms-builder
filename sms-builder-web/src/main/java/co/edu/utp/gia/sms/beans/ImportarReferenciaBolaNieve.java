@@ -2,8 +2,8 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.TipoFuente;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 /**
  * Clase controladora de interfaz web que se encarga de la importación de las referencias que se han incluido por bola de nieve.
  *

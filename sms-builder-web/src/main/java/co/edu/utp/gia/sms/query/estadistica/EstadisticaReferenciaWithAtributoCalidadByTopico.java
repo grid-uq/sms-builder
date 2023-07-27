@@ -3,10 +3,10 @@ package co.edu.utp.gia.sms.query.estadistica;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.query.Queries;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.TypedQuery;
 
 /**
  * Consulta que permite obtener el número de referencias que cumplem con un determinado atributo de calidad por Topico en una revision

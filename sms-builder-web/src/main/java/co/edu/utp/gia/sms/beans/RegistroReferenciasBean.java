@@ -2,8 +2,8 @@ package co.edu.utp.gia.sms.beans;
 
 import lombok.extern.java.Log;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de referencias.
  *

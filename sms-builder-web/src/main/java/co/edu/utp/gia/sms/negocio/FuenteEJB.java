@@ -6,8 +6,8 @@ import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.query.revision.RevisionGetFuentes;
 import co.edu.utp.gia.sms.query.revision.RevisionGetFuentesByTipo;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la

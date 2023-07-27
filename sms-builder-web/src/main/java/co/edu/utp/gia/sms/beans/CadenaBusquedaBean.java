@@ -6,9 +6,9 @@ import co.edu.utp.gia.sms.negocio.CadenaBusquedaEJB;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.util.Date;
 import java.util.List;
 /**

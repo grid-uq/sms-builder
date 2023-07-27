@@ -2,12 +2,12 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.FetchType.EAGER;
+import static jakarta.persistence.GenerationType.IDENTITY;
 /**
  * Clase que representa la entidad Objetivo, la cual permite modelar en el
  * sistema un objetivo del SMS

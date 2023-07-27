@@ -2,10 +2,10 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Objects;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 /**
  * Clase que representa la entidad Proceso, la cual permite modelar en el
  * sistema un Paso del SMS

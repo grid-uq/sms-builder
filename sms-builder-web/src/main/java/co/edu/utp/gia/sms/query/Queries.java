@@ -4,10 +4,10 @@ import co.edu.utp.gia.sms.dtos.DatoDTO;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 /**
  * Clase base para modelar las consultas del sistema.
  */

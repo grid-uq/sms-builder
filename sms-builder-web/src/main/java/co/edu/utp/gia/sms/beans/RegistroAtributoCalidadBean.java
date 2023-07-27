@@ -6,9 +6,9 @@ import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de los atributos de calidad.

@@ -14,9 +14,9 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 import org.primefaces.model.file.UploadedFile;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;

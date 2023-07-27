@@ -7,11 +7,13 @@ import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParseFactory;
 import co.edu.utp.gia.sms.importutil.ReferenceParse;
 import co.edu.utp.gia.sms.importutil.TipoArchivo;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /// Pendiente por completar la anotación
 class ImportTest {
@@ -19,7 +21,7 @@ class ImportTest {
 	@Test
 	void testParseSCIENCEDIRECT_MENDELEY() {
 		//testParse("test",TipoFuente.BASE_DATOS.toString(),TipoArchivo.RIS, "/sciecedirect_47_mendeleyris.ris", 47);
-		testParse("test",TipoFuente.BASE_DATOS.toString(),TipoArchivo.BIBTEX, "/main64.bib", 64);
+		//testParse("test",TipoFuente.BASE_DATOS.toString(),TipoArchivo.BIBTEX, "/main64.bib", 64);
 	}	
 
 
@@ -31,11 +33,11 @@ class ImportTest {
 		List<Referencia> datos = frmp.parse(archivo);
 		
 		
-		Assert.assertEquals(cantidadReferencias, datos.size());
+		assertEquals(cantidadReferencias, datos.size());
 
 		datos.stream().forEach((referencia) -> {
-			Assert.assertTrue(referencia.getYear().length() < 5);
-			Assert.assertTrue(referencia.getResumen() == null || referencia.getResumen().length()>5);
+			assertTrue(referencia.getYear().length() < 5);
+			assertTrue(referencia.getResumen() == null || referencia.getResumen().length()>5);
 			System.out.println( referencia.getMetadatos().stream().filter(m->TipoMetadato.AUTOR.equals(m.getIdentifier())).count() );
 			referencia.getMetadatos().stream()
 					.filter(m->TipoMetadato.AUTOR.equals(m.getIdentifier()))

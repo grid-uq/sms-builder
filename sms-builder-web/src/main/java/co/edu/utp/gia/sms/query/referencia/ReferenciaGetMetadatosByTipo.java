@@ -4,10 +4,10 @@ import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.query.Queries;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.TypedQuery;
 
 /**
  * Consulta que permite obtener los metadatos de una referencia que pertenecen a un cierto tipo

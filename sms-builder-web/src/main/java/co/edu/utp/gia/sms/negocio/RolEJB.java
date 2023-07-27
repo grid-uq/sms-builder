@@ -4,8 +4,8 @@ import co.edu.utp.gia.sms.entidades.Recurso;
 import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.query.seguridad.SeguridadRolFindAll;
 
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
 import java.util.List;
 
 /**
