@@ -1,13 +1,12 @@
 package co.edu.utp.gia.sms.entidades;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Clase que representa la entidad Rol, la cual representa los diferentes roles
@@ -20,9 +19,9 @@ import java.util.Objects;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
 @NoArgsConstructor
-public class Rol implements Entidad<Integer> {
+@RequiredArgsConstructor
+public class Rol implements Entidad<String> {
 
     /**
      * Variable que representa el atributo serialVersionUID de la clase
@@ -32,21 +31,19 @@ public class Rol implements Entidad<Integer> {
      * Variable que representa el atributo id de la clase. Permite identificar
      * de forma única un Rol
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
-    private Integer id;
+    @NonNull
+    private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo nombre de la clase. Nombre del Rol
      */
-    @Column(nullable = false, length = 20, unique = true)
     @Getter @Setter
+    @NonNull
     private String nombre;
     /**
      * Variable que representa el atributo recursos de la clase. Lista de
      * {@link Recurso} a la cual tiene acceso el {@link Rol}
      */
-    @ManyToMany
     @Getter @Setter
     private List<Recurso> recursos;
 
@@ -56,7 +53,7 @@ public class Rol implements Entidad<Integer> {
      * @param id     Id del Rol
      * @param nombre Nombre del Rol
      */
-    public Rol(Integer id, String nombre) {
+    public Rol(String id, String nombre) {
         this.id = id;
         this.nombre = nombre;
         recursos = new ArrayList<>();

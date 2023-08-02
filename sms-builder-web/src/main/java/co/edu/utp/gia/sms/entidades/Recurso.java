@@ -4,6 +4,7 @@ import lombok.*;
 
 import jakarta.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Clase que representa la entidad Recurso, la cual permite modelar en el
@@ -17,10 +18,9 @@ import java.util.Objects;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Recurso implements Entidad<Integer> {
+public class Recurso implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
@@ -29,10 +29,8 @@ public class Recurso implements Entidad<Integer> {
      * Variable que representa el atributo id de la clase. Permite identificar
      * de forma única un recurso
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo nombre de la clase. Representa el
      * nombre del recurso

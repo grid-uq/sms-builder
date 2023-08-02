@@ -2,27 +2,25 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import jakarta.persistence.*;
 import java.util.Objects;
-
-import static jakarta.persistence.FetchType.EAGER;
-import static jakarta.persistence.GenerationType.IDENTITY;
+import java.util.UUID;
 
 /**
+ * TODO Evaluar posibilidad de remplazar por un record
+ *
  * Clase que representa la entidad Nota, la cual permite modelar en el
  * sistema una nota de una referencia.
  *
  * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
  * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
- * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Grupo de Investigacion en Redes Información y Distribución - GRID
  * @author Universidad del Quindío
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Nota implements Entidad<Integer> {
+public class Nota implements Entidad<String> {
 
     /**
      * Variable que representa el atributo serialVersionUID de la clase
@@ -31,13 +29,12 @@ public class Nota implements Entidad<Integer> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
     @Getter @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
 
     /**
      * Variable que representa el identificador del elemento
+     * TODO evaluar posibilidad de rempalzar por paso
      */
     @Getter @Setter
     @NonNull
@@ -45,15 +42,13 @@ public class Nota implements Entidad<Integer> {
 
 
     /**
-     * Variable que representa el valor asiciado al elemento
+     * Variable que representa el valor asociado al elemento
      */
-    @Lob
     @Getter @Setter
     @NonNull
     private String descripcion;
 
 
-    @ManyToOne(fetch = EAGER)
     @Getter @Setter
     @NonNull
     private Referencia referencia;

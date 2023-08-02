@@ -5,9 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import jakarta.persistence.*;
 import java.util.List;
-import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Clase que implementa la entidad Usuario, la cual representa los usuarios de
@@ -20,12 +19,11 @@ import java.util.Objects;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
-@NamedQuery(name = Usuario.FIND_BY_ID, query = "select usuario from Usuario usuario where usuario.id = :id")
-@NamedQuery(name = Usuario.GET_ALL, query = "select usuario from Usuario usuario")
-@NamedQuery(name = Usuario.AUTENTICAR, query = "select usuario from Usuario usuario where usuario.nombreUsuario = :nombreUsuario and usuario.estado = co.edu.utp.gia.sms.entidades.EstadoUsuario.ACTIVO")
+//@NamedQuery(name = Usuario.FIND_BY_ID, query = "select usuario from Usuario usuario where usuario.id = :id")
+//@NamedQuery(name = Usuario.GET_ALL, query = "select usuario from Usuario usuario")
+//@NamedQuery(name = Usuario.AUTENTICAR, query = "select usuario from Usuario usuario where usuario.nombreUsuario = :nombreUsuario and usuario.estado = co.edu.utp.gia.sms.entidades.EstadoUsuario.ACTIVO")
 @NoArgsConstructor
-public class Usuario implements Entidad<Integer> {
+public class Usuario implements Entidad<String> {
 
     /**
      * Constante que identifica la consulta que permite buscar un
@@ -53,16 +51,13 @@ public class Usuario implements Entidad<Integer> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo nombreUsuario, que permite a los
      * usuario autenticarse en la aplicacion
      */
-    @Column(nullable = false, unique = true, length = 50)
     @Getter
     @Setter
     @EqualsAndHashCode.Exclude
@@ -71,7 +66,6 @@ public class Usuario implements Entidad<Integer> {
      * Variable que representa el atributo clave, el cual es usado por los
      * usuario para autenticarse en la aplicacion
      */
-    @Column(nullable = false, length = 50)
     @Getter
     @Setter
     @EqualsAndHashCode.Exclude
@@ -79,7 +73,6 @@ public class Usuario implements Entidad<Integer> {
     /**
      * Representa el {@link EstadoUsuario} de la cuenta del usuario en el sistema.
      */
-    @Enumerated(EnumType.STRING)
     @Getter
     @Setter
     @EqualsAndHashCode.Exclude
@@ -88,7 +81,6 @@ public class Usuario implements Entidad<Integer> {
      * Variable que representa el atributo intentos de la clase, el lleva el
      * conteo del número de intentos de autenticación fallidos
      */
-    @Column(precision = 2)
     @Getter
     @Setter
     @EqualsAndHashCode.Exclude
@@ -97,7 +89,6 @@ public class Usuario implements Entidad<Integer> {
      * Variable que representa el atributo roles de la clase. Roles a los cuales
      * pertenece el usuario
      */
-    @ManyToMany
     @Getter
     @Setter
     @EqualsAndHashCode.Exclude
@@ -105,7 +96,6 @@ public class Usuario implements Entidad<Integer> {
     /**
      * Variable que representa el atributo nombre del {@link Usuario}
      */
-    @Column(length = 70)
     @Getter
     @Setter
     @EqualsAndHashCode.Exclude
@@ -113,7 +103,6 @@ public class Usuario implements Entidad<Integer> {
     /**
      * Variable que representa el atributo email del {@link Usuario}
      */
-    @Column(length = 150)
     @Getter
     @Setter
     @EqualsAndHashCode.Exclude
@@ -122,14 +111,16 @@ public class Usuario implements Entidad<Integer> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Usuario usuario = (Usuario) o;
+        if (!(o instanceof Usuario usuario)) return false;
 
-        return Objects.equals(id, usuario.id);
+        if (!id.equals(usuario.id)) return false;
+        return nombreUsuario.equals(usuario.nombreUsuario);
     }
 
     @Override
     public int hashCode() {
-        return 1225039686;
+        int result = id.hashCode();
+        result = 31 * result + nombreUsuario.hashCode();
+        return result;
     }
 }

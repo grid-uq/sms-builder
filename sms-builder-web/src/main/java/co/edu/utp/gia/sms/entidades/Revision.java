@@ -18,7 +18,6 @@ import static jakarta.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Revision implements Entidad<Integer> {
@@ -30,15 +29,12 @@ public class Revision implements Entidad<Integer> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
     @Getter @Setter
     private Integer id;
     /**
      * Variable que representa el atributo nombre de la clase
      */
 
-    @Column(nullable = false)
     @Getter @Setter
     @NonNull
     private String nombre;
@@ -52,14 +48,12 @@ public class Revision implements Entidad<Integer> {
     /**
      * Lista de objetivos de la revision
      */
-    @OneToMany(mappedBy = "revision")
     @Getter @Setter
     private List<Objetivo> objetivos;
 
     /**
      * Identifica el usuario propieratio de la Revision
      */
-    @ManyToOne
     @Getter @Setter
     @NonNull
     private Usuario propietario;
@@ -67,14 +61,12 @@ public class Revision implements Entidad<Integer> {
     /**
      * Lista de usuarios con acceso a la revision
      */
-    @ManyToMany
     @Getter @Setter
     private List<Usuario> revisores;
 
     /**
      * Lista de los pasos para la ejecución del proceso de SMS
      */
-    @OneToMany(mappedBy = "revision")
     @Getter @Setter
     private List<PasoProceso> pasosProceso;
 
@@ -84,6 +76,15 @@ public class Revision implements Entidad<Integer> {
     @OneToOne
     @Getter @Setter
     private PasoProceso pasoSeleccionado;
+
+    @Getter @Setter
+    private List<AtributoCalidad> atributosCalidad;
+
+    @Getter @Setter
+    private List<AtributoCalidad> cadenasBusqueda;
+
+    @Getter @Setter
+    private List<Fuente> fuentes;
 
     @Override
     public boolean equals(Object o) {

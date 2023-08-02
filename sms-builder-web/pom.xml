@@ -252,11 +252,25 @@
 		</dependency>
 
 		<!-- 5.1.48 5.1.49 6.0.2 6.0.6 8.0.20 8.0.22-->
+		<!-- https://mvnrepository.com/artifact/one.microstream/microstream-storage-embedded -->
 		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
-		    <version>8.0.28</version>
+			<groupId>one.microstream</groupId>
+			<artifactId>microstream-storage-embedded</artifactId>
+			<version>08.01.01-MS-GA</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/one.microstream/microstream-storage-embedded-configuration -->
+		<dependency>
+			<groupId>one.microstream</groupId>
+			<artifactId>microstream-storage-embedded-configuration</artifactId>
+			<version>08.01.01-MS-GA</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/one.microstream/microstream-persistence-binary-jdk17 -->
+		<dependency>
+			<groupId>one.microstream</groupId>
+			<artifactId>microstream-persistence-binary-jdk17</artifactId>
+			<version>08.01.01-MS-GA</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.jbibtex</groupId>
 			<artifactId>jbibtex</artifactId>

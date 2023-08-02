@@ -5,12 +5,10 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
+import java.util.UUID;
 
 /**
  * @author Christian A. Candela
@@ -22,9 +20,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
 @RequiredArgsConstructor
-public class Termino implements Entidad<Integer> {
+public class Termino implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
@@ -34,32 +31,18 @@ public class Termino implements Entidad<Integer> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
     @Getter @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo texto de la clase
      */
-    @Column(nullable = false)
     @Getter @Setter
     @NonNull
     private String descripcion;
 
     /**
-     * Revision a la cual pertenece el Termino
-     */
-    @ManyToOne
-    @Getter @Setter
-    @NonNull
-    private Revision revision;
-
-    /**
      * Lista de sinonimos del termino
      */
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "TERMINO_SINONIMO")
-    @Column(name = "sinonimo",length = 50)
     @Getter @Setter
     private List<String> sinonimos;
 

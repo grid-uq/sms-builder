@@ -4,6 +4,7 @@ import lombok.*;
 
 import jakarta.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 /**
@@ -17,20 +18,16 @@ import static jakarta.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Paso implements Entidad<Integer>{
+public class Paso implements Entidad<String>{
     @Getter @Setter
-    @Id @GeneratedValue(strategy = IDENTITY)
-    private Integer id;
+    private String id;
     @Getter @Setter
     @NonNull
-    @Column(unique = true,length = 50)
     private String nombre;
     @Getter @Setter
     @NonNull
-    @ManyToOne
     private Recurso recurso;
 
     @Override

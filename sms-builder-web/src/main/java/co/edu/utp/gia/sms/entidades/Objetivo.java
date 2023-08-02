@@ -5,6 +5,7 @@ import lombok.*;
 import jakarta.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -22,10 +23,9 @@ import static jakarta.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 8 abr. 2020
  */
-@Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Objetivo implements Entidad<Integer> {
+public class Objetivo implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
@@ -34,10 +34,8 @@ public class Objetivo implements Entidad<Integer> {
     /**
      * Variable que representa el identificador unico del Objetivo
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
     @Getter @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
 
     /**
      * Variable que representa el código del objetivo
@@ -54,19 +52,9 @@ public class Objetivo implements Entidad<Integer> {
     private String descripcion;
 
     /**
-     * Variable que representa la {@link Revision} a la que pertenece el objetivo
-     */
-    @ManyToOne
-    @Getter @Setter
-    @NonNull
-    private Revision revision;
-
-
-    /**
      * Variable que representa las preguntas que se relacionan con el
      * {@link Objetivo}
      */
-    @ManyToMany(mappedBy = "objetivos", fetch = EAGER)
     @Getter @Setter
     private List<Pregunta> preguntas;
 

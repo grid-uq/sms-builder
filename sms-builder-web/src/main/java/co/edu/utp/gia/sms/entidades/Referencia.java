@@ -3,14 +3,10 @@ package co.edu.utp.gia.sms.entidades;
 import lombok.Getter;
 import lombok.Setter;
 
-import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static jakarta.persistence.CascadeType.PERSIST;
-import static jakarta.persistence.FetchType.EAGER;
-import static jakarta.persistence.GenerationType.IDENTITY;
+import java.util.UUID;
 
 /**
  * Elemento que representa de forma general una referencia a ser procesada
@@ -24,40 +20,33 @@ import static jakarta.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 6/06/2019
  */
-@Entity
-public class Referencia implements Entidad<Integer> {
+public class Referencia implements Entidad<String> {
 
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
     private static final long serialVersionUID = -4002756759383683632L;
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
     @Getter @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo SPSID
      */
-    @Column(length = 50)
     @Getter @Setter
     private String spsid;
     /**
      * Variable que representa el atributo nombre de la clase
      */
-    @Lob
     @Getter @Setter
     private String nombre;
     /**
      * Variable que representa el atributo year de la clase
      */
-    @Column(length = 4)
     @Getter @Setter
     private String year;
     /**
      * Variable que representa el atributo resumen de la clase
      */
-    @Lob
     @Getter @Setter
     private String resumen;
 
@@ -68,12 +57,16 @@ public class Referencia implements Entidad<Integer> {
     private String tipo;
 
     /**
+     * TODO Evaluar remover
      * Variable que representa el filtro en el cual esta la referencia, todas
      * inician con 0 y va aumentando
      */
     @Getter @Setter
     private Integer filtro;
 
+    /**
+     * TODO Evaluar mover porque depende del paso o calcularlar
+     */
     @Getter @Setter
     private Float totalEvaluacionCalidad;
 
@@ -86,7 +79,9 @@ public class Referencia implements Entidad<Integer> {
     @Getter @Setter
     private Float ponderacionCitas;
 
-    @Lob
+    /**
+     * TODO Podría remplazarse por una suma de las notas de cada paso
+     */
     @Getter @Setter
     private String nota;
 
@@ -96,28 +91,21 @@ public class Referencia implements Entidad<Integer> {
     @Getter @Setter
     private Float srrqi;
 
+    /**
+     * TODO podría adicionarse un listado de las referencias relacionadas como repetidas
+     */
     @Getter @Setter
     private Boolean duplicada;
 
     /**
      * Variable que representa el atributo metadatos de la clase
      */
-    @OneToMany(mappedBy = "referencia", cascade = PERSIST)
     @Getter @Setter
     private List<Metadato> metadatos;
 
-    /**
-     * Variable que representa el atributo revision de la clase
-     */
-    @ManyToOne
-    @Getter @Setter
-    private Revision revision;
-
-    @ManyToMany(fetch = EAGER)
     @Getter @Setter
     private List<Topico> topicos;
 
-    @OneToMany(mappedBy = "referencia")
     @Getter @Setter
     private List<EvaluacionCalidad> evaluacionCalidad;
 

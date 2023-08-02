@@ -2,12 +2,8 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import jakarta.persistence.*;
 import java.util.Objects;
-
-import static jakarta.persistence.EnumType.STRING;
-import static jakarta.persistence.FetchType.EAGER;
-import static jakarta.persistence.GenerationType.IDENTITY;
+import java.util.UUID;
 
 /**
  * Representa un metadato perteneciente a una referencia.
@@ -21,12 +17,9 @@ import static jakarta.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 5/06/2019
  */
-@Entity
-@Table(indexes = {@Index(name = "identifierIndex",  columnList="identifier"),
-                @Index(name = "referenciaIndex", columnList="referencia_id,identifier")})
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Metadato implements Entidad<Integer> {
+public class Metadato implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
@@ -35,16 +28,13 @@ public class Metadato implements Entidad<Integer> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
     @Getter @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
 
 
     /**
      * Variable que representa el identificador del elemento
      */
-    @Enumerated(STRING)
     @Getter @Setter
     @NonNull
     private TipoMetadato identifier;
@@ -52,15 +42,12 @@ public class Metadato implements Entidad<Integer> {
     /**
      * Variable que representa el valor asiciado al elemento
      */
-    @Lob
     @Getter @Setter
     @NonNull
     private String value;
 
-    @ManyToOne(fetch = EAGER)
     @Getter @Setter
     private Referencia referencia;
-
 
     /**
      * Metodo que permite inicializar los elementos de la clase Metadato

@@ -19,9 +19,8 @@ import java.util.Objects;
  * @version 1.0
  * @since 23/06/2019
  */
-@Entity
 @NoArgsConstructor
-public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
+public class EvaluacionCalidad  {
 
     /**
      * Variable que representa el atributo serialVersionUID de la clase
@@ -29,32 +28,20 @@ public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
     private static final long serialVersionUID = 3246469713521362393L;
 
     /**
-     * Atributo que permite identificar de forma unica una instancia de la entidad {@link EvaluacionCalidad}
-     */
-    @EmbeddedId
-    @Getter @Setter
-    private EvaluacionCalidadPK id;
-
-    /**
      * Instancia de la referencia que se esta evaluando
      */
-    @ManyToOne
-    @MapsId("referenciaId")
     @Getter @Setter
     private Referencia referencia;
 
     /**
      * Instancia del atribudo de calidad que se esta evaluando
      */
-    @ManyToOne
-    @MapsId("atributoCalidadId")
     @Getter @Setter
     private AtributoCalidad atributoCalidad;
 
     /**
      * Evaluación cualitativa asignada
      */
-    @Enumerated(EnumType.STRING)
     @Getter @Setter
     private EvaluacionCualitativa evaluacionCualitativa;
 
@@ -73,7 +60,6 @@ public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
     public EvaluacionCalidad(Referencia referencia, AtributoCalidad atributoCalidad) {
         this.referencia = referencia;
         this.atributoCalidad = atributoCalidad;
-        id = new EvaluacionCalidadPK(referencia.getId(), atributoCalidad.getId());
     }
 
     /**
@@ -106,14 +92,16 @@ public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EvaluacionCalidad that = (EvaluacionCalidad) o;
+        if (!(o instanceof EvaluacionCalidad that)) return false;
 
-        return Objects.equals(id, that.id);
+        if (!referencia.equals(that.referencia)) return false;
+        return atributoCalidad.equals(that.atributoCalidad);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        int result = referencia.hashCode();
+        result = 31 * result + atributoCalidad.hashCode();
+        return result;
     }
 }

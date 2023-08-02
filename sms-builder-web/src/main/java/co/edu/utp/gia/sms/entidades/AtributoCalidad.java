@@ -1,14 +1,17 @@
 package co.edu.utp.gia.sms.entidades;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-import jakarta.persistence.*;
+import java.util.List;
 import java.util.Objects;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
+import java.util.UUID;
 
 /**
  * Modela en el sistema un atributo de calidad usado para evaluar una referencia.
+ *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
@@ -18,10 +21,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
-@NoArgsConstructor
 @RequiredArgsConstructor
-public class AtributoCalidad implements Entidad<Integer> {
+public class AtributoCalidad implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
@@ -30,29 +31,28 @@ public class AtributoCalidad implements Entidad<Integer> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Getter @Setter
-    private Integer id;
+    @Getter
+    @Setter
+    private String id = UUID.randomUUID().toString();;
 
     /**
      * Variable que representa el atributo texto de la clase
      */
-    @Column(nullable = false)
-    @Getter @Setter
+    @Getter
+    @Setter
     @NonNull
     private String descripcion;
 
-    @Column(nullable = false)
-    @Getter @Setter
+    @Getter
+    @Setter
     @NonNull
     private Boolean objetivo;
 
     /**
      * {@link Revision} a la cual pertenece el atributo de calidad
      */
-    @ManyToOne
-    @Getter @Setter
+    @Getter
+    @Setter
     @NonNull
     private Revision revision;
 

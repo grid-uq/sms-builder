@@ -2,11 +2,9 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import jakarta.persistence.*;
 import java.util.List;
 import java.util.Objects;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
+import java.util.UUID;
 
 /**
  * Clase que representa la entidad Pregunta, la cual permite modelar en el
@@ -19,10 +17,9 @@ import static jakarta.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Pregunta implements Entidad<Integer> {
+public class Pregunta implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
@@ -31,21 +28,17 @@ public class Pregunta implements Entidad<Integer> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
     @Getter @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo codigo de la clase
      */
-    @Column(length = 3, nullable = false)
     @Getter @Setter
     @NonNull
     private String codigo;
     /**
      * Variable que representa el atributo texto de la clase
      */
-    @Column(nullable = false)
     @Getter @Setter
     @NonNull
     private String descripcion;
@@ -54,14 +47,12 @@ public class Pregunta implements Entidad<Integer> {
     /**
      * Variable que representa los topico de una pregunta
      */
-    @OneToMany(mappedBy = "pregunta")
     @Getter @Setter
     private List<Topico> topicos;
 
     /**
      * Variable que representa los objetivos con los que se relaciona una pregunta
      */
-    @ManyToMany
     @Getter @Setter
     private List<Objetivo> objetivos;
 

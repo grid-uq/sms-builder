@@ -5,6 +5,7 @@ import lombok.*;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -19,26 +20,22 @@ import static jakarta.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class CadenaBusqueda implements Entidad<Integer> {
+public class CadenaBusqueda implements Entidad<String> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Id
     @GeneratedValue(strategy = IDENTITY)
     @Getter @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
 
     @Getter @Setter
     @NonNull
-    @Column(length = 30)
     private String baseDatos;
 
     @Getter @Setter
     @NonNull
-    @Lob
     private String consulta;
 
     @Getter @Setter
@@ -52,11 +49,6 @@ public class CadenaBusqueda implements Entidad<Integer> {
     @Getter @Setter
     @NonNull
     private Integer resultadoFinal;
-
-    @ManyToOne
-    @Getter @Setter
-    @NonNull
-    private Revision revision;
 
     @Override
     public boolean equals(Object o) {

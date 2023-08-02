@@ -2,8 +2,9 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import jakarta.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
+
 /**
  * Clase que representa la entidad Fuente, la cual permite modelar en el
  * sistema las fuentes de las diferentes referencias a ser incluidas en el SMS.
@@ -15,18 +16,16 @@ import java.util.Objects;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Fuente implements Entidad<Integer> {
+public class Fuente implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
     private static final long serialVersionUID = 1L;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
 
     /**
      * Nombre de la fuente
@@ -37,13 +36,9 @@ public class Fuente implements Entidad<Integer> {
     /**
      * Tipo de la fuente
      */
-    @Enumerated(EnumType.STRING)
     @Getter @Setter @NonNull
     private TipoFuente tipo;
 
-    @ManyToOne
-    @Getter @Setter @NonNull
-    private Revision revision;
 
     @Override
     public boolean equals(Object o) {
