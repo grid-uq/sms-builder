@@ -24,7 +24,7 @@ import java.util.List;
 public class RolEJB extends AbstractEJB<Rol, Integer> {
 
     public RolEJB() {
-        super(Rol.class);
+        super(Rol.class, dataProvider);
     }
 
 

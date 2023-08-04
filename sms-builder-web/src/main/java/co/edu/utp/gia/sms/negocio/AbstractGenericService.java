@@ -11,16 +11,15 @@ import lombok.Getter;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 /**
  * Clase abstracta que define los elementos de logica generales asociados al
  * CRUD de una entidad
  */
-public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements Serializable {
+public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> implements Serializable {
 
-
-    private final Provider<Collection<E>> dataProvider;
-
+    protected final Provider<Collection<E>> dataProvider;
     /**
      * Instancia que perite obtener los mensajes de las excepciones generadas.
      */
@@ -28,17 +27,18 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
     @Getter
     protected ExceptionMessage exceptionMessage;
 
-    public AbstractEJB() {
+    public AbstractGenericService() {
         dataProvider = Collections::emptyList;
     }
 
-    public AbstractEJB(Provider<Collection<E>> dataProvider) {
+    public AbstractGenericService(Provider<Collection<E>> dataProvider) {
         this.dataProvider = dataProvider;
     }
 
-    public E registrar(E entidad) {
+    public E save(E entidad) {
         try {
-            if (obtener(entidad.getId()) != null) {
+            var stored = find(entidad.getId());
+            if (stored.isPresent()) {
                 throw new LogicException(exceptionMessage.getRegistroExistente());
             }
             dataProvider.get().add(entidad);
@@ -48,43 +48,45 @@ public abstract class AbstractEJB<E extends Entidad<TipoId>, TipoId> implements 
         }
     }
 
-    public void actualizar(E entidad) {
+    public void update(E entidad) {
         try {
-            obtenerOrThrow(entidad.getId()).updateFrom(entidad);
+            findOrThrow(entidad.getId()).updateFrom(entidad);
         } catch (Throwable t) {
             throw new TecnicalException(t);
         }
     }
 
-    public void eliminar(E entidad) {
-        eliminar(entidad.getId());
-    }
-
-    public void eliminar(TipoId id) {
+    public void delete(E entidad) {
         try {
-            dataProvider.get().remove(obtenerOrThrow(id));
+            delete(entidad.getId());
         } catch (Throwable t) {
             throw new TecnicalException(t);
         }
     }
 
-    public E obtener(TipoId id) {
+    public void delete(TipoId id) {
         try {
-            return dataProvider.get().stream().filter((e) -> e.getId().equals(id)).findFirst().orElse(null);
+            dataProvider.get().remove(findOrThrow(id));
         } catch (Throwable t) {
             throw new TecnicalException(t);
         }
     }
 
-    public E obtenerOrThrow(TipoId id) {
-        E registro = obtener(id);
-        if (registro == null) {
-            throw new LogicException(exceptionMessage.getRegistroNoEncontrado());
+    public Optional<E> find(TipoId id) {
+        try {
+            return dataProvider.get().stream().filter((e) -> e.getId().equals(id)).findFirst();
+        } catch (Throwable t) {
+            throw new TecnicalException(t);
         }
-        return registro;
     }
 
-    public Collection<E> listar() {
+    public E findOrThrow(TipoId id) {
+        return find(id).orElseThrow(
+                () -> new LogicException(exceptionMessage.getRegistroNoEncontrado()));
+    }
+
+    public Collection<E> get() {
         return dataProvider.get();
     }
+
 }

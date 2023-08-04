@@ -3,7 +3,7 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
+import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,7 +32,7 @@ public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTO
     private static final long serialVersionUID = 3695939063364135580L;
 
     @Inject
-    private AtributoCalidadEJB atributoCalidadEJB;
+    private AtributoCalidadService atributoCalidadService;
 
     @Getter
     @Setter
@@ -63,7 +63,7 @@ public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTO
         }
         inicializarTopicos(getDatosSeries().get("All").getDatos());
 
-        List<AtributoCalidad> atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
+        List<AtributoCalidad> atributosCalidad = atributoCalidadService.get(getRevision().getId());
         for (AtributoCalidad atributoCalidad : atributosCalidad) {
             if (codigo != null) {
                 addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo, atributoCalidad.getId()),atributoCalidad.getDescripcion());

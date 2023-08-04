@@ -27,21 +27,21 @@ import java.util.List;
 @Stateless
 public class RevisionEJB extends AbstractEJB<Revision, Integer> {
     @Inject
-    private AtributoCalidadEJB atributoCalidadEJB;
+    private AtributoCalidadService atributoCalidadService;
     @Inject
     private FuenteEJB fuenteEJB;
     @Inject
     private UsuarioEJB usuarioEJB;
 
     public RevisionEJB() {
-        super(Revision.class);
+        super(Revision.class, dataProvider);
     }
 
     public Revision registrar(String nombre, String descripcion,Integer idUsuario) {
         Usuario usuario = usuarioEJB.obtenerOrThrow(idUsuario);
         Revision revision = new Revision(nombre, descripcion,usuario);
         registrar(revision);
-        atributoCalidadEJB.crearAtributosCalidadPorDefecto(revision);
+        atributoCalidadService.crearAtributosCalidadPorDefecto();
         fuenteEJB.crearFuentesPorDefecto(revision);
         return revision;
     }
@@ -97,7 +97,6 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
      */
     @Override
     public void eliminar(Integer id) {
-        atributoCalidadEJB.eliminarAtributosCalidad(id);
         super.eliminar(id);
     }
 

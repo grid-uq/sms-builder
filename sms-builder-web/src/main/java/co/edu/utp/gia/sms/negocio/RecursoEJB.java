@@ -27,7 +27,7 @@ public class RecursoEJB extends AbstractEJB<Recurso, Integer> {
 
 
     public RecursoEJB() {
-        super(Recurso.class);
+        super(Recurso.class, dataProvider);
     }
 
     /**

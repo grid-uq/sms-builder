@@ -2,7 +2,7 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
+import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,16 +34,16 @@ public class RegistroAtributoCalidadBean extends GenericBean<AtributoCalidad> {
     @Getter @Setter
     private boolean objetivo;
     @Inject
-    private AtributoCalidadEJB atributoCalidadEJB;
+    private AtributoCalidadService atributoCalidadService;
 
     public void inicializar() {
         if (getRevision() != null) {
-            atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
+            atributosCalidad = atributoCalidadService.get(getRevision().getId());
         }
     }
 
     public void registrar() {
-        AtributoCalidad atributo = atributoCalidadEJB.registrar(descripcion,objetivo,getRevision().getId());
+        AtributoCalidad atributo = atributoCalidadService.registrar(descripcion,objetivo,getRevision().getId());
         atributosCalidad.add(atributo);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         descripcion = "";
@@ -51,7 +51,7 @@ public class RegistroAtributoCalidadBean extends GenericBean<AtributoCalidad> {
 
     @Override
     public void actualizar(AtributoCalidad objeto) {
-        atributoCalidadEJB.actualizar(objeto);
+        atributoCalidadService.update(objeto);
     }
 
 
@@ -61,7 +61,7 @@ public class RegistroAtributoCalidadBean extends GenericBean<AtributoCalidad> {
      * @param atributoCalidad Atributo de calidad a eliminar
      */
     public void eliminar(AtributoCalidad atributoCalidad) {
-        atributoCalidadEJB.eliminar(atributoCalidad.getId());
+        atributoCalidadService.eliminar(atributoCalidad.getId());
         atributosCalidad.remove(atributoCalidad);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }

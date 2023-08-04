@@ -26,7 +26,7 @@ public class TopicoEJB extends AbstractEJB<Topico, Integer> {
 	@Inject
 	private PreguntaEJB preguntaEJB;
 	public TopicoEJB() {
-		super(Topico.class);
+		super(Topico.class, dataProvider);
 	}
 
 	/**

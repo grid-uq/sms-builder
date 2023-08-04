@@ -21,7 +21,7 @@ import java.util.List;
 public class EvaluacionCalidadEJB extends AbstractEJB<EvaluacionCalidad, EvaluacionCalidadPK> {
 
 	public EvaluacionCalidadEJB() {
-		super(EvaluacionCalidad.class);
+		super(EvaluacionCalidad.class, dataProvider);
 	}
 
 	/* (non-Javadoc)

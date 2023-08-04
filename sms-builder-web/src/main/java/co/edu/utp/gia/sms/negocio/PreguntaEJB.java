@@ -29,7 +29,7 @@ public class PreguntaEJB extends AbstractEJB<Pregunta, Integer> {
     private TopicoEJB topicoEJB;
 
     public PreguntaEJB() {
-        super(Pregunta.class);
+        super(Pregunta.class, dataProvider);
     }
 
     /**

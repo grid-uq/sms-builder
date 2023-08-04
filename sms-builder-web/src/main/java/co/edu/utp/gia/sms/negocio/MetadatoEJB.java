@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class MetadatoEJB extends AbstractEJB<Metadato, Integer> {
 
     public MetadatoEJB() {
-        super(Metadato.class);
+        super(Metadato.class, dataProvider);
     }
 
     /**

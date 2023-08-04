@@ -28,7 +28,7 @@ public class ProcesoEJB extends AbstractEJB<PasoProceso, Integer> {
     @Inject
     private PasoEJB pasoEJB;
     public ProcesoEJB() {
-        super(PasoProceso.class);
+        super(PasoProceso.class, dataProvider);
     }
 
     /**

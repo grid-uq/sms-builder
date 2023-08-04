@@ -40,14 +40,14 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     @Inject
     private MetadatoEJB metadatoEJB;
     @Inject
-    private AtributoCalidadEJB atributoCalidadEJB;
+    private AtributoCalidadService atributoCalidadService;
     @Inject
     private PreguntaEJB preguntaEJB;
     @Inject
     private ProcesoEJB procesoEJB;
 
     public ReferenciaEJB() {
-        super(Referencia.class);
+        super(Referencia.class, dataProvider);
     }
 
     public Referencia registrar(Referencia referencia, Integer idRevision, Integer idPasoProceso) {
@@ -269,8 +269,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     }
 
     private void evaluarSegunCVI(Referencia referencia) {
-        AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.CVI,
-                referencia.getRevision().getId());
+        AtributoCalidad atributoCalidad = atributoCalidadService.findByDescripcion(AtributoCalidadService.CVI);
         EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
         if (referencia.getRelevancia() == null || referencia.getRelevancia() < 3) {
@@ -286,14 +285,13 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 
     private void evaluarSegunCitas(Referencia referencia) {
 
-        AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.SCI,
-                referencia.getRevision().getId());
+        AtributoCalidad atributoCalidad = atributoCalidadService.findByDescripcion(AtributoCalidadService.SCI);
         EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
         float media = referencia.getCitas()
                 / (float) (1 + Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(referencia.getYear()));
 
-        List<Float> scis = obtenerSCIs(referencia.getRevision().getId());
+        List<Float> scis = obtenerSCIs();
 
         Percentile p = new Percentile();
         double[] datos = new double[scis.size()];
@@ -333,11 +331,10 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     }
 
     private void evaluarSegunPreguntas(Referencia referencia) {
-        AtributoCalidad atributoCalidad = atributoCalidadEJB.obtener(AtributoCalidadEJB.IRRQ,
-                referencia.getRevision().getId());
+        AtributoCalidad atributoCalidad = atributoCalidadService.findByDescripcion(AtributoCalidadService.IRRQ);
         EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
-        int totalPreguntas = (int) preguntaEJB.totalPreguntas(referencia.getRevision().getId());
+        int totalPreguntas = (int) preguntaEJB.totalPreguntas();
         int totalPreguntasRelacionadas = (int) calcularTotalPreguntasRelacionadas(referencia.getId());
         float porcentaje = totalPreguntasRelacionadas * 100.0f / totalPreguntas;
 
@@ -367,10 +364,9 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     /**
      * Consulta que permite obtener los SCI de las referencia de una revision
      *
-     * @param id Id de la Revision
      * @return List<Float> listado de los SCI de las referencias de una revision
      */
-    private List<Float> obtenerSCIs(Integer id) {
+    private List<Float> obtenerSCIs() {
         return ReferenciaGetAllSCI.createQuery(entityManager, id).getResultList();
     }
 

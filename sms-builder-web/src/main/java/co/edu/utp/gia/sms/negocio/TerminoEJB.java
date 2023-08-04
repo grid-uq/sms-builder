@@ -26,7 +26,7 @@ public class TerminoEJB extends AbstractEJB<Termino, Integer>{
 	private RevisionEJB revisionEJB;
 
 	public TerminoEJB() {
-		super(Termino.class);
+		super(Termino.class, dataProvider);
 	}
 	/**
 	 * Permite registrar una termino

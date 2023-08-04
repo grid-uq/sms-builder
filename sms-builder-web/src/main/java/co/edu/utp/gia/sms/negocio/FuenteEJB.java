@@ -30,7 +30,7 @@ public class FuenteEJB extends AbstractEJB<Fuente, Integer> {
     private RevisionEJB revisionEJB;
 
     public FuenteEJB() {
-        super(Fuente.class);
+        super(Fuente.class, dataProvider);
     }
 
     /**

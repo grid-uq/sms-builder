@@ -31,7 +31,7 @@ public class CadenaBusquedaEJB extends AbstractEJB<CadenaBusqueda, Integer>{
 	private FuenteEJB fuenteEJB;
 
 	public CadenaBusquedaEJB() {
-		super(CadenaBusqueda.class);
+		super(CadenaBusqueda.class, dataProvider);
 	}
 	/**
 	 * Permite registrar una cadena de busqueda

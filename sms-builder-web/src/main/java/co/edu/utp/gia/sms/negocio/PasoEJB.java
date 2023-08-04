@@ -19,7 +19,7 @@ import java.util.List;
 public class PasoEJB extends AbstractEJB<Paso, Integer> {
 
     public PasoEJB() {
-        super(Paso.class);
+        super(Paso.class, dataProvider);
     }
 
     public Paso findByName(String nombre){

@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.beans.util;
 
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
+import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
 
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
@@ -21,10 +21,10 @@ import jakarta.inject.Named;
 public class AtributoCalidadConverter extends EntidadConverter<AtributoCalidad> {
 
 	@Inject
-	private AtributoCalidadEJB atributoCalidadEJB;
+	private AtributoCalidadService atributoCalidadService;
 
 	@Override
 	protected AtributoCalidad findById(String id) {
-		return atributoCalidadEJB.obtener(Integer.parseInt(id));
+		return atributoCalidadService.find(id).orElse(null);
 	}
 }

@@ -28,7 +28,7 @@ public class UsuarioEJB extends AbstractEJB<Usuario, Integer> {
 
 
     public UsuarioEJB() {
-        super(Usuario.class);
+        super(Usuario.class, dataProvider);
     }
 
     /**

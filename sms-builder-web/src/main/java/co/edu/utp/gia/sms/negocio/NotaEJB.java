@@ -24,7 +24,7 @@ public class NotaEJB extends AbstractEJB<Nota, Integer> {
     private ReferenciaEJB referenciaEJB;
 
     public NotaEJB() {
-        super(Nota.class);
+        super(Nota.class, dataProvider);
     }
 
     public Nota registrar(Integer etapa, String descripcion, Integer idReferencia) {

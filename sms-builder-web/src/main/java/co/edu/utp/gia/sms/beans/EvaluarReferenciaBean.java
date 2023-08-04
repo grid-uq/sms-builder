@@ -5,7 +5,7 @@ import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
-import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
+import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +41,7 @@ public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
     @Setter
     private List<EvaluacionCalidad> evaluaciones;
     @Inject
-    private AtributoCalidadEJB atributoCalidadEJB;
+    private AtributoCalidadService atributoCalidadService;
     @Inject
     private ReferenciaEJB referenciaEJB;
     private ReferenciaDTO referencia;
@@ -49,7 +49,7 @@ public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
     public void inicializar() {
         if (getRevision() != null) {
             referencia = (ReferenciaDTO) getFromSession("referenciaDTO");
-            atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
+            atributosCalidad = atributoCalidadService.get(getRevision().getId());
             if (referencia.getEvaluaciones() == null || referencia.getEvaluaciones().isEmpty()) {
                 evaluaciones = new ArrayList<>();
                 for (AtributoCalidad atributoCalidad : atributosCalidad) {

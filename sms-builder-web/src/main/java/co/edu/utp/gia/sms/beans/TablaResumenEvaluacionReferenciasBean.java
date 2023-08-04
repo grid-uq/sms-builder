@@ -5,7 +5,7 @@ import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
+import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +41,7 @@ public class TablaResumenEvaluacionReferenciasBean extends GenericBean<Referenci
     @Inject
     private ReferenciaEJB referenciaEJB;
     @Inject
-    private AtributoCalidadEJB atributoCalidadEJB;
+    private AtributoCalidadService atributoCalidadService;
 
     @Getter
     @Setter
@@ -50,7 +50,7 @@ public class TablaResumenEvaluacionReferenciasBean extends GenericBean<Referenci
     public void inicializar() {
         if (getRevision() != null) {
             referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId());
-            atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
+            atributosCalidad = atributoCalidadService.get(getRevision().getId());
         }
     }
 

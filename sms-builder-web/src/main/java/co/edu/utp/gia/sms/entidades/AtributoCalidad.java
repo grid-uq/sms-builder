@@ -5,7 +5,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -48,15 +47,6 @@ public class AtributoCalidad implements Entidad<String> {
     @NonNull
     private Boolean objetivo;
 
-    /**
-     * {@link Revision} a la cual pertenece el atributo de calidad
-     */
-    @Getter
-    @Setter
-    @NonNull
-    private Revision revision;
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,5 +59,13 @@ public class AtributoCalidad implements Entidad<String> {
     @Override
     public int hashCode() {
         return 1251423725;
+    }
+
+    @Override
+    public void updateFrom(Entidad<String>  entidad) {
+        assert entidad instanceof AtributoCalidad;
+        AtributoCalidad atributoCalidad = (AtributoCalidad) entidad;
+        descripcion = atributoCalidad.getDescripcion();
+        objetivo = atributoCalidad.getObjetivo();
     }
 }

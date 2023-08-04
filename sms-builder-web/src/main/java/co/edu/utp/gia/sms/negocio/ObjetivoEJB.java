@@ -25,7 +25,7 @@ public class ObjetivoEJB extends AbstractEJB<Objetivo, Integer> {
 	private RevisionEJB revisionEJB;
 
 	public ObjetivoEJB() {
-		super(Objetivo.class);
+		super(Objetivo.class, dataProvider);
 	}
 
 	/**

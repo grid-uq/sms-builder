@@ -3,7 +3,7 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 import co.edu.utp.gia.sms.beans.estadisticas.util.SerieDatos;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
+import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.charts.bar.BarChartModel;
@@ -33,7 +33,7 @@ public class ReferenciasYearBean extends EstaditicaSerieDatoDTOBaseBean {
     private static final long serialVersionUID = 1765173044631798246L;
 
     @Inject
-    private AtributoCalidadEJB atributoCalidadEJB;
+    private AtributoCalidadService atributoCalidadService;
 
 
     @Getter
@@ -52,7 +52,7 @@ public class ReferenciasYearBean extends EstaditicaSerieDatoDTOBaseBean {
             inicializarYears(getDatosSeries().get("All"));
 //            addSerie(serie);
 
-            List<AtributoCalidad> atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
+            List<AtributoCalidad> atributosCalidad = atributoCalidadService.get(getRevision().getId());
             for (AtributoCalidad atributoCalidad : atributosCalidad) {
                 addSerie(getEstadisticaEJB().obtenerReferenciasYear(getRevision().getId(), atributoCalidad.getId()),atributoCalidad.getDescripcion());
 //                serie = crearBarSerieFromListDatoDTO(getEstadisticaEJB().obtenerReferenciasYear(getRevision().getId(), atributoCalidad.getId()),atributoCalidad.getDescripcion());

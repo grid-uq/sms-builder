@@ -3,7 +3,7 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 import co.edu.utp.gia.sms.beans.estadisticas.util.SerieDatos;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
+import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
 import lombok.Getter;
 
 import jakarta.faces.view.ViewScoped;
@@ -28,7 +28,7 @@ public class ReferenciasCalidadYearBean extends EstaditicaDatoDTOBaseBean {
     @Getter
     private List<String> years;
     @Inject
-    private AtributoCalidadEJB atributoCalidadEJB;
+    private AtributoCalidadService atributoCalidadService;
 
 
     /**
@@ -45,7 +45,7 @@ public class ReferenciasCalidadYearBean extends EstaditicaDatoDTOBaseBean {
         if (getRevision() != null) {
             addSerie(getEstadisticaEJB().obtenerReferenciasCalidadYear(getRevision().getId()),"All");
             inicializarYears(getDatosSeries().get("All"));
-            List<AtributoCalidad> atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
+            List<AtributoCalidad> atributosCalidad = atributoCalidadService.get(getRevision().getId());
             for (AtributoCalidad atributoCalidad : atributosCalidad) {
                 addSerie(getEstadisticaEJB().obtenerReferenciasCalidadYear(getRevision().getId(), atributoCalidad.getId()),atributoCalidad.getDescripcion());
             }
