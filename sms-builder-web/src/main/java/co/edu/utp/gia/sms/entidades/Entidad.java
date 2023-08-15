@@ -13,6 +13,4 @@ import java.io.Serializable;
  */
 public interface Entidad<TipoId> extends Serializable {
 	TipoId getId();
-
-	void updateFrom(Entidad<TipoId>  entidad);
 }

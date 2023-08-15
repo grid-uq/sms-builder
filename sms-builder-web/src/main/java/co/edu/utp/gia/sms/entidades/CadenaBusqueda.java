@@ -32,7 +32,7 @@ public class CadenaBusqueda implements Entidad<String> {
 
     @Getter @Setter
     @NonNull
-    private String baseDatos;
+    private Fuente baseDatos;
 
     @Getter @Setter
     @NonNull

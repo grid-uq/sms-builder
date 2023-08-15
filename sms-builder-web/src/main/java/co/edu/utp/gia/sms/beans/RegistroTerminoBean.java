@@ -3,7 +3,7 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.TerminoEJB;
+import co.edu.utp.gia.sms.negocio.TerminoService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
@@ -12,8 +12,9 @@ import org.primefaces.event.SelectEvent;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de terminos.
@@ -37,18 +38,16 @@ public class RegistroTerminoBean extends GenericBean<Termino> {
     private String descripcion;
     @Getter
     @Setter
-    private List<Termino> terminos;
+    private Collection<Termino> terminos;
     @Inject
-    private TerminoEJB terminoEJB;
+    private TerminoService terminoService;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            terminos = terminoEJB.obtenerTerminos(getRevision().getId());
-        }
+        terminos = terminoService.get();
     }
 
     public void registrar() {
-        Termino termino = terminoEJB.registrar(descripcion, getRevision().getId());
+        Termino termino = terminoService.save(descripcion);
         terminos.add(termino);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         descripcion = "";
@@ -56,7 +55,7 @@ public class RegistroTerminoBean extends GenericBean<Termino> {
 
     @Override
     public void actualizar(Termino objeto) {
-        terminoEJB.actualizar(objeto);
+        terminoService.update(objeto);
     }
 
     /**
@@ -65,7 +64,7 @@ public class RegistroTerminoBean extends GenericBean<Termino> {
      * @param termino termino a eliminar
      */
     public void eliminar(Termino termino) {
-        terminoEJB.eliminar(termino.getId());
+        terminoService.delete(termino.getId());
         terminos.remove(termino);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
@@ -80,7 +79,7 @@ public class RegistroTerminoBean extends GenericBean<Termino> {
     }
 
     public void eliminarSinonimo(Termino termino,String sinonimo){
-        terminoEJB.removerSinonimo(termino.getId(),sinonimo);
+        terminoService.removerSinonimo(termino.getId(),sinonimo);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         termino.removerSinonimo(sinonimo);
     }

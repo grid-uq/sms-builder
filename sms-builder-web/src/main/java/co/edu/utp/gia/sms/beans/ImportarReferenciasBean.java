@@ -7,7 +7,7 @@ import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParseFactory;
 import co.edu.utp.gia.sms.importutil.ReferenceParse;
 import co.edu.utp.gia.sms.importutil.TipoArchivo;
-import co.edu.utp.gia.sms.negocio.FuenteEJB;
+import co.edu.utp.gia.sms.negocio.FuenteService;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +18,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 /**
@@ -42,7 +43,7 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
     @Inject
     private ReferenciaEJB referenciaEJB;
     @Inject
-    private FuenteEJB fuenteEJB;
+    private FuenteService fuenteService;
     @Getter @Setter
     private UploadedFile file;
     @Getter @Setter
@@ -50,7 +51,7 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
     @Getter @Setter
     private TipoArchivo tipoArchivo;
     @Getter
-    private List<Fuente> fuentes;
+    private Collection<Fuente> fuentes;
 
 
 
@@ -87,9 +88,9 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
     @Override
     public void inicializar() {
         if( tipoFuente != null ){
-            fuentes = fuenteEJB.listarByTipoFuente(tipoFuente, getRevision().getId());
+            fuentes = fuenteService.getByTipoFuente(tipoFuente);
         } else {
-            fuentes = fuenteEJB.listar(getRevision().getId());
+            fuentes = fuenteService.get();
         }
     }
 

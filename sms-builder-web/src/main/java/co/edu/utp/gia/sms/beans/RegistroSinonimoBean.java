@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.TerminoEJB;
+import co.edu.utp.gia.sms.negocio.TerminoService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
@@ -32,9 +32,9 @@ public class RegistroSinonimoBean extends GenericBean<Topico> {
     private String descripcion;
     @Getter
     @Setter
-    private Integer id;
+    private String id;
     @Inject
-    private TerminoEJB terminoEJB;
+    private TerminoService terminoService;
 
 
     /**
@@ -42,9 +42,9 @@ public class RegistroSinonimoBean extends GenericBean<Topico> {
      */
     public void registrar() {
         String sinonimo = null;
-        id = (Integer) getAndRemoveFromSession("idTermino");
+        id = (String) getAndRemoveFromSession("idTermino");
         if (id != null) {
-            terminoEJB.adicionarSinonimo(id, descripcion);
+            terminoService.adicionarSinonimo(id, descripcion);
         }
         PrimeFaces.current().dialog().closeDynamic(sinonimo);
     }

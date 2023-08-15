@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.beans.util;
 
 import co.edu.utp.gia.sms.entidades.Fuente;
-import co.edu.utp.gia.sms.negocio.FuenteEJB;
+import co.edu.utp.gia.sms.negocio.FuenteService;
 
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
@@ -21,10 +21,10 @@ import jakarta.inject.Named;
 public class FuenteConverter extends EntidadConverter<Fuente> {
 
 	@Inject
-	private FuenteEJB fuenteEJB;
+	private FuenteService fuenteService;
 
 	@Override
 	protected Fuente findById(String id) {
-		return fuenteEJB.obtener(Integer.parseInt(id));
+		return fuenteService.obtener(Integer.parseInt(id));
 	}
 }

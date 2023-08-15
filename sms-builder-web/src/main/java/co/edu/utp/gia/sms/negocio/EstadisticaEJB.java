@@ -5,6 +5,7 @@ import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.query.estadistica.*;
 
 import jakarta.ejb.Stateless;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -20,13 +21,13 @@ import java.util.List;
  * @version 1.0
  * @since 12/11/2015
  */
-@Stateless
+@ApplicationScoped
 public class EstadisticaEJB {
     @PersistenceContext
     private EntityManager entityManager;
 
     @Inject
-    private FuenteEJB fuenteEJB;
+    private FuenteService fuenteService;
     /**
      * Consulta que permite obtener el número de referencias por año en una revision
      *
@@ -116,7 +117,7 @@ public class EstadisticaEJB {
     public List<DatoDTO> obtenerReferenciasTipoFuenteNombre(Integer id, TipoFuente tipo) {
         List<DatoDTO> resultado = EstadisticaReferenciaByTipoFuenteAndNombre.createQuery(entityManager, id, tipo)
                 .getResultList();
-        List<Fuente> fuentes = fuenteEJB.listarByTipoFuente(tipo,id);
+        List<Fuente> fuentes = fuenteService.getByTipoFuente(tipo);
         for (Fuente fuente : fuentes) {
             if ( resultado.stream().noneMatch(d -> d.getEtiqueta().equals(fuente.getNombre()))) {
                 resultado.add(new DatoDTO(fuente.getNombre(), 0L));

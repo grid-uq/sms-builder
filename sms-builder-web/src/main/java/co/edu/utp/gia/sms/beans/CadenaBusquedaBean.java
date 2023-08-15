@@ -2,15 +2,16 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.CadenaBusqueda;
-import co.edu.utp.gia.sms.negocio.CadenaBusquedaEJB;
-import lombok.Getter;
-import lombok.Setter;
-
+import co.edu.utp.gia.sms.entidades.Fuente;
+import co.edu.utp.gia.sms.negocio.CadenaBusquedaService;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de las cadenas de búsqueda.
  *
@@ -29,7 +30,7 @@ public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
      */
     private static final long serialVersionUID = 9060626480979863537L;
     @Getter @Setter
-    private String baseDatos;
+    private Fuente baseDatos;
     @Getter @Setter
     private String consulta;
     @Getter @Setter
@@ -41,24 +42,22 @@ public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
 
     @Getter
     @Setter
-    private List<CadenaBusqueda> cadenasBusqueda;
+    private Collection<CadenaBusqueda> cadenasBusqueda;
 
     @Inject
-    private CadenaBusquedaEJB cadenaBusquedaEJB;
+    private CadenaBusquedaService cadenaBusquedaService;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            cadenasBusqueda = cadenaBusquedaEJB.obtenerCadenasBusqueda(getRevision().getId());
-            sugerirConsulta();
-        }
+        cadenasBusqueda = cadenaBusquedaService.get();
+        sugerirConsulta();
     }
 
 
     public void registrar() {
-        CadenaBusqueda cadenaBusqueda = cadenaBusquedaEJB.registrar(baseDatos, consulta,fechaConsulta,resultadoPreliminar,resultadoFinal, getRevision().getId());
+        CadenaBusqueda cadenaBusqueda = cadenaBusquedaService.save(baseDatos, consulta,fechaConsulta,resultadoPreliminar,resultadoFinal);
         cadenasBusqueda.add(cadenaBusqueda);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        baseDatos = "";
+        baseDatos = null;
         fechaConsulta = null;
         resultadoPreliminar = null;
         resultadoFinal = null;
@@ -66,12 +65,12 @@ public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
     }
 
     public void sugerirConsulta(){
-        consulta = cadenaBusquedaEJB.sugerirConsulta(getRevision().getId());
+        consulta = cadenaBusquedaService.sugerirConsulta();
     }
 
     @Override
     public void actualizar(CadenaBusqueda cadenaBusqueda) {
-        cadenaBusquedaEJB.actualizar(cadenaBusqueda);
+        cadenaBusquedaService.update(cadenaBusqueda);
     }
 
     /**
@@ -80,7 +79,7 @@ public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
      * @param cadenaBusqueda a eliminar
      */
     public void eliminar(CadenaBusqueda cadenaBusqueda) {
-        cadenaBusquedaEJB.eliminar(cadenaBusqueda.getId());
+        cadenaBusquedaService.delete(cadenaBusqueda.getId());
         cadenasBusqueda.remove(cadenaBusqueda);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }

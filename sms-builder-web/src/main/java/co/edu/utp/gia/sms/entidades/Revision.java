@@ -1,12 +1,10 @@
 package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
+import org.dbdoclet.tag.html.Li;
 
-import jakarta.persistence.*;
 import java.util.List;
 import java.util.Objects;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
  * @author Christian A. Candela
@@ -73,7 +71,6 @@ public class Revision implements Entidad<Integer> {
     /**
      * Representa el paso seleccionado para la evaluación y extracción de estadísticas
      */
-    @OneToOne
     @Getter @Setter
     private PasoProceso pasoSeleccionado;
 
@@ -81,10 +78,13 @@ public class Revision implements Entidad<Integer> {
     private List<AtributoCalidad> atributosCalidad;
 
     @Getter @Setter
-    private List<AtributoCalidad> cadenasBusqueda;
+    private List<CadenaBusqueda> cadenasBusqueda;
 
     @Getter @Setter
     private List<Fuente> fuentes;
+
+    @Getter @Setter
+    private List<Termino> terminos;
 
     @Override
     public boolean equals(Object o) {

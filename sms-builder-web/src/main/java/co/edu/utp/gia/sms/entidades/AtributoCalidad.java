@@ -60,12 +60,4 @@ public class AtributoCalidad implements Entidad<String> {
     public int hashCode() {
         return 1251423725;
     }
-
-    @Override
-    public void updateFrom(Entidad<String>  entidad) {
-        assert entidad instanceof AtributoCalidad;
-        AtributoCalidad atributoCalidad = (AtributoCalidad) entidad;
-        descripcion = atributoCalidad.getDescripcion();
-        objetivo = atributoCalidad.getObjetivo();
-    }
 }

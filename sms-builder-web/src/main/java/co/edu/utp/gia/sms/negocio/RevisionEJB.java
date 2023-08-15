@@ -29,7 +29,7 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
     @Inject
     private AtributoCalidadService atributoCalidadService;
     @Inject
-    private FuenteEJB fuenteEJB;
+    private FuenteService fuenteService;
     @Inject
     private UsuarioEJB usuarioEJB;
 
@@ -42,7 +42,7 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
         Revision revision = new Revision(nombre, descripcion,usuario);
         registrar(revision);
         atributoCalidadService.crearAtributosCalidadPorDefecto();
-        fuenteEJB.crearFuentesPorDefecto(revision);
+        fuenteService.crearFuentesPorDefecto();
         return revision;
     }
 

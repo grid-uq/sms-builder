@@ -7,6 +7,7 @@ import co.edu.utp.gia.sms.exceptions.TecnicalException;
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
 import lombok.Getter;
+import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -50,7 +51,7 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
 
     public void update(E entidad) {
         try {
-            findOrThrow(entidad.getId()).updateFrom(entidad);
+            BeanUtils.copyProperties(findOrThrow(entidad.getId()),entidad);
         } catch (Throwable t) {
             throw new TecnicalException(t);
         }
