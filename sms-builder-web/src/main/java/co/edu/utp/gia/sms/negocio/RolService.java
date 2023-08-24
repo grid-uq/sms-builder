@@ -1,12 +1,9 @@
 package co.edu.utp.gia.sms.negocio;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Recurso;
 import co.edu.utp.gia.sms.entidades.Rol;
-import co.edu.utp.gia.sms.query.seguridad.SeguridadRolFindAll;
-
-import jakarta.ejb.LocalBean;
-import jakarta.ejb.Stateless;
-import java.util.List;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
@@ -19,25 +16,11 @@ import java.util.List;
  * @version 1.0
  * @since 12/11/2015
  */
-@Stateless
-@LocalBean
-public class RolEJB extends AbstractEJB<Rol, Integer> {
+@ApplicationScoped
+public class RolService extends AbstractGenericService<Rol, String> {
 
-    public RolEJB() {
-        super(Rol.class, dataProvider);
-    }
-
-
-    /**
-     * Permite obtener un listado con todos los {@link Rol}s registrados en
-     * el sistema
-     *
-     * @return {@link List} de {@link Rol}, con todos los {@link Rol}
-     * registrados en el sistema
-     */
-    @Override
-    public List<Rol> listar() {
-        return SeguridadRolFindAll.createQuery(entityManager).getResultList();
+    public RolService() {
+        super(DB.root.revision()::getRoles);
     }
 
     /**
@@ -45,8 +28,8 @@ public class RolEJB extends AbstractEJB<Rol, Integer> {
      * @param id Id del recurso al que se desea adicionar un recurso
      * @param recurso Recurso a ser adicionado
      */
-    public void addRecurso(Integer id,Recurso recurso){
-        Rol rol = obtenerOrThrow(id);
+    public void addRecurso(String id,Recurso recurso){
+        Rol rol = findOrThrow(id);
         rol.getRecursos().add(recurso);
     }
 }

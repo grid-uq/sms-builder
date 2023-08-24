@@ -3,7 +3,7 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
-import co.edu.utp.gia.sms.negocio.RevisionEJB;
+import co.edu.utp.gia.sms.negocio.RevisionService;
 import lombok.Getter;
 
 import jakarta.inject.Inject;
@@ -40,21 +40,21 @@ public class ResumenBean extends AbstractRevisionBean{
     @Getter
     private List<DatoDTO> referenciasPorFuente;
     @Inject
-    private RevisionEJB revisionEJB;
+    private RevisionService revisionService;
     @Inject
     private EstadisticaEJB estadisticaEJB;
     @Override
     public void inicializar() {
         if( getRevision() != null ) {
-            numeroReferencias = revisionEJB.totalReferencias(getRevision().getId());
-            numeroReferenciasBaseDatos = revisionEJB.totalReferencias(getRevision().getId(), TipoFuente.BASE_DATOS);
-            numeroReferenciasRepetidas = revisionEJB.totalReferenciasRepetidas(getRevision().getId());
-            numeroReferenciasSeleccionadas = revisionEJB.totalReferenciasSeleccionadas(getRevision().getPasoSeleccionado().getId());
-            referenciasPorFuente = estadisticaEJB.obtenerReferenciasTipoFuente(getRevision().getPasoSeleccionado().getId());
+            numeroReferencias = revisionService.totalReferencias();
+            numeroReferenciasBaseDatos = revisionService.totalReferencias(TipoFuente.BASE_DATOS);
+            numeroReferenciasRepetidas = revisionService.totalReferenciasRepetidas();
+            numeroReferenciasSeleccionadas = revisionService.totalReferenciasSeleccionadas();
+            referenciasPorFuente = estadisticaEJB.obtenerReferenciasTipoFuente();
             numeroReferenciasDescartadas = numeroReferencias - numeroReferenciasSeleccionadas - numeroReferenciasRepetidas;
-            numeroReferenciasSeleccionadasBaseDatos = revisionEJB.totalReferenciasPaso(getRevision().getPasoSeleccionado().getId(), TipoFuente.BASE_DATOS);
-            numeroReferenciasSeleccionadasBolaNieve = revisionEJB.totalReferenciasPaso(getRevision().getPasoSeleccionado().getId(), TipoFuente.BOLA_NIEVE);
-            numeroReferenciasSeleccionadasInclusionDirecta = revisionEJB.totalReferenciasPaso(getRevision().getPasoSeleccionado().getId(), TipoFuente.INCLUSION_DIRECTA);
+            numeroReferenciasSeleccionadasBaseDatos = revisionService.totalReferenciasPaso(TipoFuente.BASE_DATOS);
+            numeroReferenciasSeleccionadasBolaNieve = revisionService.totalReferenciasPaso(TipoFuente.BOLA_NIEVE);
+            numeroReferenciasSeleccionadasInclusionDirecta = revisionService.totalReferenciasPaso(TipoFuente.INCLUSION_DIRECTA);
         }
     }
 }

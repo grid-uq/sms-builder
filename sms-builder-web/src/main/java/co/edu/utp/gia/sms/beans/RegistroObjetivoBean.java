@@ -2,14 +2,14 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Objetivo;
-import co.edu.utp.gia.sms.negocio.ObjetivoEJB;
-import lombok.Getter;
-import lombok.Setter;
-
+import co.edu.utp.gia.sms.negocio.ObjetivoService;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Collection;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de objetivos.
  *
@@ -35,20 +35,20 @@ public class RegistroObjetivoBean extends GenericBean<Objetivo> {
     private String descripcion;
     @Getter
     @Setter
-    private List<Objetivo> objetivos;
+    private Collection<Objetivo> objetivos;
 
     @Inject
-    private ObjetivoEJB objetivoEJB;
+    private ObjetivoService objetivoService;
 
     public void inicializar() {
         if (getRevision() != null) {
-            objetivos = objetivoEJB.obtenerObjetivo(getRevision().getId());
+            objetivos = objetivoService.get();
         }
     }
 
 
     public void registrar() {
-        Objetivo objetivo = objetivoEJB.registrar(codigo, descripcion, getRevision().getId());
+        Objetivo objetivo = objetivoService.save(codigo, descripcion);
         objetivos.add(objetivo);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         codigo = "";
@@ -58,7 +58,7 @@ public class RegistroObjetivoBean extends GenericBean<Objetivo> {
 
     @Override
     public void actualizar(Objetivo objeto) {
-        objetivoEJB.actualizar(objeto);
+        objetivoService.update(objeto);
     }
 
 
@@ -68,7 +68,7 @@ public class RegistroObjetivoBean extends GenericBean<Objetivo> {
      * @param objetivo Objetivo a eliminar
      */
     public void eliminar(Objetivo objetivo) {
-        objetivoEJB.eliminar(objetivo.getId());
+        objetivoService.delete(objetivo.getId());
         objetivos.remove(objetivo);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }

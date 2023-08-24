@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.beans.util;
 
 import co.edu.utp.gia.sms.entidades.Objetivo;
-import co.edu.utp.gia.sms.negocio.ObjetivoEJB;
+import co.edu.utp.gia.sms.negocio.ObjetivoService;
 
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
@@ -22,11 +22,11 @@ import jakarta.inject.Named;
 public class ObjetivoConverter extends EntidadConverter<Objetivo> {
 
 	@Inject
-	private ObjetivoEJB objetivoEJB;
+	private ObjetivoService objetivoService;
 
 
 	@Override
 	protected Objetivo findById(String id) {
-		return objetivoEJB.obtener(Integer.parseInt(id));
+		return objetivoService.obtener(Integer.parseInt(id));
 	}
 }

@@ -1,12 +1,11 @@
 package co.edu.utp.gia.sms.negocio;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Recurso;
-import co.edu.utp.gia.sms.query.seguridad.SeguridadRecursoFindAll;
 import co.edu.utp.gia.sms.query.seguridad.SeguridadRecursoFindByUrl;
 import co.edu.utp.gia.sms.query.seguridad.SeguridadRecursoFindUrlByPublic;
+import jakarta.enterprise.context.ApplicationScoped;
 
-import jakarta.ejb.LocalBean;
-import jakarta.ejb.Stateless;
 import java.util.List;
 
 
@@ -21,25 +20,12 @@ import java.util.List;
  * @version 1.0
  * @since 12/11/2015
  */
-@Stateless
-@LocalBean
-public class RecursoEJB extends AbstractEJB<Recurso, Integer> {
+@ApplicationScoped
+public class RecursoService extends AbstractGenericService<Recurso, String> {
 
 
-    public RecursoEJB() {
-        super(Recurso.class, dataProvider);
-    }
-
-    /**
-     * Permite obtener un listado con todos los {@link Recurso}s registrados en
-     * el sistema
-     *
-     * @return {@link List} de {@link Recurso}, con todos los {@link Recurso}
-     * registrados en el sistema
-     */
-    @Override
-    public List<Recurso> listar() {
-        return SeguridadRecursoFindAll.createQuery(entityManager).getResultList();
+    public RecursoService() {
+        super(DB.root.revision()::getRecursos);
     }
 
     /**
@@ -49,10 +35,8 @@ public class RecursoEJB extends AbstractEJB<Recurso, Integer> {
      * @return {@link Recurso} correspondiente al url dado, o null si no existe
      * un {@link Recurso} con dicho id registrado en el sistema
      */
-    public Recurso buscarRecurso(String url) {
-        return SeguridadRecursoFindByUrl.createQuery(entityManager,url)
-                .getResultList()
-                .stream()
+    public Recurso findByUrl(String url) {
+        return SeguridadRecursoFindByUrl.createQuery(url)
                 .findFirst()
                 .orElse(null);
     }
@@ -64,7 +48,7 @@ public class RecursoEJB extends AbstractEJB<Recurso, Integer> {
      * como públicos
      */
     public List<String> buscarRecursosPublicos() {
-        return SeguridadRecursoFindUrlByPublic.createQuery(entityManager,true).getResultList();
+        return SeguridadRecursoFindUrlByPublic.createQuery(true).toList();
     }
 
 }

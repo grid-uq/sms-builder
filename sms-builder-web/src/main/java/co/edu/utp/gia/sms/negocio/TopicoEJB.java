@@ -52,7 +52,7 @@ public class TopicoEJB extends AbstractEJB<Topico, Integer> {
 	 * @return Listado de {@link Topico} de la {@link Pregunta} identificada con el
 	 *         id dado
 	 */
-	public List<Topico> obtenerTopicos(Integer id) {
+	public List<Topico> obtenerTopicos(String id) {
 		return TopicoFindAllByPregunta.createQuery(entityManager,id).getResultList();
 	}
 	

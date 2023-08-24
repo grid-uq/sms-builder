@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.entidades.Recurso;
-import co.edu.utp.gia.sms.negocio.RecursoEJB;
+import co.edu.utp.gia.sms.negocio.RecursoService;
 
 import jakarta.inject.Inject;
 /**
@@ -20,7 +20,7 @@ public class RecursosSetup implements SetupInterface{
      * Variable que representa el atributo recursoBO de la clase
      */
     @Inject
-    private RecursoEJB recursoBO;
+    private RecursoService recursoBO;
 
 
 
@@ -46,7 +46,7 @@ public class RecursosSetup implements SetupInterface{
      *            Indica si el registro es público o no
      */
     private void setupRecurso(String url, boolean publico) {
-        if (recursoBO.buscarRecurso(url) == null) {
+        if (recursoBO.findByUrl(url) == null) {
             var recurso = new Recurso(getNombreRecurso(url),url,publico);
             recursoBO.registrar(recurso);
         }

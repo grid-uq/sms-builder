@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.negocio;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Pregunta;
@@ -22,14 +23,14 @@ import java.util.List;
  * @since 12/11/2015
  */
 @Stateless
-public class PreguntaEJB extends AbstractEJB<Pregunta, Integer> {
+public class PreguntaEJB extends AbstractGenericService<Pregunta, String> {
     @Inject
-    private ObjetivoEJB objetivoEJB;
+    private ObjetivoService objetivoService;
     @Inject
     private TopicoEJB topicoEJB;
 
     public PreguntaEJB() {
-        super(Pregunta.class, dataProvider);
+        super(DB.root.getProvider(Pregunta.class));
     }
 
     /**
@@ -40,11 +41,12 @@ public class PreguntaEJB extends AbstractEJB<Pregunta, Integer> {
      * @param objetivos   Objetivos relacionados a la pregunta
      * @return La pregunta registrada
      */
-    public Pregunta registrar(String codigo, String descripcion, List<Objetivo> objetivos) {
+    public Pregunta save(String codigo, String descripcion, List<Objetivo> objetivos) {
         Pregunta pregunta = null;
         if (!objetivos.isEmpty()) {
-            pregunta = new Pregunta(codigo, descripcion, objetivos);
-            entityManager.persist(pregunta);
+            final Pregunta nuevapPregunta = new Pregunta(codigo, descripcion, objetivos);
+            pregunta = save(nuevapPregunta);
+            objetivos.forEach( objetivo -> objetivo.getPreguntas().add(nuevapPregunta) );
         }
         return pregunta;
     }
@@ -53,15 +55,14 @@ public class PreguntaEJB extends AbstractEJB<Pregunta, Integer> {
     /**
      * Permite obtener el listado de preguntas de una revision
      *
-     * @param id Identificador de la revision
      * @return Listado de {@link Pregunta} de la {@link Revision} identificada con
      * el id dado
      */
-    public List<PreguntaDTO> obtenerPreguntas(Integer id) {
+    public List<PreguntaDTO> get() {
         List<PreguntaDTO> preguntas = PreguntaFindAll.createQuery(entityManager,id).getResultList();
         for (PreguntaDTO pregunta : preguntas) {
             pregunta.setTopicos(topicoEJB.obtenerTopicos(pregunta.getId()));
-            pregunta.setObjetivos(objetivoEJB.obtenerObjetivosPregunta(pregunta.getId()));
+            pregunta.setObjetivos(objetivoService.findByPregunta(pregunta.getId()));
         }
         return preguntas;
     }

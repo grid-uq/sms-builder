@@ -62,13 +62,13 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
 
     public void inicializar() {
         if (getRevision() != null) {
-            preguntas = preguntaEJB.obtenerPreguntas(getRevision().getId());
+            preguntas = preguntaEJB.get();
         }
         listaObjetivos = new ArrayList<>();
     }
 
     public String registrar() {
-        preguntaEJB.registrar(codigo, descripcion, listaObjetivos);
+        preguntaEJB.save(codigo, descripcion, listaObjetivos);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         codigo = "";
         descripcion = "";

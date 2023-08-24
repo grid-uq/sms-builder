@@ -6,7 +6,7 @@ import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
-import co.edu.utp.gia.sms.negocio.RecursoEJB;
+import co.edu.utp.gia.sms.negocio.RecursoService;
 import co.edu.utp.gia.sms.negocio.UsuarioService;
 import lombok.Getter;
 import lombok.Setter;
@@ -74,11 +74,11 @@ public abstract class SeguridadBean extends AbstractBean {
     private UsuarioService usuarioService;
 
     /**
-     * Instancia del objeto de negocio {@link RecursoEJB} usadao para la gestion
+     * Instancia del objeto de negocio {@link RecursoService} usadao para la gestion
      * del {@link Recurso}
      */
     @Inject
-    private RecursoEJB recursoEJB;
+    private RecursoService recursoService;
 
     /**
      * Instancia que perite obtener los mensajes de las excepciones generadas.
@@ -120,7 +120,7 @@ public abstract class SeguridadBean extends AbstractBean {
      * acceso
      */
     private void cargarRecursos() {
-        urlRecursos = recursoEJB.buscarRecursosPublicos();
+        urlRecursos = recursoService.buscarRecursosPublicos();
         if (getUsuario() != null) {
             for (Rol rol : getUsuario().getRoles()) {
                 for (Recurso recurso : rol.getRecursos()) {
@@ -150,7 +150,7 @@ public abstract class SeguridadBean extends AbstractBean {
      * @return True si el recurso es publico, en caso contrario retorna false
      */
     public boolean verificarRecursoPublico(String path) {
-        Recurso recurso = recursoEJB.buscarRecurso(path);
+        Recurso recurso = recursoService.findByUrl(path);
         return recurso != null && recurso.isPublico();
     }
 

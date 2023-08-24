@@ -7,8 +7,8 @@ import co.edu.utp.gia.sms.query.referencia.ReferenciaGetMetadatos;
 import co.edu.utp.gia.sms.query.referencia.ReferenciaGetMetadatosByTipo;
 
 import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 
-import javax.inject.Inject;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;

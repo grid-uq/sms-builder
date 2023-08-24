@@ -17,17 +17,12 @@ import java.util.Objects;
  */
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Revision implements Entidad<Integer> {
+public class Revision {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
     private static final long serialVersionUID = -7643166662144090738L;
 
-    /**
-     * Variable que representa el atributo id de la clase
-     */
-    @Getter @Setter
-    private Integer id;
     /**
      * Variable que representa el atributo nombre de la clase
      */
@@ -47,19 +42,6 @@ public class Revision implements Entidad<Integer> {
      */
     @Getter @Setter
     private List<Objetivo> objetivos;
-
-    /**
-     * Identifica el usuario propieratio de la Revision
-     */
-    @Getter @Setter
-    @NonNull
-    private Usuario propietario;
-
-    /**
-     * Lista de usuarios con acceso a la revision
-     */
-    @Getter @Setter
-    private List<Usuario> revisores;
 
     /**
      * Lista de los pasos para la ejecución del proceso de SMS
@@ -90,17 +72,13 @@ public class Revision implements Entidad<Integer> {
 
     @Getter @Setter
     private List<Usuario> usuarios;
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Revision revision = (Revision) o;
+    @Getter @Setter
+    private List<Rol> roles;
+    @Getter @Setter
+    private List<Recurso> recursos;
+    @Getter @Setter
+    private List<Topico> topicos;
+    @Getter @Setter
+    private List<Pregunta> preguntas;
 
-        return Objects.equals(id, revision.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 953636847;
-    }
 }

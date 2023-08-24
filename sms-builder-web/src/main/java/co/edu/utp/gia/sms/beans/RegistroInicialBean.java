@@ -2,7 +2,7 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.negocio.RevisionEJB;
+import co.edu.utp.gia.sms.negocio.RevisionService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.RowEditEvent;
@@ -12,6 +12,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.util.Collections;
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga del registro inicial.
@@ -52,20 +54,20 @@ public class RegistroInicialBean extends AbstractBean {
     private SeguridadBeanImpl seguridadBean;
 
     @Inject
-    private RevisionEJB revisionEJB;
+    private RevisionService revisionService;
 
     @PostConstruct
     public void inicializar() {
         revision = (Revision) getFromSession("revision");
         if (seguridadBean.isAutenticado()) {
-            revisiones = revisionEJB.obtenerTodas(seguridadBean.getUsuario().getId());
+            revisiones = Collections.emptyList();
         }
     }
 
     public void registrar() {
-        Revision r = revisionEJB.registrar(nombre, descripcion,seguridadBean.getUsuario().getId());
+        Revision r = revisionService.save(nombre, descripcion);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        id = r.getId();
+        id = 0;
         revisiones.add(r);
         limpiarCampos();
         revision = r;
@@ -84,7 +86,7 @@ public class RegistroInicialBean extends AbstractBean {
 
     public void onRowEdit(RowEditEvent<Revision> event) {
         Revision revisionActual = event.getObject();
-        revisionEJB.actualizar(revisionActual);
+        revisionService.save(revisionActual.getNombre(),revisionActual.getDescripcion());
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
@@ -103,7 +105,6 @@ public class RegistroInicialBean extends AbstractBean {
      * @param revision Revisión a eliminar
      */
     public void eliminar(Revision revision) {
-        revisionEJB.eliminar(revision.getId());
         revisiones.remove(revision);
         this.revision = null;
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));

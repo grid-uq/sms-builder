@@ -46,15 +46,4 @@ public class AtributoCalidadService extends AbstractGenericService<AtributoCalid
                 .filter( record->record.getDescripcion().equals(descripcion) )
                 .findFirst().orElse(null);
     }
-
-    /**
-     * TODO MOVER A LA CREACION DE DATOS POR DEFECTO
-     * Permite crear los atributos de calidad por defecto para una Revision
-     */
-    public void crearAtributosCalidadPorDefecto() {
-        save(SCI,true);
-        save(CVI,false);
-        save(IRRQ,false);
-    }
-
 }

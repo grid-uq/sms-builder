@@ -1,8 +1,8 @@
 package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.entidades.Rol;
-import co.edu.utp.gia.sms.negocio.RecursoEJB;
-import co.edu.utp.gia.sms.negocio.RolEJB;
+import co.edu.utp.gia.sms.negocio.RecursoService;
+import co.edu.utp.gia.sms.negocio.RolService;
 
 import jakarta.inject.Inject;
 /**
@@ -21,12 +21,12 @@ public class RolSetup implements SetupInterface{
      * Variable que representa el atributo rolBO de la clase
      */
     @Inject
-    private RolEJB rolBO;
+    private RolService rolBO;
     /**
      * Variable que representa el atributo recursoBO de la clase
      */
     @Inject
-    private RecursoEJB recursoBO;
+    private RecursoService recursoBO;
 
     @Override
     public void setup() {
@@ -37,7 +37,7 @@ public class RolSetup implements SetupInterface{
     private void registrarRecursosRol(Integer id,String nombre,String[] recursos){
         var rol = new Rol(id,nombre);
         for (String url : recursos) {
-            var recurso = recursoBO.buscarRecurso(url);
+            var recurso = recursoBO.findByUrl(url);
             if (recurso != null) {
                 rol.getRecursos().add(recurso);
             }

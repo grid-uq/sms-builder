@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @Log
 public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     @Inject
-    private RevisionEJB revisionEJB;
+    private RevisionService revisionService;
     @Inject
     private TopicoEJB topicoEJB;
     @Inject
@@ -51,7 +51,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     }
 
     public Referencia registrar(Referencia referencia, Integer idRevision, Integer idPasoProceso) {
-        Revision revision = revisionEJB.obtener(idRevision);
+        Revision revision = revisionService.obtener(idRevision);
 
         referencia.setRevision(revision);
         referencia.setFiltro(idPasoProceso);
@@ -126,7 +126,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
      * el id dado
      */
     public List<ReferenciaDTO> obtenerTodasConEvaluacion(int idRevision) {
-        Revision revision = revisionEJB.obtenerOrThrow(idRevision);
+        Revision revision = revisionService.obtenerOrThrow(idRevision);
         List<ReferenciaDTO> referencias = obtenerTodas(revision.getPasoSeleccionado());
         for (ReferenciaDTO referencia : referencias) {
             referencia.setEvaluaciones(evaluacionCalidadEJB.obtenerEvaluaciones(referencia.getId()));

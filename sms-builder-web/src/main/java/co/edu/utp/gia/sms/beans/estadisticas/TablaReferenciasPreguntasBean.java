@@ -48,7 +48,7 @@ public class TablaReferenciasPreguntasBean extends AbstractRevisionBean {
     public void inicializar() {
         if (getRevision() != null) {
             referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
-            preguntas = preguntaEJB.obtenerPreguntas(getRevision().getId());
+            preguntas = preguntaEJB.get();
         }
     }
 

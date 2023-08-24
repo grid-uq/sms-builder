@@ -48,7 +48,7 @@ public class PreguntaDTO implements Serializable {
     @Getter
     @Setter
     @NonNull
-    private Integer id;
+    private String id;
     /**
      * Variable que representa el atributo codigo de la clase
      */
@@ -90,7 +90,7 @@ public class PreguntaDTO implements Serializable {
      * @param topicos
      * @param objetivos
      */
-    public PreguntaDTO(Integer id, String codigo, String descripcion, List<Topico> topicos, List<Objetivo> objetivos) {
+    public PreguntaDTO(String id, String codigo, String descripcion, List<Topico> topicos, List<Objetivo> objetivos) {
         this(id, codigo, descripcion);
         this.topicos = topicos;
         this.objetivos = objetivos;

@@ -50,13 +50,4 @@ public class FuenteService extends AbstractGenericService<Fuente, String> {
     public List<Fuente> getByTipoFuente(TipoFuente tipo) {
         return get().stream().filter(record->record.getTipo()==tipo).collect(Collectors.toList());
     }
-
-    /**
-     * Permite crear las fuentes por defecto para una revision
-     */
-    public void crearFuentesPorDefecto(){
-        save(INCLUSION_DIRECTA,TipoFuente.INCLUSION_DIRECTA);
-        save(SNOWBALL_BACKWARD,TipoFuente.BOLA_NIEVE);
-        save(SNOWBALL_FORWARD,TipoFuente.BOLA_NIEVE);
-    }
 }

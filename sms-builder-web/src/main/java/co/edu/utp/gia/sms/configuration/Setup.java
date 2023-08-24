@@ -1,6 +1,7 @@
 package co.edu.utp.gia.sms.configuration;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import jakarta.inject.Inject;
 /**
@@ -14,7 +15,7 @@ import jakarta.inject.Inject;
  * @since 13/06/2019
  */
 @Startup
-@jakarta.ejb.Singleton
+@Singleton
 public class Setup implements SetupInterface {
 
     @Inject
@@ -29,8 +30,27 @@ public class Setup implements SetupInterface {
     private RevisionSetup revisionSetup;
     @Inject
     private ProcesoSetup procesoSetup;
+    @Inject
+    private AtributosCalidadSetup atributosCalidadSetup;
+    @Inject
+    private FuentesSetup fuentesSetup;
     @PostConstruct
     public void setup() {
+        try{
+            revisionSetup.setup();
+        }catch ( Exception e ){
+            e.printStackTrace();
+        }
+        try{
+            atributosCalidadSetup.setup();
+        }catch ( Exception e ){
+            e.printStackTrace();
+        }
+        try{
+            fuentesSetup.setup();
+        }catch ( Exception e ){
+            e.printStackTrace();
+        }
         try {
             recursosSetup.setup();
         }catch ( Exception e ){
@@ -51,11 +71,7 @@ public class Setup implements SetupInterface {
         }catch ( Exception e ){
             e.printStackTrace();
         }
-        try{
-            revisionSetup.setup();
-        }catch ( Exception e ){
-            e.printStackTrace();
-        }
+
         try{
             procesoSetup.setup();
         }catch ( Exception e ){

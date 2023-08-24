@@ -1,12 +1,11 @@
 package co.edu.utp.gia.sms.configuration;
 
-import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
+import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.negocio.FuenteService;
-import co.edu.utp.gia.sms.negocio.RevisionService;
-
 import jakarta.inject.Inject;
+
 /**
- * Clase encargada de realizar la configuración inicial de la revision en la aplicación
+ * Clase encargada de realizar la configuración inicial de los pasos del proceso en la aplicación
  *
  * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
  * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
@@ -15,17 +14,14 @@ import jakarta.inject.Inject;
  * @version 1.0
  * @since 13/06/2019
  */
-public class RevisionSetup implements SetupInterface{
-    @Inject
-    private RevisionService revisionService;
-    @Inject
-    private AtributoCalidadService atributoCalidadService;
+public class FuentesSetup implements SetupInterface {
     @Inject
     private FuenteService fuenteService;
+
     @Override
     public void setup() {
-        if( revisionService.get().getNombre() == null ) {
-            revisionService.save("", "");
-        }
+        fuenteService.save(FuenteService.INCLUSION_DIRECTA, TipoFuente.INCLUSION_DIRECTA);
+        fuenteService.save(FuenteService.SNOWBALL_BACKWARD,TipoFuente.BOLA_NIEVE);
+        fuenteService.save(FuenteService.SNOWBALL_FORWARD,TipoFuente.BOLA_NIEVE);
     }
 }

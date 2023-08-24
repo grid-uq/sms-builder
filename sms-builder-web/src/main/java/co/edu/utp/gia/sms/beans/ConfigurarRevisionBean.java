@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.negocio.ProcesoEJB;
-import co.edu.utp.gia.sms.negocio.RevisionEJB;
+import co.edu.utp.gia.sms.negocio.RevisionService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,7 +41,7 @@ public class ConfigurarRevisionBean extends AbstractBean {
     @Inject
     private ProcesoEJB procesoEJB;
     @Inject
-    private RevisionEJB revisionEJB;
+    private RevisionService revisionService;
 
     @PostConstruct
     public void inicializar() {
@@ -52,7 +52,7 @@ public class ConfigurarRevisionBean extends AbstractBean {
     }
 
     public void actualizar() {
-        revisionEJB.actualizar(revision);
+        revisionService.save(revision.getNombre(), revision.getDescripcion());
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 

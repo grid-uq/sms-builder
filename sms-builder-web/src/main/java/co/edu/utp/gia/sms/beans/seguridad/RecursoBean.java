@@ -3,7 +3,7 @@ package co.edu.utp.gia.sms.beans.seguridad;
 import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Recurso;
-import co.edu.utp.gia.sms.negocio.RecursoEJB;
+import co.edu.utp.gia.sms.negocio.RecursoService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.RowEditEvent;
@@ -49,14 +49,14 @@ public class RecursoBean extends AbstractBean {
      * del objeto de negocio que permite la gestion de las {@link Recurso}
      */
     @Inject
-    private RecursoEJB recursoEJB;
+    private RecursoService recursoService;
 
     /**
      * Metodo encargado de inicializar los datos de la clase
      */
     @PostConstruct
     public void inicializar() {
-        recursos = recursoEJB.listar();
+        recursos = recursoService.get();
     }
 
     /**
@@ -64,9 +64,9 @@ public class RecursoBean extends AbstractBean {
      */
     public void registrar() {
         try {
-            recursoEJB.registrar(recurso);
+            recursoService.registrar(recurso);
             recurso = new Recurso();
-            recursos = recursoEJB.listar();
+            recursos = recursoService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
@@ -80,8 +80,8 @@ public class RecursoBean extends AbstractBean {
      */
     public void eliminar(Recurso recurso) {
         try {
-            recursoEJB.eliminar(recurso);
-            recursos = recursoEJB.listar();
+            recursoService.eliminar(recurso);
+            recursos = recursoService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
@@ -97,11 +97,11 @@ public class RecursoBean extends AbstractBean {
     public void onRowEdit(RowEditEvent<Recurso> event) {
         Recurso recursoActual = event.getObject();
         try {
-            recursoEJB.actualizar(recursoActual);
+            recursoService.actualizar(recursoActual);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
-            recursos = recursoEJB.listar();
+            recursos = recursoService.get();
         }
     }
 

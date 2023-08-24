@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
-import co.edu.utp.gia.sms.negocio.RevisionEJB;
+import co.edu.utp.gia.sms.negocio.RevisionService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,7 +34,7 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
     private ReferenciaEJB referenciaEJB;
 
     @Inject
-    private RevisionEJB revisionEJB;
+    private RevisionService revisionService;
 
     @Getter
     @Setter
@@ -49,7 +49,7 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
         if (getRevision() != null) {
             //referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
             referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
-            topicos = revisionEJB.obtenerTopicos(getRevision().getId());
+            topicos = revisionService.getTopicos();
         }
     }
 

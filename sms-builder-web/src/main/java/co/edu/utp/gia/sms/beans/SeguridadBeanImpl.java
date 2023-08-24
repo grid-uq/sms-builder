@@ -1,16 +1,14 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.seguridad.SeguridadBean;
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Usuario;
-import co.edu.utp.gia.sms.negocio.RevisionEJB;
+import co.edu.utp.gia.sms.negocio.RevisionService;
 import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.util.List;
 
 
 /**
@@ -39,7 +37,7 @@ public class SeguridadBeanImpl extends SeguridadBean {
 	@Setter
 	private Usuario usuario = null;
 	@Inject
-	private RevisionEJB revisionEJB;
+	private RevisionService revisionService;
 
 
 	/**
@@ -50,10 +48,7 @@ public class SeguridadBeanImpl extends SeguridadBean {
 	public void ingresar() {
 		super.ingresar();
 		if(isAutenticado()){
-			List<Revision> revisiones = revisionEJB.obtenerTodas(getUsuario().getId());
-			if( revisiones.size() > 0 ){
-				addToSession("revision", revisiones.get(0));
-			}
+			addToSession("revision", revisionService.get());
 		}
 	}
 }

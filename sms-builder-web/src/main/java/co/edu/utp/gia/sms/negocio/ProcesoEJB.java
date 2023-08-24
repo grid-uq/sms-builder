@@ -24,7 +24,7 @@ import java.util.List;
 public class ProcesoEJB extends AbstractEJB<PasoProceso, Integer> {
 
     @Inject
-    private RevisionEJB revisionEJB;
+    private RevisionService revisionService;
     @Inject
     private PasoEJB pasoEJB;
     public ProcesoEJB() {
@@ -41,7 +41,7 @@ public class ProcesoEJB extends AbstractEJB<PasoProceso, Integer> {
      */
     public PasoProceso registrar(Integer idPaso, Integer idRevision) {
         var paso = pasoEJB.obtenerOrThrow(idPaso);
-        var revision = revisionEJB.obtenerOrThrow(idRevision);
+        var revision = revisionService.obtenerOrThrow(idRevision);
         verificarOrden( revision.getPasosProceso() );
         var pasoProceso = new PasoProceso(revision.getPasosProceso().size()+1,paso,revision);
         entityManager.persist(pasoProceso);
@@ -75,7 +75,7 @@ public class ProcesoEJB extends AbstractEJB<PasoProceso, Integer> {
      * @return Listado con los pasos del proceso de la revision
      */
     public List<PasoProceso> listar(Integer id) {
-        var revision = revisionEJB.obtenerOrThrow(id);
+        var revision = revisionService.obtenerOrThrow(id);
         return revision.getPasosProceso();
     }
 

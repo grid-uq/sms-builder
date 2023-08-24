@@ -4,13 +4,15 @@ import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.CadenaBusqueda;
 import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.entidades.Revision;
+import jakarta.inject.Provider;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public record DataRoot(Revision revision) {
 	public DataRoot(){
-        this(new Revision());
+        this(new Revision("",""));
     }
 
     public <T> List<T> getRecords(Class<T> tClass){
@@ -28,5 +30,28 @@ public record DataRoot(Revision revision) {
             return (List<T>) Collections.unmodifiableList(revision().getFuentes());
         }
         return Collections.emptyList();
+    }
+
+    public <T> Provider<Collection<T>> getProvider(Class<T> tClass){
+
+        if (tClass.equals(Revision.class)) {
+            return  ()-> (Collection<T>) Collections.singletonList(revision());
+        }
+        if (tClass.equals(AtributoCalidad.class)) {
+            return  ()-> (Collection<T>) Collections.unmodifiableList(revision().getAtributosCalidad());
+        }
+        if (tClass.equals(CadenaBusqueda.class)) {
+            return  ()-> (Collection<T>) Collections.unmodifiableList(revision().getCadenasBusqueda());
+        }
+        if (tClass.equals(Fuente.class)) {
+            return  ()-> (Collection<T>) Collections.unmodifiableList(revision().getFuentes());
+        }
+        if (tClass.equals(Object.class)) {
+            return  ()-> (Collection<T>) revision().getObjetivos();
+        }
+        if (tClass.equals(Object.class)) {
+            return  ()-> (Collection<T>) revision().getPreguntas();
+        }
+        return  ()-> Collections.emptyList();
     }
 }
