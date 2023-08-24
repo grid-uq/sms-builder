@@ -38,7 +38,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     @Inject
     private EvaluacionCalidadEJB evaluacionCalidadEJB;
     @Inject
-    private MetadatoEJB metadatoEJB;
+    private MetadatoServices metadatoServices;
     @Inject
     private AtributoCalidadService atributoCalidadService;
     @Inject
@@ -100,7 +100,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
             referencia.setAbstracts(obtenerAbstract(referencia.getId()));
             referencia.setKeywords(obtenerKeywords(referencia.getId()));
             referencia.setFuente(obtenerFuente(referencia.getId()));
-            referencia.setMetadatos(metadatoEJB.obtenerMetadatos(referencia.getId()));
+            referencia.setMetadatos(metadatoServices.obtenerMetadatos(referencia.getId()));
         }
         return referencias;
     }
@@ -114,7 +114,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
      */
     private Fuente obtenerFuente(Integer id) {
         return ReferenciaGetFuentes.createQuery(entityManager,id).getResultList().stream().findFirst().orElse(null);
-        //return Fuente.valueOf(metadatoEJB.obtenerStringMetadatoByTipo(id, TipoMetadato.FUENTE));
+        //return Fuente.valueOf(metadatoServices.obtenerStringMetadatoByTipo(id, TipoMetadato.FUENTE));
     }
 
     /**
@@ -148,15 +148,15 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 //	}
 
     public String obtenerAutores(Integer idReferencia) {
-        return metadatoEJB.obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.AUTOR);
+        return metadatoServices.obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.AUTOR);
     }
 
     public String obtenerKeywords(Integer idReferencia) {
-        return metadatoEJB.obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.KEYWORD);
+        return metadatoServices.obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.KEYWORD);
     }
 
     public String obtenerAbstract(Integer idReferencia) {
-        return metadatoEJB.obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.ABSTRACT);
+        return metadatoServices.obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.ABSTRACT);
     }
 
     public void actualizarFiltro(Integer id, Integer filtro) {

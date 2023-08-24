@@ -104,7 +104,7 @@
 
 		<jsf-impl.version>2.3.9.SP08</jsf-impl.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<payaraVersion>6.2023.6</payaraVersion>
+		<payaraVersion>6.2023.8</payaraVersion>
 		<microprofileVersion>6.0</microprofileVersion>
 	</properties>
 

@@ -86,6 +86,9 @@ public class Revision implements Entidad<Integer> {
     @Getter @Setter
     private List<Termino> terminos;
 
+    @Getter @Setter
+    private List<Referencia> referencias;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

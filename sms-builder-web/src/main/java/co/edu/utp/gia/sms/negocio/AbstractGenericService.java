@@ -12,6 +12,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,6 +21,7 @@ import java.util.Optional;
  */
 public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> implements Serializable {
 
+    protected final static Provider<? extends Collection> DEFAULT_DATA_PROVIDER = Collections::emptyList;
     protected final Provider<Collection<E>> dataProvider;
     /**
      * Instancia que perite obtener los mensajes de las excepciones generadas.
@@ -28,8 +30,13 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     @Getter
     protected ExceptionMessage exceptionMessage;
 
+    protected static final <T> Collection<T> defaultDataProvider() {
+        final Collection<T> emptyList = Collections.EMPTY_LIST;
+        return emptyList;
+    }
+
     public AbstractGenericService() {
-        dataProvider = Collections::emptyList;
+        dataProvider = AbstractGenericService::defaultDataProvider;
     }
 
     public AbstractGenericService(Provider<Collection<E>> dataProvider) {
@@ -37,8 +44,12 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     }
 
     public E save(E entidad) {
+       return save(dataProvider,entidad);
+    }
+
+    protected E save(Provider<Collection<E>> dataProvider,E entidad) {
         try {
-            var stored = find(entidad.getId());
+            var stored = find(dataProvider,entidad.getId());
             if (stored.isPresent()) {
                 throw new LogicException(exceptionMessage.getRegistroExistente());
             }
@@ -50,23 +61,29 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     }
 
     public void update(E entidad) {
+        update(dataProvider,entidad);
+    }
+
+    protected void update(Provider<Collection<E>> dataProvider,E entidad) {
         try {
-            BeanUtils.copyProperties(findOrThrow(entidad.getId()),entidad);
+            requireDataProvider(dataProvider);
+            BeanUtils.copyProperties(findOrThrow(dataProvider,entidad.getId()),entidad);
         } catch (Throwable t) {
             throw new TecnicalException(t);
         }
     }
 
     public void delete(E entidad) {
-        try {
-            delete(entidad.getId());
-        } catch (Throwable t) {
-            throw new TecnicalException(t);
-        }
+        delete(dataProvider,entidad.getId());
     }
 
     public void delete(TipoId id) {
+        delete(dataProvider,id);
+    }
+
+    protected void delete(Provider<Collection<E>> dataProvider,TipoId id) {
         try {
+            requireDataProvider(dataProvider);
             dataProvider.get().remove(findOrThrow(id));
         } catch (Throwable t) {
             throw new TecnicalException(t);
@@ -74,20 +91,40 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     }
 
     public Optional<E> find(TipoId id) {
+        return find(dataProvider,id);
+    }
+
+    protected Optional<E> find(Provider<Collection<E>> dataProvider,TipoId id) {
         try {
+            requireDataProvider(dataProvider);
             return dataProvider.get().stream().filter((e) -> e.getId().equals(id)).findFirst();
         } catch (Throwable t) {
             throw new TecnicalException(t);
         }
     }
 
+
     public E findOrThrow(TipoId id) {
-        return find(id).orElseThrow(
+        return findOrThrow(dataProvider,id);
+    }
+
+    protected E findOrThrow(Provider<Collection<E>> dataProvider,TipoId id) {
+        return find(dataProvider,id).orElseThrow(
                 () -> new LogicException(exceptionMessage.getRegistroNoEncontrado()));
     }
 
     public Collection<E> get() {
+        return get(dataProvider);
+    }
+
+    protected Collection<E> get(Provider<Collection<E>> dataProvider) {
+        requireDataProvider(dataProvider);
         return dataProvider.get();
     }
 
+    private void requireDataProvider(Provider<Collection<E>> dataProvider){
+        if( dataProvider.get().equals( AbstractGenericService.defaultDataProvider() )  ) {
+            throw new UnsupportedOperationException("Requiere especificar la fuente de datos");
+        }
+    }
 }
