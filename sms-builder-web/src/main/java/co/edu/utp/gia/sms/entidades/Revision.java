@@ -1,7 +1,6 @@
 package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
-import org.dbdoclet.tag.html.Li;
 
 import java.util.List;
 import java.util.Objects;
@@ -89,6 +88,8 @@ public class Revision implements Entidad<Integer> {
     @Getter @Setter
     private List<Referencia> referencias;
 
+    @Getter @Setter
+    private List<Usuario> usuarios;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

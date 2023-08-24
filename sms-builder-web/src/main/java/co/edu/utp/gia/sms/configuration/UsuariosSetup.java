@@ -2,7 +2,7 @@ package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.negocio.RolEJB;
-import co.edu.utp.gia.sms.negocio.UsuarioEJB;
+import co.edu.utp.gia.sms.negocio.UsuarioService;
 
 import jakarta.inject.Inject;
 /**
@@ -26,7 +26,7 @@ public class UsuariosSetup implements SetupInterface{
      * Variable que representa el atributo usuarioBO de la clase
      */
     @Inject
-    private UsuarioEJB usuarioBO;
+    private UsuarioService usuarioBO;
 
     /**
      * Variable que representa el atributo rolBO de la clase
@@ -36,14 +36,14 @@ public class UsuariosSetup implements SetupInterface{
 
     @Override
     public void setup() {
-        if (usuarioBO.listar().isEmpty()) {
+        if (usuarioBO.get().isEmpty()) {
             var usuario = new Usuario();
             usuario.setNombreUsuario("root");
             usuario.setClave("12345");
             usuario.setRoles(rolBO.listar());
             usuario.setNombre("root");
             usuario.setEmail("root@email.com");
-            usuarioBO.registrar(usuario, usuario.getClave());
+            usuarioBO.create(usuario, usuario.getClave());
         }
     }
 }

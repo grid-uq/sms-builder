@@ -19,31 +19,9 @@ import java.util.UUID;
  * @version 1.0
  * @since 13/06/2019
  */
-//@NamedQuery(name = Usuario.FIND_BY_ID, query = "select usuario from Usuario usuario where usuario.id = :id")
-//@NamedQuery(name = Usuario.GET_ALL, query = "select usuario from Usuario usuario")
-//@NamedQuery(name = Usuario.AUTENTICAR, query = "select usuario from Usuario usuario where usuario.nombreUsuario = :nombreUsuario and usuario.estado = co.edu.utp.gia.sms.entidades.EstadoUsuario.ACTIVO")
 @NoArgsConstructor
 public class Usuario implements Entidad<String> {
 
-    /**
-     * Constante que identifica la consulta que permite buscar un
-     * {@link Usuario} por su id <br />
-     * {@code select usuario from Usuario usuario where usuario.id = :id}
-     */
-    public static final String FIND_BY_ID = "Usuario_findById";
-    /**
-     * Constante que identifica la consulta que permite obtener todos los
-     * {@link Usuario} registrados en el sistema <br />
-     * {@code select usuario from Usuario usuario}
-     */
-    public static final String GET_ALL = "Usuario_getAll";
-    /**
-     * Constante que identifica la consulta que permite buscar un
-     * {@link Usuario} por su {@link Usuario#nombreUsuario} y su
-     * {@link Usuario#clave}<br />
-     * {@code select usuario from Usuario usuario where usuario.nombreUsuario = :nombreUsuario and usuario.estado = co.edu.uniquindio.grid.prueba.rifa.entidades.seguridad.EstadoUsuario.ACTIVO }
-     */
-    public static final String AUTENTICAR = "Usuario_autenticar";
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */

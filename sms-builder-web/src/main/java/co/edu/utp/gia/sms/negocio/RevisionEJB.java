@@ -31,14 +31,14 @@ public class RevisionEJB extends AbstractEJB<Revision, Integer> {
     @Inject
     private FuenteService fuenteService;
     @Inject
-    private UsuarioEJB usuarioEJB;
+    private UsuarioService usuarioService;
 
     public RevisionEJB() {
         super(Revision.class, dataProvider);
     }
 
     public Revision registrar(String nombre, String descripcion,Integer idUsuario) {
-        Usuario usuario = usuarioEJB.obtenerOrThrow(idUsuario);
+        Usuario usuario = usuarioService.obtenerOrThrow(idUsuario);
         Revision revision = new Revision(nombre, descripcion,usuario);
         registrar(revision);
         atributoCalidadService.crearAtributosCalidadPorDefecto();

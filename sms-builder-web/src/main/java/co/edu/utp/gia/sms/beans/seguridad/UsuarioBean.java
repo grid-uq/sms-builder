@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.EstadoUsuario;
 import co.edu.utp.gia.sms.entidades.Usuario;
-import co.edu.utp.gia.sms.negocio.UsuarioEJB;
+import co.edu.utp.gia.sms.negocio.UsuarioService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -83,7 +83,7 @@ public abstract class UsuarioBean extends AbstractBean {
      * Variable que representa el atributo usuarioBO de la clase
      */
     @Inject
-    private UsuarioEJB usuarioEJB;
+    private UsuarioService usuarioService;
 
     /**
      * Variable que representa el atributo editId de la clase. Id de la
@@ -104,7 +104,7 @@ public abstract class UsuarioBean extends AbstractBean {
      * Metodo encargado de inicializar los datos de la clase
      */
     public void inicializar() {
-        usuarios = usuarioEJB.listar();
+        usuarios = usuarioService.get();
         setUsuario(newUsuario());
         estados = Arrays.asList(EstadoUsuario.values());
     }
@@ -121,10 +121,10 @@ public abstract class UsuarioBean extends AbstractBean {
      */
     public String registrar() {
         try {
-            usuarioEJB.registrar(getUsuario(), verificacionClave);
+            usuarioService.create(getUsuario(), verificacionClave);
             setUsuario(newUsuario());
             verificacionClave = "";
-            usuarios = usuarioEJB.listar();
+            usuarios = usuarioService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             log.log(Level.INFO,"Error al registar un usuario "+e.getMessage(),e);
@@ -140,8 +140,8 @@ public abstract class UsuarioBean extends AbstractBean {
      */
     public void eliminar(Usuario usuario) {
         try {
-            usuarioEJB.eliminar(usuario);
-            usuarios = usuarioEJB.listar();
+            usuarioService.eliminar(usuario);
+            usuarios = usuarioService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
@@ -167,13 +167,13 @@ public abstract class UsuarioBean extends AbstractBean {
     private boolean actualizar(Usuario usuario) {
         boolean exito = false;
         try {
-            usuarioEJB.actualizar(usuario, verificacionClaveEdit);
+            usuarioService.update(usuario, verificacionClaveEdit);
             exito = true;
             verificacionClaveEdit = "";
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
-            usuarios = usuarioEJB.listar();
+            usuarios = usuarioService.get();
         }
         return exito;
     }
@@ -212,7 +212,7 @@ public abstract class UsuarioBean extends AbstractBean {
      */
     public void guardar(Usuario usuario) {
         try {
-            usuarioEJB.actualizar(usuario);
+            usuarioService.update(usuario);
             setEditId(null);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
 

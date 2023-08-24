@@ -1,15 +1,14 @@
 package co.edu.utp.gia.sms.negocio;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.EstadoUsuario;
 import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.exceptions.LogicException;
+import jakarta.enterprise.context.ApplicationScoped;
 
-import jakarta.ejb.LocalBean;
-import jakarta.ejb.Stateless;
-import jakarta.persistence.criteria.*;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
@@ -22,13 +21,12 @@ import java.util.List;
  * @version 1.0
  * @since 12/11/2015
  */
-@Stateless
-@LocalBean
-public class UsuarioEJB extends AbstractEJB<Usuario, Integer> {
+@ApplicationScoped
+public class UsuarioService extends AbstractGenericService<Usuario, String> {
 
 
-    public UsuarioEJB() {
-        super(Usuario.class, dataProvider);
+    public UsuarioService() {
+        super(DB.root.revision()::getUsuarios);
     }
 
     /**
@@ -42,8 +40,8 @@ public class UsuarioEJB extends AbstractEJB<Usuario, Integer> {
         // TODO pendiente obtener el estado de una tabla de parametros de
         // configuracionen lugar de estar quemado
         Rol rolUsuario = new Rol();
-        rolUsuario.setId(2);
-        return Arrays.asList(rolUsuario);
+        rolUsuario.setId("2");
+        return List.of(rolUsuario);
     }
 
     /**
@@ -52,7 +50,7 @@ public class UsuarioEJB extends AbstractEJB<Usuario, Integer> {
      * @param usuario           Usuario a ser registrado
      * @param verificacionClave Variable de verficacion de clave
      */
-    public void registrar(Usuario usuario, String verificacionClave) {
+    public void create(Usuario usuario, String verificacionClave) {
         if (usuario == null) {
             throw new LogicException(exceptionMessage.getDatosIncompletos());
         }
@@ -62,10 +60,10 @@ public class UsuarioEJB extends AbstractEJB<Usuario, Integer> {
         if (usuario.getRoles() == null) {
             usuario.setRoles(getRolesPorDefecto());
         }
-        if (obtener(usuario.getNombreUsuario())!= null) {
+        if (findByName(usuario.getNombreUsuario()).isPresent()) {
 			throw new LogicException(exceptionMessage.getRegistroExistente());
         }
-        super.registrar(usuario);
+        super.save(usuario);
     }
 
     /**
@@ -74,15 +72,10 @@ public class UsuarioEJB extends AbstractEJB<Usuario, Integer> {
      * @param nombreUsuario Nombre de usuario del Usuario que se desea obtener
      * @return El usuario con el nombre de usuario dado, o null en caso de que no exista un usuario con el nombre de usuario dado
      */
-    private Usuario obtener(String nombreUsuario) {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Usuario> query = criteriaBuilder.createQuery(Usuario.class);
-		Root<Usuario> usuarios = query.from(Usuario.class);
-		ParameterExpression<String> p = criteriaBuilder.parameter(String.class);
-		Predicate condicion = criteriaBuilder.equal(usuarios.get("nombreUsuario"),p);
-		query.select(usuarios).where(condicion);
-
-    	return entityManager.createQuery(query).setParameter(p,nombreUsuario).getResultList().stream().findFirst().orElse(null);
+    private Optional<Usuario> findByName(String nombreUsuario) {
+        return dataProvider.get().stream()
+                .filter( usuario->usuario.getNombreUsuario().equals(nombreUsuario) )
+                .findFirst();
     }
 
     /**
@@ -91,26 +84,14 @@ public class UsuarioEJB extends AbstractEJB<Usuario, Integer> {
      * @param usuario           {@link Usuario} a ser actualizado
      * @param verificacionClave Variable de verficacion de clave
      */
-    public void actualizar(Usuario usuario, String verificacionClave) {
+    public void update(Usuario usuario, String verificacionClave) {
         if (usuario == null) {
             throw new LogicException(exceptionMessage.getDatosIncompletos());
         }
         if (!usuario.getClave().equals(verificacionClave)) {
             throw new LogicException(exceptionMessage.getClaveNoCoincide());
         }
-        actualizar(usuario);
-    }
-
-    /**
-     * Permite obtener un listado con todos los {@link Usuario}s registrados en
-     * el sistema
-     *
-     * @return {@link List} de {@link Usuario}, con todos los {@link Usuario}
-     * registrados en el sistema
-     */
-    @Override
-    public List<Usuario> listar() {
-        return entityManager.createNamedQuery(Usuario.GET_ALL, Usuario.class).getResultList();
+        update(usuario);
     }
 
     /**
@@ -126,17 +107,10 @@ public class UsuarioEJB extends AbstractEJB<Usuario, Integer> {
      * @throws LogicException Error de autenticacion En caso de
      *                        que no se encuentre el nombre de usuario proporcionado
      */
-    public Usuario autenticarUsuario(String nombreUsuario, String clave) {
-        Usuario usuario = entityManager.createNamedQuery(Usuario.AUTENTICAR, Usuario.class)
-                .setParameter("nombreUsuario", nombreUsuario)
-                .getResultList()
-                .stream()
-                .findFirst()
-                .orElse(null);
+    public Usuario login(String nombreUsuario, String clave) {
+        var usuario = findByName(nombreUsuario)
+                .orElseThrow( ()->new LogicException(exceptionMessage.getLoginFailMessage()) );
 
-        if (usuario == null) {
-            throw new LogicException(exceptionMessage.getLoginFailMessage());
-        }
         if (!usuario.getClave().equals(clave)) {
             usuario.setIntentos(usuario.getIntentos() + 1);
             if (usuario.getIntentos() >= 3) {
@@ -147,6 +121,4 @@ public class UsuarioEJB extends AbstractEJB<Usuario, Integer> {
         usuario.setIntentos(0);
         return usuario;
     }
-
-
 }

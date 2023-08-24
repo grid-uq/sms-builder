@@ -7,7 +7,7 @@ import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.negocio.RecursoEJB;
-import co.edu.utp.gia.sms.negocio.UsuarioEJB;
+import co.edu.utp.gia.sms.negocio.UsuarioService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -67,11 +67,11 @@ public abstract class SeguridadBean extends AbstractBean {
     @Setter
     private List<String> urlRecursos;
     /**
-     * Instancia del objeto de negocio {@link UsuarioEJB} usadao para la gestion
+     * Instancia del objeto de negocio {@link UsuarioService} usadao para la gestion
      * del {@link Usuario}
      */
     @Inject
-    private UsuarioEJB usuarioEJB;
+    private UsuarioService usuarioService;
 
     /**
      * Instancia del objeto de negocio {@link RecursoEJB} usadao para la gestion
@@ -100,7 +100,7 @@ public abstract class SeguridadBean extends AbstractBean {
      */
     public void ingresar() {
         try {
-            setUsuario(usuarioEJB.autenticarUsuario(nombreUsuario, clave));
+            setUsuario(usuarioService.login(nombreUsuario, clave));
             if (getUsuario() == null) {
                 throw new LogicException(exceptionMessage.getLoginFailMessage());
             }
