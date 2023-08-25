@@ -80,5 +80,6 @@ public class Revision {
     private List<Topico> topicos;
     @Getter @Setter
     private List<Pregunta> preguntas;
-
+    @Getter @Setter
+    private List<Paso> pasos;
 }

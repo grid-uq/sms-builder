@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.PreguntaEJB;
+import co.edu.utp.gia.sms.negocio.PreguntaService;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +38,7 @@ public class TablaReferenciasPreguntasBean extends AbstractRevisionBean {
     @Inject
     private ReferenciaEJB referenciaEJB;
     @Inject
-    private PreguntaEJB preguntaEJB;
+    private PreguntaService preguntaService;
 
     @Getter
     @Setter
@@ -48,7 +48,7 @@ public class TablaReferenciasPreguntasBean extends AbstractRevisionBean {
     public void inicializar() {
         if (getRevision() != null) {
             referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
-            preguntas = preguntaEJB.get();
+            preguntas = preguntaService.get();
         }
     }
 

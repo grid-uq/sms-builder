@@ -1,10 +1,10 @@
 package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.entidades.PasoProceso;
-import co.edu.utp.gia.sms.negocio.PasoEJB;
+import co.edu.utp.gia.sms.negocio.PasoService;
 import co.edu.utp.gia.sms.negocio.ProcesoEJB;
-
 import jakarta.inject.Inject;
+
 import java.util.List;
 /**
  * Clase encargada de realizar la configuración inicial del proceso del sms en la aplicación
@@ -20,7 +20,7 @@ public class ProcesoSetup implements SetupInterface{
     @Inject
     private ProcesoEJB procesoEJB;
     @Inject
-    private PasoEJB pasoEJB;
+    private PasoService pasoService;
 
     @Override
     public void setup() {
@@ -34,9 +34,9 @@ public class ProcesoSetup implements SetupInterface{
                 "etiquetaMenuReferenciasSeleccionadas"
         };
         List<PasoProceso> pasos = procesoEJB.listar(1);
-        if( pasos.size() == 0 ) {
+        if(pasos.isEmpty()) {
             for (String key : keys) {
-                procesoEJB.registrar(pasoEJB.findByName(key).getId(), 1);
+                procesoEJB.save(pasoService.findByName(key).getId());
             }
         }
     }

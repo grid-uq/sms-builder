@@ -2,7 +2,7 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.Paso;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
-import co.edu.utp.gia.sms.negocio.PasoEJB;
+import co.edu.utp.gia.sms.negocio.PasoService;
 import co.edu.utp.gia.sms.negocio.ProcesoEJB;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +30,7 @@ public class ConfigurarProcesoBean extends AbstractRevisionBean {
     @Inject
     private ProcesoEJB procesoEJB;
     @Inject
-    private PasoEJB pasoEJB;
+    private PasoService pasoService;
 
     @Getter @Setter
     private Paso pasoSeleccionado;
@@ -41,18 +41,18 @@ public class ConfigurarProcesoBean extends AbstractRevisionBean {
 
     public void inicializar() {
         if (getRevision() != null) {
-            pasos = pasoEJB.listar();
+            pasos = pasoService.get();
             pasosProceso = procesoEJB.listar(getRevision().getId());
         }
     }
 
     public void adicionar(){
-        var nuevoPaso = procesoEJB.registrar(pasoSeleccionado.getId(),getRevision().getId());
+        var nuevoPaso = procesoEJB.save(pasoSeleccionado.getId());
         pasosProceso.add( nuevoPaso );
     }
 
     public void eliminar(PasoProceso pasoProceso){
-        procesoEJB.eliminar(pasoProceso.getId());
+        procesoEJB.delete(pasoProceso.getId());
         pasosProceso.remove(pasoProceso);
     }
 

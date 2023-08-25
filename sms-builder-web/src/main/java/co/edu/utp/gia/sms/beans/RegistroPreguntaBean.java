@@ -3,9 +3,10 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.entidades.Objetivo;
+import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.PreguntaEJB;
-import co.edu.utp.gia.sms.negocio.TopicoEJB;
+import co.edu.utp.gia.sms.negocio.PreguntaService;
+import co.edu.utp.gia.sms.negocio.TopicoService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
@@ -14,10 +15,8 @@ import org.primefaces.event.SelectEvent;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de preguntas.
@@ -48,7 +47,7 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
     private String codigo;
     @Getter
     @Setter
-    private List<PreguntaDTO> preguntas;
+    private Collection<Pregunta> preguntas;
 
     @Getter
     @Setter
@@ -56,19 +55,19 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
 
 
     @Inject
-    private PreguntaEJB preguntaEJB;
+    private PreguntaService preguntaService;
     @Inject
-    private TopicoEJB topicoEJB;
+    private TopicoService topicoService;
 
     public void inicializar() {
         if (getRevision() != null) {
-            preguntas = preguntaEJB.get();
+            preguntas = preguntaService.get();
         }
         listaObjetivos = new ArrayList<>();
     }
 
     public String registrar() {
-        preguntaEJB.save(codigo, descripcion, listaObjetivos);
+        preguntaService.save(codigo, descripcion, listaObjetivos);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         codigo = "";
         descripcion = "";
@@ -77,7 +76,7 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
 
     @Override
     public void actualizar(PreguntaDTO objeto) {
-        preguntaEJB.actualizar(objeto);
+        preguntaService.update(objeto);
     }
 
 
@@ -86,8 +85,8 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
      *
      * @param pregunta pregunta a eliminar
      */
-    public void eliminar(PreguntaDTO pregunta) {
-        preguntaEJB.eliminar(pregunta.getId());
+    public void eliminar(Pregunta pregunta) {
+        preguntaService.delete(pregunta.getId());
         preguntas.remove(pregunta);
         mostrarMensajeGeneral("Pregunta eliminada");
     }
@@ -98,7 +97,7 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
      * @param topico Topico de la pregunta a eliminar
      */
     public void eliminarTopico(PreguntaDTO pregunta, Topico topico) {
-        topicoEJB.eliminar(topico.getId());
+        topicoService.eliminar(topico.getId());
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         pregunta.getTopicos().remove(topico);
     }

@@ -1,10 +1,7 @@
 package co.edu.utp.gia.sms.negocio;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Paso;
-import co.edu.utp.gia.sms.query.paso.PasoFindAll;
-import co.edu.utp.gia.sms.query.paso.PasoFindByName;
-
-import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
  * gestion del {@link Paso}.
@@ -16,19 +13,15 @@ import java.util.List;
  * @version 1.0
  * @since 12/11/2015
  */
-public class PasoEJB extends AbstractEJB<Paso, Integer> {
+public class PasoService extends AbstractGenericService<Paso, String> {
 
-    public PasoEJB() {
-        super(Paso.class, dataProvider);
+    public PasoService() {
+        super(DB.root.getProvider(Paso.class));
     }
 
     public Paso findByName(String nombre){
-        return PasoFindByName.createQuery(entityManager,nombre)
-                .getResultStream().findFirst().orElse(null);
-    }
-
-    @Override
-    public List<Paso> listar() {
-        return PasoFindAll.createQuery(entityManager).getResultList();
+        return dataProvider.get().stream()
+                .filter( paso -> paso.getNombre().equals(nombre) )
+                .findFirst().orElse(null);
     }
 }

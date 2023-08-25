@@ -117,6 +117,10 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
         return get(dataProvider);
     }
 
+    public int count(){
+        return dataProvider.get().size();
+    }
+
     protected Collection<E> get(Provider<Collection<E>> dataProvider) {
         requireDataProvider(dataProvider);
         return dataProvider.get();

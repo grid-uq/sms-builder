@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.entidades.Paso;
-import co.edu.utp.gia.sms.negocio.PasoEJB;
+import co.edu.utp.gia.sms.negocio.PasoService;
 import co.edu.utp.gia.sms.negocio.RecursoService;
 
 import jakarta.inject.Inject;
@@ -20,7 +20,7 @@ public class PasosSetup implements SetupInterface {
     private RecursoService recursoService;
 
     @Inject
-    private PasoEJB pasoEJB;
+    private PasoService pasoService;
 
     @Override
     public void setup() {
@@ -44,8 +44,8 @@ public class PasosSetup implements SetupInterface {
         };
 
         for (var i = 0; i < recursos.length; i++) {
-            if( pasoEJB.findByName(keys[i]) == null ) {
-                pasoEJB.registrar(new Paso(keys[i], recursoService.findByUrl(recursos[i])));
+            if( pasoService.findByName(keys[i]) == null ) {
+                pasoService.registrar(new Paso(keys[i], recursoService.findByUrl(recursos[i])));
             }
         }
     }

@@ -20,7 +20,7 @@ import java.util.List;
 @ApplicationScoped
 public class ObjetivoService extends AbstractGenericService<Objetivo, String> {
 	@Inject
-	private PreguntaEJB preguntaEJB;
+	private PreguntaService preguntaService;
 
 	public ObjetivoService() {
 		super(DB.root.getProvider(Objetivo.class));
@@ -44,7 +44,7 @@ public class ObjetivoService extends AbstractGenericService<Objetivo, String> {
 	 * @return List< Objetivo > relacionados con la preguna
 	 */
 	public List<Objetivo> findByPregunta(String id) {
-		return preguntaEJB.obtener(id).getObjetivos();
+		return preguntaService.obtener(id).getObjetivos();
 	}
 
 }

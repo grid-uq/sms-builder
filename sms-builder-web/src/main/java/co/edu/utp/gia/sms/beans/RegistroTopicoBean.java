@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.TopicoEJB;
+import co.edu.utp.gia.sms.negocio.TopicoService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
@@ -32,9 +32,9 @@ public class RegistroTopicoBean extends GenericBean<Topico> {
     private String descripcion;
     @Getter
     @Setter
-    private Integer id;
+    private String id;
     @Inject
-    private TopicoEJB topicoEJB;
+    private TopicoService topicoService;
 
 
     /**
@@ -42,9 +42,9 @@ public class RegistroTopicoBean extends GenericBean<Topico> {
      */
     public void registrar() {
         Topico topico = null;
-        id = (Integer) getAndRemoveFromSession("idPregunta");
+        id = getAndRemoveFromSession("idPregunta").toString();
         if (id != null) {
-            topico = topicoEJB.registrar(id, descripcion);
+            topico = topicoService.save(id, descripcion);
         }
         PrimeFaces.current().dialog().closeDynamic(topico);
     }

@@ -34,7 +34,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     @Inject
     private RevisionService revisionService;
     @Inject
-    private TopicoEJB topicoEJB;
+    private TopicoService topicoService;
     @Inject
     private EvaluacionCalidadEJB evaluacionCalidadEJB;
     @Inject
@@ -42,7 +42,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     @Inject
     private AtributoCalidadService atributoCalidadService;
     @Inject
-    private PreguntaEJB preguntaEJB;
+    private PreguntaService preguntaService;
     @Inject
     private ProcesoEJB procesoEJB;
 
@@ -194,7 +194,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 
     public void adicionarTopico(Integer id, Integer idTopico) {
         Referencia referencia = obtener(id);
-        Topico topico = topicoEJB.obtener(idTopico);
+        Topico topico = topicoService.obtener(idTopico);
         referencia.getTopicos().add(topico);
     }
 
@@ -334,7 +334,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
         AtributoCalidad atributoCalidad = atributoCalidadService.findByDescripcion(AtributoCalidadService.IRRQ);
         EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
-        int totalPreguntas = (int) preguntaEJB.totalPreguntas();
+        int totalPreguntas = (int) preguntaService.count();
         int totalPreguntasRelacionadas = (int) calcularTotalPreguntasRelacionadas(referencia.getId());
         float porcentaje = totalPreguntasRelacionadas * 100.0f / totalPreguntas;
 

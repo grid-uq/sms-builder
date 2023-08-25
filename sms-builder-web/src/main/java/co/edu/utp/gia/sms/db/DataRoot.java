@@ -1,9 +1,6 @@
 package co.edu.utp.gia.sms.db;
 
-import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-import co.edu.utp.gia.sms.entidades.CadenaBusqueda;
-import co.edu.utp.gia.sms.entidades.Fuente;
-import co.edu.utp.gia.sms.entidades.Revision;
+import co.edu.utp.gia.sms.entidades.*;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -46,11 +43,20 @@ public record DataRoot(Revision revision) {
         if (tClass.equals(Fuente.class)) {
             return  ()-> (Collection<T>) Collections.unmodifiableList(revision().getFuentes());
         }
-        if (tClass.equals(Object.class)) {
+        if (tClass.equals(Objetivo.class)) {
             return  ()-> (Collection<T>) revision().getObjetivos();
         }
-        if (tClass.equals(Object.class)) {
+        if (tClass.equals(Pregunta.class)) {
             return  ()-> (Collection<T>) revision().getPreguntas();
+        }
+        if (tClass.equals(Topico.class)) {
+            return  ()-> (Collection<T>) revision().getTopicos();
+        }
+        if (tClass.equals(PasoProceso.class)) {
+            return  ()-> (Collection<T>) revision().getPasosProceso();
+        }
+        if (tClass.equals(Paso.class)) {
+            return  ()-> (Collection<T>) revision().getPasos();
         }
         return  ()-> Collections.emptyList();
     }

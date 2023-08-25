@@ -25,6 +25,10 @@ public class Topico implements Entidad<String> {
     @NonNull
     private String descripcion;
 
+    @Getter @Setter
+    @NonNull
+    private Pregunta Pregunta;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
