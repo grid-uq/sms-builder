@@ -3,16 +3,17 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.negocio.ProcesoEJB;
+import co.edu.utp.gia.sms.negocio.ProcesoService;
 import co.edu.utp.gia.sms.negocio.RevisionService;
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serial;
+import java.util.Collection;
 
 /**
  * Clase controladora de interfaz web que se encarga de la configuración de una revision.
@@ -30,16 +31,17 @@ public class ConfigurarRevisionBean extends AbstractBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = -6995163695300909108L;
     @Getter
     @Setter
     private Revision revision;
     @Getter
-    private List<PasoProceso> pasos;
+    private Collection<PasoProceso> pasos;
     @Inject
     private SeguridadBeanImpl seguridadBean;
     @Inject
-    private ProcesoEJB procesoEJB;
+    private ProcesoService procesoService;
     @Inject
     private RevisionService revisionService;
 
@@ -47,7 +49,7 @@ public class ConfigurarRevisionBean extends AbstractBean {
     public void inicializar() {
         if (seguridadBean.isAutenticado()) {
             revision = (Revision) getFromSession("revision");
-            pasos = procesoEJB.listar(revision.getId());
+            pasos = procesoService.get();
         }
     }
 

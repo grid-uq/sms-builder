@@ -2,7 +2,7 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
-import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
+import co.edu.utp.gia.sms.negocio.EstadisticaService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.tagcloud.DefaultTagCloudItem;
@@ -12,6 +12,8 @@ import org.primefaces.model.tagcloud.TagCloudModel;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.io.Serial;
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga nubes de palabras usadas en las referencias.
@@ -30,12 +32,13 @@ public class PalabrasClaveBean extends AbstractRevisionBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = -2705046687022203958L;
     @Getter
     @Setter
     private TagCloudModel modelo;
     @Inject
-    private EstadisticaEJB estadisticaEJB;
+    private EstadisticaService estadisticaService;
 
     @Getter
     @Setter
@@ -54,7 +57,7 @@ public class PalabrasClaveBean extends AbstractRevisionBean {
     }
 
     public void crearModelo() {
-        palabras = estadisticaEJB.obtenerPalabrasClave(getRevision().getId(), minimo);
+        palabras = estadisticaService.obtenerPalabrasClave(minimo);
         modelo = new DefaultTagCloudModel();
         palabras.forEach(d ->
                 modelo.addTag(new DefaultTagCloudItem(d.getEtiqueta(), d.getValor().intValue()))

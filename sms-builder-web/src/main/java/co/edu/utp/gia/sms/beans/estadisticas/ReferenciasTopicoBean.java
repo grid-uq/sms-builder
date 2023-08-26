@@ -1,11 +1,13 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
-import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Named;
+import java.io.Serial;
+
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de los tópicos.
  *
@@ -23,6 +25,7 @@ public class ReferenciasTopicoBean extends EstaditicaDatoDTOBaseBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = -7097161925478814637L;
     @Getter
     @Setter
@@ -39,9 +42,9 @@ public class ReferenciasTopicoBean extends EstaditicaDatoDTOBaseBean {
 
     public void onChangePregunta() {
         if (codigo != null) {
-            setDatos(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo));
+            setDatos(getEstadisticaService().obtenerReferenciasTopico(codigo));
         } else {
-            setDatos(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId()));
+            setDatos(getEstadisticaService().obtenerReferenciasTopico());
         }
         crearModelo();
     }

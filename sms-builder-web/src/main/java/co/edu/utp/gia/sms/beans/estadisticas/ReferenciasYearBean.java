@@ -11,6 +11,8 @@ import org.primefaces.model.charts.bar.BarChartModel;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -30,6 +32,7 @@ public class ReferenciasYearBean extends EstaditicaSerieDatoDTOBaseBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 1765173044631798246L;
 
     @Inject
@@ -47,15 +50,15 @@ public class ReferenciasYearBean extends EstaditicaSerieDatoDTOBaseBean {
         setTipoGrafica("bar");
         setTiposGrafica(new String[]{"bar"});
         if (getRevision() != null) {
-            addSerie(getEstadisticaEJB().obtenerReferenciasYear(getRevision().getId()),"All");
-//            BarChartDataSet serie = crearBarSerieFromListDatoDTO(getEstadisticaEJB().obtenerReferenciasYear(getRevision().getId()),"All");
+            addSerie(getEstadisticaService().obtenerReferenciasYear(),"All");
+//            BarChartDataSet serie = crearBarSerieFromListDatoDTO(getEstadisticaService().obtenerReferenciasYear(getRevision().getId()),"All");
             inicializarYears(getDatosSeries().get("All"));
 //            addSerie(serie);
 
-            List<AtributoCalidad> atributosCalidad = atributoCalidadService.get(getRevision().getId());
+            var atributosCalidad = atributoCalidadService.get();
             for (AtributoCalidad atributoCalidad : atributosCalidad) {
-                addSerie(getEstadisticaEJB().obtenerReferenciasYear(getRevision().getId(), atributoCalidad.getId()),atributoCalidad.getDescripcion());
-//                serie = crearBarSerieFromListDatoDTO(getEstadisticaEJB().obtenerReferenciasYear(getRevision().getId(), atributoCalidad.getId()),atributoCalidad.getDescripcion());
+                addSerie(getEstadisticaService().obtenerReferenciasYear(atributoCalidad.getId()),atributoCalidad.getDescripcion());
+//                serie = crearBarSerieFromListDatoDTO(getEstadisticaService().obtenerReferenciasYear(getRevision().getId(), atributoCalidad.getId()),atributoCalidad.getDescripcion());
 //                addSerie(serie);
             }
             crearModelo();

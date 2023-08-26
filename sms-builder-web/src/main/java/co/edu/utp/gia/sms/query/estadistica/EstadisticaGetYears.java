@@ -1,30 +1,33 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
+import co.edu.utp.gia.sms.db.DB;
+import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.query.Queries;
+import jakarta.inject.Provider;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.stream.Stream;
 
 /**
  * Consulta que permite obtener el listado de años que comprenden las Referencias de la Revision
  */
-@Entity
-@NamedQuery(name = EstadisticaGetYears.NAME, query = EstadisticaGetYears.QUERY)
 public class EstadisticaGetYears extends Queries{
-    public static final String NAME = "Estadistica.getYears";
-    public static final String QUERY = "select distinct r.year from Referencia r  where r.revision.id = :id order by r.year ASC";
+    /**
+     * Consulta que permite obtener el listado de años que comprenden las Referencias de la Revision
+     *
+     * @return Stream<DatoDTO> que representa el resultado de la consulta
+     */
+    public static Stream<String> createQuery() {
+        return createQuery(DB.root.revision()::getReferencias);
+    }
 
     /**
      * Consulta que permite obtener el listado de años que comprenden las Referencias de la Revision
      *
-     * @param entityManager Para la ejecución de la consulta
-     * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
-     * @return TypedQuery< String > que representa la consulta
+     * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
+     * @return Stream<DatoDTO> que representa el resultado de la consulta
      */
-    public static TypedQuery<String> createQuery(EntityManager entityManager, Integer id){
-        return entityManager.createNamedQuery(NAME,String.class)
-                .setParameter("id",id);
+    public static Stream<String> createQuery(Provider<Collection<Referencia>> dataProvider) {
+        return dataProvider.get().stream().map(Referencia::getYear).distinct();
     }
 }

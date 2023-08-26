@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import jakarta.persistence.*;
-import java.util.Objects;
+import java.io.Serial;
+import java.util.UUID;
 
 /**
  * Clase que representa una evaluación de calidad en un SMS.
@@ -20,13 +20,15 @@ import java.util.Objects;
  * @since 23/06/2019
  */
 @NoArgsConstructor
-public class EvaluacionCalidad  {
-
+public class EvaluacionCalidad implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 3246469713521362393L;
 
+    @Getter @Setter
+    private String id = UUID.randomUUID().toString();
     /**
      * Instancia de la referencia que se esta evaluando
      */
@@ -77,15 +79,9 @@ public class EvaluacionCalidad  {
      */
     public void calcularEvaluacionCualitativa() {
         switch (evaluacionCualitativa) {
-            case NO_CUMPLE:
-                setEvaluacionCuantitativa(0.0F);
-                break;
-            case PARCIALMENTE:
-                setEvaluacionCuantitativa(0.5F);
-                break;
-            case CUMPLE:
-                setEvaluacionCuantitativa(1.0F);
-                break;
+            case NO_CUMPLE -> setEvaluacionCuantitativa(0.0F);
+            case PARCIALMENTE -> setEvaluacionCuantitativa(0.5F);
+            case CUMPLE -> setEvaluacionCuantitativa(1.0F);
         }
     }
 

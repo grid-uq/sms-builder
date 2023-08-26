@@ -1,33 +1,35 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
+import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.query.Queries;
+import jakarta.inject.Provider;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.stream.Stream;
 
 /**
  * Consulta que permite obtener el número de referencias por Tipo en una revision
  */
-@Entity
-@NamedQuery(name = EstadisticaReferenciaByTipo.NAME, query = EstadisticaReferenciaByTipo.QUERY)
 public class EstadisticaReferenciaByTipo extends Queries {
-    public static final String NAME = "Estadistica.referenciaByTipo";
-    public static final String QUERY = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.tipo, COUNT(1) ) " +
-            "from Revision revision inner join revision.pasoSeleccionado.referencias r " +
-            "where revision.id = :id GROUP BY r.tipo ORDER BY r.tipo";
 
     /**
-     * Consulta que permite obtener el número de referencias por Tipo en una revision
+     * Consulta que permite obtener el número de referencias por Tipo en la revision
      *
-     * @param entityManager Para la ejecución de la consulta
-     * @param id            Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
      * @return TypedQuery<DatoDTO> que representa la consulta
      */
-    public static TypedQuery<DatoDTO> createQuery(EntityManager entityManager, Integer id) {
-        return entityManager.createNamedQuery(NAME, DatoDTO.class)
-                .setParameter("id", id);
+    public static Stream<DatoDTO> createQuery() {
+        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias);
+    }
+
+    /**
+     * Consulta que permite obtener el número de referencias por Tipo en la revision
+     *
+     * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
+     * @return Stream<DatoDTO> que representa el resultado de la consulta
+     */
+    public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider) {
+        return EstadisticaReferenciaByAny.createQuery(dataProvider,Referencia::getTipo);
     }
 }

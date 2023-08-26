@@ -12,7 +12,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,7 +20,6 @@ import java.util.Optional;
  */
 public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> implements Serializable {
 
-    protected final static Provider<? extends Collection> DEFAULT_DATA_PROVIDER = Collections::emptyList;
     protected final Provider<Collection<E>> dataProvider;
     /**
      * Instancia que perite obtener los mensajes de las excepciones generadas.
@@ -30,9 +28,8 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     @Getter
     protected ExceptionMessage exceptionMessage;
 
-    protected static final <T> Collection<T> defaultDataProvider() {
-        final Collection<T> emptyList = Collections.EMPTY_LIST;
-        return emptyList;
+    protected static <T> Collection<T> defaultDataProvider() {
+        return (Collection<T>) Collections.EMPTY_LIST;
     }
 
     public AbstractGenericService() {

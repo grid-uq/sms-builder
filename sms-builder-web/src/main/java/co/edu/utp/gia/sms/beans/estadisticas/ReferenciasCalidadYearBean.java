@@ -4,11 +4,12 @@ import co.edu.utp.gia.sms.beans.estadisticas.util.SerieDatos;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
-import lombok.Getter;
-
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
+
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -34,6 +35,7 @@ public class ReferenciasCalidadYearBean extends EstaditicaDatoDTOBaseBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 1943642325865821264L;
 
     public void inicializar() {
@@ -43,11 +45,11 @@ public class ReferenciasCalidadYearBean extends EstaditicaDatoDTOBaseBean {
         setTipoGrafica("bar");
         setTiposGrafica(new String[]{"bar"});
         if (getRevision() != null) {
-            addSerie(getEstadisticaEJB().obtenerReferenciasCalidadYear(getRevision().getId()),"All");
+            addSerie(getEstadisticaService().obtenerReferenciasCalidadYear(),"All");
             inicializarYears(getDatosSeries().get("All"));
-            List<AtributoCalidad> atributosCalidad = atributoCalidadService.get(getRevision().getId());
+            var atributosCalidad = atributoCalidadService.get();
             for (AtributoCalidad atributoCalidad : atributosCalidad) {
-                addSerie(getEstadisticaEJB().obtenerReferenciasCalidadYear(getRevision().getId(), atributoCalidad.getId()),atributoCalidad.getDescripcion());
+                addSerie(getEstadisticaService().obtenerReferenciasCalidadYear( atributoCalidad.getId()),atributoCalidad.getDescripcion());
             }
             crearModelo();
         }

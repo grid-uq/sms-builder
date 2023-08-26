@@ -3,10 +3,8 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.entidades.Referencia;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
  * gestion del {@link PasoProceso}.
@@ -19,13 +17,13 @@ import java.util.List;
  * @since 12/11/2015
  */
 @ApplicationScoped
-public class ProcesoEJB extends AbstractGenericService<PasoProceso, String> {
+public class ProcesoService extends AbstractGenericService<PasoProceso, String> {
 
     @Inject
     private RevisionService revisionService;
     @Inject
     private PasoService pasoService;
-    public ProcesoEJB() {
+    public ProcesoService() {
         super(DB.root.getProvider(PasoProceso.class));
     }
 
@@ -39,24 +37,32 @@ public class ProcesoEJB extends AbstractGenericService<PasoProceso, String> {
     public PasoProceso save(String idPaso) {
         var paso = pasoService.findOrThrow(idPaso);
         var revision = revisionService.get();
-        verificarOrden( revision.getPasosProceso() );
+        checkOrder( );
         var pasoProceso = new PasoProceso(revision.getPasosProceso().size()+1,paso);
         save(pasoProceso);
         revision.setPasoSeleccionado(pasoProceso);
         return pasoProceso;
     }
 
+    /**
+     * Permite eliminar un paso del proceso.
+     * @param id Identificador del paso a remover del proceso.
+     */
+    @Override
     public void delete(String id) {
         var pasoProceso = findOrThrow(id);
         super.delete(pasoProceso);
 
-        verificarOrden();
+        checkOrder();
         var indice = count() ;
-        pasoProceso.getRevision().setPasoSeleccionado(pasoProceso.getRevision().getPasosProceso().get(indice));
-        super.eliminar(pasoProceso);
+        var paso = findByOrden(indice);
+        revisionService.get().setPasoSeleccionado(paso);
     }
 
-    private void verificarOrden() {
+    /**
+     * Reordena el conjunto de pasos tras la eliminación de uno de los pasos
+     */
+    private void checkOrder() {
         int i = 1;
         for (var paso:dataProvider.get()) {
             if( paso.getOrden() != i ){
@@ -67,26 +73,34 @@ public class ProcesoEJB extends AbstractGenericService<PasoProceso, String> {
     }
 
     /**
-     * Permite obtener los pasos del proceso de una revision dado el id de la revision
-     * @param id ID de la revision de la que se desean obtener los pasos del proceso
-     * @return Listado con los pasos del proceso de la revision
+     * Adiciona una referencia al paso
+     * @param idPasoProceso Identificador del paso al que se desea adicionar la referencia
+     * @param referencia Referencia a ser adicionada
      */
-    public List<PasoProceso> listar(Integer id) {
-        var revision = revisionService.obtenerOrThrow(id);
-        return revision.getPasosProceso();
-    }
-
-    public void addReferencia(Integer idPasoProceso, Referencia referencia) {
-        var paso = obtenerOrThrow(idPasoProceso);
+    public void addReferencia(String idPasoProceso, Referencia referencia) {
+        var paso = findOrThrow(idPasoProceso);
         paso.getReferencias().add(referencia);
     }
 
-    public void removeReferencia(Integer idPasoProceso, Referencia referencia) {
-        var paso = obtenerOrThrow(idPasoProceso);
+    /**
+     * Permite remover una referencia de un paso
+     * @param idPasoProceso Identificador del paso del que se desea remover la referencia
+     * @param referencia Referencia que se desea remover.
+     */
+    public void removeReferencia(String idPasoProceso, Referencia referencia) {
+        var paso = findOrThrow(idPasoProceso);
         paso.getReferencias().remove(referencia);
     }
 
+    /**
+     * Permite obtener un paso basado en su posición dentro del proceso
+     * @param orden Posición que ocupa un paso dentro del proceso
+     * @return El paso correspondiente a la posición dada.
+     */
     public PasoProceso findByOrden(int orden){
-
+        return dataProvider.get().stream()
+                .filter( pasoProceso -> pasoProceso.getOrden()==orden )
+                .findFirst()
+                .orElse(null);
     }
 }

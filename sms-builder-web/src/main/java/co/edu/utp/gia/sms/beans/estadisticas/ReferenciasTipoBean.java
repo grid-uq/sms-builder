@@ -4,6 +4,9 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
+
+import java.io.Serial;
+
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de los tipos de referencias.
  *
@@ -21,6 +24,7 @@ public class ReferenciasTipoBean extends EstaditicaDatoDTOBaseBean {
 	/**
 	 * Variable que representa el atributo serialVersionUID de la clase
 	 */
+	@Serial
 	private static final long serialVersionUID = 8942280676662337920L;
 
 	public void inicializar() {
@@ -28,7 +32,7 @@ public class ReferenciasTipoBean extends EstaditicaDatoDTOBaseBean {
 		setEjeY("# "+getMessage(MessageConstants.SPS));
 		setTitulo(getEjeY() + " - " + getEjeX());
 		if (getRevision() != null) {
-			setDatos(getEstadisticaEJB().obtenerReferenciasTipo(getRevision().getId()));
+			setDatos(getEstadisticaService().obtenerReferenciasTipo());
 			crearModelo();
 		}
 	}

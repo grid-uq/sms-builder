@@ -2,19 +2,19 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.seguridad.SeguridadBean;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
-import co.edu.utp.gia.sms.negocio.ProcesoEJB;
+import co.edu.utp.gia.sms.negocio.ProcesoService;
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
-import jakarta.faces.annotation.ManagedProperty;
-import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión del proceso.
  *
@@ -30,9 +30,9 @@ import java.util.List;
 public class ProcesoBean extends AbstractRevisionBean {
 
     @Inject
-    private ProcesoEJB procesoEJB;
+    private ProcesoService procesoService;
     @Getter
-    private List<PasoProceso> pasosProceso;
+    private Collection<PasoProceso> pasosProceso;
 
     @Inject
     @ManagedProperty("#{seguridadBean}")
@@ -43,7 +43,7 @@ public class ProcesoBean extends AbstractRevisionBean {
 
     public void inicializar() {
         if (getRevision() != null) {
-            pasosProceso = procesoEJB.listar(getRevision().getId());
+            pasosProceso = procesoService.get();
         } else {
             pasosProceso = new ArrayList<>();
         }

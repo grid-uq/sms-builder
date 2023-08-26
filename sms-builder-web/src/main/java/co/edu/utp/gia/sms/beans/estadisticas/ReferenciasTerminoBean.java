@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
+
+import java.io.Serial;
+
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de los terminos usados para clasificar las referencias.
  *
@@ -23,6 +26,7 @@ public class ReferenciasTerminoBean extends EstaditicaDatoDTOBaseBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = -7097161925478814637L;
     @Getter
     @Setter
@@ -40,9 +44,9 @@ public class ReferenciasTerminoBean extends EstaditicaDatoDTOBaseBean {
 
     public void onChangePregunta() {
         if ( "2".equals(informacion) ) {
-            setDatos(getEstadisticaEJB().obtenerReferenciasSinonimo(getRevision().getId()));
+            setDatos(getEstadisticaService().obtenerReferenciasSinonimo());
         } else {
-            setDatos(getEstadisticaEJB().obtenerReferenciasTermino(getRevision().getId()));
+            setDatos(getEstadisticaService().obtenerReferenciasTermino());
         }
         crearModelo();
     }

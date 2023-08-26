@@ -2,7 +2,7 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.TipoFuente;
-import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
+import co.edu.utp.gia.sms.negocio.EstadisticaService;
 import co.edu.utp.gia.sms.negocio.RevisionService;
 import lombok.Getter;
 
@@ -42,7 +42,7 @@ public class ResumenBean extends AbstractRevisionBean{
     @Inject
     private RevisionService revisionService;
     @Inject
-    private EstadisticaEJB estadisticaEJB;
+    private EstadisticaService estadisticaService;
     @Override
     public void inicializar() {
         if( getRevision() != null ) {
@@ -50,7 +50,7 @@ public class ResumenBean extends AbstractRevisionBean{
             numeroReferenciasBaseDatos = revisionService.totalReferencias(TipoFuente.BASE_DATOS);
             numeroReferenciasRepetidas = revisionService.totalReferenciasRepetidas();
             numeroReferenciasSeleccionadas = revisionService.totalReferenciasSeleccionadas();
-            referenciasPorFuente = estadisticaEJB.obtenerReferenciasTipoFuente();
+            referenciasPorFuente = estadisticaService.obtenerReferenciasTipoFuente();
             numeroReferenciasDescartadas = numeroReferencias - numeroReferenciasSeleccionadas - numeroReferenciasRepetidas;
             numeroReferenciasSeleccionadasBaseDatos = revisionService.totalReferenciasPaso(TipoFuente.BASE_DATOS);
             numeroReferenciasSeleccionadasBolaNieve = revisionService.totalReferenciasPaso(TipoFuente.BOLA_NIEVE);

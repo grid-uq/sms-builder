@@ -4,7 +4,7 @@ import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
+import co.edu.utp.gia.sms.negocio.EstadisticaService;
 import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
 import co.edu.utp.gia.sms.negocio.RevisionService;
 import lombok.Getter;
@@ -13,6 +13,8 @@ import lombok.Setter;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.io.Serial;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +35,7 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = -5710032002326306549L;
     @Getter
     @Setter
@@ -42,7 +45,7 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
     @Inject
     private RevisionService revisionService;
     @Inject
-    private EstadisticaEJB estadisticaEJB;
+    private EstadisticaService estadisticaService;
 
     @Getter @Setter
     private List<String> years;
@@ -63,7 +66,7 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
             referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId())
                     .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
             topicos = revisionService.getTopicos();
-            years = estadisticaEJB.obtenerYears( getRevision().getId() );
+            years = estadisticaService.obtenerYears( );
         }
     }
 

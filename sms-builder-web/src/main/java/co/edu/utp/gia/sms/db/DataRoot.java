@@ -58,6 +58,7 @@ public record DataRoot(Revision revision) {
         if (tClass.equals(Paso.class)) {
             return  ()-> (Collection<T>) revision().getPasos();
         }
-        return  ()-> Collections.emptyList();
+
+        return Collections::emptyList;
     }
 }

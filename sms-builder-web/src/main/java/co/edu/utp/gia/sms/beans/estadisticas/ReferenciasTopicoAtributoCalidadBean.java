@@ -10,6 +10,8 @@ import lombok.Setter;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -29,6 +31,7 @@ public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTO
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 3695939063364135580L;
 
     @Inject
@@ -57,18 +60,18 @@ public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTO
     public void onChangePregunta() {
         getDatosSeries().clear();
         if (codigo != null) {
-            addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo),"All");
+            addSerie(getEstadisticaService().obtenerReferenciasTopicoPregunta(codigo),"All");
         } else {
-            addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId()),"All");
+            addSerie(getEstadisticaService().obtenerReferenciasTopico(),"All");
         }
         inicializarTopicos(getDatosSeries().get("All").getDatos());
 
-        List<AtributoCalidad> atributosCalidad = atributoCalidadService.get(getRevision().getId());
+        var atributosCalidad = atributoCalidadService.get();
         for (AtributoCalidad atributoCalidad : atributosCalidad) {
             if (codigo != null) {
-                addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo, atributoCalidad.getId()),atributoCalidad.getDescripcion());
+                addSerie(getEstadisticaService().obtenerReferenciasTopico(codigo, atributoCalidad.getId()),atributoCalidad.getDescripcion());
             } else {
-                addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), atributoCalidad.getId()),atributoCalidad.getDescripcion());
+                addSerie(getEstadisticaService().obtenerReferenciasTopico(atributoCalidad.getId()),atributoCalidad.getDescripcion());
             }
         }
 

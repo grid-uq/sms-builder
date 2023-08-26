@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
+
+import java.io.Serial;
+
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de los tipos de fuente.
  *
@@ -24,6 +27,7 @@ public class ReferenciasTipoFuenteBean extends EstaditicaDatoDTOBaseBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = -5273832765304254823L;
     @Getter
     @Setter
@@ -35,7 +39,7 @@ public class ReferenciasTipoFuenteBean extends EstaditicaDatoDTOBaseBean {
         setTitulo(getEjeY() + " - " + getEjeX());
 
         if (getRevision() != null) {
-            setDatos(getEstadisticaEJB().obtenerReferenciasTipoFuente(getRevision().getId()));
+            setDatos(getEstadisticaService().obtenerReferenciasTipoFuente());
 
             crearModelo();
 
@@ -46,9 +50,9 @@ public class ReferenciasTipoFuenteBean extends EstaditicaDatoDTOBaseBean {
     public void onChangeTipoFuente() {
         getDatosSeries().clear();
         if (tipo == null) {
-            setDatos(getEstadisticaEJB().obtenerReferenciasTipoFuente(getRevision().getId()));
+            setDatos(getEstadisticaService().obtenerReferenciasTipoFuente());
         } else {
-            setDatos(getEstadisticaEJB().obtenerReferenciasTipoFuenteNombre(getRevision().getId(), tipo));
+            setDatos(getEstadisticaService().obtenerReferenciasTipoFuenteNombre(tipo));
         }
         crearModelo();
     }

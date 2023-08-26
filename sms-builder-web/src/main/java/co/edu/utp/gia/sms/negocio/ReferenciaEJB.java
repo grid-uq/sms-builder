@@ -36,7 +36,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     @Inject
     private TopicoService topicoService;
     @Inject
-    private EvaluacionCalidadEJB evaluacionCalidadEJB;
+    private EvaluacionCalidadService evaluacionCalidadService;
     @Inject
     private MetadatoServices metadatoServices;
     @Inject
@@ -44,16 +44,15 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     @Inject
     private PreguntaService preguntaService;
     @Inject
-    private ProcesoEJB procesoEJB;
+    private ProcesoService procesoService;
 
     public ReferenciaEJB() {
         super(Referencia.class, dataProvider);
     }
 
-    public Referencia registrar(Referencia referencia, Integer idRevision, Integer idPasoProceso) {
+    public Referencia registrar(Referencia referencia, String idRevision, String idPasoProceso) {
         Revision revision = revisionService.obtener(idRevision);
 
-        referencia.setRevision(revision);
         referencia.setFiltro(idPasoProceso);
 //        for (Metadato metadato : referencia.getMetadatos()) {
 //            if (metadato.getIdentifier().equals(TipoMetadato.FUENTE)
@@ -62,7 +61,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 //            }
 //        }
         registrar(referencia);
-        procesoEJB.addReferencia(idPasoProceso, referencia);
+        procesoService.addReferencia(idPasoProceso, referencia);
         return referencia;
     }
 
@@ -84,7 +83,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
     }
 
     public List<ReferenciaDTO> obtenerTodas(int idPaso) {
-        PasoProceso paso = procesoEJB.obtenerOrThrow(idPaso);
+        PasoProceso paso = procesoService.obtenerOrThrow(idPaso);
         return obtenerTodas(paso);
     }
 
@@ -129,7 +128,7 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
         Revision revision = revisionService.obtenerOrThrow(idRevision);
         List<ReferenciaDTO> referencias = obtenerTodas(revision.getPasoSeleccionado());
         for (ReferenciaDTO referencia : referencias) {
-            referencia.setEvaluaciones(evaluacionCalidadEJB.obtenerEvaluaciones(referencia.getId()));
+            referencia.setEvaluaciones(referencia.getEvaluaciones());
         }
         return referencias;
     }
@@ -159,25 +158,25 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
         return metadatoServices.obtenerStringMetadatoByTipo(idReferencia, TipoMetadato.ABSTRACT);
     }
 
-    public void actualizarFiltro(Integer id, Integer filtro) {
-        Referencia referencia = obtener(id);
-        Integer filtroActual = referencia.getFiltro();
-        if (filtroActual < filtro) {
-            while (filtroActual < filtro) {
-                filtroActual++;
-                procesoEJB.addReferencia(filtroActual, referencia);
-            }
-        } else {
-            while (filtroActual > filtro) {
-                procesoEJB.removeReferencia(filtroActual, referencia);
-                filtroActual--;
-            }
-        }
-        referencia.setFiltro(filtro);
-    }
+//    public void actualizarFiltro(String id, Integer filtro) {
+//        Referencia referencia = obtener(id);
+//        Integer filtroActual = referencia.getFiltro();
+//        if (filtroActual < filtro) {
+//            while (filtroActual < filtro) {
+//                filtroActual++;
+//                procesoService.addReferencia(""+filtroActual, referencia);
+//            }
+//        } else {
+//            while (filtroActual > filtro) {
+//                procesoService.removeReferencia(filtroActual, referencia);
+//                filtroActual--;
+//            }
+//        }
+//        referencia.setFiltro(filtro);
+//    }
 
     public void guardarEvaluacion(EvaluacionCalidad evaluacion) {
-        evaluacionCalidadEJB.actualizar(evaluacion);
+        evaluacionCalidadService.actualizar(evaluacion);
         Referencia referencia = obtener(evaluacion.getReferencia().getId());
         referencia.setTotalEvaluacionCalidad(calcularTotalEvaluacionCalidad(referencia.getId()).floatValue());
     }
@@ -429,8 +428,8 @@ public class ReferenciaEJB extends AbstractEJB<Referencia, Integer> {
 
     public void avanzarReferecias(int idPaso) {
         if (idPaso >= 1) {
-            PasoProceso paso = procesoEJB.obtenerOrThrow(idPaso);
-            PasoProceso pasoSiguiente = procesoEJB.obtenerOrThrow(idPaso + 1);
+            PasoProceso paso = procesoService.obtenerOrThrow(idPaso);
+            PasoProceso pasoSiguiente = procesoService.obtenerOrThrow(idPaso + 1);
             paso.getReferencias().forEach(
                     r -> {
                         if (r.getFiltro() == null || r.getFiltro() < (idPaso + 1)) {

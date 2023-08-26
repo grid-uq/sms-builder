@@ -3,7 +3,7 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.entidades.Paso;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.negocio.PasoService;
-import co.edu.utp.gia.sms.negocio.ProcesoEJB;
+import co.edu.utp.gia.sms.negocio.ProcesoService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -11,6 +11,8 @@ import lombok.extern.java.Log;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.util.Collection;
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga de la configuración del proceso.
@@ -28,31 +30,31 @@ import java.util.List;
 public class ConfigurarProcesoBean extends AbstractRevisionBean {
 
     @Inject
-    private ProcesoEJB procesoEJB;
+    private ProcesoService procesoService;
     @Inject
     private PasoService pasoService;
 
     @Getter @Setter
     private Paso pasoSeleccionado;
     @Getter
-    private List<PasoProceso> pasosProceso;
+    private Collection<PasoProceso> pasosProceso;
     @Getter
-    private List<Paso> pasos;
+    private Collection<Paso> pasos;
 
     public void inicializar() {
         if (getRevision() != null) {
             pasos = pasoService.get();
-            pasosProceso = procesoEJB.listar(getRevision().getId());
+            pasosProceso = procesoService.get();
         }
     }
 
     public void adicionar(){
-        var nuevoPaso = procesoEJB.save(pasoSeleccionado.getId());
+        var nuevoPaso = procesoService.save(pasoSeleccionado.getId());
         pasosProceso.add( nuevoPaso );
     }
 
     public void eliminar(PasoProceso pasoProceso){
-        procesoEJB.delete(pasoProceso.getId());
+        procesoService.delete(pasoProceso.getId());
         pasosProceso.remove(pasoProceso);
     }
 

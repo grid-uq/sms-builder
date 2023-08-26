@@ -1,7 +1,7 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
-import co.edu.utp.gia.sms.negocio.EstadisticaEJB;
+import co.edu.utp.gia.sms.negocio.EstadisticaService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.charts.ChartModel;
@@ -9,6 +9,9 @@ import org.primefaces.model.charts.bar.BarChartModel;
 import org.primefaces.model.charts.pie.PieChartModel;
 
 import jakarta.inject.Inject;
+
+import java.io.Serial;
+
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos.
  *
@@ -23,12 +26,13 @@ public abstract class EstadisticaBean extends AbstractRevisionBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 4686100580073797808L;
 
 
     @Inject
     @Getter
-    private EstadisticaEJB estadisticaEJB;
+    private EstadisticaService estadisticaService;
 
     @Getter
     @Setter

@@ -2,7 +2,7 @@ package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.negocio.PasoService;
-import co.edu.utp.gia.sms.negocio.ProcesoEJB;
+import co.edu.utp.gia.sms.negocio.ProcesoService;
 import jakarta.inject.Inject;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class ProcesoSetup implements SetupInterface{
     @Inject
-    private ProcesoEJB procesoEJB;
+    private ProcesoService procesoService;
     @Inject
     private PasoService pasoService;
 
@@ -33,10 +33,10 @@ public class ProcesoSetup implements SetupInterface{
                 "etiquetaMenuReferenciasSeleccionar",
                 "etiquetaMenuReferenciasSeleccionadas"
         };
-        List<PasoProceso> pasos = procesoEJB.listar(1);
+        var pasos = procesoService.get();
         if(pasos.isEmpty()) {
             for (String key : keys) {
-                procesoEJB.save(pasoService.findByName(key).getId());
+                procesoService.save(pasoService.findByName(key).getId());
             }
         }
     }

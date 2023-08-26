@@ -1,35 +1,46 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
+import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
+import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.query.Queries;
+import jakarta.inject.Provider;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.function.ToDoubleFunction;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Consulta que permite obtener el promedio de la evaluación de calidad de un determinado atributo de calidad por Año en una revision
  */
-@Entity
-@NamedQuery(name = EstadisticaCalidadOfAtributoCalidadByYear.NAME, query = EstadisticaCalidadOfAtributoCalidadByYear.QUERY)
 public class EstadisticaCalidadOfAtributoCalidadByYear extends Queries {
-    public static final String NAME = "Estadistica.calidadOfAtributoCalidadByYear";
-    public static final String QUERY = "select new co.edu.utp.gia.sms.dtos.DatoDTO( r.year, AVG(e.evaluacionCuantitativa) ) " +
-            "from Revision revision inner join revision.pasoSeleccionado.referencias r inner join r.evaluacionCalidad e " +
-            "where revision.id = :id and e.atributoCalidad.id = :idAtributoCalidad GROUP BY r.year ORDER BY r.year";
 
     /**
      * Consulta que permite obtener el promedio de la evaluación de calidad de un determinado atributo de calidad por Año en una revision
      *
-     * @param entityManager Para la ejecución de la consulta
-     * @param id            Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
      * @param idAtributoCalidad Id del atributo de calidad
+     *
      * @return TypedQuery<DatoDTO> que representa la consulta
      */
-    public static TypedQuery<DatoDTO> createQuery(EntityManager entityManager, Integer id, Integer idAtributoCalidad) {
-        return entityManager.createNamedQuery(NAME, DatoDTO.class)
-                .setParameter("id", id)
-                .setParameter("idAtributoCalidad",idAtributoCalidad);
+    public static Stream<DatoDTO> createQuery(String idAtributoCalidad) {
+        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,idAtributoCalidad);
+    }
+
+    /**
+     * Consulta que permite obtener el promedio de la evaluación de calidad de un determinado atributo de calidad por Año en una revision
+     *
+     * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
+     * @param idAtributoCalidad Id del atributo de calidad
+     * @return Stream<DatoDTO> que representa el resultado de la consulta
+     */
+    public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider, String idAtributoCalidad) {
+        ToDoubleFunction<Referencia> mapper = referencia -> referencia.getEvaluacionCalidad().stream()
+                .filter(evaluacionCalidad -> evaluacionCalidad.getAtributoCalidad().getId().equals(idAtributoCalidad))
+                .collect(Collectors.averagingDouble(EvaluacionCalidad::getEvaluacionCuantitativa));
+
+        return EstadisticaReferenciaByAny.createQuery(dataProvider,r->true,Referencia::getYear,
+                Collectors.averagingDouble(mapper));
     }
 }

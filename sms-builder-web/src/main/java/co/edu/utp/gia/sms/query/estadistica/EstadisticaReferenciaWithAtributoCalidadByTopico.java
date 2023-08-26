@@ -1,38 +1,54 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
+import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
+import co.edu.utp.gia.sms.entidades.Referencia;
+import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.query.Queries;
+import jakarta.inject.Provider;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Consulta que permite obtener el número de referencias que cumplem con un determinado atributo de calidad por Topico en una revision
  */
-@Entity
-@NamedQuery(name = EstadisticaReferenciaWithAtributoCalidadByTopico.NAME, query = EstadisticaReferenciaWithAtributoCalidadByTopico.QUERY)
 public class EstadisticaReferenciaWithAtributoCalidadByTopico extends Queries {
-    public static final String NAME = "Estadistica.referenciaWithAtributoCalidadByTopico";
-    public static final String QUERY = "select new co.edu.utp.gia.sms.dtos.DatoDTO( CONCAT( t.pregunta.codigo,'-', t.descripcion ), COUNT(1) ) " +
-            "from Revision revision inner join revision.pasoSeleccionado.referencias r LEFT JOIN r.topicos t " +
-            "inner join r.evaluacionCalidad e " +
-            "where revision.id = :id and e.atributoCalidad.id = :idAtributoCalidad " +
-            "and e.evaluacionCualitativa = co.edu.utp.gia.sms.entidades.EvaluacionCualitativa.CUMPLE " +
-            "GROUP BY t.id ORDER BY t.pregunta.id,t.descripcion";
+    /**
+     * Consulta que permite obtener el número de referencias que cumplem con un determinado atributo de calidad por Topico en una revision
+     *
+     * @param idAtributoCalidad Id del atributo de calidad
+     * @return TypedQuery<DatoDTO> que representa la consulta
+     */
+    public static Stream<DatoDTO> createQuery(String idAtributoCalidad) {
+        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,idAtributoCalidad);
+    }
 
     /**
      * Consulta que permite obtener el número de referencias que cumplem con un determinado atributo de calidad por Topico en una revision
      *
-     * @param entityManager Para la ejecución de la consulta
-     * @param id            Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
+     * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
      * @param idAtributoCalidad Id del atributo de calidad
-     * @return TypedQuery<DatoDTO> que representa la consulta de las {@link DatoDTO}
+     *
+     * @return Stream<DatoDTO> que representa el resultado de la consulta
+     *
      */
-    public static TypedQuery<DatoDTO> createQuery(EntityManager entityManager, Integer id, Integer idAtributoCalidad) {
-        return entityManager.createNamedQuery(NAME, DatoDTO.class)
-                .setParameter("id", id)
-                .setParameter("idAtributoCalidad",idAtributoCalidad);
+    public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider,String idAtributoCalidad) {
+        Predicate<Referencia> filtro = referencia -> referencia.getEvaluacionCalidad().stream()
+                .anyMatch(evaluacionCalidad ->
+                        evaluacionCalidad.getAtributoCalidad().getId().equals(idAtributoCalidad) &&
+                                evaluacionCalidad.getEvaluacionCualitativa().equals( EvaluacionCualitativa.CUMPLE )
+                );
+        Function<Topico,String> getKey = topico-> topico.getPregunta().getCodigo()+"-"+topico.getDescripcion();
+        return dataProvider.get().stream()
+                .filter(filtro)
+                .flatMap(referencia -> referencia.getTopicos().stream())
+                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
+                .entrySet().stream()
+                .map( entry->new DatoDTO(getKey.apply(entry.getKey()), entry.getValue()));
     }
 }
