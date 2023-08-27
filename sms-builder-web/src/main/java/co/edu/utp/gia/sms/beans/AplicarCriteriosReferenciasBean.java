@@ -41,13 +41,13 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
         if (getRevision() != null) {
 //            referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 1);
             log.info("Aplicar criterios paso "+paso);
-            referencias = referenciaEJB.obtenerTodas(paso-1);
+            referencias = referenciaEJB.findByPaso(getPasoAnterior().getId());
             log.info("Numero referecias "+referencias.size());
         }
     }
 
     public void actualizarNota(ReferenciaDTO referencia) {
-        referenciaEJB.actualizarNota(referencia.getId(), referencia.getNota());
+        referenciaEJB.updateNota(referencia.getId(), referencia.getNota());
     }
 
     public void adicionarResumen(ReferenciaDTO referencia) {
@@ -58,21 +58,23 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
 
     public void seleccionarReferencia(ReferenciaDTO referencia) {
         if( referencia.isSeleccionada() ){
-            if( referencia.getFiltro() < paso ) {
-                referencia.setFiltro(paso);
-                referenciaEJB.actualizarFiltro(referencia.getId(), paso);
-            }
+            referenciaEJB.avanzarReferecias( getPasoActual().getId() );
+//            if( referencia.getFiltro() < paso ) {
+//                referencia.setFiltro(paso);
+//                referenciaEJB.actualizarFiltro(referencia.getId(), paso);
+//            }
         } else {
-            if( referencia.getFiltro() >= paso ){
-                referencia.setFiltro(paso-1);
-                referenciaEJB.actualizarFiltro(referencia.getId(), paso-1);
-            }
+            referenciaEJB.avanzarReferecias( getPasoAnterior().getId() );
+//            if( referencia.getFiltro() >= paso ){
+//                referencia.setFiltro(paso-1);
+//                referenciaEJB.actualizarFiltro(referencia.getId(), paso-1);
+//            }
         }
         //referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro());
     }
 
     public void actualizarRelevancia(ReferenciaDTO referencia) {
-        referenciaEJB.actualizarRelevancia(referencia.getId(), referencia.getRelevancia());
+        referenciaEJB.updateRelevancia(referencia.getId(), referencia.getRelevancia());
     }
 
 

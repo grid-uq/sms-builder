@@ -86,15 +86,15 @@ public class ReferenciaDTO implements Serializable {
      * @return
      * @see co.edu.utp.gia.sms.entidades.Referencia#getId()
      */
-    public Integer getId() {
+    public String getId() {
         return referencia.getId();
     }
 
     /**
      * @param id
-     * @see co.edu.utp.gia.sms.entidades.Referencia#setId(java.lang.Integer)
+     * @see co.edu.utp.gia.sms.entidades.Referencia#setId(java.lang.String)
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         referencia.setId(id);
     }
 
@@ -185,22 +185,6 @@ public class ReferenciaDTO implements Serializable {
      */
     public void setTipo(String tipo) {
         referencia.setTipo(tipo);
-    }
-
-    /**
-     * @return
-     * @see co.edu.utp.gia.sms.entidades.Referencia#getRevision()
-     */
-    public Revision getRevision() {
-        return referencia.getRevision();
-    }
-
-    /**
-     * @param revision
-     * @see co.edu.utp.gia.sms.entidades.Referencia#setRevision(co.edu.utp.gia.sms.entidades.Revision)
-     */
-    public void setRevision(Revision revision) {
-        referencia.setRevision(revision);
     }
 
     /**

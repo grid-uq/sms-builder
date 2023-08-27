@@ -65,7 +65,7 @@ public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
 
     public void guardar() {
         for (EvaluacionCalidad evaluacion : evaluaciones) {
-            referenciaEJB.guardarEvaluacion(evaluacion);
+            referenciaEJB.saveEvaluacion(evaluacion);
         }
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         getAndRemoveFromSession("referenciaDTO");

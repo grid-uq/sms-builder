@@ -53,7 +53,7 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
     private List<Topico> topicos;
 
     @Getter @Setter
-    private Integer idAtributoCalidad;
+    private String idAtributoCalidad;
     @Getter @Setter
     private EvaluacionCualitativa evaluacion;
 
@@ -63,7 +63,7 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
     public void inicializar() {
 
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId())
+            referencias = referenciaEJB.findByPaso(getRevision().getPasoSeleccionado().getId())
                     .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
             topicos = revisionService.getTopicos();
             years = estadisticaService.obtenerYears( );
@@ -72,14 +72,13 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
 
     public void consultarReferencias() {
         if (idAtributoCalidad == null) {
-            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId())
+            referencias = referenciaEJB.findByPaso(getRevision().getPasoSeleccionado().getId())
                     .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
         } else if (evaluacion != null) {
-            referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad,
-                    evaluacion)
+            referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(idAtributoCalidad, evaluacion)
                     .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
         } else {
-            referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(getRevision().getId(), idAtributoCalidad)
+            referencias = referenciaEJB.obtenerReferenciasAtributoCalidadEvaluacion(idAtributoCalidad)
                     .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
         }
     }

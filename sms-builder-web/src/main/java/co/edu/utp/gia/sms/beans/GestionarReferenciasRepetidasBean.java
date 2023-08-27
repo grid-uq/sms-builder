@@ -42,7 +42,7 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
     public void inicializar() {
         if (getRevision() != null) {
             //referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 0);
-            referencias = referenciaEJB.obtenerTodas(paso-1);
+            referencias = referenciaEJB.findByPaso(getPasoAnterior().getId());
         }
     }
 
@@ -64,17 +64,19 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
 
     public void guardar() {
         for (ReferenciaDTO referencia : referencias) {
-            referenciaEJB.referenciaDuplicada(referencia.getId(),referencia.getDuplicada());
+            referenciaEJB.updateDuplicada(referencia.getId(),referencia.getDuplicada());
             if( !referencia.getDuplicada() ){
-                if( referencia.getFiltro() < paso ) {
-                    referencia.setFiltro(paso);
-                    referenciaEJB.actualizarFiltro(referencia.getId(), paso);
-                }
+                referenciaEJB.avanzarReferecias( getPasoActual().getId() );
+//                if( referencia.getFiltro() < paso ) {
+//                    referencia.setFiltro(paso);
+//                    referenciaEJB.actualizarFiltro(referencia.getId(), paso);
+//                }
             } else {
-                if( referencia.getFiltro() >= paso ){
-                    referencia.setFiltro(paso-1);
-                    referenciaEJB.actualizarFiltro(referencia.getId(), paso-1);
-                }
+                referenciaEJB.avanzarReferecias( getPasoAnterior().getId() );
+//                if( referencia.getFiltro() >= paso ){
+//                    referencia.setFiltro(paso-1);
+//                    referenciaEJB.actualizarFiltro(referencia.getId(), paso-1);
+//                }
             }
         }
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));

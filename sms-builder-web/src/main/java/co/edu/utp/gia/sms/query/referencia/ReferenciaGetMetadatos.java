@@ -22,7 +22,7 @@ public class ReferenciaGetMetadatos extends Queries{
      * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
      * @return Stream< Metadato > que representa el flujo de datos de la consulta
      */
-    public static Stream<Metadato> createQuery(Integer id){
+    public static Stream<Metadato> createQuery(String id){
         return createQuery(DB.root.revision()::getReferencias,id);
     }
 
@@ -33,7 +33,7 @@ public class ReferenciaGetMetadatos extends Queries{
      * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
      * @return Stream< Metadato > que representa el flujo de datos de la consulta
      */
-    public static Stream<Metadato> createQuery(Provider<Collection<Referencia>> dataProvider, Integer id){
+    public static Stream<Metadato> createQuery(Provider<Collection<Referencia>> dataProvider, String id){
         return dataProvider.get().stream()
                 .filter( referencia -> referencia.getId().equals(id))
                 .map(Referencia::getMetadatos)

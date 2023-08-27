@@ -23,7 +23,7 @@ public class ReferenciaGetMetadatosByTipo extends Queries{
      * @param tipo Tipo de metadato que se desea obtener
      * @return @return Stream< Metadato > que representa el flujo de datos de la consulta de las {@link co.edu.utp.gia.sms.entidades.Metadato}
      */
-    public static Stream<Metadato> createQuery(Integer id, TipoMetadato tipo){
+    public static Stream<Metadato> createQuery(String id, TipoMetadato tipo){
         return createQuery(DB.root.revision()::getReferencias,id,tipo);
     }
 
@@ -35,7 +35,7 @@ public class ReferenciaGetMetadatosByTipo extends Queries{
      * @param tipo Tipo de metadato que se desea obtener
      * @return Stream< Metadato > que representa el flujo de datos de la consulta de las {@link co.edu.utp.gia.sms.entidades.Metadato}
      */
-    public static Stream<Metadato> createQuery(Provider<Collection<Referencia>> dataProvider,Integer id, TipoMetadato tipo){
+    public static Stream<Metadato> createQuery(Provider<Collection<Referencia>> dataProvider,String id, TipoMetadato tipo){
         return ReferenciaGetMetadatos.createQuery(dataProvider,id)
                 .filter(metadato->metadato.getIdentifier().equals(tipo));
     }

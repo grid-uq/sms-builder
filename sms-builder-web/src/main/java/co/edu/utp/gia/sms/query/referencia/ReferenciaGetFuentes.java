@@ -1,35 +1,45 @@
 package co.edu.utp.gia.sms.query.referencia;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Fuente;
+import co.edu.utp.gia.sms.entidades.Metadato;
+import co.edu.utp.gia.sms.entidades.Referencia;
+import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.query.Queries;
+import jakarta.inject.Provider;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.stream.Stream;
 
 /**
  * Consulta que permite obtener las fuentes registradas en el sistema para una referencia
  */
-@Entity
-@NamedQuery(name = ReferenciaGetFuentes.NAME, query = ReferenciaGetFuentes.QUERY)
 public class ReferenciaGetFuentes extends Queries{
-    public static final String NAME = "Referencia.getFuentes";
-    public static final String QUERY = "select f from Fuente f,  Metadato m where m.referencia.id = :id " +
-            "and m.referencia.revision = f.revision " +
-            "and m.identifier = co.edu.utp.gia.sms.entidades.TipoMetadato.FUENTE " +
-            "and m.value = f.nombre ";
-
+    /**
+     * Consulta que permite obtener las fuentes registradas en el sistema para una referencia
+     *
+     * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
+     * @return TypedQuery<DatoDTO> que representa la consulta
+     */
+    public static Stream<Fuente> createQuery(String id) {
+        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,id);
+    }
 
     /**
      * Consulta que permite obtener las fuentes registradas en el sistema para una referencia
      *
-     * @param entityManager Para la ejecución de la consulta
+     * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
      * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
-     * @return TypedQuery< Fuente > que representa la consulta
+     * @return Stream<DatoDTO> que representa el resultado de la consulta
      */
-    public static TypedQuery<Fuente> createQuery(EntityManager entityManager, Integer id){
-        return entityManager.createNamedQuery(NAME, Fuente.class)
-                .setParameter("id",id);
+    public static Stream<Fuente> createQuery(Provider<Collection<Referencia>> dataProvider,String id) {
+        final var nombre = dataProvider.get().stream()
+                .filter(referencia -> referencia.getId().equals(id))
+                .flatMap(referencia -> referencia.getMetadatos().stream())
+                .filter(metadato -> metadato.getIdentifier().equals(TipoMetadato.FUENTE))
+                .map(Metadato::getValue)
+                .findFirst().orElse(null);
+        return  DB.root.getProvider(Fuente.class).get().stream()
+                .filter(fuente -> fuente.getNombre().equals(nombre));
     }
 }

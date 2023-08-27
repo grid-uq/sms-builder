@@ -29,9 +29,9 @@ public interface ExceptionMessage extends Config {
     @Key("message.exception.claveNoConincide")
     String getClaveNoCoincide();
     @Key("message.exception.referencia.sinFecha")
-    String getReferenciaSinFecha(int id,String spsid);
+    String getReferenciaSinFecha(String id,String spsid);
     @Key("message.exception.referencia.errorEvaluacion")
-    String getReferenciaErrorEvaluacion(int id,String spsid);
+    String getReferenciaErrorEvaluacion(String id,String spsid);
     @Key("message.error.conversion")
     String getConversionError();
 }

@@ -70,7 +70,7 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
         } else {
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         }
-        referenciaEJB.avanzarReferecias(paso-1);
+        referenciaEJB.avanzarReferecias(getPasoAnterior().getId());
     }
 
     private void procesarArchivo() {
@@ -78,7 +78,7 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
             ReferenceParse parser = FileMultipleRegisterParseFactory
                     .getInstance(tipoArchivo,fuente.getNombre(),fuente.getTipo().toString());
             List<Referencia> referencias = parser.parse(file.getInputStream());
-            referenciaEJB.registrar(referencias, getRevision().getId(),paso);
+            referenciaEJB.save(referencias, paso);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA)+" "+referencias.size());
         } catch (IOException e) {
             log.log(Level.WARNING, "Error al procesar un archivo", e);

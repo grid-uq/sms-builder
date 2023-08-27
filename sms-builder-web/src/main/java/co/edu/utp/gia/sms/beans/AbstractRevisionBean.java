@@ -1,6 +1,8 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.entidades.Revision;
+import lombok.Getter;
 import lombok.extern.java.Log;
 
 import jakarta.faces.annotation.ManagedProperty;
@@ -19,12 +21,43 @@ import jakarta.inject.Inject;
 public abstract class AbstractRevisionBean extends AbstractBean {
     private Revision revision;
     @Inject @ManagedProperty("#{param.paso}")
-    protected Integer paso;
+    protected String paso;
+    @Getter
+    private PasoProceso pasoActual;
+    @Getter
+    private PasoProceso pasoAnterior;
+    @Getter
+    private PasoProceso pasoSiguiente;
 
     protected Revision getRevision() {
         if( revision == null ){
             revision = (Revision) getFromSession("revision");
         }
         return revision;
+    }
+
+    @Override
+    protected void preInicializar() {
+        super.preInicializar();
+        initPasos();
+    }
+
+    protected void initPasos(){
+        var pasos = getRevision().getPasosProceso();
+        pasoActual = pasoAnterior = pasoSiguiente = null;
+        pasos.forEach( paso->{
+            if( pasoActual != null ){
+                if( pasoSiguiente == null ){
+                    pasoSiguiente = paso;
+                }
+            } else {
+                if( paso.getId().equals(this.paso)){
+                    pasoActual = paso;
+                } else {
+                    pasoAnterior = paso;
+                }
+            }
+                }
+        );
     }
 }

@@ -5,8 +5,7 @@ import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.query.referencia.ReferenciaGetMetadatos;
 import co.edu.utp.gia.sms.query.referencia.ReferenciaGetMetadatosByTipo;
-
-import jakarta.ejb.Stateless;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.Collection;
@@ -24,7 +23,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @since 12/11/2015
  */
-@Stateless
+@ApplicationScoped
 public class MetadatoServices extends AbstractGenericService<Metadato, String> {
 
     @Inject
@@ -54,7 +53,7 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
     }
 
     public void delete(String idReferencia,String idMetadato) {
-        var referencia = referenciaEJB.obtener(idReferencia);
+        var referencia = referenciaEJB.findOrThrow(idReferencia);
         delete(referencia,idMetadato);
     }
 
@@ -63,7 +62,7 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
     }
 
     public Optional<Metadato> find(String idReferencia,String idMetadato) {
-        var referencia = referenciaEJB.obtener(idReferencia);
+        var referencia = referenciaEJB.findOrThrow(idReferencia);
         return find(referencia,idMetadato);
     }
     public Optional<Metadato> find(Referencia referencia, String idMetado) {
@@ -71,7 +70,7 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
     }
 
     public Metadato findOrThrow(String idReferencia,String idMetadato) {
-        var referencia = referenciaEJB.obtener(idReferencia);
+        var referencia = referenciaEJB.findOrThrow(idReferencia);
         return findOrThrow(referencia,idMetadato);
     }
 
@@ -91,7 +90,7 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
      * @param tipo Tipo de metadato que se desea obtener
      * @return List< Metadato > de la referencia que son del tipo indicado
      */
-    public List<Metadato> obtenerListMetadatoByTipo(Integer id, TipoMetadato tipo) {
+    public List<Metadato> obtenerListMetadatoByTipo(String id, TipoMetadato tipo) {
         return ReferenciaGetMetadatosByTipo.createQuery(id,tipo).toList();
     }
 
@@ -102,7 +101,7 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
      * @param tipo Tipo de metadato que se desea obtener
      * @return String de los metadatos de la referencia que pertenecen al tipo indicado en forma de cadena separados por ;
      */
-    public String obtenerStringMetadatoByTipo(Integer id, TipoMetadato tipo) {
+    public String obtenerStringMetadatoByTipo(String id, TipoMetadato tipo) {
         return ReferenciaGetMetadatosByTipo.createQuery(id,tipo)
                 .map(Metadato::getValue)
                 .collect(Collectors.joining(" ; "));
@@ -114,7 +113,7 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
      * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
      * @return List<Metadato> listado de los metadatos de la referencia del id dado
      */
-    public List<Metadato> obtenerMetadatos(Integer id) {
+    public List<Metadato> obtenerMetadatos(String id) {
         return ReferenciaGetMetadatos.createQuery(id).toList();
     }
 

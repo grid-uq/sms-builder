@@ -15,6 +15,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga de presentar una tabla de resumen con la evaluación de referencias.
@@ -45,12 +46,12 @@ public class TablaResumenEvaluacionReferenciasBean extends GenericBean<Referenci
 
     @Getter
     @Setter
-    private List<AtributoCalidad> atributosCalidad;
+    private Collection<AtributoCalidad> atributosCalidad;
 
     public void inicializar() {
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId());
-            atributosCalidad = atributoCalidadService.get(getRevision().getId());
+            referencias = referenciaEJB.findWithEvaluacion();
+            atributosCalidad = atributoCalidadService.get();
         }
     }
 

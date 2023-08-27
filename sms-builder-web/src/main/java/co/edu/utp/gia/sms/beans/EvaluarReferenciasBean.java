@@ -41,7 +41,7 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 
     public void inicializar() {
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId());
+            referencias = referenciaEJB.findWithEvaluacion();
         }
     }
 
@@ -75,7 +75,7 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
             for (ReferenciaDTO referencia : referencias) {
                 referenciaEJB.evaluacionAutomatica(referencia.getId());
             }
-            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId());
+            referencias = referenciaEJB.findWithEvaluacion();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());

@@ -48,9 +48,14 @@ public abstract class AbstractBean implements Serializable {
 	@ManagedProperty("#{msg}")
 	private ResourceBundle bundle;
 
+	protected void preInicializar(){}
+	protected void postInicializar(){}
+
 	@PostConstruct
 	public void init() {
+		preInicializar();
 		inicializar();
+		postInicializar();
 	}
 
 	public abstract void inicializar();

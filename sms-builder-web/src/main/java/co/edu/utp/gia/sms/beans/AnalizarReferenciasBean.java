@@ -46,7 +46,7 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
 
         if (getRevision() != null) {
             //referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
-            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
+            referencias = referenciaEJB.findByPaso(getRevision().getPasoSeleccionado().getId());
             topicos = revisionService.getTopicos();
         }
     }
@@ -56,22 +56,22 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
         String nota;
         if (referencia.getTopicos().contains(topico)) {
             referencia.getTopicos().remove(topico);
-            referenciaEJB.removerTopico(referencia.getId(), topico.getId());
+            referenciaEJB.updateTopico(referencia.getId(), topico.getId());
             nota = referencia.getNota().replace(topicosText, "");
         } else {
             referencia.getTopicos().add(topico);
-            referenciaEJB.adicionarTopico(referencia.getId(), topico.getId());
+            referenciaEJB.addTopico(referencia.getId(), topico.getId());
             nota = referencia.getNota() + topicosText;
         }
-        referenciaEJB.actualizarNota(referencia.getId(), nota);
+        referenciaEJB.updateNota(referencia.getId(), nota);
         referencia.setNota(nota);
     }
 
     public void guardar() {
         for (ReferenciaDTO referencia : referencias) {
-            referenciaEJB.limpiarTopicos(referencia.getId());
+            referenciaEJB.cleanTopicos(referencia.getId());
             for (Topico topico : referencia.getTopicos()) {
-                referenciaEJB.adicionarTopico(referencia.getId(), topico.getId());
+                referenciaEJB.addTopico(referencia.getId(), topico.getId());
             }
         }
 
@@ -80,15 +80,15 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
 
 
     public void actualizarNota(ReferenciaDTO referencia) {
-        referenciaEJB.actualizarNota(referencia.getId(), referencia.getNota());
+        referenciaEJB.updateNota(referencia.getId(), referencia.getNota());
     }
 
     public void actualizarRelevancia(ReferenciaDTO referencia) {
-        referenciaEJB.actualizarRelevancia(referencia.getId(), referencia.getRelevancia());
+        referenciaEJB.updateRelevancia(referencia.getId(), referencia.getRelevancia());
     }
 
     public void actualizarResumen(ReferenciaDTO referencia) {
-        referenciaEJB.actualizarResumen(referencia.getId(), referencia.getResumen());
+        referenciaEJB.updateResumen(referencia.getId(), referencia.getResumen());
     }
 
 }

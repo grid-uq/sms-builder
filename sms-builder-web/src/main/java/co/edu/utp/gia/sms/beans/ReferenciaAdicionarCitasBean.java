@@ -48,7 +48,7 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
 
         if (getRevision() != null) {
             //referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
-            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
+            referencias = referenciaEJB.findByPaso(getRevision().getPasoSeleccionado().getId());
             topicos = revisionService.getTopicos();
         }
     }
@@ -72,7 +72,7 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
 
     public void guardarCita(ReferenciaDTO referencia) {
         try {
-            referenciaEJB.actualizarCita(referencia.getId(), referencia.getCitas());
+            referenciaEJB.updateCita(referencia.getId(), referencia.getCitas());
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
         }
@@ -80,14 +80,14 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
 
 
     public void guardarRelevancia(ReferenciaDTO referencia) {
-        referenciaEJB.actualizarRelevancia(referencia.getId(), referencia.getRelevancia());
+        referenciaEJB.updateRelevancia(referencia.getId(), referencia.getRelevancia());
     }
 
     public void guardar() {
         for (ReferenciaDTO referencia : referencias) {
-            referenciaEJB.limpiarTopicos(referencia.getId());
+            referenciaEJB.cleanTopicos(referencia.getId());
             for (Topico topico : referencia.getTopicos()) {
-                referenciaEJB.adicionarTopico(referencia.getId(), topico.getId());
+                referenciaEJB.addTopico(referencia.getId(), topico.getId());
             }
         }
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));

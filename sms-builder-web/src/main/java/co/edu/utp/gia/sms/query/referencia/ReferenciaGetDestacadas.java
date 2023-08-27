@@ -1,33 +1,36 @@
 package co.edu.utp.gia.sms.query.referencia;
 
-import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
+import co.edu.utp.gia.sms.db.DB;
+import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.query.Queries;
+import jakarta.inject.Provider;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.stream.Stream;
 
 /**
  * Consulta que permite obtener los Referencias que han recivido una valoración de su contenido
  */
-@Entity
-@NamedQuery(name = ReferenciaGetDestacadas.NAME, query = ReferenciaGetDestacadas.QUERY)
 public class ReferenciaGetDestacadas extends Queries{
-    public static final String NAME = "Referencia.getDestacadas";
-    public static final String QUERY = "select new co.edu.utp.gia.sms.dtos.ReferenciaDTO( r ) " +
-            "from Revision revision inner join revision.pasoSeleccionado.referencias r " +
-            "where revision.id = :id and r.relevancia is not null ORDER BY r.spsid,r.nombre";
+    /**
+     * Consulta que permite obtener los Referencias que han recivido una valoración de su contenido
+     *
+     * @return Stream<Referencia> que representa el resultado de la consulta
+     */
+    public static Stream<Referencia> createQuery(){
+        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias);
+    }
 
     /**
      * Consulta que permite obtener los Referencias que han recivido una valoración de su contenido
      *
-     * @param entityManager Para la ejecución de la consulta
-     * @param id Id de la Revision
-     * @return TypedQuery< ReferenciaDTO > que representa la consulta
+     * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
+     * @return Stream<Referencia> que representa el resultado de la consulta
      */
-    public static TypedQuery<ReferenciaDTO> createQuery(EntityManager entityManager, Integer id){
-        return entityManager.createNamedQuery(NAME, ReferenciaDTO.class)
-                .setParameter("id",id);
+    public static Stream<Referencia> createQuery(Provider<Collection<Referencia>> dataProvider){
+        return dataProvider.get().stream()
+                .filter(referencia -> referencia.getRelevancia()!=null)
+                .sorted(Comparator.comparing(Referencia::getSpsid).thenComparing(Referencia::getNombre));
     }
 }

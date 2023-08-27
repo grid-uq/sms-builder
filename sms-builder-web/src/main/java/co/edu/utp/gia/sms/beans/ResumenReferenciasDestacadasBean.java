@@ -41,7 +41,7 @@ public class ResumenReferenciasDestacadasBean extends GenericBean<ReferenciaDTO>
     public void inicializar() {
 
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerDestacadas(getRevision().getId());
+            referencias = referenciaEJB.obtenerDestacadas();
         }
     }
 

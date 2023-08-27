@@ -44,7 +44,7 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 
 		if (getRevision() != null) {
 //			referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
-			referencias = referenciaEJB.obtenerTodas(paso-1);
+			referencias = referenciaEJB.findByPaso(getPasoAnterior().getId());
 		}
 	}
 	
@@ -86,19 +86,19 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 		for (ReferenciaDTO referencia : referencias.stream().filter(r->r.getSpsid() == null).collect(Collectors.toList())) {
 			n++;
 			referencia.setSpsid( String.format("SPS%0"+digitos+"d", n));
-			referenciaEJB.actualizarSPS( referencia.getId() , referencia.getSpsid() );
+			referenciaEJB.updateSPS( referencia.getId() , referencia.getSpsid() );
 		}
 	}
 	
 	public void limpiar() {
 		for (ReferenciaDTO referencia : referencias) {
 			referencia.setSpsid(null);
-			referenciaEJB.actualizarSPS( referencia.getId() , referencia.getSpsid() );
+			referenciaEJB.updateSPS( referencia.getId() , referencia.getSpsid() );
 		}
 	}
 
 	public void siguientePaso(){
-		referenciaEJB.avanzarReferecias(paso-1);
+		referenciaEJB.avanzarReferecias(getPasoAnterior().getId());
 		mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
 	}
 }
