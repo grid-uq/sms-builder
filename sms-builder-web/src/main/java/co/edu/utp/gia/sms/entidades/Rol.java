@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,11 +21,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Rol implements Entidad<String> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 1L;
     /**
      * Variable que representa el atributo id de la clase. Permite identificar
      * de forma única un Rol
@@ -45,7 +39,7 @@ public class Rol implements Entidad<String> {
      * {@link Recurso} a la cual tiene acceso el {@link Rol}
      */
     @Getter @Setter
-    private List<Recurso> recursos;
+    private List<Recurso> recursos = new ArrayList<>();
 
     /**
      * Permite inicializar los elementos del Rol

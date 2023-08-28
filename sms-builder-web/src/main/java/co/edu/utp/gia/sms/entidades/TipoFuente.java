@@ -22,15 +22,11 @@ public enum TipoFuente {
 		ApplicationGeneralProducer instancia = new ApplicationGeneralProducer();
 		Locale locale = instancia.getDefaultLocale();
 		ResourceBundle bundle = ResourceBundle.getBundle("mensajes",locale);
-		switch (this){
-			case BASE_DATOS:
-				return bundle.getString("etiquetaBaseDatos");
-			case BOLA_NIEVE:
-				return bundle.getString("etiquetaBolaNieve");
-			case INCLUSION_DIRECTA:
-			default:
-				return bundle.getString("etiquetaInclusionDirecta");
-		}
+        return switch (this) {
+            case BASE_DATOS -> bundle.getString("etiquetaBaseDatos");
+            case BOLA_NIEVE -> bundle.getString("etiquetaBolaNieve");
+            default -> bundle.getString("etiquetaInclusionDirecta");
+        };
 
 	}
 }

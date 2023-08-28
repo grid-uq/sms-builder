@@ -27,8 +27,7 @@ public class TerminoService extends AbstractGenericService<Termino, String>{
 	 * @return La Termino registrada
 	 */
 	public Termino save(String descripcion) {
-		Termino termino = null;
-		termino = new Termino(descripcion);
+		Termino termino = new Termino(descripcion);
 		return save(termino);
 	}
 

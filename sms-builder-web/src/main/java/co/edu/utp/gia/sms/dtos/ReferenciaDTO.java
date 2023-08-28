@@ -71,7 +71,7 @@ public class ReferenciaDTO implements Serializable {
     }
 
     private void evaluarSeleccion() {
-        seleccionada = (referencia.getFiltro().intValue() | etapa) > etapa;
+        seleccionada = (referencia.getFiltro() | etapa) > etapa;
     }
 
     /**

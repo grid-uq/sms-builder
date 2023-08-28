@@ -4,17 +4,15 @@ import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.negocio.RolService;
-import lombok.Getter;
-import lombok.Setter;
-import org.primefaces.event.RowEditEvent;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
+import org.primefaces.event.RowEditEvent;
 
 import java.util.Collection;
-import java.util.List;
 
 
 /**

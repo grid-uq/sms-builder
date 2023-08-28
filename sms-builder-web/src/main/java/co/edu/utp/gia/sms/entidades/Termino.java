@@ -23,12 +23,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class Termino implements Entidad<String> {
     /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -176556849502833317L;
-
-
-    /**
      * Variable que representa el atributo id de la clase
      */
     @Getter @Setter

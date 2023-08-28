@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,6 @@ import java.util.List;
  * @version 1.0
  * @since 13/06/2019
  */
-@NoArgsConstructor
 @RequiredArgsConstructor
 public class Revision {
     /**
@@ -35,13 +35,13 @@ public class Revision {
      * Lista de objetivos de la revision
      */
     @Getter @Setter
-    private List<Objetivo> objetivos;
+    private List<Objetivo> objetivos = new ArrayList<>();
 
     /**
      * Lista de los pasos para la ejecución del proceso de SMS
      */
     @Getter @Setter
-    private List<PasoProceso> pasosProceso;
+    private List<PasoProceso> pasosProceso = new ArrayList<>();
 
     /**
      * Representa el paso seleccionado para la evaluación y extracción de estadísticas
@@ -50,30 +50,30 @@ public class Revision {
     private PasoProceso pasoSeleccionado;
 
     @Getter @Setter
-    private List<AtributoCalidad> atributosCalidad;
+    private List<AtributoCalidad> atributosCalidad = new ArrayList<>();
 
     @Getter @Setter
-    private List<CadenaBusqueda> cadenasBusqueda;
+    private List<CadenaBusqueda> cadenasBusqueda = new ArrayList<>();
 
     @Getter @Setter
-    private List<Fuente> fuentes;
+    private List<Fuente> fuentes = new ArrayList<>();
 
     @Getter @Setter
-    private List<Termino> terminos;
+    private List<Termino> terminos = new ArrayList<>();
 
     @Getter @Setter
-    private List<Referencia> referencias;
+    private List<Referencia> referencias = new ArrayList<>();
 
     @Getter @Setter
-    private List<Usuario> usuarios;
+    private List<Usuario> usuarios = new ArrayList<>();
     @Getter @Setter
-    private List<Rol> roles;
+    private List<Rol> roles = new ArrayList<>();
     @Getter @Setter
-    private List<Recurso> recursos;
+    private List<Recurso> recursos = new ArrayList<>();
     @Getter @Setter
-    private List<Topico> topicos;
+    private List<Topico> topicos = new ArrayList<>();
     @Getter @Setter
-    private List<Pregunta> preguntas;
+    private List<Pregunta> preguntas = new ArrayList<>();
     @Getter @Setter
-    private List<Paso> pasos;
+    private List<Paso> pasos = new ArrayList<>();
 }

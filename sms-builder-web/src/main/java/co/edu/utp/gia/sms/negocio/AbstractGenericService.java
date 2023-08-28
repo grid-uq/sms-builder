@@ -12,6 +12,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -124,7 +125,8 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     }
 
     private void requireDataProvider(Provider<Collection<E>> dataProvider){
-        if( dataProvider.get().equals( AbstractGenericService.defaultDataProvider() )  ) {
+        Objects.requireNonNull(dataProvider,"El dataprovider es null");
+        if( dataProvider.equals( AbstractGenericService.defaultDataProvider() )  ) {
             throw new UnsupportedOperationException("Requiere especificar la fuente de datos");
         }
     }

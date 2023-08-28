@@ -2,13 +2,10 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-
-import static jakarta.persistence.FetchType.EAGER;
-import static jakarta.persistence.GenerationType.IDENTITY;
 /**
  * Clase que representa la entidad Objetivo, la cual permite modelar en el
  * sistema un objetivo del SMS
@@ -56,7 +53,7 @@ public class Objetivo implements Entidad<String> {
      * {@link Objetivo}
      */
     @Getter @Setter
-    private List<Pregunta> preguntas;
+    private List<Pregunta> preguntas = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

@@ -41,9 +41,8 @@ public class CadenaBusquedaService extends AbstractGenericService<CadenaBusqueda
 	 * @return La {@link CadenaBusqueda} registrada
 	 */
 	public CadenaBusqueda save(Fuente baseDatos, String consulta, Date fecha, Integer resultadoPreliminar, Integer resultadoFinal) {
-		CadenaBusqueda cadenaBusqueda = null;
 		baseDatos = fuenteService.findOrThrow(baseDatos.getId());
-		cadenaBusqueda = new CadenaBusqueda(baseDatos,consulta,fecha,resultadoPreliminar,resultadoFinal);
+		CadenaBusqueda cadenaBusqueda = new CadenaBusqueda(baseDatos,consulta,fecha,resultadoPreliminar,resultadoFinal);
 		save(cadenaBusqueda);
 		//TODO hacer interface para registrar las bases de datos y que al registrar una cadena se use la base de datos ya creada
 		//fuenteService.registrar(baseDatos, TipoFuente.BASE_DATOS,revision);

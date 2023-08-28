@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,11 +21,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Pregunta implements Entidad<String> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -176556849502833317L;
-
     /**
      * Variable que representa el atributo id de la clase
      */
@@ -48,13 +44,13 @@ public class Pregunta implements Entidad<String> {
      * Variable que representa los topico de una pregunta
      */
     @Getter @Setter
-    private List<Topico> topicos;
+    private List<Topico> topicos = new ArrayList<>();
 
     /**
      * Variable que representa los objetivos con los que se relaciona una pregunta
      */
     @Getter @Setter
-    private List<Objetivo> objetivos;
+    private List<Objetivo> objetivos = new ArrayList<>();
 
 
     /**

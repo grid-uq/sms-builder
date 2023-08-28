@@ -15,7 +15,11 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
+import lombok.extern.java.Log;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 
 /**
@@ -29,6 +33,7 @@ import java.util.List;
  * @version 1.0
  * @since 2015-12-02
  */
+@Log
 public abstract class SeguridadBean extends AbstractBean {
 //	/**
 //	 * Variable que representa el {@link Usuario} que esta autenticado
@@ -106,6 +111,7 @@ public abstract class SeguridadBean extends AbstractBean {
             getFacesContext().getExternalContext().redirect(getFacesContext().getExternalContext().getApplicationContextPath() + "/index.xhtml");
             getFacesContext().responseComplete();
         } catch (Throwable t) {
+            log.log(Level.WARNING,"Problemas al autenticar",t);
             mostrarErrorGeneral(String.format("ERROR: %s", t.getMessage()));
         }
 
@@ -116,7 +122,7 @@ public abstract class SeguridadBean extends AbstractBean {
      * acceso
      */
     private void cargarRecursos() {
-        urlRecursos = recursoService.buscarRecursosPublicos();
+        urlRecursos = new ArrayList<>(recursoService.buscarRecursosPublicos());
         if (getUsuario() != null) {
             for (Rol rol : getUsuario().getRoles()) {
                 for (Recurso recurso : rol.getRecursos()) {

@@ -103,11 +103,9 @@ public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
     private List<String> generateLabels() {
         ArrayList<String> etiquetas = new ArrayList<>();
 
-        getDatosSeries().values().forEach(datos -> {
-            etiquetas.addAll( datos.getDatos().stream().map(DatoDTO::getEtiqueta).toList());
-        });
+        getDatosSeries().values().forEach(datos -> etiquetas.addAll( datos.getDatos().stream().map(DatoDTO::getEtiqueta).toList()));
 
-        return etiquetas.stream().distinct().collect(Collectors.toList());
+        return etiquetas.stream().distinct().toList();
     }
 
     protected PieChartModel crearPieModel() {

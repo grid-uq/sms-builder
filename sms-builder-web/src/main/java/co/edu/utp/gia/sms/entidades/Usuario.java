@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,11 +22,6 @@ import java.util.UUID;
  */
 @NoArgsConstructor
 public class Usuario implements Entidad<String> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 1L;
     /**
      * Variable que representa el atributo id de la clase
      */
@@ -70,7 +66,7 @@ public class Usuario implements Entidad<String> {
     @Getter
     @Setter
     @EqualsAndHashCode.Exclude
-    private List<Rol> roles;
+    private List<Rol> roles = new ArrayList<>();
     /**
      * Variable que representa el atributo nombre del {@link Usuario}
      */

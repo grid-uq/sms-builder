@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class PasoProceso implements Entidad<String> {
     @NonNull
     private Paso paso;
     @Getter @Setter
-    private List<Referencia> referencias;
+    private List<Referencia> referencias = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

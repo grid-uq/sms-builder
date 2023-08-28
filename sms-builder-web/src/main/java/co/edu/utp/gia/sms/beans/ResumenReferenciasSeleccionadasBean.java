@@ -76,7 +76,7 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 		int digitos = 1 + (int)Math.log10( referencias.size() );
 		if( n > 0 ) {
 //			ReferenciaDTO re = referencias.stream().filter( r->r.getSpsid()!=null ).sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).findFirst().get();
-			ReferenciaDTO re = referencias.stream().filter( r->r.getSpsid()!=null ).sorted( (r1,r2)->r2.getSpsid().compareTo(r1.getSpsid()) ).findFirst().get();
+			ReferenciaDTO re = referencias.stream().filter(r -> r.getSpsid() != null).min((r1, r2) -> r2.getSpsid().compareTo(r1.getSpsid())).get();
 			n = Long.parseLong( re.getSpsid().substring(3) );
 		}
 		

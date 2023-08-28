@@ -65,8 +65,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 	public void handle() throws FacesException {
 		Iterator<ExceptionQueuedEvent> iteratorUnhandledExceptionQueued = getUnhandledExceptionQueuedEvents()
 				.iterator();
-		while (iteratorUnhandledExceptionQueued != null
-				&& iteratorUnhandledExceptionQueued.hasNext()) {
+		while ( iteratorUnhandledExceptionQueued.hasNext()) {
 			ExceptionQueuedEvent evt = iteratorUnhandledExceptionQueued.next();
 			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) evt
 					.getSource();

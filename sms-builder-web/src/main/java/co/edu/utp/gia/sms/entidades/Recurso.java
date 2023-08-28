@@ -22,10 +22,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class Recurso implements Entidad<String> {
     /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 1L;
-    /**
      * Variable que representa el atributo id de la clase. Permite identificar
      * de forma única un recurso
      */

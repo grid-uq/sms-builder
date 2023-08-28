@@ -50,6 +50,18 @@
 				</executions>
 				<configuration>
 					<payaraVersion>${payaraVersion}</payaraVersion>
+					<javaCommandLineOptions>
+<!--						<javaCommandLineOption>&#45;&#45;add-opens java.base/java.io=ALL-UNNAMED</javaCommandLineOption>-->
+<!--						<option>-->
+<!--							<key>&#45;&#45;add-opens java.base/java.io</key>-->
+<!--							<value>ALL-UNNAMED</value>-->
+<!--						</option>-->
+						<option><value>-D --add-opens java.base/java.io=ALL-UNNAMED</value></option>
+						<option><value>-D --add-exports java.base/jdk.internal.misc=ALL-UNNAMED</value></option>
+					</javaCommandLineOptions>
+					<commandLineOptions>
+						<option><value>--nocluster</value></option>
+					</commandLineOptions>
 				</configuration>
 			</plugin>
 

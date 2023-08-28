@@ -12,7 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Topico implements Entidad<String> {
-    private static final long serialVersionUID = 1L;
     /**
      * Variable que representa el identificador unico del topico
      */

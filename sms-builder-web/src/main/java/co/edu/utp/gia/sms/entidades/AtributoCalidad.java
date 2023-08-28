@@ -32,7 +32,7 @@ public class AtributoCalidad implements Entidad<String> {
      */
     @Getter
     @Setter
-    private String id = UUID.randomUUID().toString();;
+    private String id = UUID.randomUUID().toString();
 
     /**
      * Variable que representa el atributo texto de la clase

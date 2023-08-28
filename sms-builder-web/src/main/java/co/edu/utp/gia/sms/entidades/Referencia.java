@@ -21,12 +21,6 @@ import java.util.UUID;
  * @since 6/06/2019
  */
 public class Referencia implements Entidad<String> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -4002756759383683632L;
-
     @Getter @Setter
     private String id = UUID.randomUUID().toString();
     /**
@@ -101,13 +95,13 @@ public class Referencia implements Entidad<String> {
      * Variable que representa el atributo metadatos de la clase
      */
     @Getter @Setter
-    private List<Metadato> metadatos;
+    private List<Metadato> metadatos = new ArrayList<>();
 
     @Getter @Setter
-    private List<Topico> topicos;
+    private List<Topico> topicos = new ArrayList<>();
 
     @Getter @Setter
-    private List<EvaluacionCalidad> evaluacionCalidad;
+    private List<EvaluacionCalidad> evaluacionCalidad = new ArrayList<>();
 
     /**
      * Metodo que permite inicializar los elementos de la clase Reference
@@ -126,25 +120,23 @@ public class Referencia implements Entidad<String> {
     public void addElement(TipoMetadato identifier, String value) {
         inicializarElementos();
         switch (identifier) {
-            case TITLE:
+            case TITLE -> {
                 setNombre(value);
                 metadatos.add(new Metadato(identifier, value, this));
-                break;
-            case ABSTRACT:
+            }
+            case ABSTRACT -> {
                 setResumen(value);
                 metadatos.add(new Metadato(identifier, value, this));
-                break;
-            case TYPE:
+            }
+            case TYPE -> {
                 setTipo(value);
                 metadatos.add(new Metadato(identifier, value, this));
-                break;
-            case YEAR:
+            }
+            case YEAR -> {
                 setYear(value);
                 metadatos.add(new Metadato(identifier, value, this));
-                break;
-            default:
-                metadatos.add(new Metadato(identifier, value, this));
-                break;
+            }
+            default -> metadatos.add(new Metadato(identifier, value, this));
         }
     }
 

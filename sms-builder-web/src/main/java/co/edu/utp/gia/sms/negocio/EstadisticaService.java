@@ -9,6 +9,7 @@ import co.edu.utp.gia.sms.query.estadistica.*;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
@@ -87,7 +88,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> con Estadisticas de los datos obtenidos
      */
     public List<DatoDTO> obtenerReferenciasTipoFuente() {
-        List<DatoDTO> resultado = EstadisticaReferenciaByTipoFuente.createQuery().toList();
+        List<DatoDTO> resultado = new ArrayList<>(EstadisticaReferenciaByTipoFuente.createQuery().toList());
 
         for (TipoFuente fuente : TipoFuente.values()) {
             if (resultado.stream().noneMatch(d -> d.getEtiqueta().equals(fuente.toString()))) {
@@ -104,8 +105,8 @@ public class EstadisticaService {
      * @return List<DatoDTO> Con Estadisticas de referencia por tipo de fuente.
      */
     public List<DatoDTO> obtenerReferenciasTipoFuenteNombre(TipoFuente tipo) {
-        List<DatoDTO> resultado = EstadisticaReferenciaByTipoFuenteAndNombre.createQuery(tipo)
-                .toList();
+        List<DatoDTO> resultado = new ArrayList<>(EstadisticaReferenciaByTipoFuenteAndNombre.createQuery(tipo)
+                .toList());
         List<Fuente> fuentes = fuenteService.getByTipoFuente(tipo);
         for (Fuente fuente : fuentes) {
             if ( resultado.stream().noneMatch(d -> d.getEtiqueta().equals(fuente.getNombre()))) {

@@ -2,11 +2,8 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import jakarta.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
 /**
  * Clase que representa la entidad Proceso, la cual permite modelar en el
  * sistema un Paso del SMS
@@ -22,7 +19,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @RequiredArgsConstructor
 public class Paso implements Entidad<String>{
     @Getter @Setter
-    private String id;
+    private String id = UUID.randomUUID().toString();
     @Getter @Setter
     @NonNull
     private String nombre;

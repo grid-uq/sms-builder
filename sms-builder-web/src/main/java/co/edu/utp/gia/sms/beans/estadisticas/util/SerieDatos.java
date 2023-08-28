@@ -6,7 +6,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
 /**
  * Clase utilitaria encargada de modelar serie de datos estadísticos
  *
