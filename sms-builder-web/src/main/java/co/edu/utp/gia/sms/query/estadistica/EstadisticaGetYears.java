@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.query.estadistica;
 
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -11,7 +10,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener el listado de años que comprenden las Referencias de la Revision
  */
-public class EstadisticaGetYears extends Queries{
+public class EstadisticaGetYears {
     /**
      * Consulta que permite obtener el listado de años que comprenden las Referencias de la Revision
      *

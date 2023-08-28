@@ -4,7 +4,6 @@ import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -13,9 +12,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener los metadatos de una referencia que pertenecen a un cierto tipo
  */
-public class ReferenciaGetMetadatosByTipo extends Queries{
-    public static final String NAME = "Referencia.getMetadatosByTipo";
-
+public class ReferenciaGetMetadatosByTipo {
     /**
      * Consulta que permite obtener los metadatos de una referencia que pertenecen a un cierto tipo
      *

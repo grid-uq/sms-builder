@@ -6,8 +6,6 @@ import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serial;
-
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de los tópicos.
  *
@@ -21,12 +19,6 @@ import java.io.Serial;
 @Named
 @ViewScoped
 public class ReferenciasTopicoBean extends EstaditicaDatoDTOBaseBean {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = -7097161925478814637L;
     @Getter
     @Setter
     private String codigo;

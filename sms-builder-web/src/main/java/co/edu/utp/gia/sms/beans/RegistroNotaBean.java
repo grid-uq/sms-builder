@@ -9,6 +9,7 @@ import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.util.Collection;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de notas.
@@ -26,6 +27,7 @@ public class RegistroNotaBean extends GenericBean<Termino> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 9089427454534870601L;
     @Getter
     @Setter

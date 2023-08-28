@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
-import java.io.Serial;
 import java.io.Serializable;
 /**
  * Clase que encapsula datos estadísticos a ser mostrados al usuario.
@@ -19,11 +18,6 @@ import java.io.Serializable;
  */
 @NoArgsConstructor
 public class DatoDTO implements Serializable {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = -7860668035943218928L;
     @Getter
     @Setter
     @NonNull

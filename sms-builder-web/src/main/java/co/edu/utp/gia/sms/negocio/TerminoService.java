@@ -18,7 +18,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class TerminoService extends AbstractGenericService<Termino, String>{
 	public TerminoService() {
-		super(DB.root.revision()::getTerminos);
+		super(DB.root.getProvider(Termino.class));
 	}
 	/**
 	 * Permite registrar una termino
@@ -48,7 +48,7 @@ public class TerminoService extends AbstractGenericService<Termino, String>{
 	 * @param id          Id de la {@link Termino} al que se adicionará el sinónimo
 	 * @param sinonimo Sinónimo a ser adicionado
 	 */
-    public void adicionarSinonimo(String id, String sinonimo) {
+    public void addSinonimo(String id, String sinonimo) {
 		findOrThrow(id)
 				.adicionarSinonimo( sinonimo );
     }
@@ -59,7 +59,7 @@ public class TerminoService extends AbstractGenericService<Termino, String>{
 	 * @param id          Id de la {@link Termino} al que se adicionará el sinónimo
 	 * @param sinonimo Sinónimo a ser removido
 	 */
-	public void removerSinonimo(String id, String sinonimo) {
+	public void removeSinonimo(String id, String sinonimo) {
 		findOrThrow(id)
 				.removerSinonimo( sinonimo );
 	}

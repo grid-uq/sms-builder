@@ -6,7 +6,7 @@ import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,16 +31,11 @@ import java.util.List;
 @ViewScoped
 public class TablaResumenEvaluacionReferenciasAtributoBean extends GenericBean<ReferenciaDTO> {
 
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -668848541409393797L;
     @Getter
     @Setter
     private List<ReferenciaDTO> referencias;
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
     @Inject
     private AtributoCalidadService atributoCalidadService;
 
@@ -52,11 +47,11 @@ public class TablaResumenEvaluacionReferenciasAtributoBean extends GenericBean<R
     private AtributoCalidad atributoCalidad;
     @Getter
     @Setter
-    private Integer idAtributo;
+    private String idAtributo;
 
     public void inicializar() {
         if (getRevision() != null) {
-            referencias = referenciaEJB.findWithEvaluacion();
+            referencias = referenciaService.findWithEvaluacion();
             atributosCalidad = atributoCalidadService.get();
             atributoCalidad = atributosCalidad.stream().findFirst().orElse(null);
             idAtributo = atributoCalidad != null ? atributoCalidad.getId() : null;

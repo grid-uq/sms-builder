@@ -5,6 +5,9 @@ import co.edu.utp.gia.sms.negocio.RolService;
 import co.edu.utp.gia.sms.negocio.UsuarioService;
 
 import jakarta.inject.Inject;
+
+import java.util.List;
+
 /**
  * Clase encargada de realizar la configuración inicial del usuario administrador de la aplicación
  *
@@ -16,12 +19,6 @@ import jakarta.inject.Inject;
  * @since 13/06/2019
  */
 public class UsuariosSetup implements SetupInterface{
-    /**
-     * Variable que representa el atributo ID_USUARIO, que debería ser el ID de
-     * registro del rol de usuario usado por la aplicación
-     */
-    public static final Integer ID_USUARIO = 2;
-
     /**
      * Variable que representa el atributo usuarioBO de la clase
      */
@@ -40,7 +37,7 @@ public class UsuariosSetup implements SetupInterface{
             var usuario = new Usuario();
             usuario.setNombreUsuario("root");
             usuario.setClave("12345");
-            usuario.setRoles(rolBO.get());
+            usuario.setRoles(List.copyOf(rolBO.get()));
             usuario.setNombre("root");
             usuario.setEmail("root@email.com");
             usuarioBO.create(usuario, usuario.getClave());

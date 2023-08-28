@@ -5,11 +5,11 @@ import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.query.referencia.*;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import lombok.extern.java.Log;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 
-import jakarta.ejb.Stateless;
-import jakarta.inject.Inject;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
@@ -28,9 +28,9 @@ import java.util.logging.Level;
  * @version 1.0
  * @since 12/11/2015
  */
-@Stateless
+@ApplicationScoped
 @Log
-public class ReferenciaEJB extends AbstractGenericService<Referencia, String> {
+public class ReferenciaService extends AbstractGenericService<Referencia, String> {
     @Inject
     private RevisionService revisionService;
     @Inject
@@ -46,7 +46,7 @@ public class ReferenciaEJB extends AbstractGenericService<Referencia, String> {
     @Inject
     private ProcesoService procesoService;
 
-    public ReferenciaEJB() {
+    public ReferenciaService() {
         super(DB.root.getProvider(Referencia.class));
     }
 
@@ -297,7 +297,7 @@ public class ReferenciaEJB extends AbstractGenericService<Referencia, String> {
         AtributoCalidad atributoCalidad = atributoCalidadService.findByDescripcion(AtributoCalidadService.IRRQ);
         EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
 
-        int totalPreguntas = (int) preguntaService.count();
+        int totalPreguntas = preguntaService.count();
         int totalPreguntasRelacionadas = (int) calcularTotalPreguntasRelacionadas(referencia.getId());
         float porcentaje = totalPreguntasRelacionadas * 100.0f / totalPreguntas;
 

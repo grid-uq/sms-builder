@@ -21,12 +21,6 @@ import java.util.logging.Level;
 @Named
 @Log
 public class ValidarRevisionBean extends GenericBean<Revision> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 9092392501937374230L;
-
     public void validar() {
 //		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath());
 //		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestPathInfo());

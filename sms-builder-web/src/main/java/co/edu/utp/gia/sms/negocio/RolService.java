@@ -20,7 +20,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class RolService extends AbstractGenericService<Rol, String> {
 
     public RolService() {
-        super(DB.root.revision()::getRoles);
+        super(DB.root.getProvider(Rol.class));
     }
 
     /**

@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class MetadatoServices extends AbstractGenericService<Metadato, String> {
 
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
 
     public MetadatoServices() {
         super();
@@ -53,7 +53,7 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
     }
 
     public void delete(String idReferencia,String idMetadato) {
-        var referencia = referenciaEJB.findOrThrow(idReferencia);
+        var referencia = referenciaService.findOrThrow(idReferencia);
         delete(referencia,idMetadato);
     }
 
@@ -62,7 +62,7 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
     }
 
     public Optional<Metadato> find(String idReferencia,String idMetadato) {
-        var referencia = referenciaEJB.findOrThrow(idReferencia);
+        var referencia = referenciaService.findOrThrow(idReferencia);
         return find(referencia,idMetadato);
     }
     public Optional<Metadato> find(Referencia referencia, String idMetado) {
@@ -70,7 +70,7 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
     }
 
     public Metadato findOrThrow(String idReferencia,String idMetadato) {
-        var referencia = referenciaEJB.findOrThrow(idReferencia);
+        var referencia = referenciaService.findOrThrow(idReferencia);
         return findOrThrow(referencia,idMetadato);
     }
 

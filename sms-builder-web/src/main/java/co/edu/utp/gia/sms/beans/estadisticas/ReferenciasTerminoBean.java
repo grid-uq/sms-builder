@@ -1,13 +1,10 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
-
-import java.io.Serial;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de los terminos usados para clasificar las referencias.
@@ -22,12 +19,6 @@ import java.io.Serial;
 @Named
 @ViewScoped
 public class ReferenciasTerminoBean extends EstaditicaDatoDTOBaseBean {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = -7097161925478814637L;
     @Getter
     @Setter
     private String informacion;

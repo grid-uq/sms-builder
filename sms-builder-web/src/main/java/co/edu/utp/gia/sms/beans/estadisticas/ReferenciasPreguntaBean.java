@@ -4,8 +4,6 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
-import java.io.Serial;
-
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de las preguntas.
  *
@@ -19,14 +17,6 @@ import java.io.Serial;
 @Named
 @ViewScoped
 public class ReferenciasPreguntaBean extends EstaditicaDatoDTOBaseBean {
-
-	
-	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	@Serial
-	private static final long serialVersionUID = 5565581996776858682L;
-
 	public void inicializar() {
 		setEjeX(getMessage(MessageConstants.PREGUNTAS));
 		setEjeY("# "+getMessage(MessageConstants.SPS));

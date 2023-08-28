@@ -12,6 +12,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.util.Collection;
 import java.util.List;
 
 
@@ -42,7 +44,7 @@ public class RolBean extends AbstractBean {
      */
     @Getter
     @Setter
-    private List<Rol> roles;
+    private Collection<Rol> roles;
 
     /**
      * Variable que representa el atributo rolEjb de la clase. Instancia
@@ -64,7 +66,7 @@ public class RolBean extends AbstractBean {
      */
     public void registrar() {
         try {
-            rolService.registrar(rol);
+            rolService.save(rol);
             rol = new Rol();
             roles = rolService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
@@ -80,7 +82,7 @@ public class RolBean extends AbstractBean {
      */
     public void eliminar(Rol rol) {
         try {
-            rolService.eliminar(rol);
+            rolService.delete(rol);
             roles = rolService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
@@ -97,7 +99,7 @@ public class RolBean extends AbstractBean {
     public void onRowEdit(RowEditEvent<Rol> event) {
         Rol rol = event.getObject();
         try {
-            rolService.actualizar(rol);
+            rolService.update(rol);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());

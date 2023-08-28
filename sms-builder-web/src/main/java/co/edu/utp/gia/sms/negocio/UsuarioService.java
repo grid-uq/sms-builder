@@ -26,7 +26,7 @@ public class UsuarioService extends AbstractGenericService<Usuario, String> {
 
 
     public UsuarioService() {
-        super(DB.root.revision()::getUsuarios);
+        super(DB.root.getProvider(Usuario.class));
     }
 
     /**

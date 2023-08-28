@@ -5,7 +5,6 @@ import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -14,7 +13,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener las fuentes registradas en el sistema para una referencia
  */
-public class ReferenciaGetFuentes extends Queries{
+public class ReferenciaGetFuentes {
     /**
      * Consulta que permite obtener las fuentes registradas en el sistema para una referencia
      *

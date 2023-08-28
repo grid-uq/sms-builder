@@ -39,7 +39,7 @@ public abstract class EntidadConverter<E extends Entidad> implements Converter<E
 	public E getAsObject(FacesContext facesContext, UIComponent componente, String id) {
 
 		E entidad = null;
-		if (id != null && !"".equals(id.trim())) {
+		if (id != null && !id.trim().isEmpty()) {
 			try {
 				entidad = findById( id );
 			} catch (Exception e) {

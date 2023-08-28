@@ -2,13 +2,10 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.TipoFuente;
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
-
-import java.io.Serial;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de los tipos de fuente.
@@ -23,12 +20,6 @@ import java.io.Serial;
 @Named
 @ViewScoped
 public class ReferenciasTipoFuenteBean extends EstaditicaDatoDTOBaseBean {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = -5273832765304254823L;
     @Getter
     @Setter
     private TipoFuente tipo;

@@ -20,21 +20,11 @@ import java.io.IOException;
  * @since 7 jul. 2020
  *
  */
-public class FindReferenceCitation {
-
+public enum FindReferenceCitation {
 	/**
 	 * Variable que representa el atributo instans de la clase
 	 */
-	private static final FindReferenceCitation instans = new FindReferenceCitation();
-
-	/**
-	 * Metodo que permite obtener el valor del atributo instans
-	 * 
-	 * @return El valor del atributo instans
-	 */
-	public static FindReferenceCitation getInstans() {
-		return instans;
-	}
+	INSTANCE;
 
 	/**
 	 * Metodo que permite obtener la traduccion del resumen de una

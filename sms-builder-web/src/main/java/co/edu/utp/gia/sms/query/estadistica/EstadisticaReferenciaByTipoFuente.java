@@ -5,7 +5,6 @@ import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -16,7 +15,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener el número de referencias por tipo de fuente en una revision <br />
  */
-public class EstadisticaReferenciaByTipoFuente extends Queries {
+public class EstadisticaReferenciaByTipoFuente {
 
     /**
      * Consulta que permite obtener el número de referencias por tipo de fuente en una revision

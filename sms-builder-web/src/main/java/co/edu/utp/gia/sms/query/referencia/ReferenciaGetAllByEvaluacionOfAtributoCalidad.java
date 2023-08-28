@@ -4,7 +4,6 @@ import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -15,7 +14,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener las referencias con una determinada calificación de un atributo de calidad dado
  */
-public class ReferenciaGetAllByEvaluacionOfAtributoCalidad extends Queries{
+public class ReferenciaGetAllByEvaluacionOfAtributoCalidad {
     /**
      * Consulta que permite obtener las referencias con una determinada calificación de un atributo de calidad dado
      *

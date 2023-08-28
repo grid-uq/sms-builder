@@ -4,6 +4,10 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import jakarta.inject.Inject;
+import lombok.extern.java.Log;
+
+import java.util.logging.Level;
+
 /**
  * Clase encargada de realizar la configuración inicial de la aplicación
  *
@@ -16,6 +20,7 @@ import jakarta.inject.Inject;
  */
 @Startup
 @Singleton
+@Log
 public class Setup implements SetupInterface {
 
     @Inject
@@ -39,43 +44,43 @@ public class Setup implements SetupInterface {
         try{
             revisionSetup.setup();
         }catch ( Exception e ){
-            e.printStackTrace();
+            log.log(Level.SEVERE,"Error en configuración inicial",e);
         }
         try{
             atributosCalidadSetup.setup();
         }catch ( Exception e ){
-            e.printStackTrace();
+            log.log(Level.SEVERE,"Error en configuración inicial",e);
         }
         try{
             fuentesSetup.setup();
         }catch ( Exception e ){
-            e.printStackTrace();
+            log.log(Level.SEVERE,"Error en configuración inicial",e);
         }
         try {
             recursosSetup.setup();
         }catch ( Exception e ){
-            e.printStackTrace();
+            log.log(Level.SEVERE,"Error en configuración inicial",e);
         }
         try{
             rolSetup.setup();
         }catch ( Exception e ){
-            e.printStackTrace();
+            log.log(Level.SEVERE,"Error en configuración inicial",e);
         }
         try{
             usuariosSetup.setup();
         }catch ( Exception e ){
-            e.printStackTrace();
+            log.log(Level.SEVERE,"Error en configuración inicial",e);
         }
         try{
             pasosSetup.setup();
         }catch ( Exception e ){
-            e.printStackTrace();
+            log.log(Level.SEVERE,"Error en configuración inicial",e);
         }
 
         try{
             procesoSetup.setup();
         }catch ( Exception e ){
-            e.printStackTrace();
+            log.log(Level.SEVERE,"Error en configuración inicial",e);
         }
 
     }

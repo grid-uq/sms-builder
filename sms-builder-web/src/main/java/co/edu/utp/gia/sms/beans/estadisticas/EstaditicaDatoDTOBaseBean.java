@@ -33,11 +33,6 @@ import java.util.stream.Collectors;
  * @since 13/06/2019
  */
 public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -6652760630318393603L;
     @Getter
     @Setter
     private List<DatoDTO> datos;
@@ -109,7 +104,7 @@ public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
         ArrayList<String> etiquetas = new ArrayList<>();
 
         getDatosSeries().values().forEach(datos -> {
-            etiquetas.addAll( datos.getDatos().stream().map(DatoDTO::getEtiqueta).collect(Collectors.toList()) );
+            etiquetas.addAll( datos.getDatos().stream().map(DatoDTO::getEtiqueta).toList());
         });
 
         return etiquetas.stream().distinct().collect(Collectors.toList());

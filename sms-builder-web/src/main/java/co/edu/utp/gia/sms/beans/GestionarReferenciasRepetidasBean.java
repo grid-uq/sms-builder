@@ -2,7 +2,7 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -10,6 +10,8 @@ import lombok.extern.java.Log;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.io.Serial;
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de referencias repetidas.
@@ -29,20 +31,21 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 8275908838815243233L;
     @Getter
     @Setter
     private List<ReferenciaDTO> referencias;
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
 
 //    @Inject @ManagedProperty("#{param.paso}")
 //    private Integer paso;
 
     public void inicializar() {
         if (getRevision() != null) {
-            //referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 0);
-            referencias = referenciaEJB.findByPaso(getPasoAnterior().getId());
+            //referencias = referenciaService.obtenerTodas(getRevision().getId(), 0);
+            referencias = referenciaService.findByPaso(getPasoAnterior().getId());
         }
     }
 
@@ -64,18 +67,18 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
 
     public void guardar() {
         for (ReferenciaDTO referencia : referencias) {
-            referenciaEJB.updateDuplicada(referencia.getId(),referencia.getDuplicada());
+            referenciaService.updateDuplicada(referencia.getId(),referencia.getDuplicada());
             if( !referencia.getDuplicada() ){
-                referenciaEJB.avanzarReferecias( getPasoActual().getId() );
+                referenciaService.avanzarReferecias( getPasoActual().getId() );
 //                if( referencia.getFiltro() < paso ) {
 //                    referencia.setFiltro(paso);
-//                    referenciaEJB.actualizarFiltro(referencia.getId(), paso);
+//                    referenciaService.actualizarFiltro(referencia.getId(), paso);
 //                }
             } else {
-                referenciaEJB.avanzarReferecias( getPasoAnterior().getId() );
+                referenciaService.avanzarReferecias( getPasoAnterior().getId() );
 //                if( referencia.getFiltro() >= paso ){
 //                    referencia.setFiltro(paso-1);
-//                    referenciaEJB.actualizarFiltro(referencia.getId(), paso-1);
+//                    referenciaService.actualizarFiltro(referencia.getId(), paso-1);
 //                }
             }
         }

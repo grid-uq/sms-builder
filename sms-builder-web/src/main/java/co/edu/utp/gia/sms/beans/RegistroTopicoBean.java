@@ -9,6 +9,9 @@ import org.primefaces.PrimeFaces;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.io.Serial;
+
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de tópicos.
  *
@@ -26,6 +29,7 @@ public class RegistroTopicoBean extends GenericBean<Topico> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 5103003688870607449L;
     @Getter
     @Setter

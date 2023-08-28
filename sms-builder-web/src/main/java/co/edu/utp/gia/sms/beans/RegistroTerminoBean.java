@@ -13,6 +13,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class RegistroTerminoBean extends GenericBean<Termino> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 4369004470790305574L;
     @Getter
     @Setter
@@ -79,7 +81,7 @@ public class RegistroTerminoBean extends GenericBean<Termino> {
     }
 
     public void eliminarSinonimo(Termino termino,String sinonimo){
-        terminoService.removerSinonimo(termino.getId(),sinonimo);
+        terminoService.removeSinonimo(termino.getId(),sinonimo);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         termino.removerSinonimo(sinonimo);
     }

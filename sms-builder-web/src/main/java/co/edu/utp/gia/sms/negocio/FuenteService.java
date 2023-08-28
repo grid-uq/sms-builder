@@ -26,7 +26,7 @@ public class FuenteService extends AbstractGenericService<Fuente, String> {
     public static final String INCLUSION_DIRECTA = "INCLUSION_DIRECTA";
 
     public FuenteService() {
-        super(DB.root.revision()::getFuentes);
+        super(DB.root.getProvider(Fuente.class));
     }
 
     /**

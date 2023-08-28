@@ -2,7 +2,7 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.exportutil.ReferenceToRIS;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +11,13 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.extern.java.Log;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.logging.Level;
+
 /**
  * Clase controladora de interfaz web que se encarga de presentar un resumen de las referencias destacadas.
  *
@@ -26,22 +30,19 @@ import java.util.List;
  */
 @Named
 @ViewScoped
+@Log
 public class ResumenReferenciasDestacadasBean extends GenericBean<ReferenciaDTO> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -4192800052066233993L;
     @Getter
     @Setter
     private List<ReferenciaDTO> referencias;
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
 
 
     public void inicializar() {
 
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerDestacadas();
+            referencias = referenciaService.obtenerDestacadas();
         }
     }
 
@@ -62,8 +63,7 @@ public class ResumenReferenciasDestacadasBean extends GenericBean<ReferenciaDTO>
             ReferenceToRIS rtr = new ReferenceToRIS(output);
             rtr.procesarReferencias(referencias);
         } catch (IOException e) {
-
-            e.printStackTrace();
+            log.log(Level.ALL,"Error al exportar las referencias",e);
         }
         // Now you can write the InputStream of the file to the above OutputStream the usual way.
         // ...

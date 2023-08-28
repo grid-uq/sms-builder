@@ -5,14 +5,15 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.EstadoUsuario;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.negocio.UsuarioService;
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import org.primefaces.event.RowEditEvent;
 
-import jakarta.faces.annotation.ManagedProperty;
-import jakarta.inject.Inject;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -77,7 +78,7 @@ public abstract class UsuarioBean extends AbstractBean {
      */
     @Getter
     @Setter
-    private List<Usuario> usuarios;
+    private Collection<Usuario> usuarios;
 
     /**
      * Variable que representa el atributo usuarioBO de la clase
@@ -140,7 +141,7 @@ public abstract class UsuarioBean extends AbstractBean {
      */
     public void eliminar(Usuario usuario) {
         try {
-            usuarioService.eliminar(usuario);
+            usuarioService.delete(usuario);
             usuarios = usuarioService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {

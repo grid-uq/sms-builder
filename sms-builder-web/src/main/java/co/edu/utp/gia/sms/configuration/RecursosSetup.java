@@ -48,7 +48,7 @@ public class RecursosSetup implements SetupInterface{
     private void setupRecurso(String url, boolean publico) {
         if (recursoBO.findByUrl(url) == null) {
             var recurso = new Recurso(getNombreRecurso(url),url,publico);
-            recursoBO.registrar(recurso);
+            recursoBO.save(recurso);
         }
     }
 

@@ -44,7 +44,7 @@ public class ObjetivoService extends AbstractGenericService<Objetivo, String> {
 	 * @return List< Objetivo > relacionados con la preguna
 	 */
 	public List<Objetivo> findByPregunta(String id) {
-		return preguntaService.obtener(id).getObjetivos();
+		return preguntaService.findOrThrow(id).getObjetivos();
 	}
 
 }

@@ -1,9 +1,6 @@
 package co.edu.utp.gia.sms.configuration;
 
-import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
-import co.edu.utp.gia.sms.negocio.FuenteService;
 import co.edu.utp.gia.sms.negocio.RevisionService;
-
 import jakarta.inject.Inject;
 /**
  * Clase encargada de realizar la configuración inicial de la revision en la aplicación
@@ -18,10 +15,6 @@ import jakarta.inject.Inject;
 public class RevisionSetup implements SetupInterface{
     @Inject
     private RevisionService revisionService;
-    @Inject
-    private AtributoCalidadService atributoCalidadService;
-    @Inject
-    private FuenteService fuenteService;
     @Override
     public void setup() {
         if( revisionService.get().getNombre() == null ) {

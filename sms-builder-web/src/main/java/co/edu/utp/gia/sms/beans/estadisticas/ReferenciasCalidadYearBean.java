@@ -9,7 +9,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 
-import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -30,13 +29,6 @@ public class ReferenciasCalidadYearBean extends EstaditicaDatoDTOBaseBean {
     private List<String> years;
     @Inject
     private AtributoCalidadService atributoCalidadService;
-
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 1943642325865821264L;
 
     public void inicializar() {
         setEjeX(getMessage(MessageConstants.YEAR));

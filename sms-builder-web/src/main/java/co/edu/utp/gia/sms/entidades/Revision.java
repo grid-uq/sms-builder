@@ -3,7 +3,6 @@ package co.edu.utp.gia.sms.entidades;
 import lombok.*;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Christian A. Candela
@@ -18,11 +17,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Revision {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -7643166662144090738L;
-
     /**
      * Variable que representa el atributo nombre de la clase
      */

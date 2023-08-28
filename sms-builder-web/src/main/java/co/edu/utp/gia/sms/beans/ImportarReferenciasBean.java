@@ -8,7 +8,7 @@ import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParseFactory;
 import co.edu.utp.gia.sms.importutil.ReferenceParse;
 import co.edu.utp.gia.sms.importutil.TipoArchivo;
 import co.edu.utp.gia.sms.negocio.FuenteService;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -18,6 +18,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
@@ -38,10 +39,11 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 1107564281230780705L;
 
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
     @Inject
     private FuenteService fuenteService;
     @Getter @Setter
@@ -70,7 +72,7 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
         } else {
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         }
-        referenciaEJB.avanzarReferecias(getPasoAnterior().getId());
+        referenciaService.avanzarReferecias(getPasoAnterior().getId());
     }
 
     private void procesarArchivo() {
@@ -78,7 +80,7 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
             ReferenceParse parser = FileMultipleRegisterParseFactory
                     .getInstance(tipoArchivo,fuente.getNombre(),fuente.getTipo().toString());
             List<Referencia> referencias = parser.parse(file.getInputStream());
-            referenciaEJB.save(referencias, paso);
+            referenciaService.save(referencias, paso);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA)+" "+referencias.size());
         } catch (IOException e) {
             log.log(Level.WARNING, "Error al procesar un archivo", e);

@@ -18,13 +18,10 @@ public class FileMultipleRegisterParseFactory {
 	}
 
 	public static ReferenceParse getInstance(TipoArchivo tipoArchivo, String fuente, String tipoFuente) {
-		switch (tipoArchivo) {
-			case RIS:
-				return new RisFileMultipleRegisterParse(fuente,tipoFuente);
-			case BIBTEX:
-			default:
-				return new BibtexFileMultipleRegisterParse(fuente,tipoFuente);
-		}
+        return switch (tipoArchivo) {
+            case RIS -> new RisFileMultipleRegisterParse(fuente, tipoFuente);
+            default -> new BibtexFileMultipleRegisterParse(fuente, tipoFuente);
+        };
 	}
 
 }

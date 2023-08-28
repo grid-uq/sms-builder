@@ -27,6 +27,6 @@ public class ObjetivoConverter extends EntidadConverter<Objetivo> {
 
 	@Override
 	protected Objetivo findById(String id) {
-		return objetivoService.obtener(Integer.parseInt(id));
+		return objetivoService.find(id).orElse(null);
 	}
 }

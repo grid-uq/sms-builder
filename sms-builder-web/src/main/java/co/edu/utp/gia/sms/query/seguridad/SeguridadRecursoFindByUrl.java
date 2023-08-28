@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.query.seguridad;
 
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Recurso;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -11,9 +10,7 @@ import java.util.stream.Stream;
 /**
  * Consulta permite buscar un {@link Recurso} basado en su url
  */
-public class SeguridadRecursoFindByUrl extends Queries {
-    public static final String NAME = "Seguridad.recursoFindByUrl";
-
+public class SeguridadRecursoFindByUrl {
     /**
      * Consulta permite buscar un {@link Recurso} basado en su url
      *

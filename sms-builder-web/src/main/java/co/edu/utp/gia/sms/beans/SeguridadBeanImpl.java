@@ -27,10 +27,6 @@ import jakarta.inject.Named;
 @SessionScoped
 public class SeguridadBeanImpl extends SeguridadBean {
 	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
 	 * Variable que representa el {@link Usuario} que esta autenticado
 	 */
 	@Getter

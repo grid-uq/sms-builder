@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.query.estadistica;
 
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -10,7 +9,7 @@ import java.util.Collection;
 /**
  * Consulta que permite obtener el total de referencias repetidas de una Revision
  */
-public class EstadisticaGetTotalReferenciasRepetidas extends Queries{
+public class EstadisticaGetTotalReferenciasRepetidas {
 
     /**
      * Consulta que permite obtener el total de referencias repetidas

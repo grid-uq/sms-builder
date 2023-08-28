@@ -10,6 +10,7 @@ import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.Date;
 /**
@@ -28,6 +29,7 @@ public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 9060626480979863537L;
     @Getter @Setter
     private Fuente baseDatos;

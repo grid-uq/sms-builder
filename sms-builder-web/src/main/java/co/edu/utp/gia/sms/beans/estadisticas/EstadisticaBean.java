@@ -2,15 +2,12 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.negocio.EstadisticaService;
+import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.charts.ChartModel;
 import org.primefaces.model.charts.bar.BarChartModel;
 import org.primefaces.model.charts.pie.PieChartModel;
-
-import jakarta.inject.Inject;
-
-import java.io.Serial;
 
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos.
@@ -23,13 +20,6 @@ import java.io.Serial;
  * @since 13/06/2019
  */
 public abstract class EstadisticaBean extends AbstractRevisionBean {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 4686100580073797808L;
-
-
     @Inject
     @Getter
     private EstadisticaService estadisticaService;
@@ -59,14 +49,10 @@ public abstract class EstadisticaBean extends AbstractRevisionBean {
     private String tipoGrafica = "pie";
 
     protected void crearModelo() {
-        switch (tipoGrafica) {
-            case "bar":
-                model = crearBarModel();
-                break;
-            case "pie":
-            default:
-                model = crearPieModel();
-                break;
+        if (tipoGrafica.equals("bar")) {
+            model = crearBarModel();
+        } else {
+            model = crearPieModel();
         }
     }
 

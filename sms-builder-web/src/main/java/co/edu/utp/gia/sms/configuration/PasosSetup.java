@@ -45,7 +45,7 @@ public class PasosSetup implements SetupInterface {
 
         for (var i = 0; i < recursos.length; i++) {
             if( pasoService.findByName(keys[i]) == null ) {
-                pasoService.registrar(new Paso(keys[i], recursoService.findByUrl(recursos[i])));
+                pasoService.save(new Paso(keys[i], recursoService.findByUrl(recursos[i])));
             }
         }
     }

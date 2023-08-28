@@ -22,7 +22,7 @@ public class AtributoCalidadService extends AbstractGenericService<AtributoCalid
     public static final String SCI = "SCI";
 
     public AtributoCalidadService() {
-        super(DB.root.revision()::getAtributosCalidad);
+        super(DB.root.getProvider(AtributoCalidad.class));
     }
 
     /**
@@ -30,9 +30,10 @@ public class AtributoCalidadService extends AbstractGenericService<AtributoCalid
      *
      * @param descripcion Descripcion del atributo de calidad
      * @param objetivo    Determina si el atributo de calidad es de caracter objetivo (true) o subjetivo (false)
+     * @return El atributo de calidad almacenado.
      */
-    public void save(String descripcion, Boolean objetivo) {
-        save(new AtributoCalidad(descripcion, objetivo));
+    public AtributoCalidad save(String descripcion, Boolean objetivo) {
+        return save(new AtributoCalidad(descripcion, objetivo));
     }
 
     /**

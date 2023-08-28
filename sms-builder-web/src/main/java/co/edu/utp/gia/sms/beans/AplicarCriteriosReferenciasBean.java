@@ -2,7 +2,7 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.importutil.FindReferenceCitation;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -25,56 +25,51 @@ import java.util.List;
 @ViewScoped
 @Log
 public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 6757021713542648202L;
     @Getter
     @Setter
     private List<ReferenciaDTO> referencias;
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
 
 
     public void inicializar() {
         if (getRevision() != null) {
-//            referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 1);
+//            referencias = referenciaService.obtenerTodas(getRevision().getId(), 1);
             log.info("Aplicar criterios paso "+paso);
-            referencias = referenciaEJB.findByPaso(getPasoAnterior().getId());
+            referencias = referenciaService.findByPaso(getPasoAnterior().getId());
             log.info("Numero referecias "+referencias.size());
         }
     }
 
     public void actualizarNota(ReferenciaDTO referencia) {
-        referenciaEJB.updateNota(referencia.getId(), referencia.getNota());
+        referenciaService.updateNota(referencia.getId(), referencia.getNota());
     }
 
     public void adicionarResumen(ReferenciaDTO referencia) {
-        String tranduccion = FindReferenceCitation.getInstans().findTranslate(referencia.getResumen());
+        String tranduccion = FindReferenceCitation.INSTANCE.findTranslate(referencia.getResumen());
         referencia.setNota(referencia.getNota() + "\n" + tranduccion);
         actualizarNota(referencia);
     }
 
     public void seleccionarReferencia(ReferenciaDTO referencia) {
         if( referencia.isSeleccionada() ){
-            referenciaEJB.avanzarReferecias( getPasoActual().getId() );
+            referenciaService.avanzarReferecias( getPasoActual().getId() );
 //            if( referencia.getFiltro() < paso ) {
 //                referencia.setFiltro(paso);
-//                referenciaEJB.actualizarFiltro(referencia.getId(), paso);
+//                referenciaService.actualizarFiltro(referencia.getId(), paso);
 //            }
         } else {
-            referenciaEJB.avanzarReferecias( getPasoAnterior().getId() );
+            referenciaService.avanzarReferecias( getPasoAnterior().getId() );
 //            if( referencia.getFiltro() >= paso ){
 //                referencia.setFiltro(paso-1);
-//                referenciaEJB.actualizarFiltro(referencia.getId(), paso-1);
+//                referenciaService.actualizarFiltro(referencia.getId(), paso-1);
 //            }
         }
-        //referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro());
+        //referenciaService.actualizarFiltro(referencia.getId(), referencia.getFiltro());
     }
 
     public void actualizarRelevancia(ReferenciaDTO referencia) {
-        referenciaEJB.updateRelevancia(referencia.getId(), referencia.getRelevancia());
+        referenciaService.updateRelevancia(referencia.getId(), referencia.getRelevancia());
     }
 
 

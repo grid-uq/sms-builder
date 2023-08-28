@@ -25,7 +25,7 @@ public class RecursoService extends AbstractGenericService<Recurso, String> {
 
 
     public RecursoService() {
-        super(DB.root.revision()::getRecursos);
+        super(DB.root.getProvider(Recurso.class));
     }
 
     /**

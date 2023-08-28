@@ -30,10 +30,6 @@ import java.util.List;
  * @since 2015-12-02
  */
 public abstract class SeguridadBean extends AbstractBean {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 1L;
 //	/**
 //	 * Variable que representa el {@link Usuario} que esta autenticado
 //	 */

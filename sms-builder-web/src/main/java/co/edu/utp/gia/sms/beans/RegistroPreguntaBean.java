@@ -16,6 +16,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import java.io.Serial;
 import java.util.*;
 
 /**
@@ -38,6 +39,7 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 1L;
     @Getter
     @Setter
@@ -97,7 +99,7 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
      * @param topico Topico de la pregunta a eliminar
      */
     public void eliminarTopico(PreguntaDTO pregunta, Topico topico) {
-        topicoService.eliminar(topico.getId());
+        topicoService.delete(topico.getId());
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         pregunta.getTopicos().remove(topico);
     }

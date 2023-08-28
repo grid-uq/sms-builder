@@ -4,16 +4,14 @@ import co.edu.utp.gia.sms.entidades.Paso;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.negocio.PasoService;
 import co.edu.utp.gia.sms.negocio.ProcesoService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
-import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-
 import java.util.Collection;
-import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga de la configuración del proceso.
  *

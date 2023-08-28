@@ -4,15 +4,13 @@ import co.edu.utp.gia.sms.beans.estadisticas.util.SerieDatos;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.charts.bar.BarChartModel;
 
-import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-
-import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -28,13 +26,6 @@ import java.util.List;
 @Named
 @ViewScoped
 public class ReferenciasYearBean extends EstaditicaSerieDatoDTOBaseBean {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 1765173044631798246L;
-
     @Inject
     private AtributoCalidadService atributoCalidadService;
 

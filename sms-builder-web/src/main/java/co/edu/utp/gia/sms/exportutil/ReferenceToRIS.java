@@ -44,32 +44,19 @@ public class ReferenceToRIS {
 
     private static String identificarClave(TipoMetadato identifier) {
 
-        switch (identifier) {
-            case TITLE:
-                return RIS_TITLE;
-            case ABSTRACT:
-                return RIS_ABSTRACT;
-            case KEYWORD:
-                return RIS_KEWYWORDS;
-            case ISBN:
-                return RIS_ISBN;
-            case PUBLISHER:
-                return RIS_PUBLISHER;
-            case DOI:
-                return RIS_DOI;
-            case AUTOR:
-                return RIS_AUTHOR;
-            case YEAR:
-                return RIS_YEAR;
-            case TYPE:
-                return RIS_TYPE;
-            case NOTA:
-                return RIS_NOTE;
-
-            case NOT_SUPORT:
-            default:
-                return RIS_NOT_SUPPORT;
-        }
+        return switch (identifier) {
+            case TITLE -> RIS_TITLE;
+            case ABSTRACT -> RIS_ABSTRACT;
+            case KEYWORD -> RIS_KEWYWORDS;
+            case ISBN -> RIS_ISBN;
+            case PUBLISHER -> RIS_PUBLISHER;
+            case DOI -> RIS_DOI;
+            case AUTOR -> RIS_AUTHOR;
+            case YEAR -> RIS_YEAR;
+            case TYPE -> RIS_TYPE;
+            case NOTA -> RIS_NOTE;
+            default -> RIS_NOT_SUPPORT;
+        };
     }
 
     public void procesarReferencias(List<ReferenciaDTO> referencias) {

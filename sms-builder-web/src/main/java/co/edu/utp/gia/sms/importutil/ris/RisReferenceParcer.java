@@ -73,28 +73,19 @@ public class RisReferenceParcer extends ReferenceParser<String> {
 	}
 
 	private TipoMetadato identifierOf(String key) {
-		switch (key) {
-		case TITULO:
-			return TipoMetadato.TITLE;
-		case AUTOR:
-			return TipoMetadato.AUTOR;
-		case NOMBRE_PUBLICACION:
-			return TipoMetadato.PUBLISHER;
-		case YEAR:
-			return TipoMetadato.YEAR;
-		case ABSTRACT:
-			return TipoMetadato.ABSTRACT;
+        return switch (key) {
+            case TITULO -> TipoMetadato.TITLE;
+            case AUTOR -> TipoMetadato.AUTOR;
+            case NOMBRE_PUBLICACION -> TipoMetadato.PUBLISHER;
+            case YEAR -> TipoMetadato.YEAR;
+            case ABSTRACT -> TipoMetadato.ABSTRACT;
 //		case ISBN:
 //			return TipoMetadato.ISBN;
-		case DOI:
-			return TipoMetadato.DOI;
-		case KEYWORD:
-			return TipoMetadato.KEYWORD;
-		case TIPO_PUBLICACION:
-			return TipoMetadato.TYPE;
-		default:
-			return TipoMetadato.NOT_SUPORT;
-		}
+            case DOI -> TipoMetadato.DOI;
+            case KEYWORD -> TipoMetadato.KEYWORD;
+            case TIPO_PUBLICACION -> TipoMetadato.TYPE;
+            default -> TipoMetadato.NOT_SUPORT;
+        };
 	}
 
 }

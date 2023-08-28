@@ -3,7 +3,6 @@ package co.edu.utp.gia.sms.query.estadistica;
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -12,7 +11,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener el número de referencias por año en una revision
  */
-public class EstadisticaReferenciaByYear extends Queries {
+public class EstadisticaReferenciaByYear {
     /**
      * Consulta que permite obtener el número de referencias por año en una revision
      *

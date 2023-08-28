@@ -27,11 +27,11 @@ public class SerieDatos {
     private List<DatoDTO> datos;
 
     public Float get(String etiqueta){
-        Optional<DatoDTO> datoDTO = datos.stream().filter( d->d.getEtiqueta().equals(etiqueta) ).findFirst();
-        if( datoDTO.isPresent() ){
-            return datoDTO.get().getValor();
-        }
-        return null;
+        return datos.stream()
+                .filter( d->d.getEtiqueta().equals(etiqueta) )
+                .map(DatoDTO::getValor)
+                .findFirst()
+                .orElse(null);
     }
 
 

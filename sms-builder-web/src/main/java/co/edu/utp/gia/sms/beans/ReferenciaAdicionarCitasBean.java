@@ -3,7 +3,7 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import co.edu.utp.gia.sms.negocio.RevisionService;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +11,8 @@ import lombok.Setter;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.io.Serial;
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de citas.
@@ -29,9 +31,10 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 4009685061343184778L;
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
 
     @Inject
     private RevisionService revisionService;
@@ -47,8 +50,8 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
     public void inicializar() {
 
         if (getRevision() != null) {
-            //referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
-            referencias = referenciaEJB.findByPaso(getRevision().getPasoSeleccionado().getId());
+            //referencias = referenciaService.obtenerTodas(getRevision().getId(), 3);
+            referencias = referenciaService.findByPaso(getRevision().getPasoSeleccionado().getId());
             topicos = revisionService.getTopicos();
         }
     }
@@ -63,7 +66,7 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
 
     public void guardarYear(ReferenciaDTO referencia) {
         try {
-            referenciaEJB.actualizarYear(referencia.getId(), referencia.getYear());
+            referenciaService.actualizarYear(referencia.getId(), referencia.getYear());
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
 
@@ -72,7 +75,7 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
 
     public void guardarCita(ReferenciaDTO referencia) {
         try {
-            referenciaEJB.updateCita(referencia.getId(), referencia.getCitas());
+            referenciaService.updateCita(referencia.getId(), referencia.getCitas());
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
         }
@@ -80,14 +83,14 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
 
 
     public void guardarRelevancia(ReferenciaDTO referencia) {
-        referenciaEJB.updateRelevancia(referencia.getId(), referencia.getRelevancia());
+        referenciaService.updateRelevancia(referencia.getId(), referencia.getRelevancia());
     }
 
     public void guardar() {
         for (ReferenciaDTO referencia : referencias) {
-            referenciaEJB.cleanTopicos(referencia.getId());
+            referenciaService.cleanTopicos(referencia.getId());
             for (Topico topico : referencia.getTopicos()) {
-                referenciaEJB.addTopico(referencia.getId(), topico.getId());
+                referenciaService.addTopico(referencia.getId(), topico.getId());
             }
         }
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));

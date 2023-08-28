@@ -3,7 +3,6 @@ package co.edu.utp.gia.sms.query.estadistica;
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoFuente;
-import co.edu.utp.gia.sms.query.Queries;
 import co.edu.utp.gia.sms.query.referencia.ReferenciaByTipoFuente;
 import jakarta.inject.Provider;
 
@@ -12,7 +11,7 @@ import java.util.Collection;
 /**
  * Consulta que permite obtener el total de referencias de un determinado {@link TipoFuente} en una Revision
  */
-public class EstadisticaGetTotalReferenciasByTipoFuente extends Queries{
+public class EstadisticaGetTotalReferenciasByTipoFuente {
 
     /**
      * Consulta que permite obtener el total de referencias de un determinado {@link TipoFuente} en una Revision

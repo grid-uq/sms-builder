@@ -6,7 +6,6 @@ import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener el número de referencias por termino y sinonimo
  */
-public class EstadisticaNumeroReferenciasBySinonimo extends Queries{
+public class EstadisticaNumeroReferenciasBySinonimo {
     /**
      * Consulta que permite obtener el número de referencias por termino y sinonimo
      *

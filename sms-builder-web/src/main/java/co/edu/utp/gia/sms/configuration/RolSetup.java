@@ -30,11 +30,11 @@ public class RolSetup implements SetupInterface{
 
     @Override
     public void setup() {
-        registrarRecursosRol(1,"Administrador", RecursosConstants.RECURSOS_ADMINISTRADOR);
-        registrarRecursosRol(2,"Usuario", RecursosConstants.RECURSOS_USUARIO);
+        registrarRecursosRol("1","Administrador", RecursosConstants.RECURSOS_ADMINISTRADOR);
+        registrarRecursosRol("2","Usuario", RecursosConstants.RECURSOS_USUARIO);
     }
 
-    private void registrarRecursosRol(Integer id,String nombre,String[] recursos){
+    private void registrarRecursosRol(String id,String nombre,String[] recursos){
         var rol = new Rol(id,nombre);
         for (String url : recursos) {
             var recurso = recursoBO.findByUrl(url);
@@ -42,10 +42,10 @@ public class RolSetup implements SetupInterface{
                 rol.getRecursos().add(recurso);
             }
         }
-        if( rolBO.obtener(id) == null ){
-            rolBO.registrar(rol);
+        if( rolBO.find(id).isEmpty() ){
+            rolBO.save(rol);
         } else {
-            rolBO.actualizar(rol);
+            rolBO.update(rol);
         }
     }
 

@@ -25,6 +25,6 @@ public class FuenteConverter extends EntidadConverter<Fuente> {
 
 	@Override
 	protected Fuente findById(String id) {
-		return fuenteService.obtener(Integer.parseInt(id));
+		return fuenteService.find(id).orElse(null);
 	}
 }

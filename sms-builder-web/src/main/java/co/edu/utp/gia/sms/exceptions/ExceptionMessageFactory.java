@@ -1,6 +1,7 @@
 package co.edu.utp.gia.sms.exceptions;
 
 import co.edu.utp.gia.sms.util.message.GenericMessageFactory;
+import lombok.Getter;
 
 /**
  * Clase utilitaria encargada de construir los mensajes para las excepciones.
@@ -15,14 +16,11 @@ import co.edu.utp.gia.sms.util.message.GenericMessageFactory;
 
 public class ExceptionMessageFactory extends GenericMessageFactory<ExceptionMessage> {
 
+    @Getter
     private static final ExceptionMessageFactory instance = new ExceptionMessageFactory();
 
     private ExceptionMessageFactory() {
         super("/exception", ExceptionMessage.class);
-    }
-
-    public static ExceptionMessageFactory getInstance(){
-        return instance;
     }
 
 }

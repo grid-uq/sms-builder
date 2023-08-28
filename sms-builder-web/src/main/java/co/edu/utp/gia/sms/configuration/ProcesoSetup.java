@@ -1,11 +1,8 @@
 package co.edu.utp.gia.sms.configuration;
 
-import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.negocio.PasoService;
 import co.edu.utp.gia.sms.negocio.ProcesoService;
 import jakarta.inject.Inject;
-
-import java.util.List;
 /**
  * Clase encargada de realizar la configuración inicial del proceso del sms en la aplicación
  *

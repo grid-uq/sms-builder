@@ -27,8 +27,8 @@ public abstract class ReferenceParser<T> {
 	/**
 	 * Metodo que permite inicializar los elementos de la clase ReferenceParser
 	 * 
-	 * @param fuente
-	 * @param tipoFuente
+	 * @param fuente Fuente de la que providene la referencia
+	 * @param tipoFuente Tipo de fuente de la que proviene la refeerncia
 	 */
 	public ReferenceParser(String fuente,String tipoFuente) {
 		this.fuente = fuente;

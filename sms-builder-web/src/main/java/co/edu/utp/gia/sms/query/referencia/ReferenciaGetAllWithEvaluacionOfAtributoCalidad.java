@@ -3,7 +3,6 @@ package co.edu.utp.gia.sms.query.referencia;
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -14,7 +13,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener las referencias con evaliacón de un atributo de calidad dado
  */
-public class ReferenciaGetAllWithEvaluacionOfAtributoCalidad extends Queries{
+public class ReferenciaGetAllWithEvaluacionOfAtributoCalidad {
     /**
      * Consulta que permite obtener las referencias con evaliacón de un atributo de calidad dado
      *

@@ -3,7 +3,6 @@ package co.edu.utp.gia.sms.query.fuente;
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.entidades.TipoFuente;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -12,7 +11,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener las Fuentes de un determinado {@link TipoFuente} en la Revision
  */
-public class FuenteGetByTipoFuente extends Queries{
+public class FuenteGetByTipoFuente {
 
     /**
      * Consulta que permite obtener las Fuentes de un determinado {@link TipoFuente} en la Revision

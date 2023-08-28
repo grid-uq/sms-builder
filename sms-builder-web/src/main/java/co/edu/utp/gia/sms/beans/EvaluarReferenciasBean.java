@@ -3,7 +3,7 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
@@ -12,6 +12,8 @@ import org.primefaces.event.SelectEvent;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,16 +34,17 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = -4485002227034874858L;
     @Getter
     @Setter
     private List<ReferenciaDTO> referencias;
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
 
     public void inicializar() {
         if (getRevision() != null) {
-            referencias = referenciaEJB.findWithEvaluacion();
+            referencias = referenciaService.findWithEvaluacion();
         }
     }
 
@@ -64,18 +67,19 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
     }
 
     public void guardar() {
-        for (ReferenciaDTO referencia : referencias) {
-            referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro());
-        }
+        //TODO Verificar la evaluación de referencias
+//        for (ReferenciaDTO referencia : referencias) {
+//            referenciaService.actualizarFiltro(referencia.getId(), referencia.getFiltro());
+//        }
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 
     public void evaluacionAutomatica() {
         try {
             for (ReferenciaDTO referencia : referencias) {
-                referenciaEJB.evaluacionAutomatica(referencia.getId());
+                referenciaService.evaluacionAutomatica(referencia.getId());
             }
-            referencias = referenciaEJB.findWithEvaluacion();
+            referencias = referenciaService.findWithEvaluacion();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());

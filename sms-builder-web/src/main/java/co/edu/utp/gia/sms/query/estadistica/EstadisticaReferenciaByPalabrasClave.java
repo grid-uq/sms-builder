@@ -4,7 +4,6 @@ import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -15,7 +14,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener las Referencias que contienen en uno de sus metadatos la palabra dada<br />
  */
-public class EstadisticaReferenciaByPalabrasClave extends Queries {
+public class EstadisticaReferenciaByPalabrasClave {
     /**
      * Consulta que permite obtener las Referencias que contienen en uno de sus metadatos la palabra dada
      *

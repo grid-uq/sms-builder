@@ -3,7 +3,7 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import co.edu.utp.gia.sms.negocio.RevisionService;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +11,8 @@ import lombok.Setter;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.io.Serial;
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga del análisis inicial de las referencias.
@@ -29,10 +31,11 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 4009685061343184778L;
 
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
     @Inject
     private RevisionService revisionService;
     @Getter
@@ -45,8 +48,8 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
     public void inicializar() {
 
         if (getRevision() != null) {
-            //referencias = referenciaEJB.obtenerTodas(getRevision().getId(), 3);
-            referencias = referenciaEJB.findByPaso(getRevision().getPasoSeleccionado().getId());
+            //referencias = referenciaService.obtenerTodas(getRevision().getId(), 3);
+            referencias = referenciaService.findByPaso(getRevision().getPasoSeleccionado().getId());
             topicos = revisionService.getTopicos();
         }
     }
@@ -56,22 +59,22 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
         String nota;
         if (referencia.getTopicos().contains(topico)) {
             referencia.getTopicos().remove(topico);
-            referenciaEJB.updateTopico(referencia.getId(), topico.getId());
+            referenciaService.updateTopico(referencia.getId(), topico.getId());
             nota = referencia.getNota().replace(topicosText, "");
         } else {
             referencia.getTopicos().add(topico);
-            referenciaEJB.addTopico(referencia.getId(), topico.getId());
+            referenciaService.addTopico(referencia.getId(), topico.getId());
             nota = referencia.getNota() + topicosText;
         }
-        referenciaEJB.updateNota(referencia.getId(), nota);
+        referenciaService.updateNota(referencia.getId(), nota);
         referencia.setNota(nota);
     }
 
     public void guardar() {
         for (ReferenciaDTO referencia : referencias) {
-            referenciaEJB.cleanTopicos(referencia.getId());
+            referenciaService.cleanTopicos(referencia.getId());
             for (Topico topico : referencia.getTopicos()) {
-                referenciaEJB.addTopico(referencia.getId(), topico.getId());
+                referenciaService.addTopico(referencia.getId(), topico.getId());
             }
         }
 
@@ -80,15 +83,15 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
 
 
     public void actualizarNota(ReferenciaDTO referencia) {
-        referenciaEJB.updateNota(referencia.getId(), referencia.getNota());
+        referenciaService.updateNota(referencia.getId(), referencia.getNota());
     }
 
     public void actualizarRelevancia(ReferenciaDTO referencia) {
-        referenciaEJB.updateRelevancia(referencia.getId(), referencia.getRelevancia());
+        referenciaService.updateRelevancia(referencia.getId(), referencia.getRelevancia());
     }
 
     public void actualizarResumen(ReferenciaDTO referencia) {
-        referenciaEJB.updateResumen(referencia.getId(), referencia.getResumen());
+        referenciaService.updateResumen(referencia.getId(), referencia.getResumen());
     }
 
 }

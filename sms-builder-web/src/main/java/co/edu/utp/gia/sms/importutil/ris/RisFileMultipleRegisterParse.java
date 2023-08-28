@@ -31,7 +31,7 @@ public class RisFileMultipleRegisterParse extends FileMultipleRegisterParse<RisR
 
 			while (lector.hasNextLine()) {
 				String stringRerence = readReference(lector);
-				if (!"".equals(stringRerence)) {
+				if (!stringRerence.isEmpty()) {
 					Referencia reference = getReferenceParser().parse(stringRerence);
 					if (reference != null) {
 						references.add(reference);

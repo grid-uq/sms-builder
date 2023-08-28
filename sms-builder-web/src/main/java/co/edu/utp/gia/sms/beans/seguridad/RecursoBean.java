@@ -4,15 +4,15 @@ import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Recurso;
 import co.edu.utp.gia.sms.negocio.RecursoService;
-import lombok.Getter;
-import lombok.Setter;
-import org.primefaces.event.RowEditEvent;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import org.primefaces.event.RowEditEvent;
+
+import java.util.Collection;
 
 
 /**
@@ -42,7 +42,7 @@ public class RecursoBean extends AbstractBean {
      */
     @Getter
     @Setter
-    private List<Recurso> recursos;
+    private Collection<Recurso> recursos;
 
     /**
      * Variable que representa el atributo recursoEjb de la clase. Instancia
@@ -64,7 +64,7 @@ public class RecursoBean extends AbstractBean {
      */
     public void registrar() {
         try {
-            recursoService.registrar(recurso);
+            recursoService.save(recurso);
             recurso = new Recurso();
             recursos = recursoService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
@@ -80,7 +80,7 @@ public class RecursoBean extends AbstractBean {
      */
     public void eliminar(Recurso recurso) {
         try {
-            recursoService.eliminar(recurso);
+            recursoService.delete(recurso);
             recursos = recursoService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
@@ -97,7 +97,7 @@ public class RecursoBean extends AbstractBean {
     public void onRowEdit(RowEditEvent<Recurso> event) {
         Recurso recursoActual = event.getObject();
         try {
-            recursoService.actualizar(recursoActual);
+            recursoService.update(recursoActual);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
@@ -114,6 +114,4 @@ public class RecursoBean extends AbstractBean {
     public void onRowCancel(RowEditEvent event) {
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_CANCELADA));
     }
-
-
 }

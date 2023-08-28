@@ -3,7 +3,6 @@ package co.edu.utp.gia.sms.query.estadistica;
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.*;
-import co.edu.utp.gia.sms.query.Queries;
 import co.edu.utp.gia.sms.query.fuente.FuenteGetByTipoFuente;
 import jakarta.inject.Provider;
 
@@ -15,7 +14,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener el número de referencias por cada fuente de un determinado tipo de fuente en una revision <br />
  */
-public class EstadisticaReferenciaByTipoFuenteAndNombre extends Queries {
+public class EstadisticaReferenciaByTipoFuenteAndNombre {
     /**
      * Consulta que permite obtener el número de referencias por cada fuente de un determinado tipo de fuente en una revision
      *

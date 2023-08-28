@@ -4,14 +4,12 @@ import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.negocio.EstadisticaService;
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serial;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,13 +26,6 @@ import java.util.stream.Collectors;
 @Named
 @ViewScoped
 public class ReferenciaPalabrasClaveBean extends AbstractRevisionBean {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 3927845673735363457L;
-
     @Inject
     private EstadisticaService estadisticaService;
 

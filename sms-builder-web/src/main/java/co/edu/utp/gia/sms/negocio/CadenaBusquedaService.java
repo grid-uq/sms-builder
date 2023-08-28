@@ -28,7 +28,7 @@ public class CadenaBusquedaService extends AbstractGenericService<CadenaBusqueda
 	private FuenteService fuenteService;
 
 	public CadenaBusquedaService() {
-		super(DB.root.revision()::getCadenasBusqueda);
+		super(DB.root.getProvider(CadenaBusqueda.class));
 	}
 
 	/**

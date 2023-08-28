@@ -4,11 +4,8 @@ import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
-import co.edu.utp.gia.sms.query.Queries;
 import co.edu.utp.gia.sms.query.fuente.FuenteGetByTipoFuente;
 import jakarta.inject.Provider;
-import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQuery;
 
 import java.util.Collection;
 import java.util.stream.Stream;
@@ -16,7 +13,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener las referencias de un determinado {@link TipoFuente} en una Revision
  */
-public class ReferenciaByTipoFuente extends Queries{
+public class ReferenciaByTipoFuente {
 
     /**
      * Consulta que permite las referencias de un determinado {@link TipoFuente} en una Revision

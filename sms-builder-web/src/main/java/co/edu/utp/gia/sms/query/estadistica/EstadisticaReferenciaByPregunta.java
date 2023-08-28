@@ -4,7 +4,6 @@ import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.query.Queries;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -14,7 +13,7 @@ import java.util.stream.Stream;
 /**
  * Consulta que permite obtener el número de referencias por Pregunta en una revision
  */
-public class EstadisticaReferenciaByPregunta extends Queries {
+public class EstadisticaReferenciaByPregunta {
     /**
      * Consulta que permite obtener el número de referencias por Pregunta en una revision
      *

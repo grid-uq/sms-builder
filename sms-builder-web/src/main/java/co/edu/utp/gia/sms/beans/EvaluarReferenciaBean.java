@@ -6,7 +6,7 @@ import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
@@ -14,7 +14,10 @@ import org.primefaces.PrimeFaces;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.io.Serial;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de la evaluación de una referencia.
@@ -33,23 +36,24 @@ public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 6788702926482127829L;
     @Getter
     @Setter
-    private List<AtributoCalidad> atributosCalidad;
+    private Collection<AtributoCalidad> atributosCalidad;
     @Getter
     @Setter
     private List<EvaluacionCalidad> evaluaciones;
     @Inject
     private AtributoCalidadService atributoCalidadService;
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
     private ReferenciaDTO referencia;
 
     public void inicializar() {
         if (getRevision() != null) {
             referencia = (ReferenciaDTO) getFromSession("referenciaDTO");
-            atributosCalidad = atributoCalidadService.get(getRevision().getId());
+            atributosCalidad = atributoCalidadService.get();
             if (referencia.getEvaluaciones() == null || referencia.getEvaluaciones().isEmpty()) {
                 evaluaciones = new ArrayList<>();
                 for (AtributoCalidad atributoCalidad : atributosCalidad) {
@@ -65,7 +69,7 @@ public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
 
     public void guardar() {
         for (EvaluacionCalidad evaluacion : evaluaciones) {
-            referenciaEJB.saveEvaluacion(evaluacion);
+            referenciaService.saveEvaluacion(evaluacion);
         }
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         getAndRemoveFromSession("referenciaDTO");

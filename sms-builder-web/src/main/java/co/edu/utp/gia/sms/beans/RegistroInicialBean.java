@@ -13,6 +13,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import java.io.Serial;
 import java.util.Collections;
 import java.util.List;
 /**
@@ -31,6 +32,7 @@ public class RegistroInicialBean extends AbstractBean {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = -6995163695300909108L;
     @Getter
     @Setter

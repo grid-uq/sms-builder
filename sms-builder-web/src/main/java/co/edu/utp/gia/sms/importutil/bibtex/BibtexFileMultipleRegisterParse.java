@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.importutil.bibtex;
 
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParse;
+import lombok.extern.java.Log;
 import org.jbibtex.*;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 /**
  * Clase utilitaria encargada de procesar un archivo con referencias tipo bibtex.
@@ -21,7 +23,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @since 12/11/2015
  */
-
+@Log
 public class BibtexFileMultipleRegisterParse extends FileMultipleRegisterParse<BibtexReferenceParcer> {
 
 	public BibtexFileMultipleRegisterParse(String fuente, String tipoFuente) {
@@ -41,7 +43,7 @@ public class BibtexFileMultipleRegisterParse extends FileMultipleRegisterParse<B
 
 
 		}catch (ParseException | IOException e) {
-			e.printStackTrace();
+			log.log(Level.WARNING,"Error al parsear archivo",e);
 			references = Collections.emptyList();
 		}
 
