@@ -1,6 +1,7 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
+import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import lombok.Getter;
 
 import jakarta.annotation.PostConstruct;
@@ -38,6 +39,8 @@ public abstract class AbstractBean implements Serializable {
 	@Getter
 	private Map<String, Object> sessionMap;
 
+	@Inject
+	protected ExceptionMessage exceptionMessage;
 
 	@Inject
 	@ManagedProperty("#{msg}")
@@ -83,6 +86,7 @@ public abstract class AbstractBean implements Serializable {
 		FacesMessage facesMessage = new FacesMessage(severidad, mensaje, mensaje);
 		getFacesContext().addMessage(idComponente, facesMessage);
 	}
+
 
 	private String getSeverityText(Severity severidad) {
 		String key;

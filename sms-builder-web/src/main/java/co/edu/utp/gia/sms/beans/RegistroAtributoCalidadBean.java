@@ -2,8 +2,14 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
+import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -48,4 +54,14 @@ public class RegistroAtributoCalidadBean extends GenericBeanNew<AtributoCalidad,
         return atributoCalidadService;
     }
 
+    public void validate(FacesContext facesContext,
+                  UIComponent component, java.lang.Object object){
+
+        boolean existeDescripcion = atributosCalidad.stream().anyMatch( atributoCalidad -> atributoCalidad.getDescripcion().equals(object.toString()) );
+        Object oldValue = ((UIInput) component).getValue();
+        if (existeDescripcion && !oldValue.toString().equals(object.toString())) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error "+exceptionMessage.getRegistroExistente(), exceptionMessage.getRegistroExistente());
+            throw new ValidatorException(msg);
+        }
+    }
 }
