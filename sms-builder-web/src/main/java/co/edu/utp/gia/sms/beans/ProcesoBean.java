@@ -13,7 +13,6 @@ import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
-import java.util.ArrayList;
 import java.util.Collection;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión del proceso.
@@ -42,11 +41,7 @@ public class ProcesoBean extends AbstractRevisionBean {
     private MenuModel model;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            pasosProceso = procesoService.get();
-        } else {
-            pasosProceso = new ArrayList<>();
-        }
+        pasosProceso = procesoService.get();
         configurarMenu();
     }
 
@@ -92,7 +87,7 @@ public class ProcesoBean extends AbstractRevisionBean {
     private void configurarStage2Static(MenuModel model) {
         String[] labels = {"etiquetaMenuReferenciasImportar", "etiquetaMenuReferenciasDuplicadas",
                 "etiquetaMenuReferenciasSeleccionar", "etiquetaMenuReferenciasSeleccionadas"};
-        String[] urls = {"/revision/registroReferencias.xhtml", "/revision/gestionarReferenciasRepetidas.xhtml",
+        String[] urls = {"/atributocalidad/registro.xhtml", "/revision/gestionarReferenciasRepetidas.xhtml",
                 "/revision/aplicarCriterios.xhtml", "/revision/resumenReferenciasSeleccionadas.xhtml"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
                 .label("Stage 2 Search for studies")
@@ -107,7 +102,7 @@ public class ProcesoBean extends AbstractRevisionBean {
     private void configurarStage1(MenuModel model) {
         String[] urls = {"/revision/editarRevision.xhtml",
                 "/revision/registroObjetivo.xhtml", "/revision/registroPregunta.xhtml", "/revision/registroTermino.xhtml",
-                "/revision/registroAtributoCalidad.xhtml","/revision/cadenabusqueda/registro.xhtml","/revision/configurarProceso.xhtml"};
+                "/atributocalidad/registro.xhtml","/revision/cadenabusqueda/registro.xhtml","/revision/configurarProceso.xhtml"};
         String[] labels = {"etiquetaMenuRevisionEditar", "etiquetaMenuObjetivo",
                 "etiquetaMenuPregunta", "etiquetaTermino", "etiquetaMenuAtributosCalidad","etiquetaMenuCadenaBusqueda","etiquetaProceso"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
@@ -211,8 +206,8 @@ public class ProcesoBean extends AbstractRevisionBean {
         model.getElements().add(stage);
     }
 
-    private DefaultMenuItem addItem(DefaultSubMenu stage, String label, String url) {
-        return addItem(stage, label, url, getRevision() != null && seguridadBean.verifivarAcceso(url));
+    private void addItem(DefaultSubMenu stage, String label, String url) {
+        addItem(stage, label, url, getRevision() != null && seguridadBean.verifivarAcceso(url));
     }
 
     private DefaultMenuItem addItem(DefaultSubMenu stage, String label, String url, boolean rendered) {
@@ -220,7 +215,9 @@ public class ProcesoBean extends AbstractRevisionBean {
         DefaultMenuItem item = DefaultMenuItem.builder()
                 .value(label)
                 .ajax(false)
-                .command(url)
+                .url(url)
+                //.command(url)
+
                 .rendered(rendered)
                 .build();
         stage.getElements().add(item);

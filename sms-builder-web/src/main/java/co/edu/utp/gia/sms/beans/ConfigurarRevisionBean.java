@@ -12,7 +12,6 @@ import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serial;
 import java.util.Collection;
 
 /**
@@ -28,11 +27,6 @@ import java.util.Collection;
 @Named
 @ViewScoped
 public class ConfigurarRevisionBean extends AbstractBean {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = -6995163695300909108L;
     @Getter
     @Setter
     private Revision revision;
@@ -48,7 +42,7 @@ public class ConfigurarRevisionBean extends AbstractBean {
     @PostConstruct
     public void inicializar() {
         if (seguridadBean.isAutenticado()) {
-            revision = (Revision) getFromSession("revision");
+            revision = revisionService.get();
             pasos = procesoService.get();
         }
     }

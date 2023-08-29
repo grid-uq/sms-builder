@@ -10,7 +10,6 @@ import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serial;
 import java.util.Collection;
 import java.util.Date;
 /**
@@ -26,11 +25,6 @@ import java.util.Date;
 @Named
 @ViewScoped
 public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 9060626480979863537L;
     @Getter @Setter
     private Fuente baseDatos;
     @Getter @Setter
@@ -53,7 +47,6 @@ public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
         cadenasBusqueda = cadenaBusquedaService.get();
         sugerirConsulta();
     }
-
 
     public void registrar() {
         CadenaBusqueda cadenaBusqueda = cadenaBusquedaService.save(baseDatos, consulta,fechaConsulta,resultadoPreliminar,resultadoFinal);

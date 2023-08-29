@@ -31,19 +31,13 @@ import java.util.logging.Level;
 @ViewScoped
 @Log
 public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaDTO> {
-	@Getter
-	@Setter
+	@Getter @Setter
 	private List<ReferenciaDTO> referencias;
 	@Inject
 	private ReferenciaService referenciaService;
 
-
 	public void inicializar() {
-
-		if (getRevision() != null) {
-//			referencias = referenciaService.obtenerTodas(getRevision().getId(), 3);
-			referencias = referenciaService.findByPaso(getPasoAnterior().getId());
-		}
+		referencias = referenciaService.findByPaso(getPasoAnterior().getId());
 	}
 	
 	public void exportToRIS() {

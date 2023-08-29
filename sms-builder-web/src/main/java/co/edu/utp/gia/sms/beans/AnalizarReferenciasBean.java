@@ -14,6 +14,7 @@ import jakarta.inject.Named;
 
 import java.io.Serial;
 import java.util.List;
+
 /**
  * Clase controladora de interfaz web que se encarga del análisis inicial de las referencias.
  *
@@ -46,16 +47,12 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
     private List<ReferenciaDTO> referencias;
 
     public void inicializar() {
-
-        if (getRevision() != null) {
-            //referencias = referenciaService.obtenerTodas(getRevision().getId(), 3);
-            referencias = referenciaService.findByPaso(getRevision().getPasoSeleccionado().getId());
-            topicos = revisionService.getTopicos();
-        }
+        referencias = referenciaService.findByPasoSeleccionado();
+        topicos = revisionService.getTopicos();
     }
 
     public void incluirExcluirTopico(ReferenciaDTO referencia, Topico topico) {
-        String topicosText = "\n" + getMessage(MessageConstants.TOPICOS)+": " + topico.getDescripcion();
+        String topicosText = "\n" + getMessage(MessageConstants.TOPICOS) + ": " + topico.getDescripcion();
         String nota;
         if (referencia.getTopicos().contains(topico)) {
             referencia.getTopicos().remove(topico);

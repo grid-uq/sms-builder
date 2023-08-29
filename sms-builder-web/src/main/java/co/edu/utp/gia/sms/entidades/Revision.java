@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * @since 13/06/2019
  */
 @RequiredArgsConstructor
-public class Revision {
+public class Revision implements Serializable {
     /**
      * Variable que representa el atributo nombre de la clase
      */

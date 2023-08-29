@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.entidades.Revision;
+import co.edu.utp.gia.sms.negocio.RevisionService;
 import lombok.Getter;
 import lombok.extern.java.Log;
 
@@ -28,10 +29,12 @@ public abstract class AbstractRevisionBean extends AbstractBean {
     private PasoProceso pasoAnterior;
     @Getter
     private PasoProceso pasoSiguiente;
+    @Inject
+    private RevisionService revisionService;
 
-    protected Revision getRevision() {
+    public Revision getRevision() {
         if( revision == null ){
-            revision = (Revision) getFromSession("revision");
+            revision = revisionService.get();
         }
         return revision;
     }

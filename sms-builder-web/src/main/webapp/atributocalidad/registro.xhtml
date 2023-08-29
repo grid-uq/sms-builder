@@ -17,63 +17,44 @@
 
 			<div class="ui-fluid">
 				<p:panelGrid columns="2">
-					<p:outputLabel value="#{msg.etiquetaObjetivoCodigo}: " />
-					<p:inputText value="#{registroObjetivoBean.codigo}" />
-					<p:outputLabel value="#{msg.etiquetaDescripcion}: " />
-					<p:inputTextarea value="#{registroObjetivoBean.descripcion}" />
+					<p:outputLabel value="#{msg.etiquetaAtributoCalidad}: " />
+					<p:inputText value="#{registroAtributoCalidadBean.record.descripcion}" />
 
 
 					<f:facet name="footer">
 						<p:commandButton value="#{msg.botonAceptar}"
-							action="#{registroObjetivoBean.registrar}"
-							update=":tabla :formulario :msgs" />
+							action="#{registroAtributoCalidadBean.registrar}"
+							update=":tabla :msgs :formulario" />
 					</f:facet>
 
 				</p:panelGrid>
 
 			</div>
 		</h:form>
-		<br />
-
-
 		<h:form id="tabla">
-
-			<p:dataTable value="#{registroObjetivoBean.objetivos}" var="objetivo"
+			<p:dataTable value="#{registroAtributoCalidadBean.atributosCalidad}" var="atributoCalidad"
 				editable="true">
-				<p:ajax event="rowEdit" listener="#{registroObjetivoBean.onRowEdit}"
+				<p:ajax event="rowEdit" listener="#{registroAtributoCalidadBean.onRowEdit}"
 					update=":msgs" />
-
 				<p:ajax event="rowEditCancel"
-					listener="#{registroObjetivoBean.onRowCancel}" update=":msgs" />
-
-				<p:column headerText="#{msg.etiquetaObjetivoCodigo}">
+					listener="#{registroAtributoCalidadBean.onRowCancel}" update=":msgs" />
+				<p:column headerText="#{msg.etiquetaAtributoCalidad}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{objetivo.codigo}" />
+							<h:outputText value="#{atributoCalidad.descripcion}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{objetivo.codigo}" />
+							<p:inputText value="#{atributoCalidad.descripcion}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="#{msg.etiquetaDescripcion}">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{objetivo.descripcion}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputTextarea value="#{objetivo.descripcion}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
 				<p:column style="width:35px">
 					<p:rowEditor />
-					<p:commandButton type="submit" action="#{registroObjetivoBean.eliminar(objetivo)}" immediate="true"
-									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs"  >
+					<p:commandButton action="#{registroAtributoCalidadBean.eliminar(atributoCalidad)}"
+									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
 						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
-								   message="#{msg['dialogoConfirmacion.eliminar']}"
-								   icon="pi pi-exclamation-triangle"  />
+							message="#{msg['dialogoConfirmacion.eliminar']}"
+							icon="ui-icon ui-icon-alert" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -86,7 +67,6 @@
 			</p:confirmDialog>
 
 		</h:form>
-
 	</ui:define>
 
 

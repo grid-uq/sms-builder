@@ -9,19 +9,19 @@ import co.edu.utp.gia.sms.importutil.ReferenceParse;
 import co.edu.utp.gia.sms.importutil.TipoArchivo;
 import co.edu.utp.gia.sms.negocio.FuenteService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import org.primefaces.model.file.UploadedFile;
 
-import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import java.io.IOException;
-import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
+
 /**
  * Clase controladora de interfaz web que se encarga de la importación de referencias.
  *
@@ -36,12 +36,6 @@ import java.util.logging.Level;
 @ViewScoped
 @Log
 public class ImportarReferenciasBean extends GenericBean<Referencia> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 1107564281230780705L;
-
     @Inject
     private ReferenciaService referenciaService;
     @Inject
@@ -54,9 +48,6 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
     private TipoArchivo tipoArchivo;
     @Getter
     private Collection<Fuente> fuentes;
-
-
-
     @Setter
     private TipoFuente tipoFuente;
 
@@ -78,10 +69,10 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
     private void procesarArchivo() {
         try {
             ReferenceParse parser = FileMultipleRegisterParseFactory
-                    .getInstance(tipoArchivo,fuente.getNombre(),fuente.getTipo().toString());
+                    .getInstance(tipoArchivo, fuente.getNombre(), fuente.getTipo().toString());
             List<Referencia> referencias = parser.parse(file.getInputStream());
             referenciaService.save(referencias, paso);
-            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA)+" "+referencias.size());
+            mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA) + " " + referencias.size());
         } catch (IOException e) {
             log.log(Level.WARNING, "Error al procesar un archivo", e);
         }
@@ -89,14 +80,14 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
 
     @Override
     public void inicializar() {
-        if( tipoFuente != null ){
+        if (tipoFuente != null) {
             fuentes = fuenteService.getByTipoFuente(tipoFuente);
         } else {
             fuentes = fuenteService.get();
         }
     }
 
-    public TipoArchivo[] getTiposArchivo(){
+    public TipoArchivo[] getTiposArchivo() {
         return TipoArchivo.values();
     }
 

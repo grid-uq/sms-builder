@@ -2,7 +2,12 @@ package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
+import co.edu.utp.gia.sms.exceptions.LogicException;
 import jakarta.enterprise.context.ApplicationScoped;
+
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
@@ -37,14 +42,35 @@ public class AtributoCalidadService extends AbstractGenericService<AtributoCalid
     }
 
     /**
+     * Verificaciones a realizar antes de que la entidad sea almacenada
+     * @param entidad Entidad a almacenar
+     */
+    @Override
+    protected void validateBeforeSave(AtributoCalidad entidad) {
+        super.validateBeforeSave(entidad);
+        if( !findByDescripcion(entidad.getDescripcion()).isEmpty() ){
+            throw new LogicException(exceptionMessage.getRegistroExistente());
+        }
+    }
+
+    @Override
+    protected void validateBeforeUpdate(AtributoCalidad entidad) {
+        super.validateBeforeUpdate(entidad);
+        var recordsFound = findByDescripcion(entidad.getDescripcion());
+        if( recordsFound.size() > 1 || (!recordsFound.isEmpty() && !recordsFound.stream().findFirst().get().equals(entidad) )){
+            throw new LogicException(exceptionMessage.getRegistroExistente());
+        }
+    }
+
+    /**
      * Permite obtener un atributo de calidad basado en su descripción y la revisión a la que pertenece
      *
      * @param descripcion Descripcion del atributo de calidad
      * @return El {@link AtributoCalidad} que se corresponde con el Identificador y descripción dados
      */
-    public AtributoCalidad findByDescripcion(String descripcion) {
+    public Collection<AtributoCalidad> findByDescripcion(String descripcion) {
         return dataProvider.get().stream()
                 .filter( record->record.getDescripcion().equals(descripcion) )
-                .findFirst().orElse(null);
+                .toList();
     }
 }

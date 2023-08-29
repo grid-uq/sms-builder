@@ -4,9 +4,9 @@
 
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
@@ -101,7 +101,7 @@
 					</p:commandButton>
 
 
-					<p:repeat value="#{pregunta.topicos}" var="topico">
+					<ui:repeat value="#{pregunta.topicos}" var="topico">
 						<p:panelGrid >
 							<p:row>
 								<p:column>
@@ -120,7 +120,7 @@
 								</p:column>
 							</p:row>
 						</p:panelGrid>
-					</p:repeat>
+					</ui:repeat>
 					
 				</p:column>
 

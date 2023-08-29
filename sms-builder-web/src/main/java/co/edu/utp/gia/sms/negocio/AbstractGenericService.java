@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.negocio;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Entidad;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
@@ -45,13 +46,28 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
        return save(dataProvider,entidad);
     }
 
+    /**
+     * Verificaciones a realizar antes de que la entidad sea almacenada
+     * @param entidad Entidad a almacenar
+     */
+    protected void validateBeforeSave(E entidad){
+        var stored = find(dataProvider,entidad.getId());
+        if (stored.isPresent()) {
+            throw new LogicException(exceptionMessage.getRegistroExistente());
+        }
+    }
+
+    /**
+     * Método que permite registrar una entidad en el sistema
+     * @param dataProvider Colección de elementos en la que se almacenará el nuevo elemento
+     * @param entidad Elemento a ser almacenado
+     * @return El elemento almacenado
+     */
     protected E save(Provider<Collection<E>> dataProvider,E entidad) {
         try {
-            var stored = find(dataProvider,entidad.getId());
-            if (stored.isPresent()) {
-                throw new LogicException(exceptionMessage.getRegistroExistente());
-            }
+            validateBeforeSave(entidad);
             dataProvider.get().add(entidad);
+            DB.storageManager.store(dataProvider.get());
             return entidad;
         } catch (Throwable t) {
             throw new TecnicalException(t);
@@ -65,27 +81,49 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     protected void update(Provider<Collection<E>> dataProvider,E entidad) {
         try {
             requireDataProvider(dataProvider);
+            validateBeforeUpdate(entidad);
             BeanUtils.copyProperties(findOrThrow(dataProvider,entidad.getId()),entidad);
+            DB.storageManager.store(entidad);
         } catch (Throwable t) {
             throw new TecnicalException(t);
         }
+    }
+
+    /**
+     * Verificaciones a realizar antes de que la entidad sea actualizada
+     * @param entidad Entidad a actualizar
+     */
+    protected void validateBeforeUpdate(E entidad){
+
+    }
+
+
+
+    public void delete(TipoId id) {
+        delete(dataProvider,findOrThrow(id));
     }
 
     public void delete(E entidad) {
-        delete(dataProvider,entidad.getId());
+        delete(dataProvider,entidad);
     }
 
-    public void delete(TipoId id) {
-        delete(dataProvider,id);
-    }
-
-    protected void delete(Provider<Collection<E>> dataProvider,TipoId id) {
+    protected void delete(Provider<Collection<E>> dataProvider,E entidad) {
         try {
             requireDataProvider(dataProvider);
-            dataProvider.get().remove(findOrThrow(id));
+            validateBeforeDelete(entidad);
+            dataProvider.get().remove(entidad);
+            DB.storageManager.store(dataProvider.get());
         } catch (Throwable t) {
             throw new TecnicalException(t);
         }
+    }
+
+    /**
+     * Verificaciones a realizar antes de que la entidad sea borrada
+     * @param entidad Entidad a borrar
+     */
+    protected void validateBeforeDelete(E entidad){
+
     }
 
     public Optional<E> find(TipoId id) {

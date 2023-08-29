@@ -17,7 +17,6 @@ import jakarta.inject.Named;
 @Named
 @ViewScoped
 public class ImportarReferenciaBD extends ImportarReferenciasBean{
-
     public ImportarReferenciaBD() {
         super();
         setTipoFuente(TipoFuente.BASE_DATOS);

@@ -7,16 +7,14 @@ import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.PreguntaService;
 import co.edu.utp.gia.sms.negocio.TopicoService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
-import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-
-import java.io.Serial;
 import java.util.*;
 
 /**
@@ -36,35 +34,21 @@ import java.util.*;
 @Named
 @ViewScoped
 public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 1L;
-    @Getter
-    @Setter
+    @Getter @Setter
     private String descripcion;
-    @Getter
-    @Setter
+    @Getter @Setter
     private String codigo;
-    @Getter
-    @Setter
+    @Getter @Setter
     private Collection<Pregunta> preguntas;
-
-    @Getter
-    @Setter
+    @Getter @Setter
     private List<Objetivo> listaObjetivos;
-
-
     @Inject
     private PreguntaService preguntaService;
     @Inject
     private TopicoService topicoService;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            preguntas = preguntaService.get();
-        }
+        preguntas = preguntaService.get();
         listaObjetivos = new ArrayList<>();
     }
 

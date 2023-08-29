@@ -20,8 +20,10 @@ public class FuentesSetup implements SetupInterface {
 
     @Override
     public void setup() {
-        fuenteService.save(FuenteService.INCLUSION_DIRECTA, TipoFuente.INCLUSION_DIRECTA);
-        fuenteService.save(FuenteService.SNOWBALL_BACKWARD,TipoFuente.BOLA_NIEVE);
-        fuenteService.save(FuenteService.SNOWBALL_FORWARD,TipoFuente.BOLA_NIEVE);
+        if( fuenteService.get().isEmpty() ) {
+            fuenteService.save(FuenteService.INCLUSION_DIRECTA, TipoFuente.INCLUSION_DIRECTA);
+            fuenteService.save(FuenteService.SNOWBALL_BACKWARD, TipoFuente.BOLA_NIEVE);
+            fuenteService.save(FuenteService.SNOWBALL_FORWARD, TipoFuente.BOLA_NIEVE);
+        }
     }
 }

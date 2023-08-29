@@ -30,23 +30,19 @@ import java.util.List;
 @Named
 @ViewScoped
 public class TablaResumenEvaluacionReferenciasBean extends GenericBean<ReferenciaDTO> {
-    @Getter
-    @Setter
+    @Getter @Setter
     private List<ReferenciaDTO> referencias;
     @Inject
     private ReferenciaService referenciaService;
     @Inject
     private AtributoCalidadService atributoCalidadService;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private Collection<AtributoCalidad> atributosCalidad;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            referencias = referenciaService.findWithEvaluacion();
-            atributosCalidad = atributoCalidadService.get();
-        }
+        referencias = referenciaService.findWithEvaluacion();
+        atributosCalidad = atributoCalidadService.get();
     }
 
 

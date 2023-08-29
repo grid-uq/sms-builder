@@ -19,8 +19,10 @@ public class AtributosCalidadSetup implements SetupInterface {
 
     @Override
     public void setup() {
-        atributoCalidadService.save(AtributoCalidadService.SCI,true);
-        atributoCalidadService.save(AtributoCalidadService.CVI,false);
-        atributoCalidadService.save(AtributoCalidadService.IRRQ,false);
+        if( atributoCalidadService.get().isEmpty() ) {
+            atributoCalidadService.save(AtributoCalidadService.SCI, true);
+            atributoCalidadService.save(AtributoCalidadService.CVI, false);
+            atributoCalidadService.save(AtributoCalidadService.IRRQ, false);
+        }
     }
 }

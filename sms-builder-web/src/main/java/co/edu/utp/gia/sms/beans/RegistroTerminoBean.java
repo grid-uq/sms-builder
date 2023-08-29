@@ -4,16 +4,14 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.TerminoService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
-import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-
-import java.io.Serial;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,16 +28,9 @@ import java.util.Map;
 @Named
 @ViewScoped
 public class RegistroTerminoBean extends GenericBean<Termino> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 4369004470790305574L;
-    @Getter
-    @Setter
+    @Getter @Setter
     private String descripcion;
-    @Getter
-    @Setter
+    @Getter @Setter
     private Collection<Termino> terminos;
     @Inject
     private TerminoService terminoService;

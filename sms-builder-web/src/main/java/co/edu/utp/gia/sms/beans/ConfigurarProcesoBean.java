@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 
 import java.util.Collection;
+
 /**
  * Clase controladora de interfaz web que se encarga de la configuración del proceso.
  *
@@ -26,13 +27,13 @@ import java.util.Collection;
 @Named
 @ViewScoped
 public class ConfigurarProcesoBean extends AbstractRevisionBean {
-
     @Inject
     private ProcesoService procesoService;
     @Inject
     private PasoService pasoService;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Paso pasoSeleccionado;
     @Getter
     private Collection<PasoProceso> pasosProceso;
@@ -40,20 +41,17 @@ public class ConfigurarProcesoBean extends AbstractRevisionBean {
     private Collection<Paso> pasos;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            pasos = pasoService.get();
-            pasosProceso = procesoService.get();
-        }
+        pasos = pasoService.get();
+        pasosProceso = procesoService.get();
     }
 
-    public void adicionar(){
+    public void adicionar() {
         var nuevoPaso = procesoService.save(pasoSeleccionado.getId());
-        pasosProceso.add( nuevoPaso );
+        pasosProceso.add(nuevoPaso);
     }
 
-    public void eliminar(PasoProceso pasoProceso){
+    public void eliminar(PasoProceso pasoProceso) {
         procesoService.delete(pasoProceso.getId());
         pasosProceso.remove(pasoProceso);
     }
-
 }

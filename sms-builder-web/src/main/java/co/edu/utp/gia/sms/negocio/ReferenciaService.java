@@ -63,6 +63,9 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         }
     }
 
+    public List<ReferenciaDTO> findByPasoSeleccionado() {
+        return findByPaso( revisionService.get().getPasoSeleccionado() );
+    }
     public List<ReferenciaDTO> findByPaso(String idPaso) {
         PasoProceso paso = procesoService.findOrThrow(idPaso);
         return findByPaso(paso);
@@ -232,48 +235,52 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
     }
 
     private void evaluarSegunCVI(Referencia referencia) {
-        AtributoCalidad atributoCalidad = atributoCalidadService.findByDescripcion(AtributoCalidadService.CVI);
-        EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
+        var atributoCalidad = atributoCalidadService.findByDescripcion(AtributoCalidadService.CVI);
 
-        if (referencia.getRelevancia() == null || referencia.getRelevancia() < 3) {
-            evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
-        } else if (referencia.getRelevancia() < 5) {
-            evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
-        } else {
-            evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
+        if( !atributoCalidad.isEmpty() ) {
+            EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad.stream().findFirst().get());
+
+            if (referencia.getRelevancia() == null || referencia.getRelevancia() < 3) {
+                evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
+            } else if (referencia.getRelevancia() < 5) {
+                evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
+            } else {
+                evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
+            }
+
+            saveEvaluacion(evaluacionCalidad);
         }
-
-        saveEvaluacion(evaluacionCalidad);
     }
 
     private void evaluarSegunCitas(Referencia referencia) {
 
-        AtributoCalidad atributoCalidad = atributoCalidadService.findByDescripcion(AtributoCalidadService.SCI);
-        EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
+        var atributoCalidad = atributoCalidadService.findByDescripcion(AtributoCalidadService.SCI);
+        if( !atributoCalidad.isEmpty() ) {
+            EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad.stream().findFirst().get());
 
-        float media = referencia.getCitas()
-                / (float) (1 + Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(referencia.getYear()));
+            float media = referencia.getCitas()
+                    / (float) (1 + Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(referencia.getYear()));
 
-        List<Float> scis = obtenerSCIs();
+            List<Float> scis = obtenerSCIs();
 
-        Percentile p = new Percentile();
-        double[] datos = new double[scis.size()];
-        for (int i = 0; i < datos.length; i++) {
-            datos[i] = scis.get(i);
+            Percentile p = new Percentile();
+            double[] datos = new double[scis.size()];
+            for (int i = 0; i < datos.length; i++) {
+                datos[i] = scis.get(i);
+            }
+
+            double q1 = p.evaluate(datos, 75);
+            double q2 = p.evaluate(datos, 50);
+            if (media > q1) {
+                evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
+            } else if (media > q2) {
+                evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
+            } else {
+                evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
+            }
+
+            saveEvaluacion(evaluacionCalidad);
         }
-
-        double q1 = p.evaluate(datos, 75);
-        double q2 = p.evaluate(datos, 50);
-        if (media > q1) {
-            evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
-        } else if (media > q2) {
-            evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
-        } else {
-            evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
-        }
-
-        saveEvaluacion(evaluacionCalidad);
-
     }
 
     private EvaluacionCalidad determinarEvaluacionCalidad(Referencia referencia, AtributoCalidad atributoCalidad) {
@@ -294,24 +301,25 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
     }
 
     private void evaluarSegunPreguntas(Referencia referencia) {
-        AtributoCalidad atributoCalidad = atributoCalidadService.findByDescripcion(AtributoCalidadService.IRRQ);
-        EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad);
+        var atributoCalidad = atributoCalidadService.findByDescripcion(AtributoCalidadService.IRRQ);
+        if( !atributoCalidad.isEmpty() ) {
+            EvaluacionCalidad evaluacionCalidad = determinarEvaluacionCalidad(referencia, atributoCalidad.stream().findFirst().get());
 
-        int totalPreguntas = preguntaService.count();
-        int totalPreguntasRelacionadas = (int) calcularTotalPreguntasRelacionadas(referencia.getId());
-        float porcentaje = totalPreguntasRelacionadas * 100.0f / totalPreguntas;
+            int totalPreguntas = preguntaService.count();
+            int totalPreguntasRelacionadas = (int) calcularTotalPreguntasRelacionadas(referencia.getId());
+            float porcentaje = totalPreguntasRelacionadas * 100.0f / totalPreguntas;
 
-        if (porcentaje >= 75) {
-            evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
-        } else if (porcentaje >= 50) {
-            evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
+            if (porcentaje >= 75) {
+                evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
+            } else if (porcentaje >= 50) {
+                evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
 
-        } else {
-            evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
+            } else {
+                evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
+            }
+            referencia.setSrrqi(porcentaje);
+            saveEvaluacion(evaluacionCalidad);
         }
-        referencia.setSrrqi(porcentaje);
-        saveEvaluacion(evaluacionCalidad);
-
     }
 
     /**
@@ -361,8 +369,7 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
      * @param idAtributoCalidad Id del atributo de calidad
      * @return List<ReferenciaDTO> Listado de las con evaliacón de un atributo de calidad del id dado
      */
-    public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(
-                                                                           String idAtributoCalidad) {
+    public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(String idAtributoCalidad) {
         return poblarReferenciaDTOS(ReferenciaGetAllWithEvaluacionOfAtributoCalidad.createQuery(idAtributoCalidad)
                 .map(r -> new ReferenciaDTO(r, 0)).toList());
     }

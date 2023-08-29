@@ -40,7 +40,7 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
         checkOrder( );
         var pasoProceso = new PasoProceso(revision.getPasosProceso().size()+1,paso);
         save(pasoProceso);
-        revision.setPasoSeleccionado(pasoProceso);
+        revisionService.changePasoSeleccionado(pasoProceso);
         return pasoProceso;
     }
 
@@ -56,7 +56,7 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
         checkOrder();
         var indice = count() ;
         var paso = findByOrden(indice);
-        revisionService.get().setPasoSeleccionado(paso);
+        revisionService.changePasoSeleccionado(paso);
     }
 
     /**

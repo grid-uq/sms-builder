@@ -2,15 +2,12 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.TopicoService;
-import lombok.Getter;
-import lombok.Setter;
-import org.primefaces.PrimeFaces;
-
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-import java.io.Serial;
+import lombok.Getter;
+import lombok.Setter;
+import org.primefaces.PrimeFaces;
 
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de tópicos.
@@ -25,21 +22,12 @@ import java.io.Serial;
 @Named
 @ViewScoped
 public class RegistroTopicoBean extends GenericBean<Topico> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 5103003688870607449L;
-    @Getter
-    @Setter
+    @Getter @Setter
     private String descripcion;
-    @Getter
-    @Setter
+    @Getter @Setter
     private String id;
     @Inject
     private TopicoService topicoService;
-
 
     /**
      * Permite registrar un topico

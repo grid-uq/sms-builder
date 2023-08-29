@@ -24,7 +24,8 @@ public final class ExceptionUtil {
 	public static Throwable extractPrincipalException(Throwable exception) {
 		while (exception != null
 				&& exception.getCause() != null
-				&& !(exception instanceof LogicException || exception instanceof TecnicalException)) {
+				&& !(exception instanceof LogicException ||
+				(exception instanceof TecnicalException && !(exception.getCause() instanceof LogicException)))) {
 			exception = exception.getCause();
 		}
 		return exception;

@@ -35,7 +35,6 @@ public class SeguridadBeanImpl extends SeguridadBean {
 	@Inject
 	private RevisionService revisionService;
 
-
 	/**
 	 * Realiza la verificación de los datos de autenticación proporcioandos por
 	 * el {@link Usuario}

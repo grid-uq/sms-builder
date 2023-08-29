@@ -49,16 +49,13 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
 
     @Override
     public void delete(Metadato entidad) {
-        super.delete(entidad.getReferencia()::getMetadatos,entidad.getId());
+        super.delete(entidad.getReferencia()::getMetadatos,entidad);
     }
 
     public void delete(String idReferencia,String idMetadato) {
         var referencia = referenciaService.findOrThrow(idReferencia);
-        delete(referencia,idMetadato);
-    }
-
-    public void delete(Referencia referencia, String idMetado) {
-        delete(referencia::getMetadatos,idMetado);
+        var metadato = findOrThrow(idMetadato);
+        delete(referencia::getMetadatos,metadato);
     }
 
     public Optional<Metadato> find(String idReferencia,String idMetadato) {

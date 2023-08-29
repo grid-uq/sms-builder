@@ -24,11 +24,6 @@ import java.util.Collection;
 @Named
 @ViewScoped
 public class RegistroNotaBean extends GenericBean<Termino> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 9089427454534870601L;
     @Getter
     @Setter
     private String descripcion;
@@ -40,9 +35,7 @@ public class RegistroNotaBean extends GenericBean<Termino> {
 
 
     public void inicializar() {
-        if (getRevision() != null) {
-            terminos = terminoService.get();
-        }
+        terminos = terminoService.get();
     }
 
     public void registrar() {

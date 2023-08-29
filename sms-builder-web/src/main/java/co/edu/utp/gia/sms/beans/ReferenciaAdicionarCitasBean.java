@@ -5,15 +5,14 @@ import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import co.edu.utp.gia.sms.negocio.RevisionService;
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serial;
 import java.util.List;
+
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de citas.
  *
@@ -27,33 +26,18 @@ import java.util.List;
 @Named
 @ViewScoped
 public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 4009685061343184778L;
     @Inject
     private ReferenciaService referenciaService;
-
     @Inject
     private RevisionService revisionService;
-
-    @Getter
-    @Setter
+    @Getter @Setter
     private List<ReferenciaDTO> referencias;
-
-    @Getter
-    @Setter
+    @Getter @Setter
     private List<Topico> topicos;
 
     public void inicializar() {
-
-        if (getRevision() != null) {
-            //referencias = referenciaService.obtenerTodas(getRevision().getId(), 3);
-            referencias = referenciaService.findByPaso(getRevision().getPasoSeleccionado().getId());
-            topicos = revisionService.getTopicos();
-        }
+        referencias = referenciaService.findByPasoSeleccionado();
+        topicos = revisionService.getTopicos();
     }
 
     public void incluirExcluirTopico(ReferenciaDTO referencia, Topico topico) {

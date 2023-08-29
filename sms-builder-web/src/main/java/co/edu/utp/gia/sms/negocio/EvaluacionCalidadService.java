@@ -26,6 +26,9 @@ public class EvaluacionCalidadService extends AbstractGenericService<EvaluacionC
 		super(referencia::getEvaluacionCalidad);
 	}
 
+	/* (non-Javadoc)
+	 * @see co.edu.utp.gia.sms.negocio.AbstractGenericService#save(co.edu.utp.gia.sms.entidades.Entidad)
+	 */
 	@Override
 	public EvaluacionCalidad save(EvaluacionCalidad evaluacion) {
 		return save(evaluacion.getReferencia()::getEvaluacionCalidad,evaluacion);
@@ -50,6 +53,6 @@ public class EvaluacionCalidadService extends AbstractGenericService<EvaluacionC
 	 */
 	@Override
 	public void delete(EvaluacionCalidad evaluacion) {
-		super.delete(evaluacion.getReferencia()::getEvaluacionCalidad,evaluacion.getId());
+		super.delete(evaluacion.getReferencia()::getEvaluacionCalidad,evaluacion);
 	}
 }

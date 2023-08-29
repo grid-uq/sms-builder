@@ -10,7 +10,9 @@ import lombok.extern.java.Log;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
 import java.util.List;
+
 /**
  * Clase controladora de interfaz web que se encarga de la aplicación de los criterios de evaluación.
  *
@@ -31,14 +33,10 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
     @Inject
     private ReferenciaService referenciaService;
 
-
     public void inicializar() {
-        if (getRevision() != null) {
-//            referencias = referenciaService.obtenerTodas(getRevision().getId(), 1);
-            log.info("Aplicar criterios paso "+paso);
-            referencias = referenciaService.findByPaso(getPasoAnterior().getId());
-            log.info("Numero referecias "+referencias.size());
-        }
+        log.info("Aplicar criterios paso " + paso);
+        referencias = referenciaService.findByPaso(getPasoAnterior().getId());
+        log.info("Numero referecias " + referencias.size());
     }
 
     public void actualizarNota(ReferenciaDTO referencia) {
@@ -52,14 +50,14 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
     }
 
     public void seleccionarReferencia(ReferenciaDTO referencia) {
-        if( referencia.isSeleccionada() ){
-            referenciaService.avanzarReferecias( getPasoActual().getId() );
+        if (referencia.isSeleccionada()) {
+            referenciaService.avanzarReferecias(getPasoActual().getId());
 //            if( referencia.getFiltro() < paso ) {
 //                referencia.setFiltro(paso);
 //                referenciaService.actualizarFiltro(referencia.getId(), paso);
 //            }
         } else {
-            referenciaService.avanzarReferecias( getPasoAnterior().getId() );
+            referenciaService.avanzarReferecias(getPasoAnterior().getId());
 //            if( referencia.getFiltro() >= paso ){
 //                referencia.setFiltro(paso-1);
 //                referenciaService.actualizarFiltro(referencia.getId(), paso-1);
@@ -71,6 +69,4 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
     public void actualizarRelevancia(ReferenciaDTO referencia) {
         referenciaService.updateRelevancia(referencia.getId(), referencia.getRelevancia());
     }
-
-
 }

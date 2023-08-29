@@ -13,6 +13,7 @@ import jakarta.inject.Named;
 
 import java.io.Serial;
 import java.util.List;
+
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de referencias repetidas.
  *
@@ -27,12 +28,6 @@ import java.util.List;
 @ViewScoped
 @Log
 public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 8275908838815243233L;
     @Getter
     @Setter
     private List<ReferenciaDTO> referencias;
@@ -43,10 +38,7 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
 //    private Integer paso;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            //referencias = referenciaService.obtenerTodas(getRevision().getId(), 0);
-            referencias = referenciaService.findByPaso(getPasoAnterior().getId());
-        }
+        referencias = referenciaService.findByPaso(getPasoAnterior().getId());
     }
 
     public void sugerir() {
@@ -56,7 +48,7 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
     private void sugerirSeleccion() {
         ReferenciaDTO anterior = null;
         for (ReferenciaDTO actual : referencias) {
-            if( !(anterior == null || anterior.getNombre() == null || actual.getNombre() == null || !anterior.getNombre().equalsIgnoreCase(actual.getNombre())) ){
+            if (!(anterior == null || anterior.getNombre() == null || actual.getNombre() == null || !anterior.getNombre().equalsIgnoreCase(actual.getNombre()))) {
                 actual.setDuplicada(true);
             }
 
@@ -67,15 +59,15 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
 
     public void guardar() {
         for (ReferenciaDTO referencia : referencias) {
-            referenciaService.updateDuplicada(referencia.getId(),referencia.getDuplicada());
-            if( !referencia.getDuplicada() ){
-                referenciaService.avanzarReferecias( getPasoActual().getId() );
+            referenciaService.updateDuplicada(referencia.getId(), referencia.getDuplicada());
+            if (!referencia.getDuplicada()) {
+                referenciaService.avanzarReferecias(getPasoActual().getId());
 //                if( referencia.getFiltro() < paso ) {
 //                    referencia.setFiltro(paso);
 //                    referenciaService.actualizarFiltro(referencia.getId(), paso);
 //                }
             } else {
-                referenciaService.avanzarReferecias( getPasoAnterior().getId() );
+                referenciaService.avanzarReferecias(getPasoAnterior().getId());
 //                if( referencia.getFiltro() >= paso ){
 //                    referencia.setFiltro(paso-1);
 //                    referenciaService.actualizarFiltro(referencia.getId(), paso-1);

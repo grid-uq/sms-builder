@@ -45,16 +45,14 @@ public class ResumenBean extends AbstractRevisionBean{
     private EstadisticaService estadisticaService;
     @Override
     public void inicializar() {
-        if( getRevision() != null ) {
-            numeroReferencias = revisionService.totalReferencias();
-            numeroReferenciasBaseDatos = revisionService.totalReferencias(TipoFuente.BASE_DATOS);
-            numeroReferenciasRepetidas = revisionService.totalReferenciasRepetidas();
-            numeroReferenciasSeleccionadas = revisionService.totalReferenciasSeleccionadas();
-            referenciasPorFuente = estadisticaService.obtenerReferenciasTipoFuente();
-            numeroReferenciasDescartadas = numeroReferencias - numeroReferenciasSeleccionadas - numeroReferenciasRepetidas;
-            numeroReferenciasSeleccionadasBaseDatos = revisionService.totalReferenciasPaso(TipoFuente.BASE_DATOS);
-            numeroReferenciasSeleccionadasBolaNieve = revisionService.totalReferenciasPaso(TipoFuente.BOLA_NIEVE);
-            numeroReferenciasSeleccionadasInclusionDirecta = revisionService.totalReferenciasPaso(TipoFuente.INCLUSION_DIRECTA);
-        }
+        numeroReferencias = revisionService.totalReferencias();
+        numeroReferenciasBaseDatos = revisionService.totalReferencias(TipoFuente.BASE_DATOS);
+        numeroReferenciasRepetidas = revisionService.totalReferenciasRepetidas();
+        numeroReferenciasSeleccionadas = revisionService.totalReferenciasSeleccionadas();
+        referenciasPorFuente = estadisticaService.obtenerReferenciasTipoFuente();
+        numeroReferenciasDescartadas = numeroReferencias - numeroReferenciasSeleccionadas - numeroReferenciasRepetidas;
+        numeroReferenciasSeleccionadasBaseDatos = revisionService.totalReferenciasPaso(TipoFuente.BASE_DATOS);
+        numeroReferenciasSeleccionadasBolaNieve = revisionService.totalReferenciasPaso(TipoFuente.BOLA_NIEVE);
+        numeroReferenciasSeleccionadasInclusionDirecta = revisionService.totalReferenciasPaso(TipoFuente.INCLUSION_DIRECTA);
     }
 }

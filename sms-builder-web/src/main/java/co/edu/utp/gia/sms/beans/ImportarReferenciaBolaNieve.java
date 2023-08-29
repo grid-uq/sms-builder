@@ -17,7 +17,6 @@ import jakarta.inject.Named;
 @Named
 @ViewScoped
 public class ImportarReferenciaBolaNieve extends ImportarReferenciasBean{
-
     public ImportarReferenciaBolaNieve() {
         super();
         setTipoFuente(TipoFuente.BOLA_NIEVE);

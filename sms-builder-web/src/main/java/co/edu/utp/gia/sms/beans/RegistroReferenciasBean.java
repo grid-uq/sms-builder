@@ -1,11 +1,8 @@
 package co.edu.utp.gia.sms.beans;
 
-import lombok.extern.java.Log;
-
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
-
-import java.io.Serial;
+import lombok.extern.java.Log;
 
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de referencias.
@@ -21,12 +18,6 @@ import java.io.Serial;
 @ViewScoped
 @Log
 public class RegistroReferenciasBean extends ImportarReferenciasBean{
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 1107564281230780705L;
-
     public RegistroReferenciasBean() {
         super();
         setTipoFuente(null);

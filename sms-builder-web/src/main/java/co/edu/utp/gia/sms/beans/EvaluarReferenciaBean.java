@@ -19,6 +19,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de la evaluación de una referencia.
  *
@@ -32,12 +33,6 @@ import java.util.List;
 @Named
 @ViewScoped
 public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 6788702926482127829L;
     @Getter
     @Setter
     private Collection<AtributoCalidad> atributosCalidad;
@@ -51,19 +46,17 @@ public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
     private ReferenciaDTO referencia;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            referencia = (ReferenciaDTO) getFromSession("referenciaDTO");
-            atributosCalidad = atributoCalidadService.get();
-            if (referencia.getEvaluaciones() == null || referencia.getEvaluaciones().isEmpty()) {
-                evaluaciones = new ArrayList<>();
-                for (AtributoCalidad atributoCalidad : atributosCalidad) {
-                    EvaluacionCalidad evaluacion = new EvaluacionCalidad(referencia.getReferencia(), atributoCalidad);
-                    evaluaciones.add(evaluacion);
-                    referencia.addEvaluacion(evaluacion);
-                }
-            } else {
-                evaluaciones = referencia.getEvaluaciones();
+        referencia = (ReferenciaDTO) getFromSession("referenciaDTO");
+        atributosCalidad = atributoCalidadService.get();
+        if (referencia.getEvaluaciones() == null || referencia.getEvaluaciones().isEmpty()) {
+            evaluaciones = new ArrayList<>();
+            for (AtributoCalidad atributoCalidad : atributosCalidad) {
+                EvaluacionCalidad evaluacion = new EvaluacionCalidad(referencia.getReferencia(), atributoCalidad);
+                evaluaciones.add(evaluacion);
+                referencia.addEvaluacion(evaluacion);
             }
+        } else {
+            evaluaciones = referencia.getEvaluaciones();
         }
     }
 

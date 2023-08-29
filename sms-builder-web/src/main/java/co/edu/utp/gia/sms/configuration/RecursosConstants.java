@@ -24,7 +24,7 @@ public final class RecursosConstants {
      * listado de los recursos disponibles para usuarios no empleados o
      * administradores dentro de la aplicacion
      */
-    static final String[] RECURSOS_USUARIO = { "/boleta/vender.xhtml", "/seguridad/usuario/actualizar.xhtml",
+    static final String[] RECURSOS_USUARIO = { "/atributocalidad/registro.xhtml", "/seguridad/usuario/actualizar.xhtml",
             "/revision/analizarReferencias.xhtml",
             "/revision/aplicarCriterios.xhtml",
             "/revision/aplicarCriterios2.xhtml",
@@ -36,7 +36,6 @@ public final class RecursosConstants {
             "/revision/referenciaAdicionarCitas.xhtml",
             "/revision/registrarTopico.xhtml",
             "/revision/registroAtributoCalidad.xhtml",
-            "/revision/registroInicial.xhtml",
             "/revision/registroObjetivo.xhtml",
             "/revision/registroPregunta.xhtml",
             "/revision/registroReferencias.xhtml",
@@ -44,11 +43,9 @@ public final class RecursosConstants {
             "/revision/importarReferenciasBaseDatos.xhtml",
             "/revision/importarReferenciasManual.xhtml",
             "/revision/importarReferenciasBolaNieve.xhtml",
-            "/revision/registroRevision.xhtml",
             "/revision/registroTermino.xhtml",
             "/revision/resumenReferenciasDestacadas.xhtml",
             "/revision/resumenReferenciasSeleccionadas.xhtml",
-            "/revision/seleccionarRevision.xhtml",
             "/revision/tablaResumenEvaluacionReferencias.xhtml",
             "/revision/tablaResumenEvaluacionReferenciasAtributo.xhtml",
             "/revision/revisores/index.xhtml",

@@ -30,8 +30,8 @@ public class RolSetup implements SetupInterface{
 
     @Override
     public void setup() {
-        registrarRecursosRol("1","Administrador", RecursosConstants.RECURSOS_ADMINISTRADOR);
-        registrarRecursosRol("2","Usuario", RecursosConstants.RECURSOS_USUARIO);
+        registrarRecursosRol("1",RolConstants.ADMIN, RecursosConstants.RECURSOS_ADMINISTRADOR);
+        registrarRecursosRol("2",RolConstants.USER, RecursosConstants.RECURSOS_USUARIO);
     }
 
     private void registrarRecursosRol(String id,String nombre,String[] recursos){

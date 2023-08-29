@@ -1,6 +1,7 @@
 package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.db.DB;
+import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.entidades.Topico;
@@ -38,6 +39,7 @@ public class RevisionService {
     public Revision save(String nombre, String descripcion) {
         get().setNombre(nombre);
         get().setDescripcion(descripcion);
+        save();
         return DB.root.revision();
     }
 
@@ -98,5 +100,14 @@ public class RevisionService {
      */
     public long totalReferenciasSeleccionadas() {
         return get().getPasoSeleccionado().getReferencias().size();
+    }
+
+    public void save() {
+        DB.storageManager.store(DB.root.revision());
+    }
+
+    public void changePasoSeleccionado(PasoProceso pasoProceso) {
+        get().setPasoSeleccionado(pasoProceso);
+        save();
     }
 }

@@ -30,32 +30,25 @@ import java.util.List;
 @Named
 @ViewScoped
 public class TablaResumenEvaluacionReferenciasAtributoBean extends GenericBean<ReferenciaDTO> {
-
-    @Getter
-    @Setter
+    @Getter @Setter
     private List<ReferenciaDTO> referencias;
     @Inject
     private ReferenciaService referenciaService;
     @Inject
     private AtributoCalidadService atributoCalidadService;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private Collection<AtributoCalidad> atributosCalidad;
-    @Getter
-    @Setter
+    @Getter @Setter
     private AtributoCalidad atributoCalidad;
-    @Getter
-    @Setter
+    @Getter @Setter
     private String idAtributo;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            referencias = referenciaService.findWithEvaluacion();
-            atributosCalidad = atributoCalidadService.get();
-            atributoCalidad = atributosCalidad.stream().findFirst().orElse(null);
-            idAtributo = atributoCalidad != null ? atributoCalidad.getId() : null;
-        }
+        referencias = referenciaService.findWithEvaluacion();
+        atributosCalidad = atributoCalidadService.get();
+        atributoCalidad = atributosCalidad.stream().findFirst().orElse(null);
+        idAtributo = atributoCalidad != null ? atributoCalidad.getId() : null;
     }
 
 

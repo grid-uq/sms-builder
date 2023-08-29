@@ -50,8 +50,7 @@ public class RegistroObjetivoBean extends GenericBean<Objetivo> {
 
 
     public void registrar() {
-        Objetivo objetivo = objetivoService.save(codigo, descripcion);
-        objetivos.add(objetivo);
+        objetivoService.save(codigo, descripcion);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         codigo = "";
         descripcion = "";
@@ -71,7 +70,6 @@ public class RegistroObjetivoBean extends GenericBean<Objetivo> {
      */
     public void eliminar(Objetivo objetivo) {
         objetivoService.delete(objetivo.getId());
-        objetivos.remove(objetivo);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
 

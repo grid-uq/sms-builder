@@ -31,11 +31,6 @@ import java.util.ResourceBundle;
  *
  */
 public abstract class AbstractBean implements Serializable {
-
-	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	private static final long serialVersionUID = -8685025655659669181L;
 	@Inject
 	private FacesContext facesContext;
 	@Inject

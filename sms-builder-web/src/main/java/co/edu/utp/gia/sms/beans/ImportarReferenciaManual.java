@@ -17,7 +17,6 @@ import jakarta.inject.Named;
 @Named
 @ViewScoped
 public class ImportarReferenciaManual extends ImportarReferenciasBean{
-
     public ImportarReferenciaManual() {
         super();
         setTipoFuente(TipoFuente.INCLUSION_DIRECTA);

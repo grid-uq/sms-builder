@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
+import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -9,7 +10,6 @@ import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serial;
 import java.util.Collection;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de los atributos de calidad.
@@ -23,12 +23,7 @@ import java.util.Collection;
  */
 @Named
 @ViewScoped
-public class RegistroAtributoCalidadBean extends GenericBean<AtributoCalidad> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 1755642135191615078L;
+public class RegistroAtributoCalidadBean extends GenericBeanNew<AtributoCalidad,String> {
     @Getter @Setter
     private String descripcion;
     @Getter @Setter
@@ -39,33 +34,18 @@ public class RegistroAtributoCalidadBean extends GenericBean<AtributoCalidad> {
     private AtributoCalidadService atributoCalidadService;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            atributosCalidad = atributoCalidadService.get();
-        }
-    }
-
-    public void registrar() {
-        AtributoCalidad atributo = atributoCalidadService.save(descripcion,objetivo);
-        atributosCalidad.add(atributo);
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        descripcion = "";
+        atributosCalidad = atributoCalidadService.get();
+        setRecords(atributosCalidad);
     }
 
     @Override
-    public void actualizar(AtributoCalidad objeto) {
-        atributoCalidadService.update(objeto);
+    protected AtributoCalidad newRecord() {
+        return new AtributoCalidad("",false);
     }
 
-
-    /**
-     * Permite eliminar una atributo de calidad
-     *
-     * @param atributoCalidad Atributo de calidad a eliminar
-     */
-    public void eliminar(AtributoCalidad atributoCalidad) {
-        atributoCalidadService.delete(atributoCalidad.getId());
-        atributosCalidad.remove(atributoCalidad);
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
+    @Override
+    protected AbstractGenericService<AtributoCalidad, String> getServices() {
+        return atributoCalidadService;
     }
 
 }
