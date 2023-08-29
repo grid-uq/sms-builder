@@ -60,7 +60,7 @@ public class RegistroAtributoCalidadBean extends GenericBeanNew<AtributoCalidad,
         boolean existeDescripcion = atributosCalidad.stream().anyMatch( atributoCalidad -> atributoCalidad.getDescripcion().equals(object.toString()) );
         Object oldValue = ((UIInput) component).getValue();
         if (existeDescripcion && !oldValue.toString().equals(object.toString())) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error "+exceptionMessage.getRegistroExistente(), exceptionMessage.getRegistroExistente());
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error "+exceptionMessage.getRegistroExistente(), "Error "+exceptionMessage.getRegistroExistente());
             throw new ValidatorException(msg);
         }
     }

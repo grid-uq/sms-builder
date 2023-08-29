@@ -56,11 +56,20 @@
 <!--							<key>&#45;&#45;add-opens java.base/java.io</key>-->
 <!--							<value>ALL-UNNAMED</value>-->
 <!--						</option>-->
-						<option><value>-D --add-opens java.base/java.io=ALL-UNNAMED</value></option>
-						<option><value>-D --add-exports java.base/jdk.internal.misc=ALL-UNNAMED</value></option>
+<!--						<javaCommandLineOption>&#45;&#45;add-opens java.base/java.io=ALL-UNNAMED</javaCommandLineOption>-->
+<!--						<javaCommandLineOption>&#45;&#45;add-exports java.base/jdk.internal.misc=ALL-UNNAMED</javaCommandLineOption>-->
+						<option><key>--add-opens</key><value>java.base/java.io=ALL-UNNAMED</value></option>
+						<option><key>--add-exports</key><value>java.base/jdk.internal.misc=ALL-UNNAMED</value></option>
+
+<!--						<option><value>&#45;&#45;add-opens java.base/java.io=ALL-UNNAMED</value></option>-->
+<!--						<option><value>&#45;&#45;add-exports java.base/jdk.internal.misc=ALL-UNNAMED</value></option>-->
 					</javaCommandLineOptions>
 					<commandLineOptions>
 						<option><value>--nocluster</value></option>
+						<option>
+							<key>--deploy</key>
+							<value>${project.build.directory}/${project.build.finalName}</value>
+						</option>
 					</commandLineOptions>
 				</configuration>
 			</plugin>
