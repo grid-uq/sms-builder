@@ -17,18 +17,6 @@
 	<prerequisites>
 		<maven>${maven.forceversion}</maven>
 	</prerequisites>
-	<dependencies>
-
-
-		<!-- https://mvnrepository.com/artifact/org.aeonbits.owner/owner -->
-		<dependency>
-			<groupId>org.aeonbits.owner</groupId>
-			<artifactId>owner</artifactId>
-			<version>1.0.12</version>
-		</dependency>
-
-
-	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
