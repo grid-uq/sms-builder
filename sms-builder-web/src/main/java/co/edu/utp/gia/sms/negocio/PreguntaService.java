@@ -4,9 +4,15 @@ import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Pregunta;
+import co.edu.utp.gia.sms.entidades.Termino;
+import co.edu.utp.gia.sms.entidades.Topico;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
+import java.util.Objects;
+
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
  * gestion de la {@link Pregunta}.
@@ -21,6 +27,8 @@ import java.util.List;
 @ApplicationScoped
 public class PreguntaService extends AbstractGenericService<Pregunta, String> {
 
+    @Inject
+    private TopicoService topicoService;
     public PreguntaService() {
         super(DB.root.getProvider(Pregunta.class));
     }
@@ -66,4 +74,31 @@ public class PreguntaService extends AbstractGenericService<Pregunta, String> {
             pregunta.setDescripcion(descripcion);
         }
     }
+
+    /**
+     * Permite adicionar un topico a una pregunta
+     *
+     * @param pregunta Pregunta a la que se desea adicionar un tópico.
+     * @param topico Topico a ser adicionado a la pregunta.
+     */
+    public void add(@NotNull Pregunta pregunta,@NotNull Topico topico) {
+        var record = findOrThrow(pregunta.getId());
+        var topicoStored = topicoService.findOrThrow(topico.getId());
+        record.getTopicos().add(topicoStored);
+        DB.storageManager.store(record.getTopicos());
+    }
+
+    /**
+     * Permite remover un topico a una pregunta
+     *
+     * @param pregunta Pregunta a la que se desea adicionar un tópico.
+     * @param topico Topico a ser adicionado a la pregunta.
+     */
+    public void remove(@NotNull Pregunta pregunta,@NotNull Topico topico) {
+        var record = findOrThrow(pregunta.getId());
+        var topicoStored = topicoService.findOrThrow(topico.getId());
+        record.getTopicos().remove(topicoStored);
+        DB.storageManager.store(record.getTopicos());
+    }
+
 }

@@ -1,7 +1,12 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.negocio.PreguntaService;
 import co.edu.utp.gia.sms.negocio.TopicoService;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -28,6 +33,8 @@ public class RegistroTopicoBean extends GenericBean<Topico> {
     private String id;
     @Inject
     private TopicoService topicoService;
+    @Inject
+    private PreguntaService preguntaService;
 
     /**
      * Permite registrar un topico
@@ -47,4 +54,11 @@ public class RegistroTopicoBean extends GenericBean<Topico> {
         // No se requiere inicializar ningún dato
     }
 
+    public void validate(FacesContext facesContext, UIComponent component, java.lang.Object object){
+        var pregunta =  preguntaService.findOrThrow((String) getFromSession("idPregunta"));
+        if ( pregunta.getTopicos().stream().map(Topico::getDescripcion).anyMatch(t->t.equals(object.toString())) ) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error "+exceptionMessage.getRegistroExistente(), "Error "+exceptionMessage.getRegistroExistente());
+            throw new ValidatorException(msg);
+        }
+    }
 }

@@ -33,7 +33,7 @@ public class Revision implements Serializable {
     private String descripcion;
 
     /**
-     * Lista de objetivos de la revision
+     * Lista de objetivo de la revision
      */
     @Getter @Setter
     private List<Objetivo> objetivos = new ArrayList<>();

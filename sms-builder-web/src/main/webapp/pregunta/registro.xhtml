@@ -21,13 +21,13 @@
 					<p:outputLabel value="#{msg.etiquetaPregunta}: " />
 					<p:outputLabel value="#{msg.etiquetaObjetivo}: " />
 					
-					<p:inputText value="#{registroPreguntaBean.codigo}" maxlength="3" required="true"/>
-					<p:inputTextarea value="#{registroPreguntaBean.descripcion}" required="true"/>
+					<p:inputText value="#{registroPreguntaBean.record.codigo}" maxlength="3" required="true" validator="#{registroPreguntaBean.validate}" />
+					<p:inputTextarea value="#{registroPreguntaBean.record.descripcion}" required="true"/>
 					<p:selectManyCheckbox
-						value="#{registroPreguntaBean.listaObjetivos}" required="true" >
+						value="#{registroPreguntaBean.record.objetivos}" required="true" >
 
 
-						<f:selectItems value="#{registroObjetivoBean.objetivos}"
+						<f:selectItems value="#{registroObjetivoBean.records}"
 							var="objetivo" itemLabel="#{objetivo.codigo}" itemValue="#{objetivo}" />
 
 
@@ -45,7 +45,7 @@
 		</h:form>
 		<br />
 		<h:form id="tabla">
-			<p:dataTable value="#{registroPreguntaBean.preguntas}" var="pregunta"
+			<p:dataTable value="#{registroPreguntaBean.records}" var="pregunta"
 				editable="true">
 				<p:ajax event="rowEdit" listener="#{registroPreguntaBean.onRowEdit}"
 					update=":msgs" />
@@ -59,7 +59,7 @@
 							<h:outputText value="#{pregunta.codigo}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{pregunta.codigo}" />
+							<p:inputText value="#{pregunta.codigo}" validator="#{registroPreguntaBean.validate}" required="true" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -80,12 +80,12 @@
 				<p:column headerText="#{msg.etiquetaObjetivoCodigo}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{pregunta.listObjetivos}" />
+							<h:outputText value="#{pregunta.objetivos}" />
 						</f:facet>
 						<f:facet name="input">
 							<p:selectManyCheckbox id="basic"
 								value="#{pregunta.objetivos}" required="true"  >
-								<f:selectItems value="#{registroObjetivoBean.objetivos}"
+								<f:selectItems value="#{registroObjetivoBean.records}"
 									var="objetivo" itemLabel="#{objetivo.codigo}" itemValue="#{objetivo}" />
 							</p:selectManyCheckbox>
 						</f:facet>
@@ -103,8 +103,8 @@
 
 					<ui:repeat value="#{pregunta.topicos}" var="topico">
 						<p:panelGrid >
-							<p:row>
-								<p:column>
+							<p:row style="vertical-align: center">
+								<p:column style="width: fit-content;">
 							<h:outputText value="#{topico.descripcion}" />
 								</p:column>
 								<p:column style="width: 70px">

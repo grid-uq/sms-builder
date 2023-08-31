@@ -39,7 +39,7 @@ public class ObjetivoService extends AbstractGenericService<Objetivo, String> {
 	}
 
 	/**
-	 * Permite obtener los objetivos relacionados a una pregunta
+	 * Permite obtener los objetivo relacionados a una pregunta
 	 * @param id Id de la pregunta
 	 * @return List< Objetivo > relacionados con la preguna
 	 */

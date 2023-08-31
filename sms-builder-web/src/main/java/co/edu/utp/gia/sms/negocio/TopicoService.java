@@ -35,7 +35,7 @@ public class TopicoService extends AbstractGenericService<Topico, String> {
 		Pregunta pregunta = preguntaService.findOrThrow(idPregunta);
 		Topico topico = new Topico(descripcion, pregunta);
 		this.save(topico);
-		pregunta.getTopicos().add(topico);
+		preguntaService.add(pregunta,topico);
 		return topico;
 	}
 }

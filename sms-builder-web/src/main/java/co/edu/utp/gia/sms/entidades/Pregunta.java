@@ -47,7 +47,7 @@ public class Pregunta implements Entidad<String> {
     private List<Topico> topicos = new ArrayList<>();
 
     /**
-     * Variable que representa los objetivos con los que se relaciona una pregunta
+     * Variable que representa los objetivo con los que se relaciona una pregunta
      */
     @Getter @Setter
     private List<Objetivo> objetivos = new ArrayList<>();

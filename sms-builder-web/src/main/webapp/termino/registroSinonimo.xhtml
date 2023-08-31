@@ -11,13 +11,14 @@
 </h:head>
 <body>
 	<div id="content" align='center'>
+		<p:growl id="msgs"/>
 		<h:form>
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Name:" />
-				<p:inputText value="#{registroTopicoBean.descripcion}" />
+				<p:inputText value="#{registroSinonimoBean.descripcion}" validator="#{registroSinonimoBean.validate}"/>
 				<f:facet name="footer">
 					<p:commandButton value="#{msg.botonAceptar}"
-						action="#{registroTopicoBean.registrar}" />
+						action="#{registroSinonimoBean.registrar}" update=":msgs" />
 				</f:facet>
 			</p:panelGrid>
 		</h:form>

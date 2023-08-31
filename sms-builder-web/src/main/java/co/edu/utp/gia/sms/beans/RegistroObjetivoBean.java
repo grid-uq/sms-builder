@@ -1,18 +1,17 @@
 package co.edu.utp.gia.sms.beans;
 
-import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Objetivo;
+import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import co.edu.utp.gia.sms.negocio.ObjetivoService;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serial;
-import java.util.Collection;
 /**
- * Clase controladora de interfaz web que se encarga de la gestión de objetivos.
+ * Clase controladora de interfaz web que se encarga de la gestión de objetivo.
  *
  * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
  * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
@@ -23,54 +22,30 @@ import java.util.Collection;
  */
 @Named
 @ViewScoped
-public class RegistroObjetivoBean extends GenericBean<Objetivo> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 9060626480979863537L;
-    @Getter
-    @Setter
+public class RegistroObjetivoBean extends GenericBeanNew<Objetivo,String> {
+    @Getter @Setter
     private String codigo;
-    @Getter
-    @Setter
+    @Getter @Setter
     private String descripcion;
-    @Getter
-    @Setter
-    private Collection<Objetivo> objetivos;
 
     @Inject
     private ObjetivoService objetivoService;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            objetivos = objetivoService.get();
-        }
+        setRecords(objetivoService.get());
     }
-
-
-    public void registrar() {
-        objetivoService.save(codigo, descripcion);
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        codigo = "";
-        descripcion = "";
-    }
-
 
     @Override
-    public void actualizar(Objetivo objeto) {
-        objetivoService.update(objeto);
+    protected Objetivo newRecord() {
+        return new Objetivo();
     }
 
-
-    /**
-     * Permite eliminar un Objetivo
-     *
-     * @param objetivo Objetivo a eliminar
-     */
-    public void eliminar(Objetivo objetivo) {
-        objetivoService.delete(objetivo.getId());
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
+    @Override
+    protected AbstractGenericService<Objetivo, String> getServices() {
+        return objetivoService;
     }
 
+    public void validate(FacesContext facesContext, UIComponent component, java.lang.Object object){
+        validateUnique(facesContext, component, object, record -> record.getCodigo().equals(object.toString()) );
+    }
 }

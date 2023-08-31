@@ -48,8 +48,9 @@ public class TerminoService extends AbstractGenericService<Termino, String>{
 	 * @param sinonimo Sinónimo a ser adicionado
 	 */
     public void addSinonimo(String id, String sinonimo) {
-		findOrThrow(id)
-				.adicionarSinonimo( sinonimo );
+		var termino = findOrThrow(id);
+		termino.adicionarSinonimo( sinonimo );
+		DB.storageManager.store(termino.getSinonimos());
     }
 
 	/**
@@ -59,7 +60,8 @@ public class TerminoService extends AbstractGenericService<Termino, String>{
 	 * @param sinonimo Sinónimo a ser removido
 	 */
 	public void removeSinonimo(String id, String sinonimo) {
-		findOrThrow(id)
-				.removerSinonimo( sinonimo );
+		var termino = findOrThrow(id);
+		termino.removerSinonimo( sinonimo );
+		DB.storageManager.store(termino.getSinonimos());
 	}
 }

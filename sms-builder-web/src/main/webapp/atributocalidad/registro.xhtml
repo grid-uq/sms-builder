@@ -32,7 +32,7 @@
 			</div>
 		</h:form>
 		<h:form id="tabla">
-			<p:dataTable value="#{registroAtributoCalidadBean.atributosCalidad}" var="atributoCalidad"
+			<p:dataTable value="#{registroAtributoCalidadBean.records}" var="atributoCalidad"
 				editable="true">
 				<p:ajax event="rowEdit" listener="#{registroAtributoCalidadBean.onRowEdit}"
 					update=":msgs" />

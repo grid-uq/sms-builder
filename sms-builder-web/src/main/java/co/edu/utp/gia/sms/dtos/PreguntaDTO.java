@@ -75,7 +75,7 @@ public class PreguntaDTO implements Serializable {
     private List<Topico> topicos;
 
     /**
-     * Variable que representa los objetivos con los que se relaciona una pregunta
+     * Variable que representa los objetivo con los que se relaciona una pregunta
      */
     @Getter
     @Setter

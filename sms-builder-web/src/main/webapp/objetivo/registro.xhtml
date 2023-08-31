@@ -18,9 +18,9 @@
 			<div class="ui-fluid">
 				<p:panelGrid columns="2">
 					<p:outputLabel value="#{msg.etiquetaObjetivoCodigo}: " />
-					<p:inputText value="#{registroObjetivoBean.codigo}" />
+					<p:inputText value="#{registroObjetivoBean.record.codigo}" validator="#{registroObjetivoBean.validate}" required="true" />
 					<p:outputLabel value="#{msg.etiquetaDescripcion}: " />
-					<p:inputTextarea value="#{registroObjetivoBean.descripcion}" />
+					<p:inputTextarea value="#{registroObjetivoBean.record.descripcion}" />
 
 
 					<f:facet name="footer">
@@ -38,7 +38,7 @@
 
 		<h:form id="tabla">
 
-			<p:dataTable value="#{registroObjetivoBean.objetivos}" var="objetivo"
+			<p:dataTable value="#{registroObjetivoBean.records}" var="objetivo"
 				editable="true">
 				<p:ajax event="rowEdit" listener="#{registroObjetivoBean.onRowEdit}"
 					update=":msgs" />
@@ -52,7 +52,7 @@
 							<h:outputText value="#{objetivo.codigo}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{objetivo.codigo}" />
+							<p:inputText value="#{objetivo.codigo}" validator="#{registroObjetivoBean.validate}" required="true" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>

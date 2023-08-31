@@ -4,11 +4,17 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.Entidad;
 import co.edu.utp.gia.sms.negocio.AbstractGenericService;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.RowEditEvent;
 
 import java.util.Collection;
+import java.util.function.Predicate;
 
 /**
  * Clase controladora de interfaz web que define los procesos de interacción generales con el usuario.
@@ -40,7 +46,7 @@ public abstract class GenericBeanNew<T extends Entidad<K>,K> extends AbstractRev
     }
 
     /**
-     * Permite registrar una nuevo registro en el sistema
+     * Permite registrar un nuevo registro en el sistema
      *
      */
     public void registrar() {
@@ -79,4 +85,13 @@ public abstract class GenericBeanNew<T extends Entidad<K>,K> extends AbstractRev
      * @return el servicio encargado de la gestión de los registros
      */
     protected abstract AbstractGenericService<T,K> getServices();
+
+    public void validateUnique(FacesContext facesContext, UIComponent component, java.lang.Object object, Predicate<T> filter){
+        boolean existe = getRecords().stream().anyMatch( filter );
+        Object oldValue = ((UIInput) component).getValue();
+        if (existe && (oldValue == null || !oldValue.toString().equals(object.toString()))) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error "+exceptionMessage.getRegistroExistente(), "Error "+exceptionMessage.getRegistroExistente());
+            throw new ValidatorException(msg);
+        }
+    }
 }

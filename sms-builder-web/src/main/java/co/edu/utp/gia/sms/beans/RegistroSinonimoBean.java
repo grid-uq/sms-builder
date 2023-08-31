@@ -2,6 +2,10 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.TerminoService;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -50,4 +54,11 @@ public class RegistroSinonimoBean extends GenericBean<Topico> {
         // No se requiere inicializar ningún dato
     }
 
+    public void validate(FacesContext facesContext, UIComponent component, java.lang.Object object){
+        var termino =  terminoService.findOrThrow((String) getFromSession("idTermino"));
+        if ( termino.getSinonimos().contains(object.toString()) ) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error "+exceptionMessage.getRegistroExistente(), "Error "+exceptionMessage.getRegistroExistente());
+            throw new ValidatorException(msg);
+        }
+    }
 }

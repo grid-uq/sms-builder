@@ -68,4 +68,9 @@ public class Objetivo implements Entidad<String> {
     public int hashCode() {
         return 1220655506;
     }
+
+    @Override
+    public String toString() {
+        return codigo;
+    }
 }

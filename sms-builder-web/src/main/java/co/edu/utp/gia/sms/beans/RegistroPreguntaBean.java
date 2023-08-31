@@ -5,8 +5,11 @@ import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import co.edu.utp.gia.sms.negocio.PreguntaService;
 import co.edu.utp.gia.sms.negocio.TopicoService;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -33,13 +36,7 @@ import java.util.*;
  */
 @Named
 @ViewScoped
-public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
-    @Getter @Setter
-    private String descripcion;
-    @Getter @Setter
-    private String codigo;
-    @Getter @Setter
-    private Collection<Pregunta> preguntas;
+public class RegistroPreguntaBean extends GenericBeanNew<Pregunta,String> {
     @Getter @Setter
     private List<Objetivo> listaObjetivos;
     @Inject
@@ -48,33 +45,18 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
     private TopicoService topicoService;
 
     public void inicializar() {
-        preguntas = preguntaService.get();
+        setRecords(preguntaService.get());
         listaObjetivos = new ArrayList<>();
     }
 
-    public String registrar() {
-        preguntaService.save(codigo, descripcion, listaObjetivos);
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        codigo = "";
-        descripcion = "";
-        return "/revision/registroPregunta";
+    @Override
+    protected Pregunta newRecord() {
+        return new Pregunta();
     }
 
     @Override
-    public void actualizar(PreguntaDTO objeto) {
-        preguntaService.update(objeto);
-    }
-
-
-    /**
-     * Permite eliminar una pregunta
-     *
-     * @param pregunta pregunta a eliminar
-     */
-    public void eliminar(Pregunta pregunta) {
-        preguntaService.delete(pregunta.getId());
-        preguntas.remove(pregunta);
-        mostrarMensajeGeneral("Pregunta eliminada");
+    protected AbstractGenericService<Pregunta, String> getServices() {
+        return preguntaService;
     }
 
     /**
@@ -82,19 +64,19 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
      *
      * @param topico Topico de la pregunta a eliminar
      */
-    public void eliminarTopico(PreguntaDTO pregunta, Topico topico) {
+    public void eliminarTopico(Pregunta pregunta, Topico topico) {
+        preguntaService.remove(pregunta,topico);
         topicoService.delete(topico.getId());
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        pregunta.getTopicos().remove(topico);
     }
 
-    public void adicionarTopico(Integer id) {
+    public void adicionarTopico(String id) {
         Map<String, Object> options = new HashMap<>();
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
         addToSession("idPregunta", id);
-        PrimeFaces.current().dialog().openDynamic("/revision/registrarTopico", options, null);
+        PrimeFaces.current().dialog().openDynamic("/pregunta/registroTopico", options, null);
     }
 
     public void onTopicoCreado(SelectEvent<Topico> event) {
@@ -102,4 +84,7 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
         inicializar();
     }
 
+    public void validate(FacesContext facesContext, UIComponent component, java.lang.Object object){
+        validateUnique(facesContext, component, object, record -> record.getCodigo().equals(object.toString()) );
+    }
 }
