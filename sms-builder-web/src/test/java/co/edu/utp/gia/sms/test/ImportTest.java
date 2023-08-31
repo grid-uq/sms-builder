@@ -1,8 +1,6 @@
 package co.edu.utp.gia.sms.test;
 
-import co.edu.utp.gia.sms.entidades.Metadato;
-import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.entidades.TipoMetadato;
+import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParseFactory;
 import co.edu.utp.gia.sms.importutil.ReferenceParse;
 import co.edu.utp.gia.sms.importutil.TipoArchivo;
@@ -19,14 +17,15 @@ class ImportTest {
 
 	@Test
 	void testParseSCIENCEDIRECT_MENDELEY() {
-		//testParse("test",TipoFuente.BASE_DATOS.toString(),TipoArchivo.RIS, "/sciecedirect_47_mendeleyris.ris", 47);
-		//testParse("test",TipoFuente.BASE_DATOS.toString(),TipoArchivo.BIBTEX, "/main64.bib", 64);
-	}	
+		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS), TipoArchivo.RIS, "/sciecedirect_47_mendeleyris.ris", 47);
+		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.BIBTEX, "/main64.bib", 64);
+		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.BIBTEX, "/main2.bib", 2);
+	}
 
 
-	void testParse(String fuente,String tipoFuente, TipoArchivo tipoArchivo, String nombreArchivo, int cantidadReferencias) {
+	void testParse(Fuente fuente,  TipoArchivo tipoArchivo, String nombreArchivo, int cantidadReferencias) {
 
-		ReferenceParse frmp = FileMultipleRegisterParseFactory.getInstance(tipoArchivo,fuente,tipoFuente);
+		ReferenceParse frmp = FileMultipleRegisterParseFactory.getInstance(tipoArchivo,fuente);
 
 		InputStream archivo = ImportTest.class.getResourceAsStream(nombreArchivo);
 		List<Referencia> datos = frmp.parse(archivo);
@@ -37,11 +36,9 @@ class ImportTest {
 		datos.stream().forEach((referencia) -> {
 			assertTrue(referencia.getYear().length() < 5);
 			assertTrue(referencia.getResumen() == null || referencia.getResumen().length()>5);
-			System.out.println( referencia.getMetadatos().stream().filter(m->TipoMetadato.AUTOR.equals(m.getIdentifier())).count() );
-			referencia.getMetadatos().stream()
-					.filter(m->TipoMetadato.AUTOR.equals(m.getIdentifier()))
-					.map(Metadato::getValue)
-					.forEach(System.out::println);
+			assertTrue(referencia.getNombre() != null && !referencia.getNombre().isEmpty());
+			assertEquals(fuente,referencia.getFuente());
+			System.out.println(referencia.getTipo());
 			System.out.println(referencia.getYear());
 		});
 

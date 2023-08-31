@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.importutil.bibtex;
 
+import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParse;
 import lombok.extern.java.Log;
@@ -26,8 +27,8 @@ import java.util.stream.Collectors;
 @Log
 public class BibtexFileMultipleRegisterParse extends FileMultipleRegisterParse<BibtexReferenceParcer> {
 
-	public BibtexFileMultipleRegisterParse(String fuente, String tipoFuente) {
-		super(new BibtexReferenceParcer(fuente,tipoFuente));
+	public BibtexFileMultipleRegisterParse(Fuente fuente) {
+		super(new BibtexReferenceParcer(fuente));
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.importutil;
 
+import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.importutil.bibtex.BibtexFileMultipleRegisterParse;
 import co.edu.utp.gia.sms.importutil.ris.RisFileMultipleRegisterParse;
 /**
@@ -17,10 +18,10 @@ public class FileMultipleRegisterParseFactory {
 	private FileMultipleRegisterParseFactory() {
 	}
 
-	public static ReferenceParse getInstance(TipoArchivo tipoArchivo, String fuente, String tipoFuente) {
+	public static ReferenceParse getInstance(TipoArchivo tipoArchivo, Fuente fuente) {
         return switch (tipoArchivo) {
-            case RIS -> new RisFileMultipleRegisterParse(fuente, tipoFuente);
-            default -> new BibtexFileMultipleRegisterParse(fuente, tipoFuente);
+            case RIS -> new RisFileMultipleRegisterParse(fuente);
+            default -> new BibtexFileMultipleRegisterParse(fuente);
         };
 	}
 

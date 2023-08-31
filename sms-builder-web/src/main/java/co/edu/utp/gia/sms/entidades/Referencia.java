@@ -90,6 +90,8 @@ public class Referencia implements Entidad<String> {
      */
     @Getter @Setter
     private Boolean duplicada;
+    @Getter @Setter
+    private Fuente fuente;
 
     /**
      * Variable que representa el atributo metadatos de la clase

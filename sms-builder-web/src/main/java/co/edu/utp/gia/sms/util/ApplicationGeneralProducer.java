@@ -24,13 +24,17 @@ public class ApplicationGeneralProducer {
     @Produces
     @Named("defaultLocale")
     public Locale getDefaultLocale(){
-        FacesContext facesContext = FacesContext.getCurrentInstance();
+        try {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
 //        if( facesContext!= null && facesContext.getApplication() != null )
 //        log.info("LOCALE facesContext.getApplication().getDefaultLocale()"+facesContext.getApplication().getDefaultLocale());
 //        if( facesContext!= null && facesContext.getViewRoot() != null )
 //        log.info("LOCALE facesContext.getViewRoot().getLocale()"+facesContext.getViewRoot().getLocale());
-        return facesContext != null ? facesContext.getViewRoot().getLocale() : Locale.ROOT;
-//        return facesContext != null ? facesContext.getApplication().getDefaultLocale() : Locale.ROOT;
+            return facesContext != null ? facesContext.getViewRoot().getLocale() : Locale.ROOT;
+
+        }catch (Throwable e){
+            return Locale.ROOT;
+        }
     }
 
     @Produces

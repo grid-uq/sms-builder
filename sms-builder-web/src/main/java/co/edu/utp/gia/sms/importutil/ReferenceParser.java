@@ -1,5 +1,6 @@
 package co.edu.utp.gia.sms.importutil;
 
+import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 
@@ -21,18 +22,15 @@ public abstract class ReferenceParser<T> {
 	/**
 	 * Variable que representa el atributo fuente de la clase
 	 */
-	private final String fuente;
-	private final String tipoFuente;
+	private final Fuente fuente;
 
 	/**
 	 * Metodo que permite inicializar los elementos de la clase ReferenceParser
 	 * 
 	 * @param fuente Fuente de la que providene la referencia
-	 * @param tipoFuente Tipo de fuente de la que proviene la refeerncia
 	 */
-	public ReferenceParser(String fuente,String tipoFuente) {
+	public ReferenceParser(Fuente fuente) {
 		this.fuente = fuente;
-		this.tipoFuente = tipoFuente;
 	}
 
 	/**
@@ -50,8 +48,9 @@ public abstract class ReferenceParser<T> {
 		
 		Referencia referencia = procesar(source);
 		if( referencia != null ){
-			referencia.addElement(TipoMetadato.FUENTE, fuente);
-			referencia.addElement(TipoMetadato.TIPO_FUENTE, tipoFuente);
+			referencia.addElement(TipoMetadato.FUENTE, fuente.getNombre());
+			referencia.addElement(TipoMetadato.TIPO_FUENTE, fuente.getTipo().toString());
+			referencia.setFuente(fuente);
 		}
 		return referencia;
 	}

@@ -69,7 +69,7 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
     private void procesarArchivo() {
         try {
             ReferenceParse parser = FileMultipleRegisterParseFactory
-                    .getInstance(tipoArchivo, fuente.getNombre(), fuente.getTipo().toString());
+                    .getInstance(tipoArchivo, fuente);
             List<Referencia> referencias = parser.parse(file.getInputStream());
             referenciaService.save(referencias, paso);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA) + " " + referencias.size());
