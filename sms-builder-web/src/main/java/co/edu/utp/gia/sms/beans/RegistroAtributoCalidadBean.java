@@ -1,22 +1,15 @@
 package co.edu.utp.gia.sms.beans;
 
-import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
-import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.validator.ValidatorException;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Collection;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de los atributos de calidad.
  *
@@ -31,17 +24,12 @@ import java.util.Collection;
 @ViewScoped
 public class RegistroAtributoCalidadBean extends GenericBeanNew<AtributoCalidad,String> {
     @Getter @Setter
-    private String descripcion;
-    @Getter @Setter
-    private Collection<AtributoCalidad> atributosCalidad;
-    @Getter @Setter
     private boolean objetivo;
     @Inject
     private AtributoCalidadService atributoCalidadService;
 
     public void inicializar() {
-        atributosCalidad = atributoCalidadService.get();
-        setRecords(atributosCalidad);
+        setRecords(atributoCalidadService.get());
     }
 
     @Override

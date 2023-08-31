@@ -33,6 +33,11 @@ public class PasoProceso implements Entidad<String> {
     @Getter @Setter
     private List<Referencia> referencias = new ArrayList<>();
 
+    public PasoProceso(@NonNull Paso paso) {
+        this.paso = paso;
+        this.orden = 0;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -2,13 +2,13 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.Paso;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
+import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import co.edu.utp.gia.sms.negocio.PasoService;
 import co.edu.utp.gia.sms.negocio.ProcesoService;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.java.Log;
 
 import java.util.Collection;
@@ -26,32 +26,32 @@ import java.util.Collection;
 @Log
 @Named
 @ViewScoped
-public class ConfigurarProcesoBean extends AbstractRevisionBean {
+public class PasoProcesoBean extends GenericBeanNew<PasoProceso, String> {
     @Inject
     private ProcesoService procesoService;
     @Inject
     private PasoService pasoService;
 
     @Getter
-    @Setter
-    private Paso pasoSeleccionado;
-    @Getter
-    private Collection<PasoProceso> pasosProceso;
-    @Getter
     private Collection<Paso> pasos;
 
     public void inicializar() {
         pasos = pasoService.get();
-        pasosProceso = procesoService.get();
+        setRecords(procesoService.get());
+        getRecord().setOrden(getRecords().size() + 1);
     }
 
-    public void adicionar() {
-        var nuevoPaso = procesoService.save(pasoSeleccionado.getId());
-        pasosProceso.add(nuevoPaso);
+    @Override
+    protected PasoProceso newRecord() {
+        var pasoProceso = new PasoProceso();
+        if (getRecords() != null) {
+            pasoProceso.setOrden(getRecords().size() + 1);
+        }
+        return pasoProceso;
     }
 
-    public void eliminar(PasoProceso pasoProceso) {
-        procesoService.delete(pasoProceso.getId());
-        pasosProceso.remove(pasoProceso);
+    @Override
+    protected AbstractGenericService<PasoProceso, String> getServices() {
+        return procesoService;
     }
 }

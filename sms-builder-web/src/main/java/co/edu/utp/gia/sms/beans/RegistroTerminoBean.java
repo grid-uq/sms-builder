@@ -10,8 +10,6 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import lombok.Getter;
-import lombok.Setter;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
@@ -30,8 +28,6 @@ import java.util.Map;
 @Named
 @ViewScoped
 public class RegistroTerminoBean extends GenericBeanNew<Termino,String> {
-    @Getter @Setter
-    private String descripcion;
     @Inject
     private TerminoService terminoService;
 

@@ -1,17 +1,11 @@
 package co.edu.utp.gia.sms.beans;
 
-import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.CadenaBusqueda;
-import co.edu.utp.gia.sms.entidades.Fuente;
+import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import co.edu.utp.gia.sms.negocio.CadenaBusquedaService;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.Collection;
-import java.util.Date;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de las cadenas de búsqueda.
  *
@@ -24,59 +18,32 @@ import java.util.Date;
  */
 @Named
 @ViewScoped
-public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
-    @Getter @Setter
-    private Fuente baseDatos;
-    @Getter @Setter
-    private String consulta;
-    @Getter @Setter
-    private Date fechaConsulta;
-    @Getter @Setter
-    private Integer resultadoPreliminar;
-    @Getter @Setter
-    private Integer resultadoFinal;
-
-    @Getter
-    @Setter
-    private Collection<CadenaBusqueda> cadenasBusqueda;
-
+public class CadenaBusquedaBean extends GenericBeanNew<CadenaBusqueda,String> {
     @Inject
     private CadenaBusquedaService cadenaBusquedaService;
 
     public void inicializar() {
-        cadenasBusqueda = cadenaBusquedaService.get();
+        setRecords( cadenaBusquedaService.get() );
         sugerirConsulta();
-    }
-
-    public void registrar() {
-        CadenaBusqueda cadenaBusqueda = cadenaBusquedaService.save(baseDatos, consulta,fechaConsulta,resultadoPreliminar,resultadoFinal);
-        cadenasBusqueda.add(cadenaBusqueda);
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        baseDatos = null;
-        fechaConsulta = null;
-        resultadoPreliminar = null;
-        resultadoFinal = null;
-        sugerirConsulta();
-    }
-
-    public void sugerirConsulta(){
-        consulta = cadenaBusquedaService.sugerirConsulta();
     }
 
     @Override
-    public void actualizar(CadenaBusqueda cadenaBusqueda) {
-        cadenaBusquedaService.update(cadenaBusqueda);
+    public void registrar() {
+        super.registrar();
+        sugerirConsulta();
     }
 
-    /**
-     * Permite eliminar un Objetivo
-     *
-     * @param cadenaBusqueda a eliminar
-     */
-    public void eliminar(CadenaBusqueda cadenaBusqueda) {
-        cadenaBusquedaService.delete(cadenaBusqueda.getId());
-        cadenasBusqueda.remove(cadenaBusqueda);
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
+    @Override
+    protected CadenaBusqueda newRecord() {
+        return new CadenaBusqueda();
     }
 
+    public void sugerirConsulta(){
+        getRecord().setConsulta( cadenaBusquedaService.sugerirConsulta() );
+    }
+
+    @Override
+    protected AbstractGenericService<CadenaBusqueda, String> getServices() {
+        return cadenaBusquedaService;
+    }
 }

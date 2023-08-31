@@ -18,15 +18,18 @@
 			<div class="ui-fluid" >
 				<p:panelGrid columns="2" >
 					<p:outputLabel value="#{msg.etiquetaBaseDatos}: " />
-					<p:inputText value="#{cadenaBusquedaBean.baseDatos}" />
+					<p:selectOneMenu value="#{cadenaBusquedaBean.record.baseDatos}" converter="fuenteConverter" >
+						<f:selectItems value="#{fuenteBean.basesDatos}"
+									   var="fuente" itemLabel="#{fuente.nombre}" itemValue="#{fuente}" />
+					</p:selectOneMenu>
 					<p:outputLabel value="#{msg.etiquetaQuery}: " />
-					<p:inputTextarea value="#{cadenaBusquedaBean.consulta}" style="width: 800px" />
+					<p:inputTextarea value="#{cadenaBusquedaBean.record.consulta}" style="width: 800px" />
 					<p:outputLabel value="#{msg.etiquetaFecha}: " />
-					<p:datePicker value="#{cadenaBusquedaBean.fechaConsulta}" pattern="yyyy-MM-dd" />
+					<p:datePicker value="#{cadenaBusquedaBean.record.fechaConsulta}" pattern="yyyy-MM-dd" />
 					<p:outputLabel value="#{msg.etiquetaResultadoPreliminar}: " />
-					<p:inputNumber value="#{cadenaBusquedaBean.resultadoPreliminar}" decimalPlaces="0" thousandSeparator="" />
+					<p:inputNumber value="#{cadenaBusquedaBean.record.resultadoPreliminar}" decimalPlaces="0" thousandSeparator="" />
 					<p:outputLabel value="#{msg.etiquetaResultadoFinal}: " />
-					<p:inputNumber value="#{cadenaBusquedaBean.resultadoFinal}" decimalPlaces="0" thousandSeparator="" />
+					<p:inputNumber value="#{cadenaBusquedaBean.record.resultadoFinal}" decimalPlaces="0" thousandSeparator="" />
 					<f:facet name="footer">
 						<p:commandButton value="#{msg.botonAceptar}"
 							action="#{cadenaBusquedaBean.registrar}"
@@ -42,7 +45,7 @@
 
 		<h:form id="tabla">
 
-			<p:dataTable value="#{cadenaBusquedaBean.cadenasBusqueda}" var="cadenaBusqueda"
+			<p:dataTable value="#{cadenaBusquedaBean.records}" var="cadenaBusqueda"
 				editable="true" resizableColumns="true" >
 				<p:ajax event="rowEdit" listener="#{cadenaBusquedaBean.onRowEdit}"
 					update=":msgs" />
@@ -53,14 +56,17 @@
 				<p:column headerText="#{msg.etiquetaBaseDatos}" width="200">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{cadenaBusqueda.baseDatos}" />
+							<h:outputText value="#{cadenaBusqueda.baseDatos.nombre}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{cadenaBusqueda.baseDatos}" />
+							<p:selectOneMenu value="#{cadenaBusqueda.baseDatos}" converter="fuenteConverter" >
+								<f:selectItems value="#{fuenteBean.basesDatos}"
+											   var="fuente" itemLabel="#{fuente.nombre}" itemValue="#{fuente}" />
+							</p:selectOneMenu>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="#{msg.etiquetaQuery}">
+				<p:column headerText="#{msg.etiquetaQuery}" styleClass="mb-2">
 					<p:cellEditor>
 						<f:facet name="output">
 							<p:outputPanel>#{cadenaBusqueda.consulta}</p:outputPanel>

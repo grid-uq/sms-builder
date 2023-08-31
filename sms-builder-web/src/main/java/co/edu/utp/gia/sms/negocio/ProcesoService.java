@@ -27,32 +27,19 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
         super(DB.root.getProvider(PasoProceso.class));
     }
 
-    /**
-     * Permite registrar un nuevo paso en el proceso
-     *
-     * @param idPaso      Id del paso que se desea adicionar
-     *
-     * @return El {@link PasoProceso} registrado
-     */
-    public PasoProceso save(String idPaso) {
-        var paso = pasoService.findOrThrow(idPaso);
-        var revision = revisionService.get();
+    @Override
+    public PasoProceso save(PasoProceso paso) {
         checkOrder( );
-        var pasoProceso = new PasoProceso(revision.getPasosProceso().size()+1,paso);
-        save(pasoProceso);
-        revisionService.changePasoSeleccionado(pasoProceso);
-        return pasoProceso;
+        paso.setOrden( get().size() + 1 );
+        pasoService.findOrThrow( paso.getPaso().getId() );
+        super.save(paso);
+        revisionService.changePasoSeleccionado(paso);
+        return paso;
     }
 
-    /**
-     * Permite eliminar un paso del proceso.
-     * @param id Identificador del paso a remover del proceso.
-     */
     @Override
-    public void delete(String id) {
-        var pasoProceso = findOrThrow(id);
-        super.delete(pasoProceso);
-
+    public void delete(PasoProceso entidad) {
+        super.delete(entidad);
         checkOrder();
         var indice = count() ;
         var paso = findByOrden(indice);
