@@ -63,7 +63,9 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
         } else {
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         }
-        referenciaService.avanzarReferecias(getPasoAnterior().getId());
+        if( getPasoAnterior() != null ){
+            referenciaService.avanzarReferecias(getPasoAnterior().getId());
+        }
     }
 
     private void procesarArchivo() {

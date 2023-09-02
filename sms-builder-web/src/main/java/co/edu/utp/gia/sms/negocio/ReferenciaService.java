@@ -147,6 +147,7 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         evaluacionCalidadService.update(evaluacion);
         Referencia referencia = findOrThrow(evaluacion.getReferencia().getId());
         referencia.setTotalEvaluacionCalidad(calcularTotalEvaluacionCalidad(referencia.getId()).floatValue());
+        save(referencia);
     }
 
     /**
@@ -163,11 +164,13 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         Referencia referencia = findOrThrow(id);
         Topico topico = topicoService.findOrThrow(idTopico);
         referencia.getTopicos().add(topico);
+        DB.storageManager.store(referencia.getTopicos());
     }
 
     public void cleanTopicos(String id) {
         Referencia referencia = findOrThrow(id);
         referencia.getTopicos().clear();
+        DB.storageManager.store(referencia.getTopicos());
     }
 
     public void updateRelevancia(String id, Integer relevancia) {
@@ -175,6 +178,7 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         if (referencia != null) {
             referencia.setRelevancia(relevancia);
         }
+        update(referencia);
     }
 
     public void updateCita(String id, Integer citas) {
@@ -194,7 +198,7 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
                 referencia.setSci(null);
             }
         }
-
+        update(referencia);
     }
 
     public void updateNota(String id, String nota) {
@@ -203,6 +207,7 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         if (referencia != null) {
             referencia.setNota(nota);
         }
+        update(referencia);
     }
 
     public void updateResumen(String id, String resumen) {
@@ -210,12 +215,14 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         if (referencia != null) {
             referencia.setResumen(resumen);
         }
+        update(referencia);
     }
 
-    public void updateTopico(String id, String idTopico) {
+    public void removeTopico(String id, String idTopico) {
         Referencia referencia = findOrThrow(id);
         Topico topico =  topicoService.findOrThrow(idTopico);
         referencia.getTopicos().remove(topico);
+        DB.storageManager.store(referencia.getTopicos());
     }
 
     public void evaluacionAutomatica(String id) {
@@ -412,11 +419,17 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
 //                            }
 //                        }
             );
+
 //        }
+    }
+
+    public void avanzarReferecia(Referencia referencia,PasoProceso paso) {
+        procesoService.addReferencia(paso.getId(), referencia);
     }
 
     public void updateDuplicada(String id, Boolean duplicada) {
         Referencia referencia = findOrThrow(id);
         referencia.setDuplicada(duplicada);
+        update(referencia);
     }
 }

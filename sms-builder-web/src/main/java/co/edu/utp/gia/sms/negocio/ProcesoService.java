@@ -23,6 +23,9 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
     private RevisionService revisionService;
     @Inject
     private PasoService pasoService;
+    @Inject
+    private ReferenciaService referenciaService;
+
     public ProcesoService() {
         super(DB.root.getProvider(PasoProceso.class));
     }
@@ -62,21 +65,47 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
     /**
      * Adiciona una referencia al paso
      * @param idPasoProceso Identificador del paso al que se desea adicionar la referencia
+     * @param idReferencia  Identificador de la Referencia a ser adicionada
+     */
+    public void addReferencia(String idPasoProceso, String idReferencia) {
+        var referencia = referenciaService.findOrThrow(idReferencia);
+        addReferencia(idPasoProceso,referencia);
+    }
+
+    /**
+     * Adiciona una referencia al paso
+     * @param idPasoProceso Identificador del paso al que se desea adicionar la referencia
      * @param referencia Referencia a ser adicionada
      */
     public void addReferencia(String idPasoProceso, Referencia referencia) {
         var paso = findOrThrow(idPasoProceso);
         paso.getReferencias().add(referencia);
+        DB.storageManager.store(paso.getReferencias());
     }
 
     /**
      * Permite remover una referencia de un paso
      * @param idPasoProceso Identificador del paso del que se desea remover la referencia
-     * @param referencia Referencia que se desea remover.
+     * @param idReferencia Identificador de la referencia que se desea remover.
      */
-    public void removeReferencia(String idPasoProceso, Referencia referencia) {
+    public void removeReferencia(String idPasoProceso, String idReferencia) {
         var paso = findOrThrow(idPasoProceso);
+        var referencia = referenciaService.findOrThrow(idReferencia);
+        removeReferencia(paso,referencia);
+    }
+
+    /**
+     * Permite remover una referencia de un paso
+     * @param paso paso del que se desea remover la referencia
+     * @param referencia referencia que se desea remover.
+     */
+    private void removeReferencia(PasoProceso paso, Referencia referencia) {
+        var pasoSiguiente = findByOrden( paso.getOrden() + 1 );
+        if( pasoSiguiente != null && pasoSiguiente.getReferencias().contains(referencia) ){
+            removeReferencia(pasoSiguiente,referencia);
+        }
         paso.getReferencias().remove(referencia);
+        DB.storageManager.store(paso.getReferencias());
     }
 
     /**

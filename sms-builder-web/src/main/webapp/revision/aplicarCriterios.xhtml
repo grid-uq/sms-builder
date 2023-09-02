@@ -10,6 +10,7 @@
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
+
 		<h:form id="tabla" enctype="multipart/form-data" prependId="false">
 			<p:growl id="mensajes" showDetail="true" />
 
@@ -19,101 +20,71 @@
 				rowsPerPageTemplate="1,3,5,10,20,50,100"
 				rowStyleClass="#{referencia.seleccionada ? 'ui-state-highlight': (referencia.nota != null ? 'colorOrange': null)}"
 				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
-				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}">
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}" >
 
 				<p:column filterBy="#{referencia.nombre}" filterable="true" filterMatchMode="contains">
-					<p:panelGrid>
+					<div class="card" style="width: 100%; ">
+					<p:panelGrid columns="3" layout="grid" style="width: 100%;">
 
-						<f:facet name="header">
-							<p:row>
-								<p:column style="width:50px">
-									<h:outputText value="+" />
-								</p:column>
+						<p:column style="width: 5%; min-width: 50px; ">
+							<h:outputText value="+" />
+						</p:column>
+						<p:column style="width: 20%; min-width: 250px;">
+							<h:outputText value="#{msg.etiquetaRelevancia}" />
+						</p:column>
+						<p:column style="width: 75%; max-width: 100%; min-width: 50%; ">
+							<h:outputText value="#{msg.etiquetaNombre}" />
+						</p:column>
 
-								<p:column style="width:250px">
-									<h:outputText value="#{msg.etiquetaRelevancia}" />
-								</p:column>
-
-								<p:column>
-									<h:outputText value="#{msg.etiquetaNombre}" />
-								</p:column>
-
-							</p:row>
-
-						</f:facet>
-
-						<p:row>
-
-							<p:column>
-								<p:selectBooleanCheckbox value="#{referencia.seleccionada}">
-									<p:ajax update=":tabla"
-										listener="#{aplicarCriteriosReferenciasBean.seleccionarReferencia(referencia)}" />
-								</p:selectBooleanCheckbox>
-							</p:column>
-
-							<p:column>
-
-								<p:rating value="#{referencia.relevancia}">
-									<p:ajax event="rate"
-										listener="#{aplicarCriteriosReferenciasBean.actualizarRelevancia(referencia)}" />
-									<p:ajax event="cancel"
-										listener="#{aplicarCriteriosReferenciasBean.actualizarRelevancia(referencia)}" />
-								</p:rating>
-
-
-							</p:column>
-
-							<p:column>
-								<h:outputText value="#{referencia.nombre}" />
-							</p:column>
-
-
-						</p:row>
-
-
-						<p:row>
-							<p:column colspan="3">
-								<p:panelGrid >
-									<f:facet name="header">
-										<p:row>
-											<p:column style="width:120px">Year</p:column>
-											<p:column>Keywords</p:column>
-										</p:row>
-									</f:facet>		
-								    <p:row>
-								    <p:column><h:outputText value="#{referencia.year}" /></p:column>							
-								    <p:column><h:outputText value="#{referencia.keywords}" /></p:column>
-									</p:row>
-								</p:panelGrid>
-							</p:column>
-							
-						</p:row>
-						<p:row>
-							<p:column colspan="3">
-
-									<p:panel header="#{msg.etiquetaAbstract}">
-											<h:outputText value="#{referencia.resumen}" />
-									</p:panel>
-								
-
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column colspan="3">
-
-									<p:panel header="#{msg.etiquetaNota}">
-											<p:inputTextarea 
-												value="#{referencia.nota}" style="width:100%; font-size:14pt">
-												<p:ajax event="blur"
-													listener="#{aplicarCriteriosReferenciasBean.actualizarNota(referencia)}" />
-											</p:inputTextarea>
-
-									</p:panel>
-
-							</p:column>
-						</p:row>
-
+						<p:column style="width: 5%; min-width: 50px;">
+							<p:selectBooleanCheckbox value="#{referencia.seleccionada}">
+								<p:ajax update=":tabla"
+									listener="#{aplicarCriteriosReferenciasBean.seleccionarReferencia(referencia)}" />
+							</p:selectBooleanCheckbox>
+						</p:column>
+						<p:column style="width: 20%; min-width: 250px; ">
+							<p:rating value="#{referencia.relevancia}">
+								<p:ajax event="rate"
+									listener="#{aplicarCriteriosReferenciasBean.actualizarRelevancia(referencia)}" />
+								<p:ajax event="cancel"
+									listener="#{aplicarCriteriosReferenciasBean.actualizarRelevancia(referencia)}" />
+							</p:rating>
+						</p:column>
+						<p:column style="width: 75%; max-width: 100%; min-width: 50%">
+							<h:outputText value="#{referencia.nombre}"  />
+						</p:column>
 					</p:panelGrid>
+
+					<p:panelGrid columns="2">
+						<p:column style="width:15%; min-width:120px">
+							Year
+						</p:column>
+						<p:column style="width: 85%; max-width: 100%; min-width: 50%">
+						<h:outputText	value="Keywords" />
+						</p:column>
+						<p:column style="width:15%; min-width:120px">
+							<h:outputText value="#{referencia.year}" />
+						</p:column>
+						<p:column style="width: 85%; max-width: 100%; min-width: 50%">
+						<h:outputText value="#{referencia.keywords}" />
+						</p:column>
+					</p:panelGrid>
+					<div class="card">
+						<p:panel header="#{msg.etiquetaAbstract}">
+								<h:outputText value="#{referencia.resumen}" />
+						</p:panel>
+					</div>
+					<div class="card">
+						<p:panel header="#{msg.etiquetaNota}">
+								<p:inputTextarea
+									value="#{referencia.nota}" style="width:100%; font-size:14pt">
+									<p:ajax event="blur"
+										listener="#{aplicarCriteriosReferenciasBean.actualizarNota(referencia)}" />
+								</p:inputTextarea>
+						</p:panel>
+					</div>
+
+					</div>
 				</p:column>
 			</p:dataTable>
 		</h:form>

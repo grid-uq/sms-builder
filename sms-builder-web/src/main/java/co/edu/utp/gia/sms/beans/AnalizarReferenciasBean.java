@@ -56,7 +56,7 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
         String nota;
         if (referencia.getTopicos().contains(topico)) {
             referencia.getTopicos().remove(topico);
-            referenciaService.updateTopico(referencia.getId(), topico.getId());
+            referenciaService.removeTopico(referencia.getId(), topico.getId());
             nota = referencia.getNota().replace(topicosText, "");
         } else {
             referencia.getTopicos().add(topico);

@@ -7,69 +7,42 @@
                 xmlns:ui="jakarta.faces.facelets"
                 xmlns:p="http://primefaces.org/ui">
 
+    <style type="text/css">
+
+        .none {
+
+        }
+
+        .resultado  {
+            text-align: right
+        }
+    </style>
+
     <p:panel rendered="#{seguridadBean.autenticado}">
         <f:facet name="header">
             <h:outputText value="#{resumenBean.revision.nombre}"/>
         </f:facet>
-        <p:panelGrid style="width: 100%">
-            <p:row>
-                <p:column>
+        <p:panelGrid style="width: 100%" columns="2" columnClasses="none resultado">
                     <h:outputText value="#{msg.etiquetaTotalReferenciasBaseDatos}"/>
-                </p:column>
-                <p:column style="text-align: right">
                     <h:outputText value="+ #{resumenBean.numeroReferenciasBaseDatos}"/>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column>
+
                     <h:outputText value="#{msg.etiquetaTotalReferenciasRepetidas}"/>
-                </p:column>
-                <p:column style="text-align: right">
                     <h:outputText value="- #{resumenBean.numeroReferenciasRepetidas}"/>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column>
+
                     <h:outputText value="#{msg.etiquetaTotalReferenciasDescartadas}"/>
-                </p:column>
-                <p:column style="text-align: right">
                     <h:outputText value="- #{resumenBean.numeroReferenciasDescartadas}"/>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column>
+
                     <h:outputText value="#{msg.etiquetaBaseDatos}"/>
-                </p:column>
-                <p:column style="text-align: right">
                     <h:outputText value="#{resumenBean.numeroReferenciasSeleccionadasBaseDatos}"/>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column>
+
                     <h:outputText value="#{msg.etiquetaBolaNieve}"/>
-                </p:column>
-                <p:column style="text-align: right">
                     <h:outputText value="+ #{resumenBean.numeroReferenciasSeleccionadasBolaNieve}"/>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column>
+
                     <h:outputText value="#{msg.etiquetaInclusionDirecta}"/>
-                </p:column>
-                <p:column style="text-align: right">
                     <h:outputText value="+ #{resumenBean.numeroReferenciasSeleccionadasInclusionDirecta}"/>
-                </p:column>
-            </p:row>
 
-
-            <p:row>
-                <p:column>
                     <h:outputText value="#{msg.etiquetaTotalReferenciasSelecciondas}"/>
-                </p:column>
-                <p:column style="text-align: right">
                     <h:outputText value="#{resumenBean.numeroReferenciasSeleccionadas}"/>
-                </p:column>
-            </p:row>
         </p:panelGrid>
     </p:panel>
 

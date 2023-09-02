@@ -75,7 +75,7 @@ public class ProcesoBean extends AbstractRevisionBean {
         pasosProceso.forEach(paso -> {
             final String url = paso.getPaso().getRecurso().getUrl();
 //            DefaultMenuItem menuItem = addItem(stage, paso.getPaso().getNombre(), url);
-            DefaultMenuItem menuItem= addItem(stage, getMessage(paso.getPaso().getNombre()), url+"?paso="+paso.getId(),
+            DefaultMenuItem menuItem= addItem(stage, getMessage(paso.getPaso().getNombre()), url,
                     getRevision() != null&&seguridadBean.verifivarAcceso(url));
             menuItem.setParam("paso", paso.getId());
 

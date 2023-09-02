@@ -57,6 +57,9 @@ public record DataRoot(Revision revision) {
         if (tClass.equals(Recurso.class)) {
             return  ()-> (Collection<T>) revision().getRecursos();
         }
+        if (tClass.equals(Referencia.class)) {
+            return  ()-> (Collection<T>) revision().getReferencias();
+        }
         if (tClass.equals(Rol.class)) {
             return  ()-> (Collection<T>) revision().getRoles();
         }

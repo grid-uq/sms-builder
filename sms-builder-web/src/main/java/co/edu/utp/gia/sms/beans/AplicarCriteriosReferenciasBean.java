@@ -1,7 +1,9 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
+import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.importutil.FindReferenceCitation;
+import co.edu.utp.gia.sms.negocio.ProcesoService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +34,8 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
     private List<ReferenciaDTO> referencias;
     @Inject
     private ReferenciaService referenciaService;
+    @Inject
+    private ProcesoService procesoService;
 
     public void inicializar() {
         log.info("Aplicar criterios paso " + paso);
@@ -51,13 +55,15 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
 
     public void seleccionarReferencia(ReferenciaDTO referencia) {
         if (referencia.isSeleccionada()) {
-            referenciaService.avanzarReferecias(getPasoActual().getId());
+            procesoService.addReferencia(getPasoActual().getId(),referencia.getId());
+//            referenciaService.avanzarReferecias(getPasoActual().getId());
 //            if( referencia.getFiltro() < paso ) {
 //                referencia.setFiltro(paso);
 //                referenciaService.actualizarFiltro(referencia.getId(), paso);
 //            }
         } else {
-            referenciaService.avanzarReferecias(getPasoAnterior().getId());
+            procesoService.removeReferencia(getPasoActual().getId(),referencia.getId());
+//            referenciaService.avanzarReferecias(getPasoAnterior().getId());
 //            if( referencia.getFiltro() >= paso ){
 //                referencia.setFiltro(paso-1);
 //                referenciaService.actualizarFiltro(referencia.getId(), paso-1);

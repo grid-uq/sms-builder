@@ -97,9 +97,11 @@
 
                 </h:form>
             </h:panelGrid>
+
             <h:panelGroup id="panelContenido" style="width:100%">
 
-                <h:panelGroup rendered="#{seguridadBean.tienePermiso}">
+                <h:panelGroup rendered="#{seguridadBean.tienePermiso}" style="width:100%">
+                    <div class="card">
                     <ui:insert name="content">
                         Pagina en construccion
 
@@ -108,9 +110,11 @@
                         <!-- <ui:include src="content.xhtml"/> -->
                         <!-- </div> -->
                     </ui:insert>
+                    </div>
                 </h:panelGroup>
                 <ui:insert name="publicContent"></ui:insert>
             </h:panelGroup>
+
             <h:panelGroup rendered="#{! seguridadBean.tienePermiso}"
                           style="width:100%">
                 #{msg['seguridad.notienepermiso']}
