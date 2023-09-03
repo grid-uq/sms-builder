@@ -24,51 +24,90 @@
 
 				<p:column filterBy="#{referencia.nombre}" filterable="true" filterMatchMode="contains">
 					<div class="card" style="width: 100%; ">
-					<p:panelGrid columns="3" layout="grid" style="width: 100%;">
+						<table border="0"  class="card ui-panelgrid-blank ui-fluid" style="width: 100%; border: none ">
+							<thead>
+							<tr>
+								<th style="width: 50px; text-align: center"><h:outputText value="+" /></th>
+								<th style="width: 250px; text-align: center"><h:outputText value="#{msg.etiquetaRelevancia}" /></th>
+								<th style="width: auto; min-width: 250px; "><h:outputText value="#{msg.etiquetaNombre}" /></th>
+							</tr>
+							</thead>
+						<tbody style="border: none">
+							<tr>
+								<td style="width: 50px; text-align: center"><p:selectBooleanCheckbox value="#{referencia.seleccionada}">
+									<p:ajax update=":tabla"
+											listener="#{aplicarCriteriosReferenciasBean.seleccionarReferencia(referencia)}" />
+								</p:selectBooleanCheckbox>
 
-						<p:column style="width: 5%; min-width: 50px; ">
-							<h:outputText value="+" />
-						</p:column>
-						<p:column style="width: 20%; min-width: 250px;">
-							<h:outputText value="#{msg.etiquetaRelevancia}" />
-						</p:column>
-						<p:column style="width: 75%; max-width: 100%; min-width: 50%; ">
-							<h:outputText value="#{msg.etiquetaNombre}" />
-						</p:column>
+								</td>
+								<td style="width: 250px; text-align: center">
+									<p:rating value="#{referencia.relevancia}">
+										<p:ajax event="rate"
+												listener="#{aplicarCriteriosReferenciasBean.actualizarRelevancia(referencia)}" />
+										<p:ajax event="cancel"
+												listener="#{aplicarCriteriosReferenciasBean.actualizarRelevancia(referencia)}" />
+									</p:rating>
+								</td>
+								<td  style=" width: auto; min-width: 250px; ">
+									<h:outputText value="#{referencia.nombre}"  />
+								</td>
+							</tr>
+							<tr>
+								<td style="width: 200px; text-align: center"><h:outputText	value="#{msg.etiquetaYear}" /></td>
+								<td  style=" width: auto; min-width: 250px; " colspan="2"><h:outputText	value="#{msg.etiquetaKeywords}" /></td>
+							</tr>
+							<tr>
+								<td style="width: 200px; text-align: center"><h:outputText value="#{referencia.year}" /></td>
+								<td  style=" width: auto; min-width: 250px; " colspan="2"><h:outputText value="#{referencia.keywords}" /></td>
+							</tr>
+						</tbody>
+						</table>
 
-						<p:column style="width: 5%; min-width: 50px;">
-							<p:selectBooleanCheckbox value="#{referencia.seleccionada}">
-								<p:ajax update=":tabla"
-									listener="#{aplicarCriteriosReferenciasBean.seleccionarReferencia(referencia)}" />
-							</p:selectBooleanCheckbox>
-						</p:column>
-						<p:column style="width: 20%; min-width: 250px; ">
-							<p:rating value="#{referencia.relevancia}">
-								<p:ajax event="rate"
-									listener="#{aplicarCriteriosReferenciasBean.actualizarRelevancia(referencia)}" />
-								<p:ajax event="cancel"
-									listener="#{aplicarCriteriosReferenciasBean.actualizarRelevancia(referencia)}" />
-							</p:rating>
-						</p:column>
-						<p:column style="width: 75%; max-width: 100%; min-width: 50%">
-							<h:outputText value="#{referencia.nombre}"  />
-						</p:column>
-					</p:panelGrid>
+<!--						<p:panelGrid columns="3" layout="grid" style="width: 100%;">-->
 
-					<p:panelGrid columns="2">
-						<p:column style="width:15%; min-width:120px">
-							Year
-						</p:column>
-						<p:column style="width: 85%; max-width: 100%; min-width: 50%">
-						<h:outputText	value="Keywords" />
-						</p:column>
-						<p:column style="width:15%; min-width:120px">
-							<h:outputText value="#{referencia.year}" />
-						</p:column>
-						<p:column style="width: 85%; max-width: 100%; min-width: 50%">
-						<h:outputText value="#{referencia.keywords}" />
-						</p:column>
-					</p:panelGrid>
+<!--						<p:column style="width: 5%; min-width: 50px; ">-->
+<!--							<h:outputText value="+" />-->
+<!--						</p:column>-->
+<!--						<p:column style="width: 20%; min-width: 250px;">-->
+<!--							<h:outputText value="#{msg.etiquetaRelevancia}" />-->
+<!--						</p:column>-->
+<!--						<p:column style="width: 75%; max-width: 100%; min-width: 50%; ">-->
+<!--							<h:outputText value="#{msg.etiquetaNombre}" />-->
+<!--						</p:column>-->
+
+<!--						<p:column style="width: 5%; min-width: 50px;">-->
+<!--							<p:selectBooleanCheckbox value="#{referencia.seleccionada}">-->
+<!--								<p:ajax update=":tabla"-->
+<!--									listener="#{aplicarCriteriosReferenciasBean.seleccionarReferencia(referencia)}" />-->
+<!--							</p:selectBooleanCheckbox>-->
+<!--						</p:column>-->
+<!--						<p:column style="width: 20%; min-width: 250px; ">-->
+<!--							<p:rating value="#{referencia.relevancia}">-->
+<!--								<p:ajax event="rate"-->
+<!--									listener="#{aplicarCriteriosReferenciasBean.actualizarRelevancia(referencia)}" />-->
+<!--								<p:ajax event="cancel"-->
+<!--									listener="#{aplicarCriteriosReferenciasBean.actualizarRelevancia(referencia)}" />-->
+<!--							</p:rating>-->
+<!--						</p:column>-->
+<!--						<p:column style="width: 75%; max-width: 100%; min-width: 50%">-->
+<!--							<h:outputText value="#{referencia.nombre}"  />-->
+<!--						</p:column>-->
+<!--					</p:panelGrid>-->
+
+<!--					<p:panelGrid columns="2">-->
+<!--						<p:column style="width:15%; min-width:120px">-->
+<!--							Year-->
+<!--						</p:column>-->
+<!--						<p:column style="width: 85%; max-width: 100%; min-width: 50%">-->
+<!--						<h:outputText	value="Keywords" />-->
+<!--						</p:column>-->
+<!--						<p:column style="width:15%; min-width:120px">-->
+<!--							<h:outputText value="#{referencia.year}" />-->
+<!--						</p:column>-->
+<!--						<p:column style="width: 85%; max-width: 100%; min-width: 50%">-->
+<!--						<h:outputText value="#{referencia.keywords}" />-->
+<!--						</p:column>-->
+<!--					</p:panelGrid>-->
 					<div class="card">
 						<p:panel header="#{msg.etiquetaAbstract}">
 								<h:outputText value="#{referencia.resumen}" />

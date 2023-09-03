@@ -79,8 +79,10 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
      */
     public void addReferencia(String idPasoProceso, Referencia referencia) {
         var paso = findOrThrow(idPasoProceso);
-        paso.getReferencias().add(referencia);
-        DB.storageManager.store(paso.getReferencias());
+        if( !paso.getReferencias().contains(referencia) ) {
+            paso.getReferencias().add(referencia);
+            DB.storageManager.store(paso.getReferencias());
+        }
     }
 
     /**
@@ -118,5 +120,13 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
                 .filter( pasoProceso -> pasoProceso.getOrden()==orden )
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void avanzarReferecias(String idPaso) {
+        PasoProceso paso = findOrThrow(idPaso);
+        PasoProceso pasoSiguiente = findByOrden(paso.getOrden()+1);
+        paso.getReferencias().forEach(
+                r -> addReferencia(pasoSiguiente.getId(), r)
+        );
     }
 }

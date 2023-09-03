@@ -402,31 +402,6 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         return poblarReferenciaDTOS( ReferenciaGetDestacadas.createQuery().map(r -> new ReferenciaDTO(r, 0)).toList());
     }
 
-    public void avanzarReferecias(String idPaso) {
-//        if (idPaso >= 1) {
-            PasoProceso paso = procesoService.findOrThrow(idPaso);
-            PasoProceso pasoSiguiente = procesoService.findByOrden(paso.getOrden()+1);
-            paso.getReferencias().forEach(
-                    r -> {
-                            if (!pasoSiguiente.getReferencias().contains(r)) {
-                                pasoSiguiente.getReferencias().add(r);
-                            }
-                        }
-//                        if (r.getFiltro() == null || r.getFiltro() < (idPaso + 1)) {
-//                            r.setFiltro(idPaso + 1);
-//                            if (!pasoSiguiente.getReferencias().contains(r)) {
-//                                pasoSiguiente.getReferencias().add(r);
-//                            }
-//                        }
-            );
-
-//        }
-    }
-
-    public void avanzarReferecia(Referencia referencia,PasoProceso paso) {
-        procesoService.addReferencia(paso.getId(), referencia);
-    }
-
     public void updateDuplicada(String id, Boolean duplicada) {
         Referencia referencia = findOrThrow(id);
         referencia.setDuplicada(duplicada);

@@ -8,6 +8,7 @@ import co.edu.utp.gia.sms.importutil.FileMultipleRegisterParseFactory;
 import co.edu.utp.gia.sms.importutil.ReferenceParse;
 import co.edu.utp.gia.sms.importutil.TipoArchivo;
 import co.edu.utp.gia.sms.negocio.FuenteService;
+import co.edu.utp.gia.sms.negocio.ProcesoService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -39,6 +40,8 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
     @Inject
     private ReferenciaService referenciaService;
     @Inject
+    private ProcesoService procesoService;
+    @Inject
     private FuenteService fuenteService;
     @Getter @Setter
     private UploadedFile file;
@@ -64,7 +67,7 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         }
         if( getPasoAnterior() != null ){
-            referenciaService.avanzarReferecias(getPasoAnterior().getId());
+            procesoService.avanzarReferecias(getPasoAnterior().getId());
         }
     }
 

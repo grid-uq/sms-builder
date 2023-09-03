@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.exportutil.ReferenceToRIS;
+import co.edu.utp.gia.sms.negocio.ProcesoService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
@@ -35,6 +36,8 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 	private List<ReferenciaDTO> referencias;
 	@Inject
 	private ReferenciaService referenciaService;
+	@Inject
+	private ProcesoService procesoService;
 
 	public void inicializar() {
 		referencias = referenciaService.findByPaso(getPasoAnterior().getId());
@@ -89,7 +92,7 @@ public class ResumenReferenciasSeleccionadasBean extends GenericBean<ReferenciaD
 	}
 
 	public void siguientePaso(){
-		referenciaService.avanzarReferecias(getPasoAnterior().getId());
+		procesoService.avanzarReferecias(getPasoAnterior().getId());
 		mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
 	}
 }
