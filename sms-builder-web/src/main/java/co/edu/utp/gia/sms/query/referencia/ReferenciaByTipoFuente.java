@@ -35,9 +35,7 @@ public class ReferenciaByTipoFuente {
      */
     public static Stream<Referencia> createQuery(Provider<Collection<Referencia>> dataProvider, TipoFuente tipoFuente){
         return dataProvider.get().stream()
-                .filter( referencia -> referencia.getMetadatos().stream()
-                        .anyMatch(metadato -> metadato.getIdentifier().equals(TipoMetadato.FUENTE) && FuenteGetByTipoFuente.createQuery(tipoFuente).anyMatch(fuente -> fuente.getNombre().equals(metadato.getValue())))
-                );
+                .filter( referencia -> referencia.getFuente().getTipo().equals(tipoFuente) );
 
     }
 }

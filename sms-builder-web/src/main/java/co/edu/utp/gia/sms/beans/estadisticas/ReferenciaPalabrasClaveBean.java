@@ -48,10 +48,9 @@ public class ReferenciaPalabrasClaveBean extends AbstractRevisionBean {
     private Integer totalResultados;
 
     public void inicializar() {
+        keyword = "";
         metadatos = new TipoMetadato[]{TipoMetadato.KEYWORD};
-        if (getRevision() != null) {
-            consultarReferencias();
-        }
+        consultarReferencias();
     }
 
     public void consultarReferencias() {

@@ -15,29 +15,13 @@ import java.util.UUID;
  * @version 1.0
  * @since 13/06/2019
  */
-@NoArgsConstructor
-@RequiredArgsConstructor
-public class Paso implements Entidad<String>{
-    @Getter @Setter
-    private String id = UUID.randomUUID().toString();
-    @Getter @Setter
-    @NonNull
-    private String nombre;
-    @Getter @Setter
-    @NonNull
-    private Recurso recurso;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Paso paso = (Paso) o;
-
-        return Objects.equals(id, paso.id);
+public record Paso (String id,String nombre,Recurso recurso,boolean forFilter) implements Entidad<String>{
+    public Paso(String nombre, Recurso recurso, boolean forFilter) {
+        this(UUID.randomUUID().toString(), nombre, recurso, forFilter);
     }
 
     @Override
-    public int hashCode() {
-        return 1701416093;
+    public String getId() {
+        return id;
     }
 }

@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.negocio.EvaluacionCalidadService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -33,6 +34,8 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
     private List<ReferenciaDTO> referencias;
     @Inject
     private ReferenciaService referenciaService;
+    @Inject
+    private EvaluacionCalidadService evaluacionCalidadService;
 
     public void inicializar() {
         referencias = referenciaService.findWithEvaluacion();
@@ -66,9 +69,7 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
 
     public void evaluacionAutomatica() {
         try {
-            for (ReferenciaDTO referencia : referencias) {
-                referenciaService.evaluacionAutomatica(referencia.getId());
-            }
+            evaluacionCalidadService.evaluacionAcutomatica();
             referencias = referenciaService.findWithEvaluacion();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {

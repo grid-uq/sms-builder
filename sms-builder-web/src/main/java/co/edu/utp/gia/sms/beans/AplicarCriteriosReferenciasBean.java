@@ -40,10 +40,11 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
     public void inicializar() {
         log.info("Aplicar criterios paso " + paso);
         referencias = referenciaService.findByPaso(getPasoAnterior().getId());
+
         referencias.forEach(
-                referencia->referencia.setSeleccionada( getPasoActual().getReferencias().stream().anyMatch(
-                        r->r.getId().equals(referencia.getId())
-                ) )
+                referencia->referencia.setSeleccionada( getPasoActual().getReferencias().stream()
+                        .anyMatch(referencia.getReferencia()::equals)
+                )
         );
         log.info("Numero referecias " + referencias.size());
     }

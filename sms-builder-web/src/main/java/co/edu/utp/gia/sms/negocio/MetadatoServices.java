@@ -2,16 +2,11 @@ package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.entidades.TipoMetadato;
-import co.edu.utp.gia.sms.query.referencia.ReferenciaGetMetadatos;
-import co.edu.utp.gia.sms.query.referencia.ReferenciaGetMetadatosByTipo;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
  * gestion del {@link Metadato}.
@@ -33,10 +28,6 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
         super();
     }
 
-    public MetadatoServices(Referencia referencia) {
-        super(referencia::getMetadatos);
-    }
-
     @Override
     public Metadato save(Metadato entidad) {
         return save(entidad.getReferencia()::getMetadatos,entidad);
@@ -52,66 +43,33 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
         super.delete(entidad.getReferencia()::getMetadatos,entidad);
     }
 
-    public void delete(String idReferencia,String idMetadato) {
-        var referencia = referenciaService.findOrThrow(idReferencia);
-        var metadato = findOrThrow(idMetadato);
-        delete(referencia::getMetadatos,metadato);
-    }
+//    public void delete(String idReferencia,String idMetadato) {
+//        var referencia = referenciaService.findOrThrow(idReferencia);
+//        var metadato = findOrThrow(idMetadato);
+//        delete(referencia::getMetadatos,metadato);
+//    }
 
-    public Optional<Metadato> find(String idReferencia,String idMetadato) {
-        var referencia = referenciaService.findOrThrow(idReferencia);
-        return find(referencia,idMetadato);
-    }
-    public Optional<Metadato> find(Referencia referencia, String idMetado) {
-        return super.find(referencia::getMetadatos,idMetado);
-    }
+//    public Optional<Metadato> find(String idReferencia,String idMetadato) {
+//        var referencia = referenciaService.findOrThrow(idReferencia);
+//        return find(referencia,idMetadato);
+//    }
+//    public Optional<Metadato> find(Referencia referencia, String idMetado) {
+//        return super.find(referencia::getMetadatos,idMetado);
+//    }
 
-    public Metadato findOrThrow(String idReferencia,String idMetadato) {
-        var referencia = referenciaService.findOrThrow(idReferencia);
-        return findOrThrow(referencia,idMetadato);
-    }
+//    public Metadato findOrThrow(String idReferencia,String idMetadato) {
+//        var referencia = referenciaService.findOrThrow(idReferencia);
+//        return findOrThrow(referencia,idMetadato);
+//    }
 
-    public Metadato findOrThrow(Referencia referencia, String idMetado) {
-        return super.findOrThrow(referencia::getMetadatos,idMetado);
-    }
+//    public Metadato findOrThrow(Referencia referencia, String idMetado) {
+//        return super.findOrThrow(referencia::getMetadatos,idMetado);
+//    }
 
     @Override
     public Collection<Metadato> get() {
         return super.get();
     }
 
-    /**
-     * Consulta que permite obtener los metadatos de una referencia que pertenecen a un cierto tipo
-     *
-     * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
-     * @param tipo Tipo de metadato que se desea obtener
-     * @return List< Metadato > de la referencia que son del tipo indicado
-     */
-    public List<Metadato> obtenerListMetadatoByTipo(String id, TipoMetadato tipo) {
-        return ReferenciaGetMetadatosByTipo.createQuery(id,tipo).toList();
-    }
-
-    /**
-     * Consulta que permite obtener los metadatos de una referencia que pertenecen a un cierto tipo en forma de cadena separados por ;
-     *
-     * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
-     * @param tipo Tipo de metadato que se desea obtener
-     * @return String de los metadatos de la referencia que pertenecen al tipo indicado en forma de cadena separados por ;
-     */
-    public String obtenerStringMetadatoByTipo(String id, TipoMetadato tipo) {
-        return ReferenciaGetMetadatosByTipo.createQuery(id,tipo)
-                .map(Metadato::getValue)
-                .collect(Collectors.joining(" ; "));
-    }
-
-    /**
-     * Consulta que permite obtener los Metadatos de una Referencia
-     *
-     * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
-     * @return List<Metadato> listado de los metadatos de la referencia del id dado
-     */
-    public List<Metadato> obtenerMetadatos(String id) {
-        return ReferenciaGetMetadatos.createQuery(id).toList();
-    }
 
 }

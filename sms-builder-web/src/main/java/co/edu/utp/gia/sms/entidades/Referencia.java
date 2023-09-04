@@ -1,12 +1,10 @@
 package co.edu.utp.gia.sms.entidades;
 
+import co.edu.utp.gia.sms.entidades.util.MetadatoUtil;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Elemento que representa de forma general una referencia a ser procesada
@@ -51,14 +49,6 @@ public class Referencia implements Entidad<String> {
     private String tipo;
 
     /**
-     * TODO Evaluar remover
-     * Variable que representa el filtro en el cual esta la referencia, todas
-     * inician con 0 y va aumentando
-     */
-    @Getter @Setter
-    private Integer filtro;
-
-    /**
      * TODO Evaluar mover porque depende del paso o calcularlar
      */
     @Getter @Setter
@@ -96,7 +86,6 @@ public class Referencia implements Entidad<String> {
     /**
      * Variable que representa el atributo metadatos de la clase
      */
-    @Getter @Setter
     private List<Metadato> metadatos = new ArrayList<>();
 
     @Getter @Setter
@@ -109,7 +98,6 @@ public class Referencia implements Entidad<String> {
      * Metodo que permite inicializar los elementos de la clase Reference
      */
     public Referencia() {
-        filtro = 0;
         duplicada = false;
     }
 
@@ -150,6 +138,31 @@ public class Referencia implements Entidad<String> {
             metadatos = new ArrayList<>();
         }
     }
+
+    public List<Metadato> getMetadatos(){
+        return metadatos;
+    }
+
+    public List<String> getAutores(){
+        return MetadatoUtil.INSTANCE.getAutores(metadatos);
+    }
+
+    public String autoresAsString(){
+        return MetadatoUtil.INSTANCE.getAutoresAsString(metadatos);
+    }
+
+    public List<String> keyWords(){
+        return MetadatoUtil.INSTANCE.getKeyWords(metadatos);
+    }
+
+    public String keyWordsAsString(){
+        return MetadatoUtil.INSTANCE.getKeyWordsAsString(metadatos);
+    }
+
+    public String abstractAsString(){
+        return MetadatoUtil.INSTANCE.getAbstractAsString(metadatos);
+    }
+
 
     @Override
     public boolean equals(Object o) {

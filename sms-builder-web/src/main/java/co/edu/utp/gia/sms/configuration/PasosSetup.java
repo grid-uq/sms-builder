@@ -5,6 +5,9 @@ import co.edu.utp.gia.sms.negocio.PasoService;
 import co.edu.utp.gia.sms.negocio.RecursoService;
 
 import jakarta.inject.Inject;
+
+import java.util.List;
+
 /**
  * Clase encargada de realizar la configuración inicial de los pasos del proceso en la aplicación
  *
@@ -43,9 +46,11 @@ public class PasosSetup implements SetupInterface {
                 "etiquetaMenuReferenciasSeleccionadas"
         };
 
+        var seleccionar = List.of("etiquetaMenuReferenciasDuplicadas","etiquetaMenuReferenciasSeleccionar");
+
         for (var i = 0; i < recursos.length; i++) {
             if( pasoService.findByName(keys[i]) == null ) {
-                pasoService.save(new Paso(keys[i], recursoService.findByUrl(recursos[i])));
+                pasoService.save(new Paso(keys[i], recursoService.findByUrl(recursos[i]),seleccionar.contains(keys[i])));
             }
         }
     }

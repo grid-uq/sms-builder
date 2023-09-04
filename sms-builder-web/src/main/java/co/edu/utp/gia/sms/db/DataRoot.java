@@ -39,6 +39,9 @@ public record DataRoot(Revision revision) {
         if (tClass.equals(CadenaBusqueda.class)) {
             return  ()-> (Collection<T>) revision().getCadenasBusqueda();
         }
+        if (tClass.equals(CriterioSeleccion.class)) {
+            return  ()-> (Collection<T>) revision().getCriteriosSeleccion();
+        }
         if (tClass.equals(Fuente.class)) {
             return  ()-> (Collection<T>) revision().getFuentes();
         }

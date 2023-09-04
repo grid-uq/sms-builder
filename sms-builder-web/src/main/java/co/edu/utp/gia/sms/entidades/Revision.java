@@ -16,65 +16,68 @@ import java.util.List;
  * @version 1.0
  * @since 13/06/2019
  */
+@Getter
 @RequiredArgsConstructor
 public class Revision implements Serializable {
     /**
      * Variable que representa el atributo nombre de la clase
      */
 
-    @Getter @Setter
+    @Setter
     @NonNull
     private String nombre;
     /**
      * Variable que representa el atributo descripcion de la clase
      */
-    @Getter @Setter
+    @Setter
     @NonNull
     private String descripcion;
 
     /**
      * Lista de objetivo de la revision
      */
-    @Getter @Setter
+    @Setter
     private List<Objetivo> objetivos = new ArrayList<>();
 
     /**
      * Lista de los pasos para la ejecución del proceso de SMS
      */
-    @Getter @Setter
+    @Setter
     private List<PasoProceso> pasosProceso = new ArrayList<>();
 
     /**
      * Representa el paso seleccionado para la evaluación y extracción de estadísticas
      */
-    @Getter @Setter
+    @Setter
     private PasoProceso pasoSeleccionado;
 
-    @Getter @Setter
+    @Setter
     private List<AtributoCalidad> atributosCalidad = new ArrayList<>();
 
-    @Getter @Setter
+    @Setter
     private List<CadenaBusqueda> cadenasBusqueda = new ArrayList<>();
 
-    @Getter @Setter
+    @Setter
     private List<Fuente> fuentes = new ArrayList<>();
 
-    @Getter @Setter
+    @Setter
     private List<Termino> terminos = new ArrayList<>();
 
-    @Getter @Setter
+    @Setter
     private List<Referencia> referencias = new ArrayList<>();
 
-    @Getter @Setter
+    @Setter
     private List<Usuario> usuarios = new ArrayList<>();
-    @Getter @Setter
+    @Setter
     private List<Rol> roles = new ArrayList<>();
-    @Getter @Setter
+    @Setter
     private List<Recurso> recursos = new ArrayList<>();
-    @Getter @Setter
+    @Setter
     private List<Topico> topicos = new ArrayList<>();
-    @Getter @Setter
+    @Setter
     private List<Pregunta> preguntas = new ArrayList<>();
-    @Getter @Setter
+    @Setter
     private List<Paso> pasos = new ArrayList<>();
+    @Setter
+    private List<CriterioSeleccion> criteriosSeleccion = new ArrayList<>();
 }

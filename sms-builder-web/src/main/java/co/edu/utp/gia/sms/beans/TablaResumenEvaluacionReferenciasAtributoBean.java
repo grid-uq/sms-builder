@@ -15,6 +15,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 /**
@@ -49,6 +50,7 @@ public class TablaResumenEvaluacionReferenciasAtributoBean extends GenericBean<R
         atributosCalidad = atributoCalidadService.get();
         atributoCalidad = atributosCalidad.stream().findFirst().orElse(null);
         idAtributo = atributoCalidad != null ? atributoCalidad.getId() : null;
+        atributoSeleccionado();
     }
 
 
@@ -64,6 +66,7 @@ public class TablaResumenEvaluacionReferenciasAtributoBean extends GenericBean<R
 
     public void atributoSeleccionado() {
         atributoCalidad = atributosCalidad.stream().filter(a -> a.getId().equals( idAtributo )).findFirst().orElse(atributoCalidad);
+        referencias.forEach(referenciaDTO -> referenciaDTO.setAtributoCalidad(atributoCalidad));
     }
 
 
@@ -72,13 +75,14 @@ public class TablaResumenEvaluacionReferenciasAtributoBean extends GenericBean<R
      *
      * @return Arreglo de valores de la {@link EvaluacionCualitativa}
      */
-    public List<SelectItem> getListaValores() {
-        List<SelectItem> valores = new ArrayList<>();
-        valores.add(new SelectItem("", "", "", false, false, true));
-        for (EvaluacionCualitativa evaluacion : EvaluacionCualitativa.values()) {
-            valores.add(new SelectItem(evaluacion));
-        }
-        return valores;
+    public List<String> getListaValores() {
+//        List<SelectItem> valores = new ArrayList<>();
+//        valores.add(new SelectItem("", "", "", false, false, true));
+//        for (EvaluacionCualitativa evaluacion : EvaluacionCualitativa.values()) {
+//            valores.add(new SelectItem(evaluacion));
+//        }
+//        return valores;
+        return Arrays.stream(EvaluacionCualitativa.values()).map(EvaluacionCualitativa::toString).toList();
     }
 
 }

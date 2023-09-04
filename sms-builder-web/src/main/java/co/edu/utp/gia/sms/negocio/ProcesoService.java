@@ -79,9 +79,22 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
      */
     public void addReferencia(String idPasoProceso, Referencia referencia) {
         var paso = findOrThrow(idPasoProceso);
+        addReferencia(paso,referencia);
+    }
+
+    /**
+     * Adiciona una referencia al paso
+     * @param paso paso al que se desea adicionar la referencia
+     * @param referencia Referencia a ser adicionada
+     */
+    private void addReferencia(PasoProceso paso, Referencia referencia) {
+        var pasoSiguiente = findByOrden( paso.getOrden() + 1 );
         if( !paso.getReferencias().contains(referencia) ) {
             paso.getReferencias().add(referencia);
             DB.storageManager.store(paso.getReferencias());
+        }
+        if( pasoSiguiente != null && !pasoSiguiente.getPaso().forFilter()){
+            addReferencia(pasoSiguiente,referencia);
         }
     }
 

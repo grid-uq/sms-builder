@@ -6,19 +6,20 @@ import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
+import co.edu.utp.gia.sms.negocio.EvaluacionCalidadService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
 
-import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-
-import java.io.Serial;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de la evaluación de una referencia.
@@ -42,28 +43,30 @@ public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
     @Inject
     private AtributoCalidadService atributoCalidadService;
     @Inject
+    private EvaluacionCalidadService evaluacionCalidadService;
+    @Inject
     private ReferenciaService referenciaService;
     private ReferenciaDTO referencia;
 
     public void inicializar() {
         referencia = (ReferenciaDTO) getFromSession("referenciaDTO");
         atributosCalidad = atributoCalidadService.get();
-        if (referencia.getEvaluaciones() == null || referencia.getEvaluaciones().isEmpty()) {
-            evaluaciones = new ArrayList<>();
-            for (AtributoCalidad atributoCalidad : atributosCalidad) {
-                EvaluacionCalidad evaluacion = new EvaluacionCalidad(referencia.getReferencia(), atributoCalidad);
-                evaluaciones.add(evaluacion);
-                referencia.addEvaluacion(evaluacion);
-            }
-        } else {
-            evaluaciones = referencia.getEvaluaciones();
-        }
+        evaluaciones = new LinkedList<>(referencia.getEvaluaciones());
+        completarEvaluaciones();
+    }
+
+    private void completarEvaluaciones() {
+        Predicate<AtributoCalidad> filtro = atributoCalidad->evaluaciones.stream()
+                .map(EvaluacionCalidad::getAtributoCalidad)
+                .noneMatch(atributoCalidad::equals);
+        Consumer<AtributoCalidad> consumer = atributoCalidad-> evaluaciones.add(new EvaluacionCalidad(referencia.getReferencia(), atributoCalidad));
+        atributosCalidad.stream().filter(filtro).forEach(consumer);
     }
 
     public void guardar() {
-        for (EvaluacionCalidad evaluacion : evaluaciones) {
-            referenciaService.saveEvaluacion(evaluacion);
-        }
+
+        evaluaciones.forEach( evaluacionCalidadService::update );
+
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         getAndRemoveFromSession("referenciaDTO");
         PrimeFaces.current().dialog().closeDynamic(referencia);

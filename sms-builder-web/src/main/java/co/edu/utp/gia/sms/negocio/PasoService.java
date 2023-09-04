@@ -21,7 +21,7 @@ public class PasoService extends AbstractGenericService<Paso, String> {
 
     public Paso findByName(String nombre){
         return dataProvider.get().stream()
-                .filter( paso -> paso.getNombre().equals(nombre) )
+                .filter( paso -> paso.nombre().equals(nombre) )
                 .findFirst().orElse(null);
     }
 }

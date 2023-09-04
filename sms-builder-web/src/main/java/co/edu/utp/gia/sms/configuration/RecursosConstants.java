@@ -29,6 +29,7 @@ public final class RecursosConstants {
             "/termino/registro.xhtml",
             "/pregunta/registro.xhtml",
             "/cadenabusqueda/registro.xhtml",
+            "/criterioseleccion/registro.xhtml",
             "/fuente/registro.xhtml",
             "/proceso/registro.xhtml",
             "/revision/analizarReferencias.xhtml",

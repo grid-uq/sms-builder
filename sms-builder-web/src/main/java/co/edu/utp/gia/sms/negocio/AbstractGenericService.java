@@ -82,8 +82,11 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
         try {
             requireDataProvider(dataProvider);
             validateBeforeUpdate(entidad);
-            BeanUtils.copyProperties(findOrThrow(dataProvider,entidad.getId()),entidad);
-            DB.storageManager.store(entidad);
+            var entidadStored = findOrThrow(dataProvider,entidad.getId());
+            if( entidadStored != entidad) {
+                BeanUtils.copyProperties(entidadStored, entidad);
+            }
+            DB.storageManager.store(entidadStored);
         } catch (Throwable t) {
             throw new TecnicalException(t);
         }

@@ -18,7 +18,7 @@
                     <p:selectOneMenu id="pasoBase" value="#{pasoProcesoBean.record.paso}"
                                      converter="pasoConverter">
                         <f:selectItems value="#{pasoProcesoBean.pasos}" var="paso" itemValue="#{paso}"
-                                       itemLabel="#{msg[paso.nombre]}"/>
+                                       itemLabel="#{msg[paso.nombre()]}"/>
                     </p:selectOneMenu>
                     <p:commandButton value="#{msg.botonAceptar}"
                                      action="#{pasoProcesoBean.registrar}"
@@ -31,7 +31,7 @@
                 <p:dataTable value="#{pasoProcesoBean.records}" var="pasoProceso">
 
                     <p:column headerText="#{msg.etiquetaDescripcion}">
-                        <h:outputText value="#{msg[pasoProceso.paso.nombre]}" />
+                        <h:outputText value="#{msg[pasoProceso.paso.nombre()]}" />
                     </p:column>
 
                     <p:column style="width:35px">

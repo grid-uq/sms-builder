@@ -22,11 +22,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class Pregunta implements Entidad<String> {
     /**
-     * Variable que representa el atributo id de la clase
-     */
-    @Getter @Setter
-    private String id = UUID.randomUUID().toString();
-    /**
      * Variable que representa el atributo codigo de la clase
      */
     @Getter @Setter
@@ -71,11 +66,16 @@ public class Pregunta implements Entidad<String> {
         if (o == null || getClass() != o.getClass()) return false;
         Pregunta pregunta = (Pregunta) o;
 
-        return Objects.equals(id, pregunta.id);
+        return Objects.equals(getId(), pregunta.getId());
     }
 
     @Override
     public int hashCode() {
         return 119604760;
+    }
+
+    @Override
+    public String getId() {
+        return codigo;
     }
 }

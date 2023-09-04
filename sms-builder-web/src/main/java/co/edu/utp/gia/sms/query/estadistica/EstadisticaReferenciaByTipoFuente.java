@@ -2,9 +2,7 @@ package co.edu.utp.gia.sms.query.estadistica;
 
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
-import co.edu.utp.gia.sms.entidades.Metadato;
-import co.edu.utp.gia.sms.entidades.Referencia;
-import co.edu.utp.gia.sms.entidades.TipoMetadato;
+import co.edu.utp.gia.sms.entidades.*;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
@@ -35,8 +33,9 @@ public class EstadisticaReferenciaByTipoFuente {
     public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider) {
         Predicate<Metadato> filtro = metadato -> metadato.getIdentifier().equals(TipoMetadato.TIPO_FUENTE);
         return dataProvider.get().stream()
-                .flatMap(referencia -> referencia.getMetadatos().stream().filter(filtro))
-                .collect(Collectors.groupingBy(Metadato::getValue,Collectors.counting()))
+                //.flatMap(referencia -> referencia.getMetadatos().stream().filter(filtro))
+                .map(Referencia::getFuente)
+                .collect(Collectors.groupingBy(Fuente::getTipo,Collectors.counting()))
                 .entrySet().stream()
                 .map( entry->new DatoDTO(entry.getKey(), entry.getValue()));
     }

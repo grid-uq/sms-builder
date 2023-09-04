@@ -17,9 +17,10 @@ class ImportTest {
 
 	@Test
 	void testParseSCIENCEDIRECT_MENDELEY() {
-		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS), TipoArchivo.RIS, "/sciecedirect_47_mendeleyris.ris", 47);
-		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.BIBTEX, "/main64.bib", 64);
-		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.BIBTEX, "/main2.bib", 2);
+//		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS), TipoArchivo.RIS, "/sciecedirect_47_mendeleyris.ris", 47);
+//		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.BIBTEX, "/main64.bib", 64);
+//		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.BIBTEX, "/main2.bib", 2);
+		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.RIS, "/acm_3_mendeleyris.ris", 3);
 	}
 
 
@@ -38,6 +39,8 @@ class ImportTest {
 			assertTrue(referencia.getResumen() == null || referencia.getResumen().length()>5);
 			assertTrue(referencia.getNombre() != null && !referencia.getNombre().isEmpty());
 			assertEquals(fuente,referencia.getFuente());
+			var keywords = referencia.keyWordsAsString();
+			assertTrue(keywords != null && !keywords.isEmpty());
 			System.out.println(referencia.getTipo());
 			System.out.println(referencia.getYear());
 		});

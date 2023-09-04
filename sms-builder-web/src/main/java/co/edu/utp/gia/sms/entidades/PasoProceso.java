@@ -38,6 +38,10 @@ public class PasoProceso implements Entidad<String> {
         this.orden = 0;
     }
 
+    public String getNombre(){
+        return paso.nombre();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
