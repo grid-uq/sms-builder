@@ -45,7 +45,7 @@ public class EstadisticaReferenciaOfPreguntaWithAtributoCalidadByTopico {
                 );
         return dataProvider.get().stream()
                 .filter(filtroReferencia)
-                .flatMap(referencia -> referencia.getTopicos().stream().filter(filtro))
+                .flatMap(referencia -> referencia.getTopicos().stream().distinct().filter(filtro))
                 .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
                 .entrySet().stream()
                 .map( entry->new DatoDTO(entry.getKey().getDescripcion(), entry.getValue()));

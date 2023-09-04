@@ -1,19 +1,17 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
-import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.PreguntaService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Collection;
 import java.util.List;
@@ -53,13 +51,14 @@ public class TablaReferenciasPreguntasBean extends AbstractRevisionBean {
     }
 
 
-    public boolean tieneRalacion(ReferenciaDTO referencia, PreguntaDTO pregunta) {
-        for (Topico topico : referencia.getTopicos()) {
-            if (pregunta.getTopicos().contains(topico)) {
-                return true;
-            }
-        }
-        return false;
+    public boolean tieneRalacion(ReferenciaDTO referencia, Pregunta pregunta) {
+
+//        for (Topico topico : referencia.getTopicos()) {
+//            if (pregunta.getTopicos().contains(topico)) {
+//                return true;
+//            }
+//        }
+        return referencia.getTopicos().stream().map(Topico::getPregunta).anyMatch(pregunta::equals);
     }
 
 }

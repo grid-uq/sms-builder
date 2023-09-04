@@ -15,7 +15,7 @@
 				<p:selectOneMenu id="codigo"
 					value="#{referenciasTopicoAtributoCalidadBean.codigo}">
 					<f:selectItem itemLabel="" />
-					<f:selectItems value="#{registroPreguntaBean.preguntas}" var="pregunta" itemLabel="#{pregunta.codigo}" itemValue="#{pregunta.codigo}" />
+					<f:selectItems value="#{registroPreguntaBean.records}" var="pregunta" itemLabel="#{pregunta.codigo}" itemValue="#{pregunta.codigo}" />
 					<p:ajax update="grafica,tablaDatos"
 						listener="#{referenciasTopicoAtributoCalidadBean.onChangePregunta}" />
 				</p:selectOneMenu>
@@ -32,7 +32,7 @@
 			 
 
 		<br />
-		<h:form prependId="">
+		<h:form prependId="false">
 			<p:dataTable id="tablaDatos" value="#{referenciasTopicoAtributoCalidadBean.topicos}"
 				var="topico">
 				<f:facet name="header">

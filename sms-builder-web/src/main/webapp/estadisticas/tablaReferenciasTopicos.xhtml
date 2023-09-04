@@ -16,15 +16,15 @@
 			<p:panelGrid columns="2" >
 				<p:outputLabel for="atributoCalidad" value="#{msg.etiquetaAtributoCalidad}" />
 				<p:selectOneMenu id="atributoCalidad" value="#{tablaReferenciasTopicosBean.idAtributoCalidad}">
-					<f:selectItem itemValue="null" itemLabel="" />
-					<f:selectItems value="#{registroAtributoCalidadBean.atributosCalidad}" var="atributo" itemLabel="#{atributo.descripcion}" itemValue="#{atributo.id}" />
-					<p:ajax listener="#{tablaReferenciasTopicosBean.consultarReferencias}" update="tabla"></p:ajax>
+					<f:selectItem itemLabel="" noSelectionOption="true" />
+					<f:selectItems value="#{registroAtributoCalidadBean.records}" var="atributo" itemLabel="#{atributo.descripcion}" itemValue="#{atributo.id}" />
+					<p:ajax listener="#{tablaReferenciasTopicosBean.consultarReferencias}" update="tabla" />
 				</p:selectOneMenu>
 				<p:outputLabel for="evaluacion" value="#{msg.etiquetaEvaluacion}" />
 				<p:selectOneMenu id="evaluacion" value="#{tablaReferenciasTopicosBean.evaluacion}">
-					<f:selectItem itemValue="null" itemLabel="" />
+					<f:selectItem  itemLabel="" noSelectionOption="true" />
 					<f:selectItems value="#{tablaReferenciasTopicosBean.listaValores}" var="evaluacion" itemValue="#{evaluacion}" itemLabel="#{evaluacion}" />
-					<p:ajax listener="#{tablaReferenciasTopicosBean.consultarReferencias}" update="tabla"></p:ajax>
+					<p:ajax listener="#{tablaReferenciasTopicosBean.consultarReferencias}" update="tabla" />
 				</p:selectOneMenu>
 			</p:panelGrid>
 			
@@ -86,7 +86,7 @@
 
 					<h:outputText value="  " />
 					<p:selectBooleanCheckbox value="#{tablaReferenciasTopicosBean.year}" itemLabel="#{msg.etiquetaYear}" style="position: absolute; right: 10px; ">
-						<p:ajax update="resumenReferencias2" ></p:ajax>
+						<p:ajax update="resumenReferencias2" />
 					</p:selectBooleanCheckbox>
 				</f:facet>
 				<p:column headerText="#{msg.etiquetaPregunta}" width="10%">

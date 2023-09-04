@@ -55,13 +55,13 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
         String topicosText = "\n" + getMessage(MessageConstants.TOPICOS) + ": " + topico.getDescripcion();
         String nota;
         if (referencia.getTopicos().contains(topico)) {
-            referencia.getTopicos().remove(topico);
+//            referencia.getTopicos().remove(topico);
             referenciaService.removeTopico(referencia.getId(), topico.getId());
             nota = referencia.getNota().replace(topicosText, "");
         } else {
-            referencia.getTopicos().add(topico);
+//            referencia.getTopicos().add(topico);
             referenciaService.addTopico(referencia.getId(), topico.getId());
-            nota = referencia.getNota() + topicosText;
+            nota = referencia.getNota() == null ? topicosText : referencia.getNota() + topicosText;
         }
         referenciaService.updateNota(referencia.getId(), nota);
         referencia.setNota(nota);

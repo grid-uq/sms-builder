@@ -34,7 +34,7 @@ public class EstadisticaReferenciaByTopico {
     public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider) {
         Function<Topico,String> getKey = topico-> topico.getPregunta().getCodigo()+"-"+topico.getDescripcion();
         return dataProvider.get().stream()
-                .flatMap(referencia -> referencia.getTopicos().stream())
+                .flatMap(referencia -> referencia.getTopicos().stream().distinct())
                 .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
                 .entrySet().stream()
                 .map( entry->new DatoDTO(getKey.apply(entry.getKey()), entry.getValue()));
