@@ -42,10 +42,7 @@ public abstract class ReferenceParser<T> {
 		if(source == null){
 			return null;
 		}
-//		if ("".equals(texto.trim())) {
-//			return null;
-//		}
-		
+
 		Referencia referencia = procesar(source);
 		if( referencia != null ){
 			referencia.addElement(TipoMetadato.FUENTE, fuente.getNombre());

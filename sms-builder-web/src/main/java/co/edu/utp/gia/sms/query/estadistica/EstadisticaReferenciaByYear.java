@@ -29,11 +29,5 @@ public class EstadisticaReferenciaByYear {
      */
     public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider) {
         return EstadisticaReferenciaByAny.createQuery(dataProvider,Referencia::getYear);
-//        return dataProvider.get().stream()
-//                .map(Referencia::getYear)
-//                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
-//                .entrySet().stream()
-//                .map( entry->new DatoDTO(entry.getKey(), entry.getValue()));
-
     }
 }

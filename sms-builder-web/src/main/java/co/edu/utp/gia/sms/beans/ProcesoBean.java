@@ -55,17 +55,6 @@ public class ProcesoBean extends AbstractRevisionBean {
         configurarStage5(model);
         configurarStage6(model);
         configurarAyuda(model);
-//        configurarGestionas(model);
-//        DefaultMenuItem item = DefaultMenuItem.builder()
-//                .value("Step 1")
-//                .icon("pi pi-save")
-//                .ajax(false)
-//                .command("#{menuView.save}")
-//                .update("messages")
-//                .build();
-//        stage1.getElements().add(item);
-
-
     }
 
     private void configurarStage2(MenuModel model) {

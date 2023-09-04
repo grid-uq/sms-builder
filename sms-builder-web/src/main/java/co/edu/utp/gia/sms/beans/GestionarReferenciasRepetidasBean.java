@@ -4,15 +4,13 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.negocio.ProcesoService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
-import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-
-import java.io.Serial;
 import java.util.List;
 
 /**
@@ -36,9 +34,6 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
     private ReferenciaService referenciaService;
     @Inject
     private ProcesoService procesoService;
-
-//    @Inject @ManagedProperty("#{param.paso}")
-//    private Integer paso;
 
     public void inicializar() {
         referencias = referenciaService.findByPaso(getPasoAnterior().getId());
@@ -65,22 +60,10 @@ public class GestionarReferenciasRepetidasBean extends GenericBean<ReferenciaDTO
             referenciaService.updateDuplicada(referencia.getId(), referencia.getDuplicada());
             if (!referencia.getDuplicada()) {
                 procesoService.addReferencia(getPasoActual().getId(),referencia.getId());
-                //referenciaService.avanzarReferecias(getPasoActual().getId());
-//                if( referencia.getFiltro() < paso ) {
-//                    referencia.setFiltro(paso);
-//                    referenciaService.actualizarFiltro(referencia.getId(), paso);
-//                }
             } else {
                 procesoService.removeReferencia(getPasoActual().getId(),referencia.getId());
-                //referenciaService.(getPasoAnterior().getId());
-//                if( referencia.getFiltro() >= paso ){
-//                    referencia.setFiltro(paso-1);
-//                    referenciaService.actualizarFiltro(referencia.getId(), paso-1);
-//                }
             }
         }
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
-
-
 }

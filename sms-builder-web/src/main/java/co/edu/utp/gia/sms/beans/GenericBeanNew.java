@@ -1,7 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
-import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.Entidad;
 import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import jakarta.faces.application.FacesMessage;

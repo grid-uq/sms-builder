@@ -3,8 +3,6 @@ package co.edu.utp.gia.sms.query.referencia;
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoFuente;
-import co.edu.utp.gia.sms.entidades.TipoMetadato;
-import co.edu.utp.gia.sms.query.fuente.FuenteGetByTipoFuente;
 import jakarta.inject.Provider;
 
 import java.util.Collection;

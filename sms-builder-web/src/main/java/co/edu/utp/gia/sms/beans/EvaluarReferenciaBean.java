@@ -7,7 +7,6 @@ import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
 import co.edu.utp.gia.sms.negocio.EvaluacionCalidadService;
-import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -44,8 +43,6 @@ public class EvaluarReferenciaBean extends GenericBean<ReferenciaDTO> {
     private AtributoCalidadService atributoCalidadService;
     @Inject
     private EvaluacionCalidadService evaluacionCalidadService;
-    @Inject
-    private ReferenciaService referenciaService;
     private ReferenciaDTO referencia;
 
     public void inicializar() {

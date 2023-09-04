@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.beans;
 
 
 import co.edu.utp.gia.sms.beans.seguridad.UsuarioBean;
-import co.edu.utp.gia.sms.configuration.RecursosConstants;
 import co.edu.utp.gia.sms.configuration.RolConstants;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.negocio.RolService;

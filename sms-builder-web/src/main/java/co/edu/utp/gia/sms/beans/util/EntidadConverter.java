@@ -2,15 +2,14 @@ package co.edu.utp.gia.sms.beans.util;
 
 import co.edu.utp.gia.sms.entidades.Entidad;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
 import jakarta.inject.Inject;
+import lombok.Getter;
+import lombok.Setter;
 /**
  * Clase utilitaria encargada de realizar conversiones de Entidades a elementos web
  *
@@ -22,10 +21,6 @@ import jakarta.inject.Inject;
  * @since 13/06/2019
  */
 public abstract class EntidadConverter<E extends Entidad> implements Converter<E> {
-
-//	@Inject
-//	@ManagedProperty("#{msg}")
-//	private ResourceBundle bundle;
 	/**
 	 * Instancia que perite obtener los mensajes de las excepciones generadas.
 	 */

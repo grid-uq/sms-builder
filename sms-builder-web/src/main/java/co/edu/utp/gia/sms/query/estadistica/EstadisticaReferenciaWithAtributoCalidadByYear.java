@@ -38,17 +38,5 @@ public class EstadisticaReferenciaWithAtributoCalidadByYear {
                                 evaluacionCalidad.getEvaluacionCualitativa().equals( EvaluacionCualitativa.CUMPLE )
                 );
         return EstadisticaReferenciaByAny.createQuery(dataProvider, filtro,Referencia::getYear);
-//        return dataProvider.get().stream()
-//                .filter(
-//                        referencia -> referencia.getEvaluacionCalidad().stream()
-//                                .anyMatch(evaluacionCalidad ->
-//                                        evaluacionCalidad.getAtributoCalidad().getId().equals(idAtributoCalidad) &&
-//                                        evaluacionCalidad.getEvaluacionCualitativa().equals( EvaluacionCualitativa.CUMPLE )
-//                                )
-//                )
-//                .map(Referencia::getYear)
-//                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
-//                .entrySet().stream()
-//                .map( entry->new DatoDTO(entry.getKey(), entry.getValue()));
     }
 }

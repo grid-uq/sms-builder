@@ -39,7 +39,6 @@ public class TablaReferenciasPreguntasBean extends AbstractRevisionBean {
 
     @Getter
     @Setter
-    //TODO Originalmente era PreguntaDTO
     private Collection<Pregunta> preguntas;
 
     @PostConstruct
@@ -52,12 +51,6 @@ public class TablaReferenciasPreguntasBean extends AbstractRevisionBean {
 
 
     public boolean tieneRalacion(ReferenciaDTO referencia, Pregunta pregunta) {
-
-//        for (Topico topico : referencia.getTopicos()) {
-//            if (pregunta.getTopicos().contains(topico)) {
-//                return true;
-//            }
-//        }
         return referencia.getTopicos().stream().map(Topico::getPregunta).anyMatch(pregunta::equals);
     }
 

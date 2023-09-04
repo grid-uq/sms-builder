@@ -3,18 +3,14 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
-import co.edu.utp.gia.sms.entidades.Pregunta;
-import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
-import lombok.Getter;
-import lombok.Setter;
-
-import jakarta.faces.model.SelectItem;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.util.ArrayList;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -53,22 +49,10 @@ public class TablaResumenEvaluacionReferenciasAtributoBean extends GenericBean<R
         atributoSeleccionado();
     }
 
-
-    public boolean tieneRalacion(ReferenciaDTO referencia, Pregunta pregunta) {
-        for (Topico topico : referencia.getTopicos()) {
-            if (pregunta.getTopicos().contains(topico)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
     public void atributoSeleccionado() {
         atributoCalidad = atributosCalidad.stream().filter(a -> a.getId().equals( idAtributo )).findFirst().orElse(atributoCalidad);
         referencias.forEach(referenciaDTO -> referenciaDTO.setAtributoCalidad(atributoCalidad));
     }
-
 
     /**
      * Permite obtener un arreglo con los valores de la {@link EvaluacionCualitativa}
@@ -76,12 +60,6 @@ public class TablaResumenEvaluacionReferenciasAtributoBean extends GenericBean<R
      * @return Arreglo de valores de la {@link EvaluacionCualitativa}
      */
     public List<String> getListaValores() {
-//        List<SelectItem> valores = new ArrayList<>();
-//        valores.add(new SelectItem("", "", "", false, false, true));
-//        for (EvaluacionCualitativa evaluacion : EvaluacionCualitativa.values()) {
-//            valores.add(new SelectItem(evaluacion));
-//        }
-//        return valores;
         return Arrays.stream(EvaluacionCualitativa.values()).map(EvaluacionCualitativa::toString).toList();
     }
 

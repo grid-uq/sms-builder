@@ -31,7 +31,7 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     protected ExceptionMessage exceptionMessage;
 
     protected static <T> Collection<T> defaultDataProvider() {
-        return (Collection<T>) Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     public AbstractGenericService() {

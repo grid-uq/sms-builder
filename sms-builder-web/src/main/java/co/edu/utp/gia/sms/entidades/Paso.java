@@ -1,8 +1,5 @@
 package co.edu.utp.gia.sms.entidades;
 
-import lombok.*;
-
-import java.util.Objects;
 import java.util.UUID;
 /**
  * Clase que representa la entidad Proceso, la cual permite modelar en el

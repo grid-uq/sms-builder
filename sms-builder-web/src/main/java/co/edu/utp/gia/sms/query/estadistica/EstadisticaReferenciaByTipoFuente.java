@@ -2,11 +2,11 @@ package co.edu.utp.gia.sms.query.estadistica;
 
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
-import co.edu.utp.gia.sms.entidades.*;
+import co.edu.utp.gia.sms.entidades.Fuente;
+import co.edu.utp.gia.sms.entidades.Referencia;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,9 +31,7 @@ public class EstadisticaReferenciaByTipoFuente {
      * @return Stream<DatoDTO> que representa el resultado de la consulta
      */
     public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider) {
-        Predicate<Metadato> filtro = metadato -> metadato.getIdentifier().equals(TipoMetadato.TIPO_FUENTE);
         return dataProvider.get().stream()
-                //.flatMap(referencia -> referencia.getMetadatos().stream().filter(filtro))
                 .map(Referencia::getFuente)
                 .collect(Collectors.groupingBy(Fuente::getTipo,Collectors.counting()))
                 .entrySet().stream()

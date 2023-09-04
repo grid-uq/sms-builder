@@ -1,12 +1,7 @@
 package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.entidades.Metadato;
-import co.edu.utp.gia.sms.entidades.Referencia;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-
-import java.util.Collection;
-import java.util.Optional;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
  * gestion del {@link Metadato}.
@@ -20,10 +15,6 @@ import java.util.Optional;
  */
 @ApplicationScoped
 public class MetadatoServices extends AbstractGenericService<Metadato, String> {
-
-    @Inject
-    private ReferenciaService referenciaService;
-
     public MetadatoServices() {
         super();
     }
@@ -65,11 +56,4 @@ public class MetadatoServices extends AbstractGenericService<Metadato, String> {
 //    public Metadato findOrThrow(Referencia referencia, String idMetado) {
 //        return super.findOrThrow(referencia::getMetadatos,idMetado);
 //    }
-
-    @Override
-    public Collection<Metadato> get() {
-        return super.get();
-    }
-
-
 }

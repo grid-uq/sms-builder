@@ -59,14 +59,6 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
         PrimeFaces.current().dialog().openDynamic("/revision/evaluarReferencia", options, null);
     }
 
-    public void guardar() {
-        //TODO Verificar la evaluación de referencias
-//        for (ReferenciaDTO referencia : referencias) {
-//            referenciaService.actualizarFiltro(referencia.getId(), referencia.getFiltro());
-//        }
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-    }
-
     public void evaluacionAutomatica() {
         try {
             evaluacionCalidadService.evaluacionAcutomatica();
@@ -81,5 +73,4 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
         ReferenciaDTO referencia = event.getObject();
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
-
 }

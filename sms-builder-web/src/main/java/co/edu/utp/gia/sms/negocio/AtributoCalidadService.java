@@ -6,8 +6,6 @@ import co.edu.utp.gia.sms.exceptions.LogicException;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.Collection;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la

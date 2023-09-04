@@ -1,17 +1,14 @@
 package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.db.DB;
-import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.entidades.Objetivo;
 import co.edu.utp.gia.sms.entidades.Pregunta;
-import co.edu.utp.gia.sms.entidades.Termino;
 import co.edu.utp.gia.sms.entidades.Topico;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
@@ -49,15 +46,6 @@ public class PreguntaService extends AbstractGenericService<Pregunta, String> {
             objetivos.forEach( objetivo -> objetivo.getPreguntas().add(nuevapPregunta) );
         }
         return pregunta;
-    }
-
-    /**
-     * Premite actualizar una {@link Pregunta}
-     *
-     * @param pregunta Pregunta a ser actualizada
-     */
-    public void update(PreguntaDTO pregunta) {
-        update(pregunta.getId(), pregunta.getCodigo(), pregunta.getDescripcion());
     }
 
     /**

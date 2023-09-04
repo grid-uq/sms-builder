@@ -4,7 +4,6 @@ import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.CriterioSeleccion;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
@@ -19,9 +18,6 @@ import jakarta.inject.Inject;
  */
 @ApplicationScoped
 public class CriterioSeleccionService extends AbstractGenericService<CriterioSeleccion, String> {
-
-    @Inject
-    private TopicoService topicoService;
     public CriterioSeleccionService() {
         super(DB.root.getProvider(CriterioSeleccion.class));
     }

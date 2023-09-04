@@ -1,17 +1,15 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
-import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.importutil.FindReferenceCitation;
 import co.edu.utp.gia.sms.negocio.ProcesoService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.java.Log;
-
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.java.Log;
 
 import java.util.List;
 
@@ -62,20 +60,9 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
     public void seleccionarReferencia(ReferenciaDTO referencia) {
         if (referencia.isSeleccionada()) {
             procesoService.addReferencia(getPasoActual().getId(),referencia.getId());
-//            referenciaService.avanzarReferecias(getPasoActual().getId());
-//            if( referencia.getFiltro() < paso ) {
-//                referencia.setFiltro(paso);
-//                referenciaService.actualizarFiltro(referencia.getId(), paso);
-//            }
         } else {
             procesoService.removeReferencia(getPasoActual().getId(),referencia.getId());
-//            referenciaService.avanzarReferecias(getPasoAnterior().getId());
-//            if( referencia.getFiltro() >= paso ){
-//                referencia.setFiltro(paso-1);
-//                referenciaService.actualizarFiltro(referencia.getId(), paso-1);
-//            }
         }
-        //referenciaService.actualizarFiltro(referencia.getId(), referencia.getFiltro());
     }
 
     public void actualizarRelevancia(ReferenciaDTO referencia) {
