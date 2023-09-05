@@ -17,12 +17,6 @@ package co.edu.utp.gia.sms.exceptions;
  *
  */
 public class LogicException extends RuntimeException {
-
-	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Metodo que permite inicializar los elementos de la clase TecnicalException
 	 * 

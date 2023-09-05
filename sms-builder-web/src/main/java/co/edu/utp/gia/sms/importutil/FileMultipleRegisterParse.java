@@ -1,15 +1,17 @@
 package co.edu.utp.gia.sms.importutil;
+/**
+ * Clase utilitaria que define de forma general un procesar de archivos de referencias.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
+public abstract class FileMultipleRegisterParse<T extends ReferenceParser> implements ReferenceParse {
 
-import co.edu.utp.gia.sms.entidades.Referencia;
-
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-public abstract class FileMultipleRegisterParse {
-
-    private final ReferenceParser referenceParser;
+    private final T referenceParser;
 
     /**
      * Metodo que permite inicializar los elementos de la clase
@@ -17,33 +19,14 @@ public abstract class FileMultipleRegisterParse {
      *
      * @param referenceParser Interprete propio de la fuente
      */
-    public FileMultipleRegisterParse(ReferenceParser referenceParser) {
+    public FileMultipleRegisterParse(T referenceParser) {
         this.referenceParser = referenceParser;
     }
 
-    protected ReferenceParser getReferenceParser() {
+    protected T getReferenceParser() {
         return referenceParser;
     }
 
-    public List<Referencia> parse(InputStream input) {
-        List<Referencia> references = new ArrayList<>();
-        try (Scanner lector = new Scanner(input)) {
-
-            String linea = "";
-            while (lector.hasNextLine() && "".equals(linea.trim())) {
-                linea = lector.nextLine();
-            }
-
-            while (lector.hasNextLine()) {
-                linea = lector.nextLine();
-                Referencia reference = referenceParser.parse(linea);
-                if (reference != null) {
-                    references.add(reference);
-                }
-            }
-        }
-
-        return references;
-    }
+    //public abstract List<Referencia> parse(InputStream input);
 
 }

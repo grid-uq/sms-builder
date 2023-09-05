@@ -3,16 +3,19 @@ package co.edu.utp.gia.sms.util;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 /**
  * Clase encargada de permitir leer las propiedades desde los archivos de
  * propiedades acordes con el locale establecido
  */
 @NoArgsConstructor
+@Log
 public class PropertiesLoader {
     /**
      * Variable que representa el atributo locale de la clase. Identifica la region
@@ -50,7 +53,7 @@ public class PropertiesLoader {
             bundle = locale != null ? ResourceBundle.getBundle(properties, locale) : ResourceBundle.getBundle(properties);
 //		bundle = ResourceBundle.getBundle(properties);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.log(Level.WARNING,"Error al cargar propiedades",e);
         }
     }
 

@@ -3,20 +3,20 @@ package co.edu.utp.gia.sms.beans.seguridad;
 import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Rol;
-import co.edu.utp.gia.sms.negocio.RolEJB;
+import co.edu.utp.gia.sms.negocio.RolService;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.RowEditEvent;
 
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.List;
+import java.util.Collection;
 
 
 /**
- * Clase de negocio encargada la interacción del usuario con las funcionalidades
+ * Clase encargada la interacción del usuario con las funcionalidades
  * de gestion de la entidad {@link Rol}
  *
  * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
@@ -42,21 +42,21 @@ public class RolBean extends AbstractBean {
      */
     @Getter
     @Setter
-    private List<Rol> roles;
+    private Collection<Rol> roles;
 
     /**
      * Variable que representa el atributo rolEjb de la clase. Instancia
      * del objeto de negocio que permite la gestion de las {@link Rol}
      */
     @Inject
-    private RolEJB rolEJB;
+    private RolService rolService;
 
     /**
      * Metodo encargado de inicializar los datos de la clase
      */
     @PostConstruct
     public void inicializar() {
-        roles = rolEJB.listar();
+        roles = rolService.get();
     }
 
     /**
@@ -64,9 +64,9 @@ public class RolBean extends AbstractBean {
      */
     public void registrar() {
         try {
-            rolEJB.registrar(rol);
+            rolService.save(rol);
             rol = new Rol();
-            roles = rolEJB.listar();
+            roles = rolService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
@@ -80,8 +80,8 @@ public class RolBean extends AbstractBean {
      */
     public void eliminar(Rol rol) {
         try {
-            rolEJB.eliminar(rol);
-            roles = rolEJB.listar();
+            rolService.delete(rol);
+            roles = rolService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
@@ -97,11 +97,11 @@ public class RolBean extends AbstractBean {
     public void onRowEdit(RowEditEvent<Rol> event) {
         Rol rol = event.getObject();
         try {
-            rolEJB.actualizar(rol);
+            rolService.update(rol);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
-            roles = rolEJB.listar();
+            roles = rolService.get();
         }
     }
 

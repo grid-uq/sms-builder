@@ -1,25 +1,30 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
-import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.entidades.Objetivo;
+import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.PreguntaEJB;
-import co.edu.utp.gia.sms.negocio.TopicoEJB;
+import co.edu.utp.gia.sms.negocio.AbstractGenericService;
+import co.edu.utp.gia.sms.negocio.PreguntaService;
+import co.edu.utp.gia.sms.negocio.TopicoService;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * Clase controladora de interfaz web que se encarga de la gestión de preguntas.
+ *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Julio Cesar Chavarro
@@ -33,61 +38,27 @@ import java.util.Map;
  */
 @Named
 @ViewScoped
-public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 1L;
-    @Getter
-    @Setter
-    private String descripcion;
-    @Getter
-    @Setter
-    private String codigo;
-    @Getter
-    @Setter
-    private List<PreguntaDTO> preguntas;
-
-    @Getter
-    @Setter
+public class RegistroPreguntaBean extends GenericBeanNew<Pregunta,String> {
+    @Getter @Setter
     private List<Objetivo> listaObjetivos;
-
-
     @Inject
-    private PreguntaEJB preguntaEJB;
+    private PreguntaService preguntaService;
     @Inject
-    private TopicoEJB topicoEJB;
+    private TopicoService topicoService;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            preguntas = preguntaEJB.obtenerPreguntas(getRevision().getId());
-        }
+        setRecords(preguntaService.get());
         listaObjetivos = new ArrayList<>();
     }
 
-    public String registrar() {
-        preguntaEJB.registrar(codigo, descripcion, listaObjetivos);
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        codigo = "";
-        descripcion = "";
-        return "/revision/registroPregunta";
+    @Override
+    protected Pregunta newRecord() {
+        return new Pregunta();
     }
 
     @Override
-    public void actualizar(PreguntaDTO objeto) {
-        preguntaEJB.actualizar(objeto);
-    }
-
-
-    /**
-     * Permite eliminar una pregunta
-     *
-     * @param pregunta pregunta a eliminar
-     */
-    public void eliminar(PreguntaDTO pregunta) {
-        preguntaEJB.eliminar(pregunta.getId());
-        preguntas.remove(pregunta);
-        mostrarMensajeGeneral("Pregunta eliminada");
+    protected AbstractGenericService<Pregunta, String> getServices() {
+        return preguntaService;
     }
 
     /**
@@ -95,19 +66,19 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
      *
      * @param topico Topico de la pregunta a eliminar
      */
-    public void eliminarTopico(PreguntaDTO pregunta, Topico topico) {
-        topicoEJB.eliminar(topico.getId());
+    public void eliminarTopico(Pregunta pregunta, Topico topico) {
+        preguntaService.remove(pregunta,topico);
+        topicoService.delete(topico.getId());
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        pregunta.getTopicos().remove(topico);
     }
 
-    public void adicionarTopico(Integer id) {
+    public void adicionarTopico(String id) {
         Map<String, Object> options = new HashMap<>();
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
         addToSession("idPregunta", id);
-        PrimeFaces.current().dialog().openDynamic("/revision/registrarTopico", options, null);
+        PrimeFaces.current().dialog().openDynamic("/pregunta/registroTopico", options, null);
     }
 
     public void onTopicoCreado(SelectEvent<Topico> event) {
@@ -115,4 +86,7 @@ public class RegistroPreguntaBean extends GenericBean<PreguntaDTO> {
         inicializar();
     }
 
+    public void validate(FacesContext facesContext, UIComponent component, java.lang.Object object){
+        validateUnique(facesContext, component, object, record -> record.getCodigo().equals(object.toString()) );
+    }
 }

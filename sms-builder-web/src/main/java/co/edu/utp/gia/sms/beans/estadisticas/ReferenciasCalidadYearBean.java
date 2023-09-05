@@ -3,16 +3,24 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 import co.edu.utp.gia.sms.beans.estadisticas.util.SerieDatos;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
+import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
-import lombok.Setter;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de calidad por año.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
 public class ReferenciasCalidadYearBean extends EstaditicaDatoDTOBaseBean {
@@ -20,13 +28,7 @@ public class ReferenciasCalidadYearBean extends EstaditicaDatoDTOBaseBean {
     @Getter
     private List<String> years;
     @Inject
-    private AtributoCalidadEJB atributoCalidadEJB;
-
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 1943642325865821264L;
+    private AtributoCalidadService atributoCalidadService;
 
     public void inicializar() {
         setEjeX(getMessage(MessageConstants.YEAR));
@@ -35,11 +37,11 @@ public class ReferenciasCalidadYearBean extends EstaditicaDatoDTOBaseBean {
         setTipoGrafica("bar");
         setTiposGrafica(new String[]{"bar"});
         if (getRevision() != null) {
-            addSerie(getEstadisticaEJB().obtenerReferenciasCalidadYear(getRevision().getId()),"All");
+            addSerie(getEstadisticaService().obtenerReferenciasCalidadYear(),"All");
             inicializarYears(getDatosSeries().get("All"));
-            List<AtributoCalidad> atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
+            var atributosCalidad = atributoCalidadService.get();
             for (AtributoCalidad atributoCalidad : atributosCalidad) {
-                addSerie(getEstadisticaEJB().obtenerReferenciasCalidadYear(getRevision().getId(), atributoCalidad.getId()),atributoCalidad.getDescripcion());
+                addSerie(getEstadisticaService().obtenerReferenciasCalidadYear( atributoCalidad.getId()),atributoCalidad.getDescripcion());
             }
             crearModelo();
         }

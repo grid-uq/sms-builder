@@ -1,17 +1,26 @@
 package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.entidades.Recurso;
-import co.edu.utp.gia.sms.negocio.RecursoEJB;
+import co.edu.utp.gia.sms.negocio.RecursoService;
 
-import javax.inject.Inject;
-
+import jakarta.inject.Inject;
+/**
+ * Clase encargada de realizar la configuración inicial de los recursos en la aplicación
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 public class RecursosSetup implements SetupInterface{
 
     /**
      * Variable que representa el atributo recursoBO de la clase
      */
     @Inject
-    private RecursoEJB recursoBO;
+    private RecursoService recursoBO;
 
 
 
@@ -37,9 +46,9 @@ public class RecursosSetup implements SetupInterface{
      *            Indica si el registro es público o no
      */
     private void setupRecurso(String url, boolean publico) {
-        if (recursoBO.buscarRecurso(url) == null) {
+        if (recursoBO.findByUrl(url) == null) {
             var recurso = new Recurso(getNombreRecurso(url),url,publico);
-            recursoBO.registrar(recurso);
+            recursoBO.save(recurso);
         }
     }
 

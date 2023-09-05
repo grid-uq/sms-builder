@@ -1,0 +1,30 @@
+package co.edu.utp.gia.sms.beans.util;
+
+import co.edu.utp.gia.sms.entidades.Fuente;
+import co.edu.utp.gia.sms.negocio.FuenteService;
+
+import jakarta.faces.convert.FacesConverter;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+/**
+ * Clase utilitaria encargada de realizar conversiones de Fuentes a elementos web
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
+@Named
+@FacesConverter(value = "fuenteConverter",managed = true)
+public class FuenteConverter extends EntidadConverter<Fuente> {
+
+	@Inject
+	private FuenteService fuenteService;
+
+	@Override
+	protected Fuente findById(String id) {
+		return fuenteService.find(id).orElse(null);
+	}
+}

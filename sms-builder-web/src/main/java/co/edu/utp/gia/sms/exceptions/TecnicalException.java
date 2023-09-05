@@ -17,12 +17,6 @@ import lombok.Setter;
  * @since 10 abr. 2020
  */
 public class TecnicalException extends RuntimeException {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 1L;
-
     /**
      * Determina si la excepcion debe o no tener visibilidad hacia el usuario.
      */

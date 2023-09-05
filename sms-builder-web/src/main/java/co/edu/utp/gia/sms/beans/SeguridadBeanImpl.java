@@ -1,16 +1,14 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.seguridad.SeguridadBean;
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.entidades.Usuario;
-import co.edu.utp.gia.sms.negocio.RevisionEJB;
+import co.edu.utp.gia.sms.negocio.RevisionService;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.List;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 
 /**
@@ -29,18 +27,13 @@ import java.util.List;
 @SessionScoped
 public class SeguridadBeanImpl extends SeguridadBean {
 	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
 	 * Variable que representa el {@link Usuario} que esta autenticado
 	 */
 	@Getter
 	@Setter
 	private Usuario usuario = null;
 	@Inject
-	private RevisionEJB revisionEJB;
-
+	private RevisionService revisionService;
 
 	/**
 	 * Realiza la verificación de los datos de autenticación proporcioandos por
@@ -50,10 +43,7 @@ public class SeguridadBeanImpl extends SeguridadBean {
 	public void ingresar() {
 		super.ingresar();
 		if(isAutenticado()){
-			List<Revision> revisiones = revisionEJB.obtenerTodas(getUsuario().getId());
-			if( revisiones.size() > 0 ){
-				addToSession("revision", revisiones.get(0));
-			}
+			addToSession("revision", revisionService.get());
 		}
 	}
 }

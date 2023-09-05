@@ -2,9 +2,9 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
@@ -15,7 +15,7 @@
 				<p:selectOneMenu id="codigo"
 					value="#{referenciasTopicoAtributoCalidadBean.codigo}">
 					<f:selectItem itemLabel="" />
-					<f:selectItems value="#{registroPreguntaBean.preguntas}" var="pregunta" itemLabel="#{pregunta.codigo}" itemValue="#{pregunta.codigo}" />
+					<f:selectItems value="#{registroPreguntaBean.records}" var="pregunta" itemLabel="#{pregunta.codigo}" itemValue="#{pregunta.codigo}" />
 					<p:ajax update="grafica,tablaDatos"
 						listener="#{referenciasTopicoAtributoCalidadBean.onChangePregunta}" />
 				</p:selectOneMenu>
@@ -32,7 +32,7 @@
 			 
 
 		<br />
-		<h:form prependId="">
+		<h:form prependId="false">
 			<p:dataTable id="tablaDatos" value="#{referenciasTopicoAtributoCalidadBean.topicos}"
 				var="topico">
 				<f:facet name="header">

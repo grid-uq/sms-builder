@@ -3,27 +3,30 @@ package co.edu.utp.gia.sms.beans.estadisticas;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
+import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de los tópicos por atributo de calidad.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
 public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTOBaseBean {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 3695939063364135580L;
-
     @Inject
-    private AtributoCalidadEJB atributoCalidadEJB;
+    private AtributoCalidadService atributoCalidadService;
 
     @Getter
     @Setter
@@ -48,18 +51,18 @@ public class ReferenciasTopicoAtributoCalidadBean extends EstaditicaSerieDatoDTO
     public void onChangePregunta() {
         getDatosSeries().clear();
         if (codigo != null) {
-            addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo),"All");
+            addSerie(getEstadisticaService().obtenerReferenciasTopicoPregunta(codigo),"All");
         } else {
-            addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId()),"All");
+            addSerie(getEstadisticaService().obtenerReferenciasTopico(),"All");
         }
         inicializarTopicos(getDatosSeries().get("All").getDatos());
 
-        List<AtributoCalidad> atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
+        var atributosCalidad = atributoCalidadService.get();
         for (AtributoCalidad atributoCalidad : atributosCalidad) {
             if (codigo != null) {
-                addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), codigo, atributoCalidad.getId()),atributoCalidad.getDescripcion());
+                addSerie(getEstadisticaService().obtenerReferenciasTopico(codigo, atributoCalidad.getId()),atributoCalidad.getDescripcion());
             } else {
-                addSerie(getEstadisticaEJB().obtenerReferenciasTopico(getRevision().getId(), atributoCalidad.getId()),atributoCalidad.getDescripcion());
+                addSerie(getEstadisticaService().obtenerReferenciasTopico(atributoCalidad.getId()),atributoCalidad.getDescripcion());
             }
         }
 

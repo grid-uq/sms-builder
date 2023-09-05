@@ -1,44 +1,58 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-import javax.persistence.*;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
-import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity
-@EqualsAndHashCode
+/**
+ * Clase que representa la entidad PasoProceso, la cual permite modelar en el
+ * sistema los pasos para la ejecución del SMS.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class PasoProceso implements Entidad<Integer> {
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Getter
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class PasoProceso implements Entidad<String> {
     @Setter
-    private Integer id;
-    @Getter
+    private String id = UUID.randomUUID().toString();
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private Integer orden;
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
-    @ManyToOne
     private Paso paso;
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
-    @NonNull
-    @ManyToOne
-    private Revision revision;
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
-    @OneToMany
-    @OrderBy("nombre ASC")
-    private List<Referencia> referencias;
+    private List<Referencia> referencias = new ArrayList<>();
+
+    public PasoProceso(@NonNull Paso paso) {
+        this.paso = paso;
+        this.orden = 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PasoProceso that = (PasoProceso) o;
+
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1589365384;
+    }
 }

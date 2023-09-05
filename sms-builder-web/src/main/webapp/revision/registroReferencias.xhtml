@@ -2,9 +2,9 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
@@ -13,9 +13,13 @@
 			<p:growl id="messages" showDetail="true" />
 			<p:panelGrid columns="2">
 				<p:outputLabel for="fuente" value="#{msg.etiquetaFuente}:" />
-				<p:selectOneMenu id="fuente" value="#{registroReferenciasBean.fuente}">
+				<p:selectOneMenu id="fuente" value="#{registroReferenciasBean.fuente}" converter="fuenteConverter">
 					<f:selectItem itemLabel="#{msg.etiquetaSeleccionarOpcion}" itemValue="" noSelectionOption="true" />
-					<f:selectItems value="#{registroReferenciasBean.fuentes}" var="referencia" itemLabel="#{referencia}" itemValue="#{referencia}" />
+					<f:selectItems value="#{registroReferenciasBean.fuentes}" var="fuente" itemLabel="#{fuente.nombre}" itemValue="#{fuente}" />
+				</p:selectOneMenu>
+				<p:outputLabel for="formato" value="#{msg.etiquetaFormato}:" />
+				<p:selectOneMenu id="formato" value="#{registroReferenciasBean.tipoArchivo}">
+					<f:selectItems value="#{registroReferenciasBean.tiposArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}" />
 				</p:selectOneMenu>
 				<p:outputLabel value="#{msg.etiquetaArchivo}:" />
 				<p:fileUpload value="#{registroReferenciasBean.file}" mode="simple"

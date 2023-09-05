@@ -22,13 +22,17 @@ import org.primefaces.model.charts.pie.PieChartOptions;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+/**
+ * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -6652760630318393603L;
     @Getter
     @Setter
     private List<DatoDTO> datos;
@@ -99,11 +103,9 @@ public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
     private List<String> generateLabels() {
         ArrayList<String> etiquetas = new ArrayList<>();
 
-        getDatosSeries().values().forEach(datos -> {
-            etiquetas.addAll( datos.getDatos().stream().map(DatoDTO::getEtiqueta).collect(Collectors.toList()) );
-        });
+        getDatosSeries().values().forEach(datos -> etiquetas.addAll( datos.getDatos().stream().map(DatoDTO::getEtiqueta).toList()));
 
-        return etiquetas.stream().distinct().collect(Collectors.toList());
+        return etiquetas.stream().distinct().toList();
     }
 
     protected PieChartModel crearPieModel() {
@@ -126,7 +128,9 @@ public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
         CartesianLinearAxes linearAxes = new CartesianLinearAxes();
         linearAxes.setOffset(true);
         CartesianLinearTicks ticks = new CartesianLinearTicks();
-        ticks.setBeginAtZero(true);
+
+        //ticks.setBeginAtZero(true);
+
         linearAxes.setTicks(ticks);
         cScales.addYAxesData(linearAxes);
         options.setScales(cScales);

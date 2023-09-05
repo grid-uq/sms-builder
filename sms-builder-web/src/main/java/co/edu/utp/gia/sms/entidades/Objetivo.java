@@ -1,14 +1,17 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.GenerationType.IDENTITY;
-
+import java.util.Objects;
+import java.util.UUID;
 /**
+ * Clase que representa la entidad Objetivo, la cual permite modelar en el
+ * sistema un objetivo del SMS
+ *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Julio Cesar Chavarro
@@ -19,62 +22,54 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 8 abr. 2020
  */
-@Entity
-@EqualsAndHashCode
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Objetivo implements Entidad<Integer> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 6918765230126877992L;
-
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class Objetivo implements Entidad<String> {
     /**
      * Variable que representa el identificador unico del Objetivo
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Getter
     @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
 
     /**
      * Variable que representa el código del objetivo
      */
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private String codigo;
 
     /**
      * Variable que representa la escripcion del objetivo
      */
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private String descripcion;
-
-    /**
-     * Variable que representa la {@link Revision} a la que pertenece el objetivo
-     */
-    @ManyToOne
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
-    @NonNull
-    private Revision revision;
-
 
     /**
      * Variable que representa las preguntas que se relacionan con el
      * {@link Objetivo}
      */
-    @ManyToMany(mappedBy = "objetivos", fetch = EAGER)
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
-    private List<Pregunta> preguntas;
+    private List<Pregunta> preguntas = new ArrayList<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Objetivo objetivo = (Objetivo) o;
+
+        return Objects.equals(id, objetivo.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1220655506;
+    }
+
+    @Override
+    public String toString() {
+        return codigo;
+    }
 }

@@ -1,18 +1,27 @@
 package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.entidades.PasoProceso;
-import co.edu.utp.gia.sms.negocio.PasoEJB;
-import co.edu.utp.gia.sms.negocio.ProcesoEJB;
+import co.edu.utp.gia.sms.negocio.PasoService;
+import co.edu.utp.gia.sms.negocio.ProcesoService;
+import jakarta.inject.Inject;
 
-import javax.inject.Inject;
 import java.util.Arrays;
-import java.util.List;
 
+/**
+ * Clase encargada de realizar la configuración inicial del proceso del sms en la aplicación
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 public class ProcesoSetup implements SetupInterface{
     @Inject
-    private ProcesoEJB procesoEJB;
+    private ProcesoService procesoService;
     @Inject
-    private PasoEJB pasoEJB;
+    private PasoService pasoService;
 
     @Override
     public void setup() {
@@ -25,11 +34,13 @@ public class ProcesoSetup implements SetupInterface{
                 "etiquetaMenuReferenciasSeleccionar",
                 "etiquetaMenuReferenciasSeleccionadas"
         };
-        List<PasoProceso> pasos = procesoEJB.listar(1);
-        if( pasos.size() == 0 ) {
-            for (String key : keys) {
-                procesoEJB.registrar(pasoEJB.findByName(key).getId(), 1);
-            }
+        var pasos = procesoService.get();
+
+        if(pasos.isEmpty()) {
+            Arrays.stream(keys).map( pasoService::findByName ).map( PasoProceso::new ).forEach( procesoService::save );
+//            for (String key : keys) {
+//                procesoService.save(new PasoProceso()pasoService.findByName(key).getId());
+//            }
         }
     }
 }

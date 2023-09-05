@@ -1,0 +1,108 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="formulario">
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="2">
+					<p:outputLabel value="#{msg.etiquetaTermino}: " />
+					<p:inputText value="#{registroTerminoBean.record.descripcion}" validator="#{registroTerminoBean.validate}" required="true" />
+
+
+					<f:facet name="footer">
+						<p:commandButton value="#{msg.botonAceptar}"
+							action="#{registroTerminoBean.registrar()}"
+							update=":tabla :msgs :formulario" />
+					</f:facet>
+
+				</p:panelGrid>
+
+			</div>
+		</h:form>
+		<h:form id="tabla">
+			<p:dataTable value="#{registroTerminoBean.records}" var="termino"
+				editable="true">
+				<p:ajax event="rowEdit" listener="#{registroTerminoBean.onRowEdit}"
+					update=":msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{registroTerminoBean.onRowCancel}" update=":msgs" />
+				<p:column headerText="#{msg.etiquetaTermino}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{termino.descripcion}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{termino.descripcion}" validator="#{registroTerminoBean.validate}" required="true" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg.etiquetaSinonimo}">
+					<p:commandButton
+							action="#{registroTerminoBean.adicionarSinonimo(termino.id)}"
+							icon="pi pi-plus-circle" styleClass="rounded-button ui-button-flat ui-button-plain">
+						<p:ajax event="dialogReturn"
+								listener="#{registroTerminoBean.onSinonimoCreado}" update=":tabla formulario :msgs" />
+					</p:commandButton>
+
+
+					<ui:repeat value="#{termino.sinonimos}" var="sinonimo">
+						<div class="card">
+						<p:panelGrid columns="2">
+							<p:column>
+								<h:outputText value="#{sinonimo}" />
+							</p:column>
+							<p:column style="width: 70px">
+								<p:commandButton
+										action="#{registroTerminoBean.eliminarSinonimo(termino,sinonimo)}"
+										immediate="true"
+										icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
+
+									<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+											   message="#{msg['dialogoConfirmacion.eliminar']}"
+											   icon="ui-icon ui-icon-alert" />
+								</p:commandButton>
+							</p:column>
+						</p:panelGrid>
+						</div>
+					</ui:repeat>
+
+				</p:column>
+
+				<p:column style="width:35px">
+					<p:rowEditor   />
+					<p:commandButton action="#{registroTerminoBean.eliminar(termino)}" immediate="true"
+									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
+
+						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+							message="#{msg['dialogoConfirmacion.eliminar']}"
+							icon="ui-icon ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+				<p:commandButton value="#{msg.no}" type="button"
+								 styleClass="ui-confirmdialog-no ui-button-flat"  />
+				<p:commandButton value="#{msg.si}" type="button"
+								 styleClass="ui-confirmdialog-yes"  />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

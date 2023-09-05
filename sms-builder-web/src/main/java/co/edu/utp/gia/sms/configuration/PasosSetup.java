@@ -1,17 +1,29 @@
 package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.entidades.Paso;
-import co.edu.utp.gia.sms.negocio.PasoEJB;
-import co.edu.utp.gia.sms.negocio.RecursoEJB;
+import co.edu.utp.gia.sms.negocio.PasoService;
+import co.edu.utp.gia.sms.negocio.RecursoService;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
+import java.util.List;
+
+/**
+ * Clase encargada de realizar la configuración inicial de los pasos del proceso en la aplicación
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 public class PasosSetup implements SetupInterface {
     @Inject
-    private RecursoEJB recursoEJB;
+    private RecursoService recursoService;
 
     @Inject
-    private PasoEJB pasoEJB;
+    private PasoService pasoService;
 
     @Override
     public void setup() {
@@ -34,9 +46,11 @@ public class PasosSetup implements SetupInterface {
                 "etiquetaMenuReferenciasSeleccionadas"
         };
 
+        var seleccionar = List.of("etiquetaMenuReferenciasDuplicadas","etiquetaMenuReferenciasSeleccionar");
+
         for (var i = 0; i < recursos.length; i++) {
-            if( pasoEJB.findByName(keys[i]) == null ) {
-                pasoEJB.registrar(new Paso(keys[i], recursoEJB.buscarRecurso(recursos[i])));
+            if( pasoService.findByName(keys[i]) == null ) {
+                pasoService.save(new Paso(keys[i], recursoService.findByUrl(recursos[i]),seleccionar.contains(keys[i])));
             }
         }
     }

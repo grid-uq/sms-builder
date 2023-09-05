@@ -2,15 +2,18 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
-
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <div class="card">
     <p:sidebar widgetVar="controlPanel" baseZIndex="10000" rendered="#{seguridadBean.autenticado}"
                style="width: 1030px">
         <h3>#{msg.etiquetaPanelControlTitulo}</h3>
-        <p:panelGrid styleClass="ui-panelgrid-blank">
-            <p:row>
-                <p:column style="vertical-align: text-top">
+        <div class="card">
+        <p:panelGrid styleClass="ui-panelgrid-blank" columns="2">
+                <p:outputPanel style="vertical-align: text-top">
+                    <div class="card">
                     <ui:include src="/WEB-INF/templates/revision/resumen.xhtml"/>
                     <br />
                     <p:panel>
@@ -42,44 +45,21 @@
                             </p:menu>
                         </h:form>
                     </p:panel>
-                </p:column>
-                <p:column style="vertical-align: text-top">
+                    </div>
+                </p:outputPanel>
                     <p:panel rendered="#{seguridadBean.autenticado}">
                         <f:facet name="header">
                             <h:outputText value="#{msg.etiquetaMenuTitulo}"/>
                         </f:facet>
                         <h:form id="menu">
-                            <p:menu model="#{procesoBean.model}" toggleable="true"  style="width: 450px">
-                            </p:menu>
+                            <p:panelMenu model="#{procesoBean.model}" style="width: 450px">
+
+                            </p:panelMenu>
                         </h:form>
                     </p:panel>
-                </p:column>
-            </p:row>
         </p:panelGrid>
+        </div>
 
-        <!--
-
-                <style type="text/css">
-                    .loading-icon {
-                        font-size: 3rem;
-                        color: var(- -primary-color);
-                    }
-                </style>
-                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
-
-                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                    <div class="p-text-center">
-                        <i class="pi pi-spinner loading-icon" ></i>
-                    </div>
-                </p:dialog>
-                <div style="position: absolute; right: -50px; top: 400px">
-                    <h:form>
-                        <p:commandButton icon="pi pi-bars" type="button" onclick="if( PF('controlPanel').isVisible() ){PF('controlPanel').hide()}else PF('controlPanel').show()"
-                                         styleClass="rounded-button ui-button-flat ui-button-plain"
-                                         rendered="#{seguridadBean.autenticado}"/>
-                    </h:form>
-                </div>
-                -->
     </p:sidebar>
-
+    </div>
 </ui:composition>

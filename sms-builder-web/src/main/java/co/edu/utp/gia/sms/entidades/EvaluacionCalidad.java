@@ -1,13 +1,17 @@
 package co.edu.utp.gia.sms.entidades;
 
-import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import java.io.Serial;
+import java.util.UUID;
 
 /**
+ * Clase que representa una evaluación de calidad en un SMS.
+ *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
@@ -17,59 +21,40 @@ import javax.persistence.*;
  * @version 1.0
  * @since 23/06/2019
  */
-@Entity
-@EqualsAndHashCode
+@Getter
 @NoArgsConstructor
-public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
-
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class EvaluacionCalidad implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
+    @Serial
     private static final long serialVersionUID = 3246469713521362393L;
 
-    /**
-     * Atributo que permite identificar de forma unica una instancia de la entidad {@link EvaluacionCalidad}
-     */
-    @EmbeddedId
-    @Getter
     @Setter
-    private EvaluacionCalidadPK id;
-
+    private String id = UUID.randomUUID().toString();
     /**
      * Instancia de la referencia que se esta evaluando
      */
-    @ManyToOne
-    @MapsId("referenciaId")
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     private Referencia referencia;
 
     /**
      * Instancia del atribudo de calidad que se esta evaluando
      */
-    @ManyToOne
-    @MapsId("atributoCalidadId")
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     private AtributoCalidad atributoCalidad;
 
     /**
      * Evaluación cualitativa asignada
      */
-    @Enumerated(EnumType.STRING)
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     private EvaluacionCualitativa evaluacionCualitativa;
 
     /**
      * Variable que representa el atributo evaluacionCuantitativa de la clase
      */
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     private Float evaluacionCuantitativa;
 
     /**
@@ -81,7 +66,6 @@ public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
     public EvaluacionCalidad(Referencia referencia, AtributoCalidad atributoCalidad) {
         this.referencia = referencia;
         this.atributoCalidad = atributoCalidad;
-        id = new EvaluacionCalidadPK(referencia.getId(), atributoCalidad.getId());
     }
 
     /**
@@ -99,16 +83,25 @@ public class EvaluacionCalidad implements Entidad<EvaluacionCalidadPK> {
      */
     public void calcularEvaluacionCualitativa() {
         switch (evaluacionCualitativa) {
-            case NO_CUMPLE:
-                setEvaluacionCuantitativa(0.0F);
-                break;
-            case PARCIALMENTE:
-                setEvaluacionCuantitativa(0.5F);
-                break;
-            case CUMPLE:
-                setEvaluacionCuantitativa(1.0F);
-                break;
+            case NO_CUMPLE -> setEvaluacionCuantitativa(0.0F);
+            case PARCIALMENTE -> setEvaluacionCuantitativa(0.5F);
+            case CUMPLE -> setEvaluacionCuantitativa(1.0F);
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EvaluacionCalidad that)) return false;
+
+        if (!referencia.equals(that.referencia)) return false;
+        return atributoCalidad.equals(that.atributoCalidad);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = referencia.hashCode();
+        result = 31 * result + atributoCalidad.hashCode();
+        return result;
+    }
 }

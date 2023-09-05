@@ -1,20 +1,24 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
+/**
+ * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de los terminos usados para clasificar las referencias.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
 public class ReferenciasTerminoBean extends EstaditicaDatoDTOBaseBean {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -7097161925478814637L;
     @Getter
     @Setter
     private String informacion;
@@ -31,9 +35,9 @@ public class ReferenciasTerminoBean extends EstaditicaDatoDTOBaseBean {
 
     public void onChangePregunta() {
         if ( "2".equals(informacion) ) {
-            setDatos(getEstadisticaEJB().obtenerReferenciasSinonimo(getRevision().getId()));
+            setDatos(getEstadisticaService().obtenerReferenciasSinonimo());
         } else {
-            setDatos(getEstadisticaEJB().obtenerReferenciasTermino(getRevision().getId()));
+            setDatos(getEstadisticaService().obtenerReferenciasTermino());
         }
         crearModelo();
     }

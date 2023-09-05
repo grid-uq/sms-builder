@@ -3,20 +3,20 @@ package co.edu.utp.gia.sms.beans.seguridad;
 import co.edu.utp.gia.sms.beans.AbstractBean;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Recurso;
-import co.edu.utp.gia.sms.negocio.RecursoEJB;
+import co.edu.utp.gia.sms.negocio.RecursoService;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.RowEditEvent;
 
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.List;
+import java.util.Collection;
 
 
 /**
- * Clase de negocio encargada la interacción del usuario con las funcionalidades
+ * Clase encargada la interacción del usuario con las funcionalidades
  * de gestion de la entidad {@link Recurso}
  *
  * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
@@ -42,21 +42,21 @@ public class RecursoBean extends AbstractBean {
      */
     @Getter
     @Setter
-    private List<Recurso> recursos;
+    private Collection<Recurso> recursos;
 
     /**
      * Variable que representa el atributo recursoEjb de la clase. Instancia
      * del objeto de negocio que permite la gestion de las {@link Recurso}
      */
     @Inject
-    private RecursoEJB recursoEJB;
+    private RecursoService recursoService;
 
     /**
      * Metodo encargado de inicializar los datos de la clase
      */
     @PostConstruct
     public void inicializar() {
-        recursos = recursoEJB.listar();
+        recursos = recursoService.get();
     }
 
     /**
@@ -64,9 +64,9 @@ public class RecursoBean extends AbstractBean {
      */
     public void registrar() {
         try {
-            recursoEJB.registrar(recurso);
+            recursoService.save(recurso);
             recurso = new Recurso();
-            recursos = recursoEJB.listar();
+            recursos = recursoService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
@@ -80,8 +80,8 @@ public class RecursoBean extends AbstractBean {
      */
     public void eliminar(Recurso recurso) {
         try {
-            recursoEJB.eliminar(recurso);
-            recursos = recursoEJB.listar();
+            recursoService.delete(recurso);
+            recursos = recursoService.get();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
@@ -97,11 +97,11 @@ public class RecursoBean extends AbstractBean {
     public void onRowEdit(RowEditEvent<Recurso> event) {
         Recurso recursoActual = event.getObject();
         try {
-            recursoEJB.actualizar(recursoActual);
+            recursoService.update(recursoActual);
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
-            recursos = recursoEJB.listar();
+            recursos = recursoService.get();
         }
     }
 
@@ -114,6 +114,4 @@ public class RecursoBean extends AbstractBean {
     public void onRowCancel(RowEditEvent event) {
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_CANCELADA));
     }
-
-
 }

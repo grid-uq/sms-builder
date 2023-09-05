@@ -1,13 +1,13 @@
 package co.edu.utp.gia.sms.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Clase que representa la entidad Rol, la cual representa los diferentes roles
@@ -20,63 +20,30 @@ import java.util.List;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
-@NamedQuery(name = Rol.FIND_BY_ID, query = "select rol from Rol rol where rol.id = :id")
-@NamedQuery(name = Rol.GET_ALL, query = "select rol from Rol rol")
-@NamedQuery(name = Rol.FIND_BY_USUARIO, query = "select rol from Usuario usuario inner join usuario.roles rol where usuario = :usuario")
-
-@EqualsAndHashCode
+@Getter
 @NoArgsConstructor
-public class Rol implements Entidad<Integer> {
-
-    /**
-     * Constante que identifica la consulta que permite buscar un
-     * {@link Rol} por su id <br />
-     * {@code select rol from Rol rol where rol.id = :id}
-     */
-    public static final String FIND_BY_ID = "Rol_findById";
-    /**
-     * Constante que identifica la consulta que permite obtener todos los
-     * {@link Recurso} registrados en el sistema <br />
-     * {@code select rol from Rol rol}
-     */
-    public static final String GET_ALL = "Rol_getAll";
-    /**
-     * Constante que identifica la consulta que permite obtener todos los
-     * {@link Rol} asociados a un {@link Usuario} <br />
-     * {@code select rol from Usuario usuario inner join usuario.roles rol where usuario = :usuario}
-     */
-    public static final String FIND_BY_USUARIO = "Rol_findByUsuario";
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 1L;
+@RequiredArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class Rol implements Entidad<String> {
     /**
      * Variable que representa el atributo id de la clase. Permite identificar
      * de forma única un Rol
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     @Setter
-    private Integer id;
+    @NonNull
+    private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo nombre de la clase. Nombre del Rol
      */
-    @Column(nullable = false, length = 20, unique = true)
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
+    @NonNull
     private String nombre;
     /**
      * Variable que representa el atributo recursos de la clase. Lista de
      * {@link Recurso} a la cual tiene acceso el {@link Rol}
      */
-    @ManyToMany
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
-    private List<Recurso> recursos;
+    private List<Recurso> recursos = new ArrayList<>();
 
     /**
      * Permite inicializar los elementos del Rol
@@ -84,10 +51,23 @@ public class Rol implements Entidad<Integer> {
      * @param id     Id del Rol
      * @param nombre Nombre del Rol
      */
-    public Rol(Integer id, String nombre) {
+    public Rol(String id, String nombre) {
         this.id = id;
         this.nombre = nombre;
         recursos = new ArrayList<>();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rol rol = (Rol) o;
+
+        return Objects.equals(id, rol.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 707023552;
+    }
 }

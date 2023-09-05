@@ -1,15 +1,14 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-import javax.persistence.*;
-
-import static javax.persistence.EnumType.STRING;
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.GenerationType.IDENTITY;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
- * Representa un element del formato RIS
+ * Representa un metadato perteneciente a una referencia.
  *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
@@ -20,55 +19,34 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 5/06/2019
  */
-
-@Entity
-@Table(indexes = {@Index(name = "identifierIndex",  columnList="identifier", unique = false),
-                @Index(name = "referenciaIndex", columnList="referencia_id,identifier",     unique = false)})
-@EqualsAndHashCode
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Metadato implements Entidad<Integer> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 4287992191212757639L;
-
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class Metadato implements Entidad<String> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Getter
     @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
 
 
     /**
      * Variable que representa el identificador del elemento
      */
-    @Enumerated(STRING)
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private TipoMetadato identifier;
 
     /**
      * Variable que representa el valor asiciado al elemento
      */
-    @Lob
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private String value;
 
-    @ManyToOne(fetch = EAGER)
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     private Referencia referencia;
-
 
     /**
      * Metodo que permite inicializar los elementos de la clase Metadato
@@ -81,5 +59,19 @@ public class Metadato implements Entidad<Integer> {
         this.identifier = identifier;
         this.value = value;
         this.referencia = referencia;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Metadato metadato = (Metadato) o;
+
+        return Objects.equals(id, metadato.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1915190472;
     }
 }

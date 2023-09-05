@@ -1,19 +1,19 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.beans.util.MessageConstants;
+import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
+import lombok.Getter;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.faces.annotation.SessionMap;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import javax.annotation.PostConstruct;
-import javax.faces.annotation.*;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-
-import co.edu.utp.gia.sms.beans.util.MessageConstants;
-import co.edu.utp.gia.sms.entidades.Revision;
-import lombok.Getter;
 
 /**
  * Clase que define los elementos basicos de los Bean a ser usados en el
@@ -32,11 +32,6 @@ import lombok.Getter;
  *
  */
 public abstract class AbstractBean implements Serializable {
-
-	/**
-	 * Variable que representa el atributo serialVersionUID de la clase
-	 */
-	private static final long serialVersionUID = -8685025655659669181L;
 	@Inject
 	private FacesContext facesContext;
 	@Inject
@@ -44,14 +39,21 @@ public abstract class AbstractBean implements Serializable {
 	@Getter
 	private Map<String, Object> sessionMap;
 
+	@Inject
+	protected ExceptionMessage exceptionMessage;
 
 	@Inject
 	@ManagedProperty("#{msg}")
 	private ResourceBundle bundle;
 
+	protected void preInicializar(){}
+	protected void postInicializar(){}
+
 	@PostConstruct
 	public void init() {
+		preInicializar();
 		inicializar();
+		postInicializar();
 	}
 
 	public abstract void inicializar();
@@ -84,6 +86,7 @@ public abstract class AbstractBean implements Serializable {
 		FacesMessage facesMessage = new FacesMessage(severidad, mensaje, mensaje);
 		getFacesContext().addMessage(idComponente, facesMessage);
 	}
+
 
 	private String getSeverityText(Severity severidad) {
 		String key;

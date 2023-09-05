@@ -1,12 +1,11 @@
 package co.edu.utp.gia.sms.exceptions;
 
-import javax.faces.context.ExceptionHandler;
-import javax.faces.context.ExceptionHandlerFactory;
+import jakarta.faces.context.ExceptionHandler;
+import jakarta.faces.context.ExceptionHandlerFactory;
 
 /**
  * Factory usado para la creación del Handler encargado del manejo de las
  * excepciones generadas por el sistema.
- * 
  * 
  */
 public class CustomExceptionHandlerFactory extends ExceptionHandlerFactory {

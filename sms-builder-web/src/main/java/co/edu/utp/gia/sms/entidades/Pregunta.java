@@ -1,56 +1,45 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
- * @author Christian A. Candela
- * @author Luis Eduardo Sepúlveda
+ * Clase que representa la entidad Pregunta, la cual permite modelar en el
+ * sistema las preguntas del SMS
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
  * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
  * @author Universidad del Quindío
- * @author Grupo de Investigacion en Inteligencia Artificial - GIA
- * @author Universidad Tecnológica de Pereira
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
-@EqualsAndHashCode
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Pregunta implements Entidad<Integer> {
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class Pregunta implements Entidad<String> {
     /**
-     * Variable que representa el atributo serialVersionUID de la clase
+     * Identificador único de la pregunta
      */
-    private static final long serialVersionUID = -176556849502833317L;
-
-    /**
-     * Variable que representa el atributo id de la clase
-     */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Getter
     @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo codigo de la clase
      */
-    @Column(length = 3, nullable = false)
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private String codigo;
     /**
      * Variable que representa el atributo texto de la clase
      */
-    @Column(nullable = false)
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private String descripcion;
 
@@ -58,20 +47,14 @@ public class Pregunta implements Entidad<Integer> {
     /**
      * Variable que representa los topico de una pregunta
      */
-    @OneToMany(mappedBy = "pregunta")
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
-    private List<Topico> topicos;
+    private List<Topico> topicos = new ArrayList<>();
 
     /**
-     * Variable que representa los objetivos con los que se relaciona una pregunta
+     * Variable que representa los objetivo con los que se relaciona una pregunta
      */
-    @ManyToMany
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
-    private List<Objetivo> objetivos;
+    private List<Objetivo> objetivos = new ArrayList<>();
 
 
     /**
@@ -84,6 +67,20 @@ public class Pregunta implements Entidad<Integer> {
     public Pregunta(String codigo, String descripcion, List<Objetivo> objetivos) {
         this(codigo, descripcion);
         this.objetivos = objetivos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pregunta pregunta = (Pregunta) o;
+
+        return Objects.equals(getId(), pregunta.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return 119604760;
     }
 
 }

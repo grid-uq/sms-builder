@@ -1,28 +1,8 @@
 package co.edu.utp.gia.sms.importutil;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.URLEncoder;
-
-import org.apache.poi.util.IOUtils;
-import org.primefaces.shaded.json.JSONArray;
-import org.primefaces.shaded.json.JSONObject;
-
-import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpEncoding;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.GenericJson;
-import com.google.api.client.json.JsonObjectParser;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.StreamingContent;
-
 import co.edu.utp.gia.sms.entidades.Referencia;
+
+import java.io.IOException;
 
 /**
  * Clas utilitaria que permite obtener el número de citas de un determinado
@@ -40,21 +20,11 @@ import co.edu.utp.gia.sms.entidades.Referencia;
  * @since 7 jul. 2020
  *
  */
-public class FindReferenceCitation {
-
+public enum FindReferenceCitation {
 	/**
 	 * Variable que representa el atributo instans de la clase
 	 */
-	private static final FindReferenceCitation instans = new FindReferenceCitation();
-
-	/**
-	 * Metodo que permite obtener el valor del atributo instans
-	 * 
-	 * @return El valor del atributo instans
-	 */
-	public static FindReferenceCitation getInstans() {
-		return instans;
-	}
+	INSTANCE;
 
 	/**
 	 * Metodo que permite obtener la traduccion del resumen de una
@@ -73,11 +43,10 @@ public class FindReferenceCitation {
 	 * Metodo que permite obtener la traduccion del resumen de una
 	 * {@link Referencia}
 	 * 
-	 * @param referencia
-	 * @return
-	 * @throws IOException
+	 * @param texto texto a traducir
+	 * @return El texto
 	 */
-	public String findTranslate(String texto) throws IOException {
+	public String findTranslate(String texto){
 		return texto;
 	}
 

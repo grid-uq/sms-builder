@@ -1,10 +1,11 @@
 package co.edu.utp.gia.sms.importutil;
 
+import co.edu.utp.gia.sms.entidades.Fuente;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.TipoMetadato;
 
 /**
- * Define de forma general un Parser que traduce convierte un texto a Referencia
+ * Define de forma general un Parser que convierte un texto a Referencia
  * 
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
@@ -15,8 +16,9 @@ import co.edu.utp.gia.sms.entidades.TipoMetadato;
  * @version 1.0
  * @since 20/06/2019
  *
+ * @param <T> Tipo de elemento a procesar para crear la referencia
  */
-public abstract class ReferenceParser {
+public abstract class ReferenceParser<T> {
 	/**
 	 * Variable que representa el atributo fuente de la clase
 	 */
@@ -25,36 +27,35 @@ public abstract class ReferenceParser {
 	/**
 	 * Metodo que permite inicializar los elementos de la clase ReferenceParser
 	 * 
-	 * @param fuente
+	 * @param fuente Fuente de la que providene la referencia
 	 */
 	public ReferenceParser(Fuente fuente) {
 		this.fuente = fuente;
 	}
 
 	/**
-	 * @param texto
-	 * @return
+	 * Permite crear una referencia a partir del source dado
+	 * @param source Elemento base para obtener los datos de la referencia
+	 * @return La {@link Referencia} creada
 	 */
-	public final Referencia parse(String texto) {
-		
-		if ("".equals(texto.trim())) {
+	public final Referencia parse(T source) {
+		if(source == null){
 			return null;
 		}
-		
-		Referencia referencia = new Referencia();
-		
-//		if ( fuente.equals(Fuente.MANUAL) || fuente.equals(Fuente.SNOWBALL_BACKWARD ) || fuente.equals(Fuente.SNOWBALL_FORWARD ) )  {
-//			referencia.setFiltro(3);
-//		}
-		
-		referencia.addElement(TipoMetadato.FUENTE, fuente.toString());
-		procesarTexto(referencia, texto);
+
+		Referencia referencia = procesar(source);
+		if( referencia != null ){
+			referencia.addElement(TipoMetadato.FUENTE, fuente.getNombre());
+			referencia.addElement(TipoMetadato.TIPO_FUENTE, fuente.getTipo().toString());
+			referencia.setFuente(fuente);
+		}
 		return referencia;
 	}
 
+
 	/**
-	 * @param referencia
-	 * @param texto
+	 * Permite procesar el source para completar los datos de una referencia
+	 * @param source Elemento base para obtener los datos de la referencia
 	 */
-	protected abstract void procesarTexto(Referencia referencia, String texto);
+	protected abstract Referencia procesar(T source);
 }

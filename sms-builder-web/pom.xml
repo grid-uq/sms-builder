@@ -2,134 +2,368 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>co.edu.utp.gia.sms</groupId>
-		<artifactId>sms-builder</artifactId>
-		<version>3.0</version>
-	</parent>
+	<groupId>co.edu.utp.gia.sms</groupId>
 	<artifactId>sms-builder-web</artifactId>
 	<packaging>war</packaging>
 	<name>SMS-Builder Web</name>
+	<version>4.0</version>
 	<properties>
 		<omnifaces.version>1.14.1</omnifaces.version>
-		<junit.jupiter.version>5.5.2</junit.jupiter.version>
-		<junit.platform.version>1.5.2</junit.platform.version>
-		<primefaces.version>10.0.0</primefaces.version>
-		<jee.version>8.0.1</jee.version>
-		<!-- <jsf-impl.version>2.2.20</jsf-impl.version>  -->
+		<junit.jupiter.version>5.9.1</junit.jupiter.version>
+		<primefaces.version>13.0.0</primefaces.version>
+
 		<jsf-impl.version>2.3.9.SP08</jsf-impl.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<payaraVersion>5.2021.8</payaraVersion>
+		<payaraVersion>6.2023.8</payaraVersion>
+		<microprofileVersion>6.0</microprofileVersion>
+		<maven.forceversion>3.6.3</maven.forceversion>
+		<maven.compiler.target>17</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
 	</properties>
+	<prerequisites>
+		<maven>${maven.forceversion}</maven>
+	</prerequisites>
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.4.0</version>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>${maven.forceversion}</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Establecer la version de WAR -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.4.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.28</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.1.2</version>
+				<configuration>
+					<argLine>
+						--illegal-access=permit
+					</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>3.1.2</version>
+				<configuration>
+					<argLine>
+						--illegal-access=permit
+					</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>fish.payara.maven.plugins</groupId>
 				<artifactId>payara-micro-maven-plugin</artifactId>
-				<version>1.4.0</version>
+				<version>2.0</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
-						<id>bundle</id>
 						<goals>
 							<goal>bundle</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>start</id>
-						<goals>
-							<goal>start</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
 					<payaraVersion>${payaraVersion}</payaraVersion>
-					<useUberJar>true</useUberJar>
+					<javaCommandLineOptions>
+						<option><key>--add-opens</key><value>java.base/java.io=ALL-UNNAMED</value></option>
+						<option><key>--add-exports</key><value>java.base/jdk.internal.misc=ALL-UNNAMED</value></option>
+					</javaCommandLineOptions>
+					<commandLineOptions>
+						<option><value>--nocluster</value></option>
+						<option>
+							<key>--deploy</key>
+							<value>${project.build.directory}/${project.build.finalName}</value>
+						</option>
+					</commandLineOptions>
 				</configuration>
+			</plugin>
 
+			<!-- JAVADOC -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<doclet>co.edu.utp.javadoc.utpdoclet.UTPDoclet</doclet>
+					<!-- <doclet>co.edu.utp.javadoc.utpdoclet.UTPDoclet</doclet>UTPDocletModel -->
+					<!-- <docletPath>/usr/share/dbdoclet/jars/dbdoclet_8.0.0.jar</docletPath> -->
+					<docletArtifact>
+						<groupId>co.edu.utp.javadoc</groupId>
+						<artifactId>utpdoclet</artifactId>
+						<version>1.0</version>
+					</docletArtifact>
+					<useStandardDocletOptions>false</useStandardDocletOptions>
+<!--					<additionalOptions>-->
+<!--						<additionalOption>&#45;&#45;authors</additionalOption>-->
+<!--						<additionalOption>"Christian A. Candela"</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;authors</additionalOption>-->
+<!--						<additionalOption>"Luis Eduardo Sepúlveda"</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;title</additionalOption>-->
+<!--						<additionalOption>${project.name}</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;subtitle "Herramienta de apoyo para la construccción de SMS"</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;company "Universidad del Quindío"</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;company "Universidad Tecnológica de Pereira"</additionalOption>-->
+<!--						<additionalOption>&#45;&#45;copyright</additionalOption>-->
+<!--						<additionalOption>${project.build.resources[0].directory}/latex/copyright.tex-->
+<!--						</additionalOption>-->
+<!--					</additionalOptions>-->
+					<encoding>UTF-8</encoding>
+					<!-- <additionalOptions> <additionalOption>-title</additionalOption>
+                        <additionalOption>DocBook Maven Test</additionalOption> <additionalOption>-f</additionalOption>
+                        <additionalOption>${project.artifactId}</additionalOption> <additionalOption>-destination-directory</additionalOption>
+                        <additionalOption>${project.build.directory}/apidocs</additionalOption> </additionalOptions>
+                        <doctitle>DocBook Maven Test</doctitle> <subpackages>co.edu.utp.gia.convexhull.algoritmos</subpackages>
+                        <doclet.locale>es</doclet.locale> <dbdoclet.media>pdf</dbdoclet.media> <author>Christian
+                        A. Candela</author> <f>prueba</f> <finalName>prueba</finalName> <destination-file>prueba</destination-file>
+                        <show>private</show> <nohelp>true</nohelp> <failOnError>false</failOnError>
+                        <detail>true</detail> -->
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
+
 	<dependencies>
-
-		<!-- persistence <dependency> <groupId>org.eclipse.persistence</groupId> 
-			<artifactId>javax.persistence</artifactId> <version>2.2.1</version> </dependency> -->
-<dependency>
-  <groupId>com.google.http-client</groupId>
-  <artifactId>google-http-client</artifactId>
-  <version>1.35.0</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/com.google.http-client/google-http-client-jackson2 -->
-<dependency>
-    <groupId>com.google.http-client</groupId>
-    <artifactId>google-http-client-jackson2</artifactId>
-    <version>1.36.0</version>
-</dependency>
-
-<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
-<dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-math3</artifactId>
-    <version>3.6.1</version>
-</dependency>
-
-
-		<!-- web -->
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-web-api</artifactId>
-			<version>${jee.version}</version>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>10.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>javax.faces-api</artifactId>
-			<version>2.3</version>
+			<groupId>org.eclipse.microprofile</groupId>
+			<artifactId>microprofile</artifactId>
+			<version>${microprofileVersion}</version>
+			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
-			<version>${jsf-impl.version}</version>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/jakarta.platform/jakarta.jakartaee-web-api -->
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-web-api</artifactId>
+			<version>10.0.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/jakarta.faces/jakarta.faces-api -->
+		<dependency>
+			<groupId>jakarta.faces</groupId>
+			<artifactId>jakarta.faces-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+<!--  ESTAS NO SE SI SE REQUIEREN CON PRIME FACES 13-->
+<!--<dependency>-->
+<!--  <groupId>com.google.http-client</groupId>-->
+<!--  <artifactId>google-http-client</artifactId>-->
+<!--  <version>1.35.0</version>-->
+<!--</dependency>-->
+<!--<dependency>-->
+<!--    <groupId>com.google.http-client</groupId>-->
+<!--    <artifactId>google-http-client-jackson2</artifactId>-->
+<!--    <version>1.36.0</version>-->
+<!--</dependency>-->
+<!--<dependency>-->
+<!--    <groupId>org.apache.commons</groupId>-->
+<!--    <artifactId>commons-math3</artifactId>-->
+<!--    <version>3.6.1</version>-->
+<!--</dependency>-->
+
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.22</version>
+			<version>1.18.28</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.aeonbits.owner</groupId>
+			<artifactId>owner</artifactId>
+			<version>1.0.12</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>${primefaces.version}</version>
+			<classifier>jakarta</classifier>
 		</dependency>
-		<!-- <dependency> <groupId>org.primefaces.extensions</groupId> <artifactId>primefaces-extensions</artifactId> 
-			<version>7.0.1</version> </dependency> <dependency> <groupId>org.omnifaces</groupId> 
-			<artifactId>omnifaces</artifactId> <version>${omnifaces.version}</version> 
-			<scope>compile</scope> </dependency> -->
-		<!-- https://mvnrepository.com/artifact/org.primefaces.themes/all-themes -
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>all-themes</artifactId>
-			<version>1.0.10</version>
-		</dependency> -->
+		<!-- https://primefaces.github.io/primefaces/13_0_0/#/gettingstarted/dependencies -->
 
 		<!-- Data Exporter -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.17</version>
+			<version>5.2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.17</version>
+			<version>5.2.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.github.virtuald</groupId>
+					<artifactId>curvesapi</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.xmlgraphics</groupId>
+					<artifactId>batik-all</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.santuario</groupId>
+					<artifactId>xmlsec</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>de.rototor.pdfbox</groupId>
+					<artifactId>graphics2d</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.bouncycastle</groupId>
+					<artifactId>bcpkix-jdk15on</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.bouncycastle</groupId>
+					<artifactId>bcprov-jdk15on</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.librepdf/openpdf -->
+		<dependency>
+			<groupId>com.github.librepdf</groupId>
+			<artifactId>openpdf</artifactId>
+			<version>1.3.30</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.5</version>
+		</dependency>
+
+		<!-- FeedReader -->
+		<dependency>
+			<groupId>com.rometools</groupId>
+			<artifactId>rome</artifactId>
+			<version>1.19.0</version>
+		</dependency>
+
+		<!-- File Upload -->
+		<dependency>
+			<groupId>org.overviewproject</groupId>
+			<artifactId>mime-types</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+
+
+		<!-- GraphicImage -->
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+
+		<!-- Barcode -->
+		<dependency>
+			<groupId>io.nayuki</groupId>
+			<artifactId>qrcodegen</artifactId>
+			<version>1.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>barcode4j-light</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
+		<!-- Cache -->
+		<dependency>
+			<groupId>org.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>3.9.9</version>
+		</dependency>
+
+		<!-- HTML sanitizer for the textEditor -->
+		<dependency>
+			<groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+			<artifactId>owasp-java-html-sanitizer</artifactId>
+			<version>20220608.1</version>
+		</dependency>
+
+		<!-- JSON-parsing used by PrimeIconsView -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20230618</version>
+		</dependency>
+
+		<!-- add dependencies which get shaded by PrimeFaces so IDE´s like IntelliJ can run und debug multimoduled showcase on eg Tomcat -->
+		<dependency>
+			<groupId>org.owasp.encoder</groupId>
+			<artifactId>encoder</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+
+		<!-- JAXB required for JDK9+ -->
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.3.6</version>
+		</dependency>
+
+
+
+		<!--  ya esta en la versión 4.2.2 -->
 		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
@@ -156,35 +390,59 @@
 			<version>${junit.jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-runner</artifactId>
-			<version>${junit.platform.version}</version>
-			<scope>test</scope>
-		</dependency>
 
 		<!-- 5.1.48 5.1.49 6.0.2 6.0.6 8.0.20 8.0.22-->
+		<!-- https://mvnrepository.com/artifact/one.microstream/microstream-storage-embedded -->
 		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
-		    <version>8.0.22</version>
+			<groupId>one.microstream</groupId>
+			<artifactId>microstream-storage-embedded</artifactId>
+			<version>08.01.01-MS-GA</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/one.microstream/microstream-storage-embedded-configuration -->
+		<dependency>
+			<groupId>one.microstream</groupId>
+			<artifactId>microstream-storage-embedded-configuration</artifactId>
+			<version>08.01.01-MS-GA</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/one.microstream/microstream-persistence-binary-jdk17 -->
+		<dependency>
+			<groupId>one.microstream</groupId>
+			<artifactId>microstream-persistence-binary-jdk17</artifactId>
+			<version>08.01.01-MS-GA</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.4</version>
+		</dependency>
 
+		<!-- Para importar los archivos bibtext -->
+		<dependency>
+			<groupId>org.jbibtex</groupId>
+			<artifactId>jbibtex</artifactId>
+			<version>1.0.19</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.15.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.15.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.15.2</version>
+		</dependency>
 	</dependencies>
 
-	<repositories>
-		<repository>
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-		</repository>
-		<repository>
-			<id>jboss-public</id>
-			<name>JBoss Public Repository</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/public/</url>
-		</repository>
-		
-		
-	</repositories>
 </project>

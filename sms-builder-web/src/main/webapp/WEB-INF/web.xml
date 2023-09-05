@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-	version="4.0">
+<web-app
+		xmlns = "https://jakarta.ee/xml/ns/jakartaee"
+		xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation = "https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+		version = "6.0"
+		metadata-complete = "false"
+>
 
 	<welcome-file-list>
-		<welcome-file>revision/seleccionarRevision.xhtml</welcome-file>
+		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
 	<context-param>
 		<param-name>primefaces.FONT_AWESOME</param-name>
@@ -17,30 +20,30 @@
 	</context-param>
 
 	<context-param>
-		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+		<param-name>jakarta.faces.FACELETS_REFRESH_PERIOD</param-name>
 		<param-value>0</param-value>
 	</context-param>
 	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-name>jakarta.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
 	<context-param>
-		<param-name>javax.faces.validator.ENABLE_VALIDATE_WHOLE_BEAN</param-name>
+		<param-name>jakarta.faces.validator.ENABLE_VALIDATE_WHOLE_BEAN</param-name>
 		<param-value>true</param-value>
 	</context-param>
 	<context-param>
-		<param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
+		<param-name>jakarta.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
 		<param-value>true</param-value>
 	</context-param>
 	<!-- <context-param> <param-name>javax.faces.DISABLE_FACESSERVLET_TO_XHTML</param-name> 
 		<param-value>true</param-name> </context-param> -->
 	<context-param>
-		<param-name>javax.faces.ENABLE_CDI_RESOLVER_CHAIN</param-name>
+		<param-name>jakarta.faces.ENABLE_CDI_RESOLVER_CHAIN</param-name>
 		<param-value>true</param-value>
 	</context-param>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>

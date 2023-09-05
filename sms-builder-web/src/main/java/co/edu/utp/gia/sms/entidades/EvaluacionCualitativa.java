@@ -16,15 +16,11 @@ public enum EvaluacionCualitativa {
         ApplicationGeneralProducer instancia = new ApplicationGeneralProducer();
         Locale locale = instancia.getDefaultLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("mensajes",locale);
-        switch (this){
-            case NO_CUMPLE:
-                return bundle.getString("etiquetaNoCumple");
-            case PARCIALMENTE:
-                return bundle.getString("etiquetaParcialmente");
-            case CUMPLE:
-            default:
-                return bundle.getString("etiquetaCumple");
-        }
+        return switch (this) {
+            case NO_CUMPLE -> bundle.getString("etiquetaNoCumple");
+            case PARCIALMENTE -> bundle.getString("etiquetaParcialmente");
+            default -> bundle.getString("etiquetaCumple");
+        };
 
     }
 }

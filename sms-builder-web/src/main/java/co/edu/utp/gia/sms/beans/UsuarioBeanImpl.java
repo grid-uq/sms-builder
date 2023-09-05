@@ -2,13 +2,14 @@ package co.edu.utp.gia.sms.beans;
 
 
 import co.edu.utp.gia.sms.beans.seguridad.UsuarioBean;
+import co.edu.utp.gia.sms.configuration.RolConstants;
 import co.edu.utp.gia.sms.entidades.Usuario;
+import co.edu.utp.gia.sms.negocio.RolService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 
 /**
  * Implementación de {@link UsuarioBean} usado para la gestion de usuarios del
@@ -24,8 +25,9 @@ import javax.inject.Named;
 @Named("usuarioBean")
 @ViewScoped
 public class UsuarioBeanImpl extends UsuarioBean {
-    @Getter
-    @Setter
+    @Inject
+    private RolService rolService;
+    @Getter @Setter
     private Usuario usuario;
 
     /*
@@ -39,4 +41,9 @@ public class UsuarioBeanImpl extends UsuarioBean {
         return new Usuario();
     }
 
+    @Override
+    public String registrar() {
+        usuario.setRoles( rolService.findByName(RolConstants.USER) );
+        return super.registrar();
+    }
 }

@@ -1,32 +1,39 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.TerminoEJB;
-import co.edu.utp.gia.sms.negocio.TopicoEJB;
+import co.edu.utp.gia.sms.negocio.TerminoService;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+/**
+ * Clase controladora de interfaz web que se encarga de la gestión de sinónimos.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
 public class RegistroSinonimoBean extends GenericBean<Topico> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 5103003688870607449L;
     @Getter
     @Setter
     private String descripcion;
     @Getter
     @Setter
-    private Integer id;
+    private String id;
     @Inject
-    private TerminoEJB terminoEJB;
+    private TerminoService terminoService;
 
 
     /**
@@ -34,9 +41,9 @@ public class RegistroSinonimoBean extends GenericBean<Topico> {
      */
     public void registrar() {
         String sinonimo = null;
-        id = (Integer) getAndRemoveFromSession("idTermino");
+        id = (String) getAndRemoveFromSession("idTermino");
         if (id != null) {
-            terminoEJB.adicionarSinonimo(id, descripcion);
+            terminoService.addSinonimo(id, descripcion);
         }
         PrimeFaces.current().dialog().closeDynamic(sinonimo);
     }
@@ -47,4 +54,11 @@ public class RegistroSinonimoBean extends GenericBean<Topico> {
         // No se requiere inicializar ningún dato
     }
 
+    public void validate(FacesContext facesContext, UIComponent component, java.lang.Object object){
+        var termino =  terminoService.findOrThrow((String) getFromSession("idTermino"));
+        if ( termino.getSinonimos().contains(object.toString()) ) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error "+exceptionMessage.getRegistroExistente(), "Error "+exceptionMessage.getRegistroExistente());
+            throw new ValidatorException(msg);
+        }
+    }
 }

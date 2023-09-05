@@ -2,27 +2,33 @@ package co.edu.utp.gia.sms.util;
 
 import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessageFactory;
+import lombok.Getter;
 import lombok.extern.java.Log;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 import java.util.Locale;
-
+/**
+ * Clase utilitaria encargada de producir recursos para inyección usados por otras clases.
+ */
 @ApplicationScoped
 @Log
 public class ApplicationGeneralProducer {
+    @Getter
+    private static final ApplicationGeneralProducer instance = new ApplicationGeneralProducer();
+
     @Produces
     @Named("defaultLocale")
     public Locale getDefaultLocale(){
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-//        if( facesContext!= null && facesContext.getApplication() != null )
-//        log.info("LOCALE facesContext.getApplication().getDefaultLocale()"+facesContext.getApplication().getDefaultLocale());
-//        if( facesContext!= null && facesContext.getViewRoot() != null )
-//        log.info("LOCALE facesContext.getViewRoot().getLocale()"+facesContext.getViewRoot().getLocale());
-        return facesContext != null ? facesContext.getViewRoot().getLocale() : Locale.ROOT;
-//        return facesContext != null ? facesContext.getApplication().getDefaultLocale() : Locale.ROOT;
+        try {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            return facesContext != null ? facesContext.getViewRoot().getLocale() : Locale.ROOT;
+
+        }catch (Throwable e){
+            return Locale.ROOT;
+        }
     }
 
     @Produces

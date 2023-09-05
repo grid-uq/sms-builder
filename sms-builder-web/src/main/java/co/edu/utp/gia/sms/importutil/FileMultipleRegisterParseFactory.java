@@ -1,27 +1,28 @@
 package co.edu.utp.gia.sms.importutil;
 
-import co.edu.utp.gia.sms.importutil.acm.ACMFileMultipleRegisterParse;
-import co.edu.utp.gia.sms.importutil.ieee.IEEEFileMultipleRegisterParse;
-import co.edu.utp.gia.sms.importutil.mendeleyris.MendeleyRisFileMultipleRegisterParse;
-import co.edu.utp.gia.sms.importutil.scopus.ScopusFileMultipleRegisterParse;
-import co.edu.utp.gia.sms.importutil.sd.SDFileMultipleRegisterParse;
-import co.edu.utp.gia.sms.importutil.springer.SpringerFileMultipleRegisterParse;
-import co.edu.utp.gia.sms.importutil.wos.WOSFileMultipleRegisterParse;
+import co.edu.utp.gia.sms.entidades.Fuente;
+import co.edu.utp.gia.sms.importutil.bibtex.BibtexFileMultipleRegisterParse;
+import co.edu.utp.gia.sms.importutil.ris.RisFileMultipleRegisterParse;
+/**
+ * Clase utilitaria encargada de construir las instancias de los procesadores de archivos de referencias.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
 
 public class FileMultipleRegisterParseFactory {
 	private FileMultipleRegisterParseFactory() {
 	}
-	
-	public static final FileMultipleRegisterParse getInstance(Fuente fuente) {
-		switch (fuente) {
-		case INCLUSION_DIRECTA:
-			return new MendeleyRisFileMultipleRegisterParse(Fuente.INCLUSION_DIRECTA);
-		case SNOWBALL_BACKWARD:
-			return new MendeleyRisFileMultipleRegisterParse(Fuente.SNOWBALL_BACKWARD);
-		case SNOWBALL_FORWARD:
-			return new MendeleyRisFileMultipleRegisterParse(Fuente.SNOWBALL_FORWARD);
-		default:
-			return new MendeleyRisFileMultipleRegisterParse(fuente);
-		}
+
+	public static ReferenceParse getInstance(TipoArchivo tipoArchivo, Fuente fuente) {
+        return switch (tipoArchivo) {
+            case RIS -> new RisFileMultipleRegisterParse(fuente);
+            default -> new BibtexFileMultipleRegisterParse(fuente);
+        };
 	}
+
 }

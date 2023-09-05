@@ -6,16 +6,20 @@ import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
-import co.edu.utp.gia.sms.negocio.RecursoEJB;
-import co.edu.utp.gia.sms.negocio.UsuarioEJB;
+import co.edu.utp.gia.sms.negocio.RecursoService;
+import co.edu.utp.gia.sms.negocio.UsuarioService;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.annotation.PostConstruct;
-import javax.faces.component.FacesComponent;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import lombok.extern.java.Log;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 
 /**
@@ -29,11 +33,8 @@ import java.util.List;
  * @version 1.0
  * @since 2015-12-02
  */
+@Log
 public abstract class SeguridadBean extends AbstractBean {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 1L;
 //	/**
 //	 * Variable que representa el {@link Usuario} que esta autenticado
 //	 */
@@ -67,18 +68,18 @@ public abstract class SeguridadBean extends AbstractBean {
     @Setter
     private List<String> urlRecursos;
     /**
-     * Instancia del objeto de negocio {@link UsuarioEJB} usadao para la gestion
+     * Instancia del objeto de negocio {@link UsuarioService} usadao para la gestion
      * del {@link Usuario}
      */
     @Inject
-    private UsuarioEJB usuarioEJB;
+    private UsuarioService usuarioService;
 
     /**
-     * Instancia del objeto de negocio {@link RecursoEJB} usadao para la gestion
+     * Instancia del objeto de negocio {@link RecursoService} usadao para la gestion
      * del {@link Recurso}
      */
     @Inject
-    private RecursoEJB recursoEJB;
+    private RecursoService recursoService;
 
     /**
      * Instancia que perite obtener los mensajes de las excepciones generadas.
@@ -100,7 +101,7 @@ public abstract class SeguridadBean extends AbstractBean {
      */
     public void ingresar() {
         try {
-            setUsuario(usuarioEJB.autenticarUsuario(nombreUsuario, clave));
+            setUsuario(usuarioService.login(nombreUsuario, clave));
             if (getUsuario() == null) {
                 throw new LogicException(exceptionMessage.getLoginFailMessage());
             }
@@ -110,6 +111,7 @@ public abstract class SeguridadBean extends AbstractBean {
             getFacesContext().getExternalContext().redirect(getFacesContext().getExternalContext().getApplicationContextPath() + "/index.xhtml");
             getFacesContext().responseComplete();
         } catch (Throwable t) {
+            log.log(Level.WARNING,"Problemas al autenticar",t);
             mostrarErrorGeneral(String.format("ERROR: %s", t.getMessage()));
         }
 
@@ -120,7 +122,7 @@ public abstract class SeguridadBean extends AbstractBean {
      * acceso
      */
     private void cargarRecursos() {
-        urlRecursos = recursoEJB.buscarRecursosPublicos();
+        urlRecursos = new ArrayList<>(recursoService.buscarRecursosPublicos());
         if (getUsuario() != null) {
             for (Rol rol : getUsuario().getRoles()) {
                 for (Recurso recurso : rol.getRecursos()) {
@@ -150,7 +152,7 @@ public abstract class SeguridadBean extends AbstractBean {
      * @return True si el recurso es publico, en caso contrario retorna false
      */
     public boolean verificarRecursoPublico(String path) {
-        Recurso recurso = recursoEJB.buscarRecurso(path);
+        Recurso recurso = recursoService.findByUrl(path);
         return recurso != null && recurso.isPublico();
     }
 

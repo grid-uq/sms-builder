@@ -1,69 +1,60 @@
 package co.edu.utp.gia.sms.entidades;
 
-import co.edu.utp.gia.sms.importutil.TipoFuente;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import java.util.Objects;
+import java.util.UUID;
 
-@Entity
-@EqualsAndHashCode
+/**
+ * Clase que representa la entidad Fuente, la cual permite modelar en el
+ * sistema las fuentes de las diferentes referencias a ser incluidas en el SMS.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
+@Getter
 @NoArgsConstructor
-public class Fuente implements Entidad<co.edu.utp.gia.sms.importutil.Fuente> {
+@RequiredArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class Fuente implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
     private static final long serialVersionUID = 1L;
 
+    @Setter
+    private String id = UUID.randomUUID().toString();
+
     /**
      * Nombre de la fuente
      */
-    @Id
-    @Enumerated(EnumType.STRING)
-    @Getter
-    @NonNull
-    private co.edu.utp.gia.sms.importutil.Fuente nombre;
+    @Setter @NonNull
+    private String nombre;
 
     /**
      * Tipo de la fuente
      */
-    @Enumerated(EnumType.STRING)
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Setter @NonNull
     private TipoFuente tipo;
 
-    /**
-     * Permite inicializar los elementos de la fuente
-     *
-     * @param nombre Nombre a ser agisnado
-     */
-    public Fuente(co.edu.utp.gia.sms.importutil.Fuente nombre) {
-        super();
-        this.nombre = nombre;
-        tipo = nombre.getTipo();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fuente fuente = (Fuente) o;
+
+        return Objects.equals(id, fuente.id);
     }
 
-    /**
-     * Metodo que permite obtener el valor del Id de la entidad
-     *
-     * @return El valor del Id de la entidad
-     */
-    public co.edu.utp.gia.sms.importutil.Fuente getId() {
-        return nombre;
+    @Override
+    public int hashCode() {
+        return 25312639;
     }
-
-    /**
-     * Metodo que permite asignar un valor al atributo nombre
-     *
-     * @param nombre Valor a ser asignado al atributo nombre
-     */
-    public void setNombre(co.edu.utp.gia.sms.importutil.Fuente nombre) {
-        this.nombre = nombre;
-        tipo = nombre.getTipo();
-    }
-
-
 }

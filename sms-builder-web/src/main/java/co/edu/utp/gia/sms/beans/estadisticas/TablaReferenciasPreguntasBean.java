@@ -1,55 +1,57 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
 
 import co.edu.utp.gia.sms.beans.AbstractRevisionBean;
-import co.edu.utp.gia.sms.dtos.PreguntaDTO;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
+import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.PreguntaEJB;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.PreguntaService;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import java.util.Collection;
 import java.util.List;
 
+/**
+ * Clase controladora de interfaz web que se encarga de presentar las tablas de las referencias por pregunta.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
 public class TablaReferenciasPreguntasBean extends AbstractRevisionBean {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -8876888410139722110L;
     @Getter
     @Setter
     private List<ReferenciaDTO> referencias;
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
     @Inject
-    private PreguntaEJB preguntaEJB;
+    private PreguntaService preguntaService;
 
     @Getter
     @Setter
-    private List<PreguntaDTO> preguntas;
+    private Collection<Pregunta> preguntas;
 
     @PostConstruct
     public void inicializar() {
         if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodas(getRevision().getPasoSeleccionado().getId());
-            preguntas = preguntaEJB.obtenerPreguntas(getRevision().getId());
+            referencias = referenciaService.findByPaso(getRevision().getPasoSeleccionado().getId());
+            preguntas = preguntaService.get();
         }
     }
 
 
-    public boolean tieneRalacion(ReferenciaDTO referencia, PreguntaDTO pregunta) {
-        for (Topico topico : referencia.getTopicos()) {
-            if (pregunta.getTopicos().contains(topico)) {
-                return true;
-            }
-        }
-        return false;
+    public boolean tieneRalacion(ReferenciaDTO referencia, Pregunta pregunta) {
+        return referencia.getTopicos().stream().map(Topico::getPregunta).anyMatch(pregunta::equals);
     }
 
 }

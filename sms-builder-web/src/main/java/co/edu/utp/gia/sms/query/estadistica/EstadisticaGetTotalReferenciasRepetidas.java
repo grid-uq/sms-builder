@@ -1,30 +1,32 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
-import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.db.DB;
+import co.edu.utp.gia.sms.entidades.Referencia;
+import jakarta.inject.Provider;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
-import javax.persistence.TypedQuery;
+import java.util.Collection;
 
 /**
  * Consulta que permite obtener el total de referencias repetidas de una Revision
  */
-@Entity
-@NamedQuery(name = EstadisticaGetTotalReferenciasRepetidas.NAME, query = EstadisticaGetTotalReferenciasRepetidas.QUERY)
-public class EstadisticaGetTotalReferenciasRepetidas extends Queries{
-    public static final String NAME = "Estadistica.getTotalReferenciasRepeditas";
-    public static final String QUERY = "select count(1) from Referencia r  where r.revision.id = :id and r.duplicada = true";
+public class EstadisticaGetTotalReferenciasRepetidas {
 
     /**
-     * Consulta que permite obtener el total de referencias repetidas de una Revision
+     * Consulta que permite obtener el total de referencias repetidas
      *
-     * @param entityManager Para la ejecución de la consulta
-     * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
-     * @return TypedQuery< Long > que representa la consulta
+     * @return Long número de {@link Referencia} repetidas
      */
-    public static TypedQuery<Long> createQuery(EntityManager entityManager, Integer id){
-        return entityManager.createNamedQuery(NAME,Long.class)
-                .setParameter("id",id);
+    public static Long createQuery(){
+        return createQuery(DB.root.getProvider(Referencia.class));
+    }
+
+    /**
+     * Consulta que permite obtener el total de referencias repetidas
+     *
+     * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
+     * @return Long número de {@link Referencia} repetidas
+     */
+    public static Long createQuery(Provider<Collection<Referencia>> dataProvider){
+        return dataProvider.get().stream().filter(Referencia::getDuplicada).count();
     }
 }

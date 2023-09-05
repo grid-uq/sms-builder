@@ -1,8 +1,12 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Clase que representa la entidad Recurso, la cual permite modelar en el
@@ -16,69 +20,23 @@ import javax.persistence.*;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
-@NamedQuery(name = Recurso.FIND_BY_ID, query = "select recurso from Recurso recurso where recurso.id = :id")
-@NamedQuery(name = Recurso.GET_ALL, query = "select recurso from Recurso recurso")
-@NamedQuery(name = Recurso.FIND_BY_PUBLIC, query = "select recurso.url from Recurso recurso where recurso.publico = :estado")
-@NamedQuery(name = Recurso.FIND_BY_ROL, query = "select recurso from Rol rol inner join rol.recursos recurso where rol = :rol")
-@NamedQuery(name = Recurso.FIND_BY_URL, query = "select recurso from Recurso recurso where recurso.url = :url")
-
-@EqualsAndHashCode
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Recurso implements Entidad<Integer> {
-
-    /**
-     * Constante que identifica la consulta que permite buscar un
-     * {@link Recurso} por su id <br />
-     * {@code select recurso from Recurso recurso where recurso.id = :id}
-     */
-    public static final String FIND_BY_ID = "Recurso_findById";
-    /**
-     * Constante que identifica la consulta que permite obtener todos los
-     * {@link Recurso} registrados en el sistema <br />
-     * {@code select recurso from Recurso recurso}
-     */
-    public static final String GET_ALL = "Recurso_getAll";
-    /**
-     * Constante que identifica la consulta que permite obtener todos los
-     * {@link Recurso} registrados en el sistema con un determinado valor para su atributo {@link Recurso#publico}<br />
-     * {@code select recurso from Recurso recurso where recurso.publico = :estado}
-     */
-    public static final String FIND_BY_PUBLIC = "Recurso_findByPublic";
-    /**
-     * Constante que identifica la consulta que permite obtener todos los
-     * {@link Recurso} registrados en el sistema asiciados a un {@link Rol} dado<br />
-     * {@code select recurso.url from Rol rol inner join rol.recursos recurso where rol = :rol}
-     */
-    public static final String FIND_BY_ROL = "Recurso_findByRol";
-    /**
-     * Constante que identifica la consulta que permite obtener todos los
-     * {@link Recurso} registrados en el sistema asiciados a un {@link Rol} dado<br />
-     * {@code select recurso from Recurso recurso where recurso.url = :url}
-     */
-    public static final String FIND_BY_URL = "Recurso_findByURL";
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 1L;
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class Recurso implements Entidad<String> {
     /**
      * Variable que representa el atributo id de la clase. Permite identificar
      * de forma única un recurso
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo nombre de la clase. Representa el
      * nombre del recurso
      */
     @Column(nullable = false, length = 50, unique = true)
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private String nombre;
     /**
@@ -86,18 +44,14 @@ public class Recurso implements Entidad<Integer> {
      * acceso al recurso en el sistema
      */
     @Column(nullable = false, length = 300, unique = true)
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private String url;
     /**
      * Variable que representa el atributo publico de la clase. Determina si un
      * recurso es de acceso público o privado
      */
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private Boolean publico;
 
@@ -107,5 +61,19 @@ public class Recurso implements Entidad<Integer> {
      */
     public Boolean isPublico() {
         return publico;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recurso recurso = (Recurso) o;
+
+        return Objects.equals(id, recurso.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1158230854;
     }
 }

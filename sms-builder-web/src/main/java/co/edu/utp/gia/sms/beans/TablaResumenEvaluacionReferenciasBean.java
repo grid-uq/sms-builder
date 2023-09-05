@@ -5,44 +5,44 @@ import co.edu.utp.gia.sms.entidades.AtributoCalidad;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.faces.model.SelectItem;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
+/**
+ * Clase controladora de interfaz web que se encarga de presentar una tabla de resumen con la evaluación de referencias.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
 public class TablaResumenEvaluacionReferenciasBean extends GenericBean<ReferenciaDTO> {
-
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -668848541409393797L;
-    @Getter
-    @Setter
+    @Getter @Setter
     private List<ReferenciaDTO> referencias;
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
     @Inject
-    private AtributoCalidadEJB atributoCalidadEJB;
+    private AtributoCalidadService atributoCalidadService;
 
-    @Getter
-    @Setter
-    private List<AtributoCalidad> atributosCalidad;
+    @Getter @Setter
+    private Collection<AtributoCalidad> atributosCalidad;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId());
-            atributosCalidad = atributoCalidadEJB.obtenerAtributosCalidad(getRevision().getId());
-        }
+        referencias = referenciaService.findWithEvaluacion();
+        atributosCalidad = atributoCalidadService.get();
     }
 
 

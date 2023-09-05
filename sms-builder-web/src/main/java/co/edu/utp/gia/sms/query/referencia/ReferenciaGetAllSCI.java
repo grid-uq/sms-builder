@@ -1,31 +1,32 @@
 package co.edu.utp.gia.sms.query.referencia;
 
-import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.db.DB;
+import co.edu.utp.gia.sms.entidades.Referencia;
+import jakarta.inject.Provider;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
-import javax.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.stream.Stream;
 
 /**
  * Consulta que permite obtener los SCI de las referencia de una revision
  */
-@Entity
-@NamedQuery(name = ReferenciaGetAllSCI.NAME, query = ReferenciaGetAllSCI.QUERY)
-public class ReferenciaGetAllSCI extends Queries{
-    public static final String NAME = "Referencia.getAllSCI";
-    public static final String QUERY = "select r.sci from Revision revision " +
-            "inner join revision.pasoSeleccionado.referencias r where revision.id = :id";
+public class ReferenciaGetAllSCI {
+    /**
+     * Consulta que permite obtener los SCI de las referencia de una revision
+     *
+     * @return Stream<Float> que representa el resultado de la consulta
+     */
+    public static Stream<Float> createQuery(){
+        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias);
+    }
 
     /**
      * Consulta que permite obtener los SCI de las referencia de una revision
      *
-     * @param entityManager Para la ejecución de la consulta
-     * @param id Id de la Revision
-     * @return TypedQuery< Double > que representa la consulta
+     * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
+     * @return Stream<Float> que representa el resultado de la consulta
      */
-    public static TypedQuery<Float> createQuery(EntityManager entityManager, Integer id){
-        return entityManager.createNamedQuery(NAME, Float.class)
-                .setParameter("id",id);
+    public static Stream<Float> createQuery(Provider<Collection<Referencia>> dataProvider){
+        return dataProvider.get().stream().map(Referencia::getSci);
     }
 }

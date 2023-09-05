@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+
+</h:head>
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="content">
+        <p:panel header="#{msg.etiquetaProceso}">
+            <h:form>
+                <p:panelGrid columns="2">
+                    <p:selectOneMenu id="pasoBase" value="#{pasoProcesoBean.record.paso}"
+                                     converter="pasoConverter">
+                        <f:selectItems value="#{pasoProcesoBean.pasos}" var="paso" itemValue="#{paso}"
+                                       itemLabel="#{msg[paso.nombre()]}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton value="#{msg.botonAceptar}"
+                                     action="#{pasoProcesoBean.registrar}"
+                                     update=":tabla,:menu, :msgs"/>
+                </p:panelGrid>
+            </h:form>
+
+            <h:form id="tabla">
+
+                <p:dataTable value="#{pasoProcesoBean.records}" var="pasoProceso">
+
+                    <p:column headerText="#{msg.etiquetaDescripcion}">
+                        <h:outputText value="#{msg[pasoProceso.paso.nombre()]}" />
+                    </p:column>
+
+                    <p:column style="width:35px">
+                        <p:commandButton type="submit" action="#{pasoProcesoBean.eliminar(pasoProceso)}" immediate="true"
+                                         icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs"  >
+                            <p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+                                       message="#{msg['dialogoConfirmacion.eliminar']}"
+                                       icon="pi pi-exclamation-triangle"  />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                    <p:commandButton value="#{msg.no}" type="button"
+                                     styleClass="ui-confirmdialog-no ui-button-flat"  />
+                    <p:commandButton value="#{msg.si}" type="button"
+                                     styleClass="ui-confirmdialog-yes"  />
+                </p:confirmDialog>
+
+            </h:form>
+
+        </p:panel>
+
+    </ui:define>
+</ui:composition>
+
+</html>

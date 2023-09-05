@@ -1,36 +1,45 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
-import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.entidades.Referencia;
+import co.edu.utp.gia.sms.entidades.Topico;
+import jakarta.inject.Provider;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
-import javax.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Consulta que permite obtener el número de referencias por Topico de una Pregunta en una revision
  */
-@Entity
-@NamedQuery(name = EstadisticaReferenciaOfPreguntaByTopico.NAME, query = EstadisticaReferenciaOfPreguntaByTopico.QUERY)
-public class EstadisticaReferenciaOfPreguntaByTopico extends Queries {
-    public static final String NAME = "Estadistica.referenciaOfPreguntaByTopico";
-    public static final String QUERY = "select new co.edu.utp.gia.sms.dtos.DatoDTO( t.descripcion , COUNT(1) ) " +
-            "from Revision revision inner join revision.pasoSeleccionado.referencias r LEFT JOIN r.topicos t  " +
-            "where revision.id = :id and t.pregunta.codigo = :codigo " +
-            "GROUP BY t.id ORDER BY t.pregunta.id,t.descripcion";
+public class EstadisticaReferenciaOfPreguntaByTopico {
+    /**
+     * Consulta que permite obtener el número de referencias por Topico de una Pregunta en una revision
+     *
+     * @param codigo        Codigo de la pregunta de la que se desean obtener las estadisticas
+     *
+     * @return TypedQuery<DatoDTO> que representa la consulta
+     */
+    public static Stream<DatoDTO> createQuery(String codigo) {
+        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,codigo);
+    }
 
     /**
      * Consulta que permite obtener el número de referencias por Topico de una Pregunta en una revision
      *
-     * @param entityManager Para la ejecución de la consulta
-     * @param id            Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
+     * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
      * @param codigo        Codigo de la pregunta de la que se desean obtener las estadisticas
-     * @return TypedQuery<DatoDTO> que representa la consulta de las {@link DatoDTO}
+     * @return Stream<DatoDTO> que representa el resultado de la consulta
      */
-    public static TypedQuery<DatoDTO> createQuery(EntityManager entityManager, Integer id, String codigo) {
-        return entityManager.createNamedQuery(NAME, DatoDTO.class)
-                .setParameter("id", id)
-                .setParameter("codigo",codigo);
+    public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider,String codigo) {
+        Predicate<Topico> filtro = topico -> topico.getPregunta().getCodigo().equals(codigo);
+        return dataProvider.get().stream()
+                .flatMap(referencia -> referencia.getTopicos().stream().distinct().filter(filtro))
+                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
+                .entrySet().stream()
+                .map( entry->new DatoDTO(entry.getKey().getDescripcion(), entry.getValue()));
     }
 }

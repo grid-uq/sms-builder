@@ -2,28 +2,36 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.seguridad.SeguridadBean;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
-import co.edu.utp.gia.sms.negocio.ProcesoEJB;
+import co.edu.utp.gia.sms.negocio.ProcesoService;
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
-import javax.faces.annotation.ManagedProperty;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Collection;
+/**
+ * Clase controladora de interfaz web que se encarga de la gestión del proceso.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
 public class ProcesoBean extends AbstractRevisionBean {
 
     @Inject
-    private ProcesoEJB procesoEJB;
+    private ProcesoService procesoService;
     @Getter
-    private List<PasoProceso> pasosProceso;
+    private Collection<PasoProceso> pasosProceso;
 
     @Inject
     @ManagedProperty("#{seguridadBean}")
@@ -33,11 +41,7 @@ public class ProcesoBean extends AbstractRevisionBean {
     private MenuModel model;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            pasosProceso = procesoEJB.listar(getRevision().getId());
-        } else {
-            pasosProceso = new ArrayList<>();
-        }
+        pasosProceso = procesoService.get();
         configurarMenu();
     }
 
@@ -51,17 +55,6 @@ public class ProcesoBean extends AbstractRevisionBean {
         configurarStage5(model);
         configurarStage6(model);
         configurarAyuda(model);
-//        configurarGestionas(model);
-//        DefaultMenuItem item = DefaultMenuItem.builder()
-//                .value("Step 1")
-//                .icon("pi pi-save")
-//                .ajax(false)
-//                .command("#{menuView.save}")
-//                .update("messages")
-//                .build();
-//        stage1.getElements().add(item);
-
-
     }
 
     private void configurarStage2(MenuModel model) {
@@ -69,9 +62,9 @@ public class ProcesoBean extends AbstractRevisionBean {
                 .label("Stage 2 Search for studies")
                 .build();
         pasosProceso.forEach(paso -> {
-            final String url = paso.getPaso().getRecurso().getUrl();
+            final String url = paso.getPaso().recurso().getUrl();
 //            DefaultMenuItem menuItem = addItem(stage, paso.getPaso().getNombre(), url);
-            DefaultMenuItem menuItem= addItem(stage, getMessage(paso.getPaso().getNombre()), url+"?paso="+paso.getId(),
+            DefaultMenuItem menuItem= addItem(stage, getMessage(paso.getPaso().nombre()), url,
                     getRevision() != null&&seguridadBean.verifivarAcceso(url));
             menuItem.setParam("paso", paso.getId());
 
@@ -83,7 +76,7 @@ public class ProcesoBean extends AbstractRevisionBean {
     private void configurarStage2Static(MenuModel model) {
         String[] labels = {"etiquetaMenuReferenciasImportar", "etiquetaMenuReferenciasDuplicadas",
                 "etiquetaMenuReferenciasSeleccionar", "etiquetaMenuReferenciasSeleccionadas"};
-        String[] urls = {"/revision/registroReferencias.xhtml", "/revision/gestionarReferenciasRepetidas.xhtml",
+        String[] urls = {"/atributocalidad/registro.xhtml", "/revision/gestionarReferenciasRepetidas.xhtml",
                 "/revision/aplicarCriterios.xhtml", "/revision/resumenReferenciasSeleccionadas.xhtml"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
                 .label("Stage 2 Search for studies")
@@ -97,10 +90,12 @@ public class ProcesoBean extends AbstractRevisionBean {
 
     private void configurarStage1(MenuModel model) {
         String[] urls = {"/revision/editarRevision.xhtml",
-                "/revision/registroObjetivo.xhtml", "/revision/registroPregunta.xhtml", "/revision/registroTermino.xhtml",
-                "/revision/registroAtributoCalidad.xhtml","/revision/cadenabusqueda/registro.xhtml","/revision/configurarProceso.xhtml"};
+                "/objetivo/registro.xhtml", "/pregunta/registro.xhtml", "/termino/registro.xhtml",
+                "/atributocalidad/registro.xhtml","/fuente/registro.xhtml","/criterioseleccion/registro.xhtml",
+                "/cadenabusqueda/registro.xhtml","/proceso/registro.xhtml","/backup/importar.xhtml"};
         String[] labels = {"etiquetaMenuRevisionEditar", "etiquetaMenuObjetivo",
-                "etiquetaMenuPregunta", "etiquetaTermino", "etiquetaMenuAtributosCalidad","etiquetaMenuCadenaBusqueda","etiquetaProceso"};
+                "etiquetaMenuPregunta", "etiquetaTermino", "etiquetaMenuAtributosCalidad","etiquetaFuente",
+                "etiquetaMenuCriterioSeleccion","etiquetaMenuCadenaBusqueda","etiquetaProceso","etiquetaRestaurar"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
                 .label("Stage 1 Planing")
                 .build();
@@ -108,6 +103,7 @@ public class ProcesoBean extends AbstractRevisionBean {
         for (int i = 1; i < urls.length; i++) {
             addItem(stage, getMessage(labels[i]), urls[i]);
         }
+        stage.getElements().add(itemBackup());
         stage.setExpanded(false);
         model.getElements().add(stage);
     }
@@ -202,8 +198,8 @@ public class ProcesoBean extends AbstractRevisionBean {
         model.getElements().add(stage);
     }
 
-    private DefaultMenuItem addItem(DefaultSubMenu stage, String label, String url) {
-        return addItem(stage, label, url, getRevision() != null && seguridadBean.verifivarAcceso(url));
+    private void addItem(DefaultSubMenu stage, String label, String url) {
+        addItem(stage, label, url, getRevision() != null && seguridadBean.verifivarAcceso(url));
     }
 
     private DefaultMenuItem addItem(DefaultSubMenu stage, String label, String url, boolean rendered) {
@@ -211,10 +207,24 @@ public class ProcesoBean extends AbstractRevisionBean {
         DefaultMenuItem item = DefaultMenuItem.builder()
                 .value(label)
                 .ajax(false)
-                .command(url)
+                .url(url)
+                //.command(url)
+
                 .rendered(rendered)
                 .build();
         stage.getElements().add(item);
         return item;
+    }
+
+    private DefaultMenuItem itemBackup(){
+        return DefaultMenuItem.builder()
+                .value(getMessage("etiquetaBackup"))
+                .ajax(false)
+                .command("#{backupBean.export()}")
+
+                //.command(url)
+
+                .rendered(true)
+                .build();
     }
 }

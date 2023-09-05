@@ -2,10 +2,9 @@ package co.edu.utp.gia.sms.entidades;
 
 import lombok.*;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * @author Christian A. Candela
@@ -17,86 +16,69 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
-@EqualsAndHashCode
-@NoArgsConstructor
+@Getter
 @RequiredArgsConstructor
-public class Revision implements Entidad<Integer> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -7643166662144090738L;
-
-    /**
-     * Variable que representa el atributo id de la clase
-     */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Getter
-    @Setter
-    private Integer id;
+@NoArgsConstructor
+public class Revision implements Serializable {
     /**
      * Variable que representa el atributo nombre de la clase
      */
 
-    @Column(nullable = false)
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private String nombre;
     /**
      * Variable que representa el atributo descripcion de la clase
      */
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private String descripcion;
 
     /**
-     * Lista de objetivos de la revision
+     * Lista de objetivo de la revision
      */
-    @OneToMany(mappedBy = "revision")
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
-    private List<Objetivo> objetivos;
-
-    /**
-     * Identifica el usuario propieratio de la Revision
-     */
-    @ManyToOne
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
-    @NonNull
-    private Usuario propietario;
-
-    /**
-     * Lista de usuarios con acceso a la revision
-     */
-    @ManyToMany
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
-    private List<Usuario> revisores;
+    private List<Objetivo> objetivos = new ArrayList<>();
 
     /**
      * Lista de los pasos para la ejecución del proceso de SMS
      */
-    @OneToMany(mappedBy = "revision")
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
-    private List<PasoProceso> pasosProceso;
+    private List<PasoProceso> pasosProceso = new ArrayList<>();
 
     /**
      * Representa el paso seleccionado para la evaluación y extracción de estadísticas
      */
-    @OneToOne
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     private PasoProceso pasoSeleccionado;
+
+    @Setter
+    private List<AtributoCalidad> atributosCalidad = new ArrayList<>();
+
+    @Setter
+    private List<CadenaBusqueda> cadenasBusqueda = new ArrayList<>();
+
+    @Setter
+    private List<Fuente> fuentes = new ArrayList<>();
+
+    @Setter
+    private List<Termino> terminos = new ArrayList<>();
+
+    @Setter
+    private List<Referencia> referencias = new ArrayList<>();
+
+    @Setter
+    private List<Usuario> usuarios = new ArrayList<>();
+    @Setter
+    private List<Rol> roles = new ArrayList<>();
+    @Setter
+    private List<Recurso> recursos = new ArrayList<>();
+    @Setter
+    private List<Topico> topicos = new ArrayList<>();
+    @Setter
+    private List<Pregunta> preguntas = new ArrayList<>();
+    @Setter
+    private List<Paso> pasos = new ArrayList<>();
+    @Setter
+    private List<CriterioSeleccion> criteriosSeleccion = new ArrayList<>();
 }

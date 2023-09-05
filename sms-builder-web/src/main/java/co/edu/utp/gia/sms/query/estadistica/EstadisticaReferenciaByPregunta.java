@@ -1,33 +1,43 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
-import co.edu.utp.gia.sms.query.Queries;
+import co.edu.utp.gia.sms.entidades.Pregunta;
+import co.edu.utp.gia.sms.entidades.Referencia;
+import jakarta.inject.Provider;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
-import javax.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Consulta que permite obtener el número de referencias por Pregunta en una revision
  */
-@Entity
-@NamedQuery(name = EstadisticaReferenciaByPregunta.NAME, query = EstadisticaReferenciaByPregunta.QUERY)
-public class EstadisticaReferenciaByPregunta extends Queries {
-    public static final String NAME = "Estadistica.referenciaByPregunta";
-    public static final String QUERY = "select new co.edu.utp.gia.sms.dtos.DatoDTO( t.pregunta.codigo, COUNT( DISTINCT( r.id )) ) " +
-            "from Revision revision inner join revision.pasoSeleccionado.referencias r LEFT JOIN r.topicos t " +
-            "where revision.id = :id GROUP BY t.pregunta.id ORDER BY t.pregunta.codigo";
+public class EstadisticaReferenciaByPregunta {
+    /**
+     * Consulta que permite obtener el número de referencias por Pregunta en una revision
+     *
+     * @return TypedQuery<DatoDTO> que representa la consulta
+     */
+    public static Stream<DatoDTO> createQuery() {
+        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias);
+    }
 
     /**
      * Consulta que permite obtener el número de referencias por Pregunta en una revision
      *
-     * @param entityManager Para la ejecución de la consulta
-     * @param id            Id de la {@link co.edu.utp.gia.sms.entidades.Revision}
-     * @return TypedQuery<DatoDTO> que representa la consulta
+     * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
+     * @return Stream<DatoDTO> que representa el resultado de la consulta
      */
-    public static TypedQuery<DatoDTO> createQuery(EntityManager entityManager, Integer id) {
-        return entityManager.createNamedQuery(NAME, DatoDTO.class)
-                .setParameter("id", id);
+    public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider) {
+
+        return dataProvider.get().stream()
+                .flatMap(referencia -> referencia.getTopicos().stream().map(t->new Tupla(t.getPregunta(),referencia)))
+                .distinct()
+                .collect(Collectors.groupingBy(Tupla::pregunta,Collectors.counting()))
+                .entrySet().stream()
+                .map( entry->new DatoDTO(entry.getKey().getDescripcion(), entry.getValue()));
     }
+
+    private record Tupla(Pregunta pregunta, Referencia referencia){ }
 }

@@ -1,12 +1,15 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-import javax.persistence.*;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
+ * Modela en el sistema un atributo de calidad usado para evaluar una referencia.
+ *
  * @author Christian A. Candela
  * @author Luis Eduardo Sepúlveda
  * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
@@ -16,43 +19,39 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 13/06/2019
  */
-@Entity
-@EqualsAndHashCode
-@NoArgsConstructor
+@Getter
 @RequiredArgsConstructor
-public class AtributoCalidad implements Entidad<Integer> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -176556849502833317L;
-
+@NoArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class AtributoCalidad implements Entidad<String> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Getter
     @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
 
     /**
      * Variable que representa el atributo texto de la clase
      */
-    @Column(nullable = false)
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private String descripcion;
 
-    /**
-     * {@link Revision} a la cual pertenece el atributo de calidad
-     */
-    @ManyToOne
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
-    private Revision revision;
+    private Boolean objetivo;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AtributoCalidad that = (AtributoCalidad) o;
+
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1251423725;
+    }
 }

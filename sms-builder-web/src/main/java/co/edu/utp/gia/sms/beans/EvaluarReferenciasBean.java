@@ -3,37 +3,42 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.ReferenciaEJB;
+import co.edu.utp.gia.sms.negocio.EvaluacionCalidadService;
+import co.edu.utp.gia.sms.negocio.ReferenciaService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * Clase controladora de interfaz web que se encarga de la gestión de las evaluaciones de las referencias.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
 public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = -4485002227034874858L;
     @Getter
     @Setter
     private List<ReferenciaDTO> referencias;
     @Inject
-    private ReferenciaEJB referenciaEJB;
+    private ReferenciaService referenciaService;
+    @Inject
+    private EvaluacionCalidadService evaluacionCalidadService;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId());
-        }
+        referencias = referenciaService.findWithEvaluacion();
     }
 
     public void incluirExcluirTopico(ReferenciaDTO referencia, Topico topico) {
@@ -54,19 +59,10 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
         PrimeFaces.current().dialog().openDynamic("/revision/evaluarReferencia", options, null);
     }
 
-    public void guardar() {
-        for (ReferenciaDTO referencia : referencias) {
-            referenciaEJB.actualizarFiltro(referencia.getId(), referencia.getFiltro());
-        }
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-    }
-
     public void evaluacionAutomatica() {
         try {
-            for (ReferenciaDTO referencia : referencias) {
-                referenciaEJB.evaluacionAutomatica(referencia.getId());
-            }
-            referencias = referenciaEJB.obtenerTodasConEvaluacion(getRevision().getId());
+            evaluacionCalidadService.evaluacionAcutomatica();
+            referencias = referenciaService.findWithEvaluacion();
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
@@ -77,5 +73,4 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
         ReferenciaDTO referencia = event.getObject();
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
     }
-
 }

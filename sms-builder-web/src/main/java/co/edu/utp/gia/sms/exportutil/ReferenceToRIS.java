@@ -7,7 +7,16 @@ import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.List;
-
+/**
+ * Clase utilitaria que permite exportar referencias a formato RIS.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 12/11/2015
+ */
 public class ReferenceToRIS {
 
     private static final String RIS_TITLE = "T1";
@@ -35,32 +44,19 @@ public class ReferenceToRIS {
 
     private static String identificarClave(TipoMetadato identifier) {
 
-        switch (identifier) {
-            case TITLE:
-                return RIS_TITLE;
-            case ABSTRACT:
-                return RIS_ABSTRACT;
-            case KEYWORD:
-                return RIS_KEWYWORDS;
-            case ISBN:
-                return RIS_ISBN;
-            case PUBLISHER:
-                return RIS_PUBLISHER;
-            case DOI:
-                return RIS_DOI;
-            case AUTOR:
-                return RIS_AUTHOR;
-            case YEAR:
-                return RIS_YEAR;
-            case TYPE:
-                return RIS_TYPE;
-            case NOTA:
-                return RIS_NOTE;
-
-            case NOT_SUPORT:
-            default:
-                return RIS_NOT_SUPPORT;
-        }
+        return switch (identifier) {
+            case TITLE -> RIS_TITLE;
+            case ABSTRACT -> RIS_ABSTRACT;
+            case KEYWORD -> RIS_KEWYWORDS;
+            case ISBN -> RIS_ISBN;
+            case PUBLISHER -> RIS_PUBLISHER;
+            case DOI -> RIS_DOI;
+            case AUTOR -> RIS_AUTHOR;
+            case YEAR -> RIS_YEAR;
+            case TYPE -> RIS_TYPE;
+            case NOTA -> RIS_NOTE;
+            default -> RIS_NOT_SUPPORT;
+        };
     }
 
     public void procesarReferencias(List<ReferenciaDTO> referencias) {

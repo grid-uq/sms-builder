@@ -1,50 +1,48 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Entity implementation class for Entity: Topico, el cual hace referencia a un
  * tema o aspecto particular de una {@link Pregunta}
  */
-@Entity
-@EqualsAndHashCode
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Topico implements Entidad<Integer> {
-    private static final long serialVersionUID = 1L;
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class Topico implements Entidad<String> {
     /**
      * Variable que representa el identificador unico del topico
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Getter
     @Setter
-    private Integer id;
+    private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo descripcion de la clase
      */
-    @Getter
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
     private String descripcion;
-    /**
-     * Variable que representa la {@link Pregunta} a la que pertence el
-     * {@link Topico}
-     */
-    @ManyToOne
-    @Getter
+
     @Setter
-    @EqualsAndHashCode.Exclude
     @NonNull
-    private Pregunta pregunta;
+    private Pregunta Pregunta;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Topico topico = (Topico) o;
 
+        return Objects.equals(id, topico.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 517866516;
+    }
 }

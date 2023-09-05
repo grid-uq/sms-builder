@@ -1,0 +1,112 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="formulario">
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="2">
+					<p:outputLabel value="#{msg.etiquetaNombre}: " for="@next" />
+					<p:inputText value="#{criterioSeleccionBean.record.nombre}" validator="#{criterioSeleccionBean.validate}" required="true" />
+					<p:outputLabel value="#{msg.etiquetaDescripcion}: " for="@next"  />
+					<p:inputTextarea value="#{criterioSeleccionBean.record.descripcion}" />
+					<p:outputLabel value="#{msg.etiquetaExclucion}: "  for="@next"  />
+					<p:selectOneRadio id="line" value="#{criterioSeleccionBean.record.paraExclusion}" layout="lineDirection">
+						<f:selectItem itemLabel="#{msg.si}" itemValue="true"/>
+						<f:selectItem itemLabel="#{msg.no}" itemValue="false"/>
+					</p:selectOneRadio>
+
+					<f:facet name="footer">
+						<p:commandButton value="#{msg.botonAceptar}"
+							action="#{criterioSeleccionBean.registrar}"
+							update=":tabla :formulario :msgs" />
+					</f:facet>
+
+				</p:panelGrid>
+
+			</div>
+		</h:form>
+		<br />
+
+
+		<h:form id="tabla">
+
+			<p:dataTable value="#{criterioSeleccionBean.records}" var="criterio"
+				editable="true">
+				<p:ajax event="rowEdit" listener="#{criterioSeleccionBean.onRowEdit}"
+					update=":msgs" />
+
+				<p:ajax event="rowEditCancel"
+					listener="#{criterioSeleccionBean.onRowCancel}" update=":msgs" />
+
+				<p:column headerText="#{msg.etiquetaNombre}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{criterio.nombre}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{criterio.nombre}" validator="#{registroObjetivoBean.validate}" required="true" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg.etiquetaDescripcion}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{criterio.descripcion}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputTextarea value="#{criterio.descripcion}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg.etiquetaExclucion}" style="width: 200px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{criterio.paraExclusion}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneRadio value="#{criterio.paraExclusion}" layout="lineDirection">
+								<f:selectItem itemLabel="#{msg.si}" itemValue="true"/>
+								<f:selectItem itemLabel="#{msg.no}" itemValue="false"/>
+							</p:selectOneRadio>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:35px">
+					<p:rowEditor />
+					<p:commandButton type="submit" action="#{criterioSeleccionBean.eliminar(criterio)}" immediate="true"
+									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs"  >
+						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+								   message="#{msg['dialogoConfirmacion.eliminar']}"
+								   icon="pi pi-exclamation-triangle"  />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+				<p:commandButton value="#{msg.no}" type="button"
+								 styleClass="ui-confirmdialog-no ui-button-flat"  />
+				<p:commandButton value="#{msg.si}" type="button"
+								 styleClass="ui-confirmdialog-yes"  />
+			</p:confirmDialog>
+
+		</h:form>
+
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

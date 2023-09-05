@@ -1,27 +1,23 @@
 package co.edu.utp.gia.sms.exceptions;
 
 
+import co.edu.utp.gia.sms.util.PropertiesLoader;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
+import jakarta.faces.context.ExceptionHandler;
+import jakarta.faces.context.ExceptionHandlerWrapper;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ExceptionQueuedEvent;
+import jakarta.faces.event.ExceptionQueuedEventContext;
+
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.context.ExceptionHandler;
-import javax.faces.context.ExceptionHandlerWrapper;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
-import javax.inject.Inject;
-
-import co.edu.utp.gia.sms.util.PropertiesLoader;
-import lombok.Getter;
-
 
 /**
  * Wrapper usado para el manejo de las excepciones generadas por el sistema.
- * 
  * 
  */
 public class CustomExceptionHandler extends ExceptionHandlerWrapper {
@@ -30,7 +26,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 	 * Instancia de logger para realizar el registro en el log
 	 */
 //	@Inject
-	private static Logger LOGGER = Logger.getLogger(CustomExceptionHandler.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(CustomExceptionHandler.class.getName());
 
 	/**
 	 * Variable que representa el atributo exceptionPropertiesLoader de la
@@ -39,16 +35,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 	 */
 //	@Inject
 //	@ExceptionPropertiesLoader
-	private PropertiesLoader exceptionPropertiesLoader;
-
-
-
-	/**
-	 * Variable que representa el atributo facesContext de la clase. Identifica
-	 * la instacia del {@link FacesContext}
-	 */
-//	@Inject
-//	private FacesContext facesContext;
+	private final PropertiesLoader exceptionPropertiesLoader;
 
 	/**
 	 * Constructor de la clase, permite crear una instancia de la ella a partir
@@ -61,9 +48,6 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 		super(wrapper);
 		exceptionPropertiesLoader = new PropertiesLoader(FacesContext
 				.getCurrentInstance().getApplication().getDefaultLocale(),ExceptionConstants.PROPERTIES);
-//		System.out.println(FacesContext
-//				.getCurrentInstance().getELContext().getLocale());
-//		facesContext = FacesContext.getCurrentInstance();
 	}
 
 
@@ -78,8 +62,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 	public void handle() throws FacesException {
 		Iterator<ExceptionQueuedEvent> iteratorUnhandledExceptionQueued = getUnhandledExceptionQueuedEvents()
 				.iterator();
-		while (iteratorUnhandledExceptionQueued != null
-				&& iteratorUnhandledExceptionQueued.hasNext()) {
+		while ( iteratorUnhandledExceptionQueued.hasNext()) {
 			ExceptionQueuedEvent evt = iteratorUnhandledExceptionQueued.next();
 			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) evt
 					.getSource();
@@ -104,7 +87,6 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 	private void processException(Throwable exception) {
 		if (exception != null) {
 			if (!(exception instanceof LogicException)) {
-				// LOGGER.error(exception.getMessage(), exception);
 				LOGGER.log(Level.SEVERE, exception.getMessage(), exception);
 			}
 			String msgDetail;
@@ -115,10 +97,6 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 				msgDetail = exception.getLocalizedMessage();
 				msgSummary = exception.getMessage();
 			} else {
-//				msgDetail = exceptionPropertiesLoader
-//						.getProperties(ExceptionConstants.EXCEPTION_DEFAULT_DETAIL);
-//				msgSummary = exceptionPropertiesLoader
-//						.getProperties(ExceptionConstants.EXCEPTION_DEFAULT_SUMMARY);
 				ExceptionMessage exceptionMessage = ExceptionMessageFactory.getInstance()
 						.getMessageInstance( FacesContext.getCurrentInstance().getViewRoot().getLocale()  );
 				msgDetail = exceptionMessage.getDefaultMessageDetail();
@@ -141,9 +119,6 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 	private void addMessage(String detail, String summary, Severity severity) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		if (facesContext != null) {
-			// SessionBean sessionBean = (SessionBean) FacesContext
-			// .getCurrentInstance().getExternalContext().getSessionMap()
-			// .get("sessionBean");
 			facesContext.addMessage(null, new FacesMessage(severity, summary,
 					detail));
 		}

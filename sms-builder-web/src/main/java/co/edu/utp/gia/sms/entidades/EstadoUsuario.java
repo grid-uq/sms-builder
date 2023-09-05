@@ -26,5 +26,5 @@ public enum EstadoUsuario {
 	 * Estado asignado a los usuarios (empleados) que son retirados de la
 	 * empresa.
 	 */
-	RETIRADO;
+	RETIRADO
 }

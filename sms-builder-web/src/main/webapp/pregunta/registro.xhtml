@@ -1,0 +1,155 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="formulario">
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="3">
+					<p:outputLabel value="#{msg.etiquetaCodigoPregunta}: " />
+					<p:outputLabel value="#{msg.etiquetaPregunta}: " />
+					<p:outputLabel value="#{msg.etiquetaObjetivo}: " />
+					
+					<p:inputText value="#{registroPreguntaBean.record.codigo}" maxlength="3" required="true" validator="#{registroPreguntaBean.validate}" />
+					<p:inputTextarea value="#{registroPreguntaBean.record.descripcion}" required="true"/>
+					<p:selectManyCheckbox
+						value="#{registroPreguntaBean.record.objetivos}" required="true" >
+
+
+						<f:selectItems value="#{registroObjetivoBean.records}"
+							var="objetivo" itemLabel="#{objetivo.codigo}" itemValue="#{objetivo}" />
+
+
+					</p:selectManyCheckbox>
+
+					<f:facet name="footer">
+						<p:commandButton value="#{msg.botonAceptar}"
+							action="#{registroPreguntaBean.registrar}"
+							update=":tabla :formulario :msgs" />
+					</f:facet>
+
+				</p:panelGrid>
+
+			</div>
+		</h:form>
+		<br />
+		<h:form id="tabla">
+			<p:dataTable value="#{registroPreguntaBean.records}" var="pregunta"
+				editable="true">
+				<p:ajax event="rowEdit" listener="#{registroPreguntaBean.onRowEdit}"
+					update=":msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{registroPreguntaBean.onRowCancel}" update=":msgs" />
+						
+				
+				<p:column headerText="#{msg.etiquetaCodigoPregunta}" style="width: 200px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{pregunta.codigo}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{pregunta.codigo}" validator="#{registroPreguntaBean.validate}" required="true" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaPregunta}">
+					
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{pregunta.descripcion}" />
+							
+						</f:facet>
+						<f:facet name="input">
+							<p:inputTextarea value="#{pregunta.descripcion}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaObjetivoCodigo}" style="width: 200px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{pregunta.objetivos}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectManyCheckbox id="basic"
+								value="#{pregunta.objetivos}" required="true"  >
+								<f:selectItems value="#{registroObjetivoBean.records}"
+									var="objetivo" itemLabel="#{objetivo.codigo}" itemValue="#{objetivo}" />
+							</p:selectManyCheckbox>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="#{msg.etiquetaTopicos}">
+					<p:commandButton
+						action="#{registroPreguntaBean.adicionarTopico(pregunta.id)}"
+						icon="pi pi-plus-circle" styleClass="rounded-button ui-button-flat ui-button-plain">
+						<p:ajax event="dialogReturn"
+							listener="#{registroPreguntaBean.onTopicoCreado}" update=":tabla formulario :msgs" />
+					</p:commandButton>
+
+
+					<ui:repeat value="#{pregunta.topicos}" var="topico">
+						<div class="card">
+						<p:panelGrid columns="2" style="vertical-align: center">
+								<p:column >
+							<h:outputText value="#{topico.descripcion}" />
+								</p:column>
+								<p:column style="width: 70px">
+							<p:commandButton
+								action="#{registroPreguntaBean.eliminarTopico(pregunta,topico)}"
+								immediate="true"
+								icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
+
+								<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+									message="#{msg['dialogoConfirmacion.eliminar']}"
+									icon="ui-icon ui-icon-alert" />
+							</p:commandButton>
+								</p:column>
+						</p:panelGrid>
+						</div>
+					</ui:repeat>
+					
+				</p:column>
+
+				
+				
+				
+				<p:column style="width:35px">
+					<p:rowEditor />
+					<p:commandButton action="#{registroPreguntaBean.eliminar(pregunta)}"
+									 immediate="true"
+									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs" >
+						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+							message="#{msg['dialogoConfirmacion.eliminar']}"
+							icon="ui-icon ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+				<p:commandButton value="#{msg.no}" type="button"
+								 styleClass="ui-confirmdialog-no ui-button-flat"  />
+				<p:commandButton value="#{msg.si}" type="button"
+								 styleClass="ui-confirmdialog-yes"  />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

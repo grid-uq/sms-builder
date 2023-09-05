@@ -1,50 +1,30 @@
 package co.edu.utp.gia.sms.beans.util;
 
-import javax.faces.annotation.ManagedProperty;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
-
 import co.edu.utp.gia.sms.entidades.AtributoCalidad;
-import co.edu.utp.gia.sms.negocio.AtributoCalidadEJB;
+import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
 
-import java.util.ResourceBundle;
-
-@FacesConverter("atributoCalidadConverter")
-public class AtributoCalidadConverter implements Converter<AtributoCalidad> {
+import jakarta.faces.convert.FacesConverter;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+/**
+ * Clase utilitaria encargada de realizar conversiones de Atributos a elementos web
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
+@Named
+@FacesConverter(value = "atributoCalidadConverter",managed = true)
+public class AtributoCalidadConverter extends EntidadConverter<AtributoCalidad> {
 
 	@Inject
-	private AtributoCalidadEJB atributoCalidadEJB;
-	@Inject
-	@ManagedProperty("#{msg}")
-	private ResourceBundle bundle;
+	private AtributoCalidadService atributoCalidadService;
 
 	@Override
-	public AtributoCalidad getAsObject(FacesContext facesContext, UIComponent componente, String id) {
-
-		AtributoCalidad atributoCalidad = null;
-		if (id != null && !"".equals(id.trim())) {
-			try {
-				atributoCalidad = atributoCalidadEJB.obtener(Integer.parseInt(id));
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new ConverterException(
-						new FacesMessage(
-								componente.getClientId() + ":" +
-										bundle.getString(MessageConstants.ERROR_CONVERSION_VALOR))
-				);
-			}
-		}
-		return atributoCalidad;
+	protected AtributoCalidad findById(String id) {
+		return atributoCalidadService.find(id).orElse(null);
 	}
-
-	@Override
-	public String getAsString(FacesContext facesContext, UIComponent componente, AtributoCalidad atributoCalidad) {
-		return  atributoCalidad != null ? atributoCalidad.getId().toString() : "";
-	}
-
 }

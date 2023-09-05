@@ -1,83 +1,49 @@
 package co.edu.utp.gia.sms.beans;
 
-import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.CadenaBusqueda;
-import co.edu.utp.gia.sms.entidades.Objetivo;
-import co.edu.utp.gia.sms.negocio.CadenaBusquedaEJB;
-import co.edu.utp.gia.sms.negocio.ObjetivoEJB;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.Date;
-import java.util.List;
-
+import co.edu.utp.gia.sms.negocio.AbstractGenericService;
+import co.edu.utp.gia.sms.negocio.CadenaBusquedaService;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+/**
+ * Clase controladora de interfaz web que se encarga de la gestión de las cadenas de búsqueda.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
 @Named
 @ViewScoped
-public class CadenaBusquedaBean extends GenericBean<CadenaBusqueda> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 9060626480979863537L;
-    @Getter @Setter
-    private String baseDatos;
-    @Getter @Setter
-    private String consulta;
-    @Getter @Setter
-    private Date fechaConsulta;
-    @Getter @Setter
-    private Integer resultadoPreliminar;
-    @Getter @Setter
-    private Integer resultadoFinal;
-
-    @Getter
-    @Setter
-    private List<CadenaBusqueda> cadenasBusqueda;
-
+public class CadenaBusquedaBean extends GenericBeanNew<CadenaBusqueda,String> {
     @Inject
-    private CadenaBusquedaEJB cadenaBusquedaEJB;
+    private CadenaBusquedaService cadenaBusquedaService;
 
     public void inicializar() {
-        if (getRevision() != null) {
-            cadenasBusqueda = cadenaBusquedaEJB.obtenerCadenasBusqueda(getRevision().getId());
-            sugerirConsulta();
-        }
-    }
-
-
-    public void registrar() {
-        CadenaBusqueda cadenaBusqueda = cadenaBusquedaEJB.registrar(baseDatos, consulta,fechaConsulta,resultadoPreliminar,resultadoFinal, getRevision().getId());
-        cadenasBusqueda.add(cadenaBusqueda);
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        baseDatos = "";
-        fechaConsulta = null;
-        resultadoPreliminar = null;
-        resultadoFinal = null;
+        setRecords( cadenaBusquedaService.get() );
         sugerirConsulta();
     }
 
-    public void sugerirConsulta(){
-        consulta = cadenaBusquedaEJB.sugerirConsulta(getRevision().getId());
+    @Override
+    public void registrar() {
+        super.registrar();
+        sugerirConsulta();
     }
 
     @Override
-    public void actualizar(CadenaBusqueda cadenaBusqueda) {
-        cadenaBusquedaEJB.actualizar(cadenaBusqueda);
+    protected CadenaBusqueda newRecord() {
+        return new CadenaBusqueda();
     }
 
-    /**
-     * Permite eliminar un Objetivo
-     *
-     * @param cadenaBusqueda a eliminar
-     */
-    public void eliminar(CadenaBusqueda cadenaBusqueda) {
-        cadenaBusquedaEJB.eliminar(cadenaBusqueda.getId());
-        cadenasBusqueda.remove(cadenaBusqueda);
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
+    public void sugerirConsulta(){
+        getRecord().setConsulta( cadenaBusquedaService.sugerirConsulta() );
     }
 
+    @Override
+    protected AbstractGenericService<CadenaBusqueda, String> getServices() {
+        return cadenaBusquedaService;
+    }
 }

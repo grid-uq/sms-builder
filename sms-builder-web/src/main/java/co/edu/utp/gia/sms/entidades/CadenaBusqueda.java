@@ -1,56 +1,70 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-import javax.persistence.*;
-
+import jakarta.persistence.*;
 import java.util.Date;
+import java.util.Objects;
+import java.util.UUID;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
-@Entity
-@EqualsAndHashCode
+/**
+ * Clase que representa la entidad CadenaBusqueda, la cual permite modelar en el
+ * sistema las cadenas usadas durante la búsqueda de estudio en las diferentes base de datos.
+ *
+ * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
+ * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
+ * @author Grupo de Investigacion en Redes Informacion y Distribucion - GRID
+ * @author Universidad del Quindío
+ * @version 1.0
+ * @since 13/06/2019
+ */
+@Getter
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class CadenaBusqueda implements Entidad<Integer> {
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class CadenaBusqueda implements Entidad<String> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Getter @Setter
-    private Integer id;
+    @Setter
+    private String id = UUID.randomUUID().toString();
 
-    @Getter @Setter
-    @EqualsAndHashCode.Exclude
+    @Setter
     @NonNull
-    @Column(length = 30)
-    private String baseDatos;
+    private Fuente baseDatos;
 
-    @Getter @Setter
-    @EqualsAndHashCode.Exclude
+    @Setter
     @NonNull
-    @Lob
     private String consulta;
 
-    @Getter @Setter
-    @EqualsAndHashCode.Exclude
+    @Setter
     @NonNull
     private Date    fechaConsulta;
 
-    @Getter @Setter
-    @EqualsAndHashCode.Exclude
+    @Setter
     @NonNull
     private Integer resultadoPreliminar;
 
-    @Getter @Setter
-    @EqualsAndHashCode.Exclude
+    @Setter
     @NonNull
     private Integer resultadoFinal;
 
-    @ManyToOne
-    @Getter @Setter
-    @EqualsAndHashCode.Exclude
-    @NonNull
-    private Revision revision;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CadenaBusqueda that = (CadenaBusqueda) o;
+
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1706480392;
+    }
 }
