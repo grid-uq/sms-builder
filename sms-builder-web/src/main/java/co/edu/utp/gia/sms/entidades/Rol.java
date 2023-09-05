@@ -1,5 +1,7 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -18,27 +20,29 @@ import java.util.UUID;
  * @version 1.0
  * @since 13/06/2019
  */
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Rol implements Entidad<String> {
     /**
      * Variable que representa el atributo id de la clase. Permite identificar
      * de forma única un Rol
      */
-    @Getter @Setter
+    @Setter
     @NonNull
     private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo nombre de la clase. Nombre del Rol
      */
-    @Getter @Setter
+    @Setter
     @NonNull
     private String nombre;
     /**
      * Variable que representa el atributo recursos de la clase. Lista de
      * {@link Recurso} a la cual tiene acceso el {@link Rol}
      */
-    @Getter @Setter
+    @Setter
     private List<Recurso> recursos = new ArrayList<>();
 
     /**

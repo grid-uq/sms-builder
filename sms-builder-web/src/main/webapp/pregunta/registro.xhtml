@@ -53,7 +53,7 @@
 					listener="#{registroPreguntaBean.onRowCancel}" update=":msgs" />
 						
 				
-				<p:column headerText="#{msg.etiquetaCodigoPregunta}">
+				<p:column headerText="#{msg.etiquetaCodigoPregunta}" style="width: 200px">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{pregunta.codigo}" />
@@ -77,7 +77,7 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{msg.etiquetaObjetivoCodigo}">
+				<p:column headerText="#{msg.etiquetaObjetivoCodigo}" style="width: 200px">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{pregunta.objetivos}" />
@@ -102,9 +102,9 @@
 
 
 					<ui:repeat value="#{pregunta.topicos}" var="topico">
-						<p:panelGrid >
-							<p:row style="vertical-align: center">
-								<p:column style="width: fit-content;">
+						<div class="card">
+						<p:panelGrid columns="2" style="vertical-align: center">
+								<p:column >
 							<h:outputText value="#{topico.descripcion}" />
 								</p:column>
 								<p:column style="width: 70px">
@@ -118,8 +118,8 @@
 									icon="ui-icon ui-icon-alert" />
 							</p:commandButton>
 								</p:column>
-							</p:row>
 						</p:panelGrid>
+						</div>
 					</ui:repeat>
 					
 				</p:column>

@@ -1,5 +1,7 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +21,9 @@ import java.util.UUID;
  * @version 1.0
  * @since 23/06/2019
  */
+@Getter
 @NoArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class EvaluacionCalidad implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
@@ -27,30 +31,30 @@ public class EvaluacionCalidad implements Entidad<String> {
     @Serial
     private static final long serialVersionUID = 3246469713521362393L;
 
-    @Getter @Setter
+    @Setter
     private String id = UUID.randomUUID().toString();
     /**
      * Instancia de la referencia que se esta evaluando
      */
-    @Getter @Setter
+    @Setter
     private Referencia referencia;
 
     /**
      * Instancia del atribudo de calidad que se esta evaluando
      */
-    @Getter @Setter
+    @Setter
     private AtributoCalidad atributoCalidad;
 
     /**
      * Evaluación cualitativa asignada
      */
-    @Getter @Setter
+    @Setter
     private EvaluacionCualitativa evaluacionCualitativa;
 
     /**
      * Variable que representa el atributo evaluacionCuantitativa de la clase
      */
-    @Getter @Setter
+    @Setter
     private Float evaluacionCuantitativa;
 
     /**

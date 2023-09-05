@@ -1,6 +1,8 @@
 package co.edu.utp.gia.sms.entidades;
 
 import co.edu.utp.gia.sms.entidades.util.MetadatoUtil;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,69 +20,71 @@ import java.util.*;
  * @version 1.0
  * @since 6/06/2019
  */
+@Getter
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Referencia implements Entidad<String> {
-    @Getter @Setter
+    @Setter
     private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo SPSID
      */
-    @Getter @Setter
+    @Setter
     private String spsid;
     /**
      * Variable que representa el atributo nombre de la clase
      */
-    @Getter @Setter
+    @Setter
     private String nombre;
     /**
      * Variable que representa el atributo year de la clase
      */
-    @Getter @Setter
+    @Setter
     private String year;
     /**
      * Variable que representa el atributo resumen de la clase
      */
-    @Getter @Setter
+    @Setter
     private String resumen;
 
     /**
      * Variable que representa el atributo tipo de la clase
      */
-    @Getter @Setter
+    @Setter
     private String tipo;
 
     /**
      * TODO Evaluar mover porque depende del paso o calcularlar
      */
-    @Getter @Setter
+    @Setter
     private Float totalEvaluacionCalidad;
 
-    @Getter @Setter
+    @Setter
     private Integer relevancia;
 
-    @Getter @Setter
+    @Setter
     private Integer citas;
 
-    @Getter @Setter
+    @Setter
     private Float ponderacionCitas;
 
     /**
      * TODO Podría remplazarse por una suma de las notas de cada paso
      */
-    @Getter @Setter
+    @Setter
     private String nota;
 
-    @Getter @Setter
+    @Setter
     private Float sci;
 
-    @Getter @Setter
+    @Setter
     private Float srrqi;
 
     /**
      * TODO podría adicionarse un listado de las referencias relacionadas como repetidas
      */
-    @Getter @Setter
+    @Setter
     private Boolean duplicada;
-    @Getter @Setter
+    @Setter
     private Fuente fuente;
 
     /**
@@ -88,10 +92,10 @@ public class Referencia implements Entidad<String> {
      */
     private List<Metadato> metadatos = new ArrayList<>();
 
-    @Getter @Setter
+    @Setter
     private List<Topico> topicos = new ArrayList<>();
 
-    @Getter @Setter
+    @Setter
     private List<EvaluacionCalidad> evaluacionCalidad = new ArrayList<>();
 
     /**
@@ -139,30 +143,13 @@ public class Referencia implements Entidad<String> {
         }
     }
 
-    public List<Metadato> getMetadatos(){
-        return metadatos;
-    }
-
-    public List<String> getAutores(){
-        return MetadatoUtil.INSTANCE.getAutores(metadatos);
-    }
-
     public String autoresAsString(){
         return MetadatoUtil.INSTANCE.getAutoresAsString(metadatos);
-    }
-
-    public List<String> keyWords(){
-        return MetadatoUtil.INSTANCE.getKeyWords(metadatos);
     }
 
     public String keyWordsAsString(){
         return MetadatoUtil.INSTANCE.getKeyWordsAsString(metadatos);
     }
-
-    public String abstractAsString(){
-        return MetadatoUtil.INSTANCE.getAbstractAsString(metadatos);
-    }
-
 
     @Override
     public boolean equals(Object o) {

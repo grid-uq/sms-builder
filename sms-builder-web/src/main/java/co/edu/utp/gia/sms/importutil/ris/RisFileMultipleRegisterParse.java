@@ -49,7 +49,7 @@ public class RisFileMultipleRegisterParse extends FileMultipleRegisterParse<RisR
 		String linea = null;
 		while (lector.hasNextLine() && !"ER  -".equals(linea)) {
 			linea = lector.nextLine().trim();
-			if (!"ER  -".equals(linea)) {
+			if (!"ER  -".equals(linea)&&!linea.isBlank()) {
 				build.append(linea).append("\n");
 			}
 		}

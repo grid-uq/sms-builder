@@ -46,7 +46,7 @@
 				<p:ajax event="rowEditCancel"
 					listener="#{registroObjetivoBean.onRowCancel}" update=":msgs" />
 
-				<p:column headerText="#{msg.etiquetaObjetivoCodigo}">
+				<p:column headerText="#{msg.etiquetaObjetivoCodigo}" style="width: 200px">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{objetivo.codigo}" />

@@ -1,5 +1,7 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -20,33 +22,35 @@ import static jakarta.persistence.GenerationType.IDENTITY;
  * @version 1.0
  * @since 13/06/2019
  */
+@Getter
 @RequiredArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class CadenaBusqueda implements Entidad<String> {
     /**
      * Variable que representa el atributo id de la clase
      */
     @GeneratedValue(strategy = IDENTITY)
-    @Getter @Setter
+    @Setter
     private String id = UUID.randomUUID().toString();
 
-    @Getter @Setter
+    @Setter
     @NonNull
     private Fuente baseDatos;
 
-    @Getter @Setter
+    @Setter
     @NonNull
     private String consulta;
 
-    @Getter @Setter
+    @Setter
     @NonNull
     private Date    fechaConsulta;
 
-    @Getter @Setter
+    @Setter
     @NonNull
     private Integer resultadoPreliminar;
 
-    @Getter @Setter
+    @Setter
     @NonNull
     private Integer resultadoFinal;
 

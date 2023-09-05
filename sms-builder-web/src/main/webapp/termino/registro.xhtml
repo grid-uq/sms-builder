@@ -58,24 +58,24 @@
 
 
 					<ui:repeat value="#{termino.sinonimos}" var="sinonimo">
-						<p:panelGrid >
-							<p:row>
-								<p:column>
-									<h:outputText value="#{sinonimo}" />
-								</p:column>
-								<p:column style="width: 70px">
-									<p:commandButton
-											action="#{registroTerminoBean.eliminarSinonimo(termino,sinonimo)}"
-											immediate="true"
-											icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
+						<div class="card">
+						<p:panelGrid columns="2">
+							<p:column>
+								<h:outputText value="#{sinonimo}" />
+							</p:column>
+							<p:column style="width: 70px">
+								<p:commandButton
+										action="#{registroTerminoBean.eliminarSinonimo(termino,sinonimo)}"
+										immediate="true"
+										icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
 
-										<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
-												   message="#{msg['dialogoConfirmacion.eliminar']}"
-												   icon="ui-icon ui-icon-alert" />
-									</p:commandButton>
-								</p:column>
-							</p:row>
+									<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+											   message="#{msg['dialogoConfirmacion.eliminar']}"
+											   icon="ui-icon ui-icon-alert" />
+								</p:commandButton>
+							</p:column>
 						</p:panelGrid>
+						</div>
 					</ui:repeat>
 
 				</p:column>

@@ -16,7 +16,7 @@ public final class RecursosConstants {
      * Variable que representa el atributo recursos disponibles en la aplicacion
      */
     static final String[] RECURSOS_ADMINISTRADOR = { "/administracion/index.xhtml", "/seguridad/recurso/index.xhtml",
-            "/seguridad/rol/index.xhtml", "/seguridad/usuario/index.xhtml", "/seguridad/usuario/actualizar.xhtml" };
+            "/seguridad/rol/index.xhtml", "/seguridad/usuario/index.xhtml", "/seguridad/usuario/actualizar.xhtml","/backup/importar.xhtml" };
 
 
     /**

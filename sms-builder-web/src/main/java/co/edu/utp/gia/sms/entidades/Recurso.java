@@ -1,5 +1,7 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -18,21 +20,23 @@ import java.util.UUID;
  * @version 1.0
  * @since 13/06/2019
  */
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Recurso implements Entidad<String> {
     /**
      * Variable que representa el atributo id de la clase. Permite identificar
      * de forma única un recurso
      */
-    @Getter @Setter
+    @Setter
     private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo nombre de la clase. Representa el
      * nombre del recurso
      */
     @Column(nullable = false, length = 50, unique = true)
-    @Getter @Setter
+    @Setter
     @NonNull
     private String nombre;
     /**
@@ -40,14 +44,14 @@ public class Recurso implements Entidad<String> {
      * acceso al recurso en el sistema
      */
     @Column(nullable = false, length = 300, unique = true)
-    @Getter @Setter
+    @Setter
     @NonNull
     private String url;
     /**
      * Variable que representa el atributo publico de la clase. Determina si un
      * recurso es de acceso público o privado
      */
-    @Getter @Setter
+    @Setter
     @NonNull
     private Boolean publico;
 

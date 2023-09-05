@@ -1,5 +1,7 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -20,31 +22,28 @@ import java.util.UUID;
  * @version 1.0
  * @since 8 abr. 2020
  */
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Objetivo implements Entidad<String> {
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    private static final long serialVersionUID = 6918765230126877992L;
-
     /**
      * Variable que representa el identificador unico del Objetivo
      */
-    @Getter @Setter
+    @Setter
     private String id = UUID.randomUUID().toString();
 
     /**
      * Variable que representa el código del objetivo
      */
-    @Getter @Setter
+    @Setter
     @NonNull
     private String codigo;
 
     /**
      * Variable que representa la escripcion del objetivo
      */
-    @Getter @Setter
+    @Setter
     @NonNull
     private String descripcion;
 
@@ -52,7 +51,7 @@ public class Objetivo implements Entidad<String> {
      * Variable que representa las preguntas que se relacionan con el
      * {@link Objetivo}
      */
-    @Getter @Setter
+    @Setter
     private List<Pregunta> preguntas = new ArrayList<>();
 
     @Override

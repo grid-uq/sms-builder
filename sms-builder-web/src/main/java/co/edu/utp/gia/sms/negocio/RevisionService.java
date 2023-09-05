@@ -1,14 +1,14 @@
 package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.db.DB;
-import co.edu.utp.gia.sms.entidades.PasoProceso;
-import co.edu.utp.gia.sms.entidades.Revision;
-import co.edu.utp.gia.sms.entidades.TipoFuente;
-import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.entidades.*;
+import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.query.estadistica.EstadisticaGetTotalReferenciasByTipoFuente;
 import co.edu.utp.gia.sms.query.estadistica.EstadisticaGetTotalReferenciasRepetidas;
 import jakarta.enterprise.context.ApplicationScoped;
+import org.apache.commons.beanutils.BeanUtils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
@@ -110,4 +110,106 @@ public class RevisionService {
         get().setPasoSeleccionado(pasoProceso);
         save();
     }
+
+    public void restore(Revision revisionRestored) {
+        try {
+            BeanUtils.copyProperties(DB.root.revision(), revisionRestored);
+            DB.storageManager.storeRoot();
+            DB.storageManager.store(DB.root.revision());
+
+            restoreObjetivos();
+            restorePasos();
+
+            restoreRecursos();
+            restoreRoles();
+            restoreUsuarios();
+
+
+            restorePreguntas();
+            restoreTerminos();
+            restoreAtributosCalidad();
+            restoreFuentes();
+            restoreCriteriosSeleccion();
+
+            restoreTopicos();
+            restoreCadenaBusqueda();
+
+            restoreReferencia();
+            restorePasoProceso();
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new LogicException(e);
+        }
+    }
+
+    private void restoreUsuarios() {
+        DB.storageManager.store(DB.root.revision().getUsuarios());
+        DB.root.revision().getUsuarios().forEach(usuario -> DB.storageManager.store(usuario.getRoles()));
+    }
+
+    private void restoreRoles() {
+        DB.storageManager.store(DB.root.revision().getRoles());
+        DB.root.revision().getRoles().forEach(rol -> DB.storageManager.store(rol.getRecursos()));
+    }
+
+    private void restorePasoProceso() {
+        DB.storageManager.store(DB.root.revision().getPasosProceso());
+        DB.root.revision().getPasosProceso().forEach(pasoProceso -> DB.storageManager.store(pasoProceso.getReferencias()));
+    }
+
+    private void restorePasos() {
+        DB.storageManager.store(DB.root.revision().getPasos());
+    }
+
+    private void restoreCadenaBusqueda() {
+        DB.storageManager.store(DB.root.revision().getCadenasBusqueda());
+    }
+
+    private void restoreCriteriosSeleccion() {
+        DB.storageManager.store(DB.root.revision().getCriteriosSeleccion());
+    }
+
+    private void restoreTerminos() {
+        DB.storageManager.store(DB.root.revision().getTerminos());
+        DB.root.revision().getTerminos().forEach(termino -> DB.storageManager.store(termino.getSinonimos()));
+    }
+
+    private void restoreObjetivos() {
+        DB.storageManager.store(DB.root.revision().getObjetivos());
+        DB.root.revision().getObjetivos().forEach(objetivo -> DB.storageManager.store(objetivo.getPreguntas()));
+    }
+
+    private void restoreAtributosCalidad() {
+        DB.storageManager.store(DB.root.revision().getAtributosCalidad());
+    }
+
+
+    private void restoreFuentes() {
+        DB.storageManager.store(DB.root.revision().getFuentes());
+    }
+
+    private void restorePreguntas() {
+        DB.storageManager.store(DB.root.revision().getPreguntas());
+        DB.root.revision().getPreguntas().forEach( pregunta -> {
+            DB.storageManager.store(pregunta.getTopicos());
+            DB.storageManager.store(pregunta.getObjetivos());
+        } );
+    }
+
+    private void restoreRecursos() {
+        DB.storageManager.store(DB.root.revision().getRecursos());
+    }
+
+    private void restoreReferencia() {
+        DB.storageManager.store(DB.root.revision().getReferencias());
+        DB.root.revision().getReferencias().forEach(referencia -> {
+            DB.storageManager.store(referencia.getEvaluacionCalidad());
+            DB.storageManager.store(referencia.getMetadatos());
+            DB.storageManager.store(referencia.getTopicos());
+        });
+    }
+
+    private void restoreTopicos() {
+        DB.storageManager.store(DB.root.revision().getTopicos());
+    }
+
 }

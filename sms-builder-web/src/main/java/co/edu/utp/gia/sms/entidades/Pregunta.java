@@ -1,10 +1,13 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Clase que representa la entidad Pregunta, la cual permite modelar en el
@@ -17,19 +20,26 @@ import java.util.Objects;
  * @version 1.0
  * @since 13/06/2019
  */
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Pregunta implements Entidad<String> {
+    /**
+     * Identificador único de la pregunta
+     */
+    @Setter
+    private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo codigo de la clase
      */
-    @Getter @Setter
+    @Setter
     @NonNull
     private String codigo;
     /**
      * Variable que representa el atributo texto de la clase
      */
-    @Getter @Setter
+    @Setter
     @NonNull
     private String descripcion;
 
@@ -37,13 +47,13 @@ public class Pregunta implements Entidad<String> {
     /**
      * Variable que representa los topico de una pregunta
      */
-    @Getter @Setter
+    @Setter
     private List<Topico> topicos = new ArrayList<>();
 
     /**
      * Variable que representa los objetivo con los que se relaciona una pregunta
      */
-    @Getter @Setter
+    @Setter
     private List<Objetivo> objetivos = new ArrayList<>();
 
 
@@ -73,8 +83,4 @@ public class Pregunta implements Entidad<String> {
         return 119604760;
     }
 
-    @Override
-    public String getId() {
-        return codigo;
-    }
 }

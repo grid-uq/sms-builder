@@ -1,5 +1,7 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,19 +22,19 @@ import java.util.UUID;
  * @version 1.0
  * @since 13/06/2019
  */
+@Getter
 @NoArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Usuario implements Entidad<String> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Getter
     @Setter
     private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo nombreUsuario, que permite a los
      * usuario autenticarse en la aplicacion
      */
-    @Getter
     @Setter
     @EqualsAndHashCode.Exclude
     private String nombreUsuario;
@@ -40,14 +42,12 @@ public class Usuario implements Entidad<String> {
      * Variable que representa el atributo clave, el cual es usado por los
      * usuario para autenticarse en la aplicacion
      */
-    @Getter
     @Setter
     @EqualsAndHashCode.Exclude
     private String clave;
     /**
      * Representa el {@link EstadoUsuario} de la cuenta del usuario en el sistema.
      */
-    @Getter
     @Setter
     @EqualsAndHashCode.Exclude
     private EstadoUsuario estado = EstadoUsuario.ACTIVO;
@@ -55,7 +55,6 @@ public class Usuario implements Entidad<String> {
      * Variable que representa el atributo intentos de la clase, el lleva el
      * conteo del número de intentos de autenticación fallidos
      */
-    @Getter
     @Setter
     @EqualsAndHashCode.Exclude
     private Integer intentos = 0;
@@ -63,21 +62,18 @@ public class Usuario implements Entidad<String> {
      * Variable que representa el atributo roles de la clase. Roles a los cuales
      * pertenece el usuario
      */
-    @Getter
     @Setter
     @EqualsAndHashCode.Exclude
     private List<Rol> roles = new ArrayList<>();
     /**
      * Variable que representa el atributo nombre del {@link Usuario}
      */
-    @Getter
     @Setter
     @EqualsAndHashCode.Exclude
     private String nombre;
     /**
      * Variable que representa el atributo email del {@link Usuario}
      */
-    @Getter
     @Setter
     @EqualsAndHashCode.Exclude
     private String email;

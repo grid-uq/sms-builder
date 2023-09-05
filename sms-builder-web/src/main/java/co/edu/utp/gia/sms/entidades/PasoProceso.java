@@ -1,5 +1,7 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -19,27 +21,25 @@ import java.util.UUID;
  * @version 1.0
  * @since 13/06/2019
  */
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class PasoProceso implements Entidad<String> {
-    @Getter @Setter
+    @Setter
     private String id = UUID.randomUUID().toString();
-    @Getter @Setter
+    @Setter
     @NonNull
     private Integer orden;
-    @Getter @Setter
+    @Setter
     @NonNull
     private Paso paso;
-    @Getter @Setter
+    @Setter
     private List<Referencia> referencias = new ArrayList<>();
 
     public PasoProceso(@NonNull Paso paso) {
         this.paso = paso;
         this.orden = 0;
-    }
-
-    public String getNombre(){
-        return paso.nombre();
     }
 
     @Override

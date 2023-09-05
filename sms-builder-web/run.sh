@@ -1,6 +1,1 @@
-rm -rf /Users/luixip/servers/payara5/glassfish/domains/domain1/autodeploy/*
-mvn clean 
-mvn package 
-cp target/sms-builder-web.war /Users/luixip/servers/payara5/glassfish/domains/domain1/autodeploy/
-open -a safari http://localhost:8080/sms-builder-web/
-
+java -D --add-opens java.base/java.io=ALL-UNNAMED -D --add-exports java.base/jdk.internal.misc=ALL-UNNAMED -jar sms-builder-web-microbundle.jar --nocluster

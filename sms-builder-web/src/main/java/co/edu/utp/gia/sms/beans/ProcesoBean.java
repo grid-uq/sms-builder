@@ -91,9 +91,11 @@ public class ProcesoBean extends AbstractRevisionBean {
     private void configurarStage1(MenuModel model) {
         String[] urls = {"/revision/editarRevision.xhtml",
                 "/objetivo/registro.xhtml", "/pregunta/registro.xhtml", "/termino/registro.xhtml",
-                "/atributocalidad/registro.xhtml","/fuente/registro.xhtml","/criterioseleccion/registro.xhtml","/cadenabusqueda/registro.xhtml","/proceso/registro.xhtml"};
+                "/atributocalidad/registro.xhtml","/fuente/registro.xhtml","/criterioseleccion/registro.xhtml",
+                "/cadenabusqueda/registro.xhtml","/proceso/registro.xhtml","/backup/importar.xhtml"};
         String[] labels = {"etiquetaMenuRevisionEditar", "etiquetaMenuObjetivo",
-                "etiquetaMenuPregunta", "etiquetaTermino", "etiquetaMenuAtributosCalidad","etiquetaFuente","etiquetaMenuCriterioSeleccion","etiquetaMenuCadenaBusqueda","etiquetaProceso"};
+                "etiquetaMenuPregunta", "etiquetaTermino", "etiquetaMenuAtributosCalidad","etiquetaFuente",
+                "etiquetaMenuCriterioSeleccion","etiquetaMenuCadenaBusqueda","etiquetaProceso","etiquetaRestaurar"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
                 .label("Stage 1 Planing")
                 .build();
@@ -101,6 +103,7 @@ public class ProcesoBean extends AbstractRevisionBean {
         for (int i = 1; i < urls.length; i++) {
             addItem(stage, getMessage(labels[i]), urls[i]);
         }
+        stage.getElements().add(itemBackup());
         stage.setExpanded(false);
         model.getElements().add(stage);
     }
@@ -211,5 +214,17 @@ public class ProcesoBean extends AbstractRevisionBean {
                 .build();
         stage.getElements().add(item);
         return item;
+    }
+
+    private DefaultMenuItem itemBackup(){
+        return DefaultMenuItem.builder()
+                .value(getMessage("etiquetaBackup"))
+                .ajax(false)
+                .command("#{backupBean.export()}")
+
+                //.command(url)
+
+                .rendered(true)
+                .build();
     }
 }

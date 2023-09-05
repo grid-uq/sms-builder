@@ -18,6 +18,7 @@ import java.util.List;
  */
 @Getter
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class Revision implements Serializable {
     /**
      * Variable que representa el atributo nombre de la clase

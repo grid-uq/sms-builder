@@ -1,5 +1,7 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import java.util.Objects;
@@ -9,22 +11,24 @@ import java.util.UUID;
  * Entity implementation class for Entity: Topico, el cual hace referencia a un
  * tema o aspecto particular de una {@link Pregunta}
  */
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Topico implements Entidad<String> {
     /**
      * Variable que representa el identificador unico del topico
      */
-    @Getter @Setter
+    @Setter
     private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo descripcion de la clase
      */
-    @Getter @Setter
+    @Setter
     @NonNull
     private String descripcion;
 
-    @Getter @Setter
+    @Setter
     @NonNull
     private Pregunta Pregunta;
 

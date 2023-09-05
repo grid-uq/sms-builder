@@ -1,5 +1,7 @@
 package co.edu.utp.gia.sms.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import java.util.Objects;
@@ -16,27 +18,29 @@ import java.util.UUID;
  * @version 1.0
  * @since 13/06/2019
  */
+@Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Fuente implements Entidad<String> {
     /**
      * Variable que representa el atributo serialVersionUID de la clase
      */
     private static final long serialVersionUID = 1L;
 
-    @Getter @Setter
+    @Setter
     private String id = UUID.randomUUID().toString();
 
     /**
      * Nombre de la fuente
      */
-    @Getter @Setter @NonNull
+    @Setter @NonNull
     private String nombre;
 
     /**
      * Tipo de la fuente
      */
-    @Getter @Setter @NonNull
+    @Setter @NonNull
     private TipoFuente tipo;
 
 

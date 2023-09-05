@@ -21,10 +21,10 @@ RUN echo "done!"
 #FROM bellsoft/liberica-openjdk-alpine:17
 FROM bellsoft/liberica-openjre-alpine:17
 WORKDIR /app
-
+COPY run.sh .
 # Copy the binary built in the 1st stage
 COPY --from=build /app/target/sms-builder-web-microbundle.jar ./
 
-CMD ["java", "-jar", "sms-builder-web-microbundle.jar"]
+CMD ["sh","run.sh"]
 
 EXPOSE 8080
