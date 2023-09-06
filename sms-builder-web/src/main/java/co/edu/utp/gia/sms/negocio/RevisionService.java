@@ -111,6 +111,11 @@ public class RevisionService {
         save();
     }
 
+    public void changePasoActual(PasoProceso pasoProceso ) {
+        get().setPasoActual(pasoProceso);
+        save();
+    }
+
     public void restore(Revision revisionRestored) {
         try {
             BeanUtils.copyProperties(DB.root.revision(), revisionRestored);
@@ -211,5 +216,6 @@ public class RevisionService {
     private void restoreTopicos() {
         DB.storageManager.store(DB.root.revision().getTopicos());
     }
+
 
 }

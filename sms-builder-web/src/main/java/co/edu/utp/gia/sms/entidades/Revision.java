@@ -52,6 +52,12 @@ public class Revision implements Serializable {
     @Setter
     private PasoProceso pasoSeleccionado;
 
+    /**
+     * Representa el paso que está siendo procesado
+     */
+    @Setter
+    private PasoProceso pasoActual;
+
     @Setter
     private List<AtributoCalidad> atributosCalidad = new ArrayList<>();
 
@@ -81,4 +87,11 @@ public class Revision implements Serializable {
     private List<Paso> pasos = new ArrayList<>();
     @Setter
     private List<CriterioSeleccion> criteriosSeleccion = new ArrayList<>();
+
+    public PasoProceso getPasoActual(){
+        if( pasoActual == null ){
+            pasoActual = pasosProceso.stream().filter(paso->paso.getOrden()==1).findFirst().orElse(null);
+        }
+        return pasoActual;
+    }
 }

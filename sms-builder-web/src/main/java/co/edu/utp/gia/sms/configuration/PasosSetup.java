@@ -28,6 +28,7 @@ public class PasosSetup implements SetupInterface {
     @Override
     public void setup() {
         String[] recursos = {
+                "/revision/editarRevision.xhtml",
                 "/revision/importarReferencias.xhtml",
                 "/revision/importarReferenciasBaseDatos.xhtml",
                 "/revision/importarReferenciasManual.xhtml",
@@ -37,6 +38,7 @@ public class PasosSetup implements SetupInterface {
                 "/revision/resumenReferenciasSeleccionadas.xhtml"
         };
         String[] keys = {
+                "etiquetaMenuRevisionEditar",
                 "etiquetaMenuReferenciasImportar",
                 "etiquetaMenuReferenciasImportarBD",
                 "etiquetaMenuReferenciasImportarID",

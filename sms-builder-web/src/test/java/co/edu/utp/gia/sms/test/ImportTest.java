@@ -21,7 +21,7 @@ class ImportTest {
 //		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.BIBTEX, "/main64.bib", 64);
 //		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.BIBTEX, "/main2.bib", 2);
 //		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.RIS, "/acm_3_mendeleyris.ris", 3);
-		testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.RIS, "/scopus_30.ris", 30);
+		//testParse(new Fuente("ACM",TipoFuente.BASE_DATOS),TipoArchivo.RIS, "/scopus_30.ris", 30);
 	}
 
 

@@ -36,6 +36,9 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
         paso.setOrden( get().size() + 1 );
         pasoService.findOrThrow( paso.getPaso().getId() );
         super.save(paso);
+        if( paso.getOrden() == 1 ){
+            revisionService.changePasoActual(paso);
+        }
         revisionService.changePasoSeleccionado(paso);
         return paso;
     }

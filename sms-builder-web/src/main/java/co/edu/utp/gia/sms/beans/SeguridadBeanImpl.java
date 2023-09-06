@@ -3,12 +3,17 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.seguridad.SeguridadBean;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.negocio.RevisionService;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.extern.java.Log;
+
+import java.io.IOException;
 
 
 /**
@@ -25,6 +30,7 @@ import jakarta.inject.Named;
  */
 @Named("seguridadBean")
 @SessionScoped
+@Log
 public class SeguridadBeanImpl extends SeguridadBean {
 	/**
 	 * Variable que representa el {@link Usuario} que esta autenticado
@@ -44,6 +50,15 @@ public class SeguridadBeanImpl extends SeguridadBean {
 		super.ingresar();
 		if(isAutenticado()){
 			addToSession("revision", revisionService.get());
+		}
+		var url = revisionService.get().getPasoActual().getPaso().recurso().getUrl();
+		log.info( url );
+
+		try {
+			getFacesContext().getExternalContext().redirect(getFacesContext().getExternalContext().getApplicationContextPath() + url);
+			getFacesContext().responseComplete();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 }
