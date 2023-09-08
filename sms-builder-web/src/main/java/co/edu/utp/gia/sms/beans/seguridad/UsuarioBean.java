@@ -92,7 +92,7 @@ public abstract class UsuarioBean extends AbstractBean {
      */
     @Getter
     @Setter
-    private Integer editId;
+    private String editId;
 
     /**
      * Variable que representa el listado de valores de tipo
@@ -131,7 +131,7 @@ public abstract class UsuarioBean extends AbstractBean {
             log.log(Level.INFO,"Error al registar un usuario "+e.getMessage(),e);
             mostrarErrorGeneral(e.getMessage());
         }
-        return null;
+        return "/index.xhtml";
     }
 
     /**
