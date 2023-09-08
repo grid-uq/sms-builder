@@ -59,7 +59,7 @@
 			<p:growl id="mensajes" />
 			<p:dataTable id="tabla" value="#{usuarioBean.usuarios}" var="usuario"
 				border="2" paginator="true" rows="10" editable="true"
-				style="width:100%">
+				style="width:100%" rowKey="#{usuario.id}">
 
 				<f:facet name="header">
 					<h:outputText value="#{msg['usuario.tituloTabla']}" />
@@ -93,7 +93,7 @@
 						<p:column>
 							<h:outputText value="#{usuario.nombre}"
 								rendered="#{!(usuario.id == usuarioBean.editId)}" />
-							<p:inputText id="nombre" value="#{usuario.nombre}"
+							<p:inputText value="#{usuario.nombre}"
 								style="width:95%"
 								rendered="#{(usuario.id == usuarioBean.editId)}" />
 						</p:column>
@@ -104,7 +104,7 @@
 							<h:outputText value="#{usuario.email}"
 								rendered="#{!(usuario.id == usuarioBean.editId)}" />
 
-							<p:inputText id="email" value="#{usuario.email}"
+							<p:inputText value="#{usuario.email}"
 								style="width:95%"
 								rendered="#{(usuario.id == usuarioBean.editId)}" />
 
@@ -122,11 +122,11 @@
 								<h:outputText value="#{rol.nombre}" />
 							</p:dataList>
 
-							<p:selectManyMenu id="rol" value="#{usuario.roles}"
-								converter="selectItemObjectConverter" showCheckbox="true"
+							<p:selectManyMenu value="#{usuario.roles}"
+								converter="rolConverter" showCheckbox="true"
 								rendered="#{(usuario.id == usuarioBean.editId)}">
 								<f:selectItems value="#{rolBean.roles}" var="rol"
-									itemLabel="#{rol.nombre}" itemValue="#rol" />
+									itemLabel="#{rol.nombre}" itemValue="#{rol}" />
 							</p:selectManyMenu>
 
 						</p:column>
@@ -140,15 +140,15 @@
 
 							<h:panelGrid columns="1"
 								rendered="#{(usuario.id == usuarioBean.editId)}">
-								<p:outputLabel for="clave" value="#{msg['usuario.clave']}"
+								<p:outputLabel for="@next" value="#{msg['usuario.clave']}"
 									rendered="#{(usuario.id == usuarioBean.editId)}" />
-								<p:password id="clave" value="#{usuario.clave}" required="true"
+								<p:password value="#{usuario.clave}" required="true"
 									style="width:95%"
 									rendered="#{(usuario.id == usuarioBean.editId)}" />
-								<p:outputLabel for="verificacionClave"
+								<p:outputLabel for="@next"
 									value="#{msg['usuario.verificacionClave']}:"
 									rendered="#{(usuario.id == usuarioBean.editId)}" />
-								<p:password id="verificacionClave"
+								<p:password
 									value="#{usuarioBean.verificacionClaveEdit}" required="true"
 									style="width:95%"
 									rendered="#{(usuario.id == usuarioBean.editId)}" />
@@ -163,7 +163,7 @@
 								converter="selectItemObjectConverter" showCheckbox="true"
 								rendered="#{(usuario.id == usuarioBean.editId)}">
 								<f:selectItems value="#{usuarioBean.estados}" var="estado"
-									itemLabel="#estado" itemValue="#estado" />
+									itemLabel="#estado" itemValue="#{estado}" />
 							</p:selectOneMenu>
 							 
 						</p:column>
