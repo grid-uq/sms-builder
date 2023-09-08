@@ -44,10 +44,20 @@ public class RisReferenceParcer extends ReferenceParser<String> {
 	protected Referencia procesar(String texto) {
 		Referencia reference = new Referencia();
 		try (Scanner lector = new Scanner(new StringReader(texto))) {
+			String linea = "";
 			while (lector.hasNextLine()) {
-				String linea = lector.nextLine();
-				procesarLinea(reference, linea);
+				String newLinea = lector.nextLine();
+				if( newLinea.matches("^..  - .*") ){
+					if( !linea.isEmpty() ){
+						procesarLinea(reference, linea);
+
+					}
+					linea = newLinea;
+				} else {
+					linea = linea + newLinea;
+				}
 			}
+			procesarLinea(reference, linea);
 		}
 		return reference;
 	}
