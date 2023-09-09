@@ -41,6 +41,13 @@
 
 				<p:column headerText="#{msg.etiquetaReferencia}">
 					<h:outputText value="#{referencia.nombre}" />
+					<h:outputText value=" - " />
+					<p:linkButton icon="pi pi-pencil"
+								  styleClass="rounded-button ui-button-flat ui-button-plain"
+								  href="/referencia/editar.xhtml"
+								  ajax="false" immediate="true" >
+						<f:param name="referencia" value="#{referencia.id}"   />
+					</p:linkButton>
 				</p:column>
 				<p:column headerText="#{msg.etiquetaAutores}">
 					<h:outputText value="#{referencia.autores}" />

@@ -50,6 +50,13 @@
 								</td>
 								<td  style=" width: auto; min-width: 250px; ">
 									<h:outputText value="#{referencia.nombre}"  />
+									<h:outputText value=" - " />
+									<p:linkButton  icon="pi pi-pencil"
+												   styleClass="rounded-button ui-button-flat ui-button-plain"
+												   href="/referencia/editar.xhtml"
+												   ajax="false" immediate="true" >
+										<f:param name="referencia" value="#{referencia.id}"   />
+									</p:linkButton>
 								</td>
 							</tr>
 							<tr>

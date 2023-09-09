@@ -32,6 +32,7 @@ public final class RecursosConstants {
             "/criterioseleccion/registro.xhtml",
             "/fuente/registro.xhtml",
             "/proceso/registro.xhtml",
+            "/referencia/editar.xhtml",
             "/revision/analizarReferencias.xhtml",
             "/revision/aplicarCriterios.xhtml",
             "/revision/aplicarCriterios2.xhtml",

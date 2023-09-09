@@ -6,6 +6,7 @@ import co.edu.utp.gia.sms.entidades.TipoFuente;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -41,7 +42,7 @@ public class FuenteService extends AbstractGenericService<Fuente, String> {
     }
 
     /**
-     * Consulta que permite obtener las fuentes registradas en el sistema para una revision
+     * Consulta que permite obtener las fuentes de un terminado tipo registradas en el sistema para una revision
      *
      * @param tipo tipo de fuente ({@link TipoFuente}) por la que se desea filtrar las fuentes a buscar
      *
@@ -49,5 +50,16 @@ public class FuenteService extends AbstractGenericService<Fuente, String> {
      */
     public List<Fuente> getByTipoFuente(TipoFuente tipo) {
         return get().stream().filter(record->record.getTipo()==tipo).collect(Collectors.toList());
+    }
+
+    /**
+     * Consulta que permite obtener la fuente registrada en el sistema para una revision con un determiando nombre
+     *
+     * @param nombre nombre de la fuente por la que se desea filtrar las fuentes a buscar
+     *
+     * @return Listado de fuentes encontradas
+     */
+    public Optional<Fuente> findByNombre(String nombre) {
+        return get().stream().filter(record->record.getNombre().equals(nombre)).findFirst();
     }
 }

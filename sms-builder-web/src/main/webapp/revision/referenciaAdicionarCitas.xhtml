@@ -33,6 +33,13 @@
 						<f:param name="hl" value="es" />
 						<f:param name="q" value="#{referencia.nombre}" />
 					</p:link>
+					<h:outputText value=" - " />
+					<p:linkButton icon="pi pi-pencil"
+								  styleClass="rounded-button ui-button-flat ui-button-plain"
+								  href="/referencia/editar.xhtml"
+								  ajax="false" immediate="true" >
+						<f:param name="referencia" value="#{referencia.id}"   />
+					</p:linkButton>
 				</p:column>
 
 				<p:column headerText="#{msg.etiquetaCitas}" sortBy="#{referencia.citas}" filterBy="referencia.citas" filterMatchMode="contains">

@@ -1,7 +1,12 @@
 package co.edu.utp.gia.sms.negocio;
 
+import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Metadato;
+import co.edu.utp.gia.sms.entidades.TipoMetadato;
+import co.edu.utp.gia.sms.query.metadato.MetadatoGetByTipoFuente;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
  * gestion del {@link Metadato}.
@@ -15,24 +20,41 @@ import jakarta.enterprise.context.ApplicationScoped;
  */
 @ApplicationScoped
 public class MetadatoServices extends AbstractGenericService<Metadato, String> {
+    @Inject
+    private FuenteService fuenteService;
     public MetadatoServices() {
         super();
     }
 
     @Override
     public Metadato save(Metadato entidad) {
-        return save(entidad.getReferencia()::getMetadatos,entidad);
+        save(entidad.getReferencia()::getMetadatos,entidad);
+        entidad.getReferencia().refreshDataFromElement(entidad);
+        DB.storageManager.store(entidad.getReferencia());
+        return entidad;
     }
 
     @Override
     public void update(Metadato entidad) {
         super.update(entidad.getReferencia()::getMetadatos,entidad);
+        entidad.getReferencia().refreshDataFromElement(entidad);
+        if( entidad.getIdentifier() == TipoMetadato.FUENTE ){
+           fuenteService.findByNombre(entidad.getValue().toString()).ifPresent(entidad.getReferencia()::setFuente);
+           var metadatoTipoFuente = MetadatoGetByTipoFuente.createQuery(entidad.getReferencia()::getMetadatos,
+                   TipoMetadato.TIPO_FUENTE).findFirst();
+           if( metadatoTipoFuente.isPresent() ){
+               metadatoTipoFuente.get().setValue( entidad.getReferencia().getFuente().getTipo().toString() );
+               super.update(entidad.getReferencia()::getMetadatos,metadatoTipoFuente.get());
+           }
+        }
+        DB.storageManager.store(entidad.getReferencia());
     }
 
     @Override
     public void delete(Metadato entidad) {
         super.delete(entidad.getReferencia()::getMetadatos,entidad);
     }
+
 
 //    public void delete(String idReferencia,String idMetadato) {
 //        var referencia = referenciaService.findOrThrow(idReferencia);

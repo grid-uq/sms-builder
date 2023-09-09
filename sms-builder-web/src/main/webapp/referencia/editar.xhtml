@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="jakarta.faces.core"
+	  >
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h:form id="formReferencia" enctype="multipart/form-data" prependId="false">
+			<p:growl id="mensajes" showDetail="true" />
+			<div class="ui-card">
+			<p:panelGrid styleClass="ui-panelgrid-blank" columns="2" >
+				<p:outputLabel for="@next" value="#{msg.etiquetaNombre}"  />
+				<p:inputText  value="#{editarReferenciaBean.referencia.nombre}" style="width: 100%" readonly="true"  />
+				<p:outputLabel for="@next" value="#{msg.etiquetaYear}"  />
+				<p:inputNumber value="#{editarReferenciaBean.referencia.year}" decimalPlaces="0" minValue="1900" inputStyle="width: 100%" thousandSeparator="" readonly="true" />
+				<p:outputLabel for="@next" value="#{msg.etiquetaAbstract}"  />
+				<p:inputTextarea value="#{editarReferenciaBean.referencia.resumen}" style="width: 100%" readonly="true" />
+				<p:outputLabel for="@next" value="#{msg.etiquetaTipoReferencia}"  />
+				<p:inputText value="#{editarReferenciaBean.referencia.tipo}" style="width: 100%" readonly="true" />
+				<p:outputLabel for="@next" value="#{msg.etiquetaCitas}"  />
+				<p:inputNumber value="#{editarReferenciaBean.referencia.citas}" decimalPlaces="0" minValue="0" inputStyle="width: 100%" thousandSeparator="" readonly="true"/>
+				<p:outputLabel for="@next" value="#{msg.etiquetaFuente}"  />
+				<p:inputText value="#{editarReferenciaBean.referencia.fuente.nombre}" style="width: 100%" readonly="true" />
+			</p:panelGrid>
+			</div>
+		</h:form>
+		<p:fieldset legend="#{msg.etiquetaMetadato}">
+		<h:form id="formulario">
+			<div class="card">
+				<h5>#{msg.etiquetaNuevo}</h5>
+				<p:panelGrid columns="3">
+					<p:column>
+					<p:outputLabel value="#{msg.etiquetaTipo}: " for="@next" />
+					<p:selectOneMenu value="#{editarReferenciaBean.record.identifier}"  >
+						<f:selectItems value="#{editarReferenciaBean.tipos}"
+									   var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}" />
+					</p:selectOneMenu>
+					</p:column>
+					<p:column>
+					<p:outputLabel value="#{msg.etiquetaValor}: " for="@next" />
+					<p:inputText value="#{editarReferenciaBean.record.value}" />
+					</p:column>
+					<p:commandButton value="#{msg.botonAceptar}"
+										 action="#{editarReferenciaBean.registrar}"
+										 update=":tabla :formulario :msgs :formReferencia" />
+				</p:panelGrid>
+
+			</div>
+		</h:form>
+		<h:form id="tabla" enctype="multipart/form-data" prependId="false">
+			<p:remoteCommand name="actualizarTabla" action="#{editarReferenciaBean.inicializar()}" update=":tabla" />
+			<p:dataTable value="#{editarReferenciaBean.records}" var="metadato"
+						 editable="true">
+				<p:ajax event="rowEdit" listener="#{editarReferenciaBean.onRowEdit}"
+						update=":msgs :formReferencia" oncomplete="actualizarTabla();"  />
+				<p:ajax event="rowEditCancel"
+						listener="#{editarReferenciaBean.onRowCancel}" update=":msgs" />
+
+
+				<p:column headerText="#{msg.etiquetaTipo}" style="width: 200px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{metadato.identifier}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{metadato.identifier}" required="true"   style="width: 100%"  >
+								<f:selectItems value="#{editarReferenciaBean.tipos}"
+											   var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaValor}">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{metadato.value}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{metadato.value}"  style="width: 100%" rendered="#{metadato.identifier != editarReferenciaBean.tipoMetadatoFuente}"  readonly="#{metadato.identifier == editarReferenciaBean.tipoMetadatoTipoFuente}" />
+							<p:selectOneMenu value="#{metadato.value}" style="width: 100%" rendered="#{metadato.identifier == editarReferenciaBean.tipoMetadatoFuente}" >
+								<f:selectItems value="#{fuenteBean.records}" var="fuente" itemLabel="#{fuente.nombre} " itemValue="#{fuente.nombre}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column style="width:35px">
+					<p:rowEditor  />
+					<p:commandButton action="#{editarReferenciaBean.eliminar(metadato)}"
+									 immediate="true"
+									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs :formReferencia" >
+						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+								   message="#{msg['dialogoConfirmacion.eliminar']}"
+								   icon="ui-icon ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+				<p:commandButton value="#{msg.no}" type="button"
+								 styleClass="ui-confirmdialog-no ui-button-flat"  />
+				<p:commandButton value="#{msg.si}" type="button"
+								 styleClass="ui-confirmdialog-yes"  />
+			</p:confirmDialog>
+		</h:form>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>
+</html>
