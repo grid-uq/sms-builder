@@ -24,6 +24,7 @@ import java.util.List;
  */
 public class BibtexReferenceParcer extends ReferenceParser<BibTeXEntry> {
 
+	private static final Key KEYWORDS = new Key("keywords");
 	private static final String ABSTRACT = "abstract";
 
 	public BibtexReferenceParcer(Fuente fuente) {
@@ -95,7 +96,7 @@ public class BibtexReferenceParcer extends ReferenceParser<BibTeXEntry> {
 		if( BibTeXEntry.KEY_DOI.equals(key) ){
 			return TipoMetadato.DOI;
 		}
-		if( BibTeXEntry.KEY_KEY.equals(key) ){
+		if( KEYWORDS.equals(key) || BibTeXEntry.KEY_KEY.equals(key) ){
 			return TipoMetadato.KEYWORD;
 		}
 		if( isType(key)  ){

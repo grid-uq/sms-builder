@@ -113,24 +113,18 @@ public class Referencia implements Entidad<String> {
      */
     public void addElement(TipoMetadato identifier, String value) {
         inicializarElementos();
-        switch (identifier) {
-            case TITLE -> {
-                setNombre(value);
-                metadatos.add(new Metadato(identifier, value, this));
-            }
-            case ABSTRACT -> {
-                setResumen(value);
-                metadatos.add(new Metadato(identifier, value, this));
-            }
-            case TYPE -> {
-                setTipo(value);
-                metadatos.add(new Metadato(identifier, value, this));
-            }
-            case YEAR -> {
-                setYear(value);
-                metadatos.add(new Metadato(identifier, value, this));
-            }
-            default -> metadatos.add(new Metadato(identifier, value, this));
+        var metadato = new Metadato(identifier, value, this);
+        metadatos.add(metadato);
+        refreshDataFromElement(metadato);
+    }
+
+    public void refreshDataFromElement(Metadato metadato){
+        switch (metadato.getIdentifier()) {
+            case TITLE -> setNombre(metadato.getValue());
+            case ABSTRACT -> setResumen(metadato.getValue());
+            case TYPE -> setTipo(metadato.getValue());
+            case YEAR -> setYear(metadato.getValue());
+            case CITES -> setCitas(Integer.parseInt(metadato.getValue()));
         }
     }
 

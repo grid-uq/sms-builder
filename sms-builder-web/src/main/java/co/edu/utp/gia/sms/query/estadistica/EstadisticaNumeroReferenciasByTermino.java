@@ -9,6 +9,7 @@ import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -38,7 +39,7 @@ public class EstadisticaNumeroReferenciasByTermino {
     }
 
     private static long count(Provider<Collection<Referencia>> dataProvider, Termino termino){
-        var palabras = termino.getSinonimos().stream().map(String::toUpperCase).toList();
+        var palabras = new LinkedList<>(termino.getSinonimos().stream().map(String::toUpperCase).toList());
         palabras.add(termino.getDescripcion().toUpperCase());
 
         final var metadatos = List.of(TipoMetadato.KEYWORD,TipoMetadato.TITLE,TipoMetadato.ABSTRACT);

@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="jakarta.faces.facelets"
       xmlns:h="jakarta.faces.html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="jakarta.faces.core">
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
@@ -19,20 +20,27 @@
 
 				<p:column headerText="#{msg.etiquetaNombre}" style="width:75%" sortBy="#{referencia.spsid}" filterBy="#{referencia.spsid} #{referencia.nombre}"
 					filterMatchMode="contains">
-					<p:panelGrid styleClass="ui-panelgrid-blank">
-						<p:row>
-							<p:column style="width: 80px">
-								<h:outputText value="#{referencia.spsid}"
-											  style="font-weight:bold; color:blue"/>
-							</p:column>
-							<p:column style="width: 98%">|&nbsp;
-								<h:outputText value="#{referencia.nombre}"
-											  style="font-weight:bold; color:blue"/>
-							</p:column>
+					<div class="card">
+					<p:panelGrid styleClass="ui-panelgrid-blank" columns="2" contentStyle="vertical-align: center">
+						<p:row style="vertical-align: center">
+						<p:column style="width: 100%; vertical-align: center">
+							<h:outputText value="#{referencia.spsid}"
+										  style="font-weight:bold; color:blue"/>
+						|&nbsp;
+							<h:outputText value="#{referencia.nombre}"
+										  style="font-weight:bold; color:blue"/><h:outputText value=" - " />
+							<p:linkButton icon="pi pi-pencil"
+										  styleClass="rounded-button ui-button-flat ui-button-plain"
+										  href="/referencia/editar.xhtml"
+										  ajax="false" immediate="true" >
+								<f:param name="referencia" value="#{referencia.id}"   />
+							</p:linkButton>
+						</p:column>
 						</p:row>
 					</p:panelGrid>
+					</div>
 					<hr />
-					<p:panelGrid styleClass="ui-panelgrid-blank" >
+					<p:panelGrid styleClass="ui-panelgrid-blank" columns="3">
 						<p:row>
 							<p:column style="width: 200px">
 								<p:rating value="#{referencia.relevancia}">
