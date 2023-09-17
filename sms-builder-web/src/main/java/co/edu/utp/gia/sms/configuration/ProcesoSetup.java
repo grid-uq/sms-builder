@@ -26,13 +26,26 @@ public class ProcesoSetup implements SetupInterface{
     @Override
     public void setup() {
         String[] keys = {
+                "etiquetaMenuRevisionEditar",
+                "etiquetaMenuObjetivo",
+                "etiquetaMenuPregunta",
+                "etiquetaTermino",
+                "etiquetaMenuAtributosCalidad",
+                "etiquetaFuente",
+                "etiquetaMenuCriterioSeleccion",
+                "etiquetaMenuCadenaBusqueda",
                 "etiquetaMenuReferenciasImportarBD",
                 "etiquetaMenuReferenciasImportarID",
                 "etiquetaMenuReferenciasDuplicadas",
                 "etiquetaMenuReferenciasSeleccionar",
+                "etiquetaMenuReferenciaNumeroCitas",
+                "etiquetaMenuEvaluarReferencia",
                 "etiquetaMenuReferenciasImportarBN",
                 "etiquetaMenuReferenciasSeleccionar",
-                "etiquetaMenuReferenciasSeleccionadas"
+                "etiquetaMenuReferenciasSeleccionadas",
+                "etiquetaMenuReferenciaNumeroCitas",
+                "etiquetaMenuAnalizarReferencias",
+                "etiquetaMenuEvaluarReferencia"
         };
         var pasos = procesoService.get();
 

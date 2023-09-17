@@ -26,7 +26,7 @@ import java.util.Collection;
  */
 @Named
 @ViewScoped
-public class ConfigurarRevisionBean extends AbstractBean {
+public class RevisionBean extends AbstractBean {
     @Getter
     @Setter
     private Revision revision;
@@ -47,9 +47,33 @@ public class ConfigurarRevisionBean extends AbstractBean {
         }
     }
 
-    public void actualizar() {
+    public String actualizar() {
         revisionService.save(revision.getNombre(), revision.getDescripcion());
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
+        return siguientePaso();
     }
 
+
+    public String irPasoActual() {
+        return revision.getPasoActual().getPaso().recurso().getUrl();
+    }
+
+    public String anteriorPaso() {
+        if( revision.getPasoActual().getOrden() > 1) {
+            return irPaso(revision.getPasoActual().getOrden() - 1);
+        }
+        return null;
+    }
+    public String siguientePaso() {
+        if( revision.getPasoActual().getOrden() < revision.getPasosProceso().size()) {
+            return irPaso(revision.getPasoActual().getOrden() +1);
+        }
+        return null;
+    }
+    public String irPaso(int i) {
+        var paso = revision.getPasosProceso().stream().filter( pasoProceso-> pasoProceso.getOrden() == i ).findFirst();
+        paso.ifPresent( revisionService::changePasoActual );
+        var pasoActual = revision.getPasoActual();
+        return pasoActual.getPaso().recurso().getUrl()+"?faces-redirect=true&paso="+pasoActual.getId();
+    }
 }

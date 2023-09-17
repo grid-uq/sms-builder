@@ -40,13 +40,38 @@ public class ProcesoBean extends AbstractRevisionBean {
     @Getter
     private MenuModel model;
 
+    @Getter
+    private MenuModel stepsModel;
+
+
     public void inicializar() {
         pasosProceso = procesoService.get();
         configurarMenu();
+        configurarStepsMenu();
+    }
+
+    private void configurarStepsMenu() {
+        stepsModel = new DefaultMenuModel();
+        getRevision().getPasosProceso().forEach( this::addStep );
+
+
+    }
+
+    private void addStep(PasoProceso pasoProceso) {
+        var paso = pasoProceso.getPaso();
+        var item = DefaultMenuItem.builder()
+                .value(getMessage(paso.nombre()))
+                //.url(paso.recurso().getUrl())
+                .command("#{revisionBean.irPaso("+pasoProceso.getOrden()+")}")
+                .style("margin-left:10px; margin-right:10px; border-radius: 10px; overflow-x: auto; max-width: 90hw;")
+
+                .build();
+        stepsModel.getElements().add(item);
     }
 
     private void configurarMenu() {
         model = new DefaultMenuModel();
+        configurarPasoActual();
         configurarStage1(model);
 //        configurarStage2Static(model);
         configurarStage2(model);
@@ -57,9 +82,20 @@ public class ProcesoBean extends AbstractRevisionBean {
         configurarAyuda(model);
     }
 
+    private void configurarPasoActual() {
+        var paso = getRevision().getPasoActual().getPaso();
+        var item = DefaultMenuItem.builder()
+                .value(getMessage(paso.nombre()))
+                .url(paso.recurso().getUrl())
+                .build();
+        model.getElements().add(item);
+    }
+
     private void configurarStage2(MenuModel model) {
         DefaultSubMenu stage = DefaultSubMenu.builder()
                 .label("Stage 2 Search for studies")
+                .styleClass(".ui-menu-parent")
+                .style("overflow-y: auto; max-height: 60vh;")
                 .build();
         pasosProceso.forEach(paso -> {
             final String url = paso.getPaso().recurso().getUrl();
@@ -109,8 +145,8 @@ public class ProcesoBean extends AbstractRevisionBean {
     }
 
     private void configurarStage3(MenuModel model) {
-        String[] urls = {"/revision/referenciaAdicionarCitas.xhtml", "/revision/evaluarReferencias.xhtml",
-                "/revision/tablaResumenEvaluacionReferencias.xhtml", "/revision/tablaResumenEvaluacionReferenciasAtributo.xhtml"};
+        String[] urls = {"/referencia/adicionarCitas.xhtml", "/calidad/evaluarReferencias.xhtml",
+                "/calidad/resumenEvaluacionReferencias.xhtml", "/calidad/resumenEvaluacionReferenciasAtributo.xhtml"};
         String[] labels = {"etiquetaMenuReferenciaNumeroCitas", "etiquetaMenuEvaluarReferencia", "etiquetaMenuCalidadTablaResumen",
                 "etiquetaMenuCalidadTablaResumenAtributo"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
@@ -137,7 +173,7 @@ public class ProcesoBean extends AbstractRevisionBean {
     }
 
     private void configurarStage5(MenuModel model) {
-        String[] urls = {"/revision/analizarReferencias.xhtml", "/estadisticas/tablaReferenciasPreguntas.xhtml",
+        String[] urls = {"/referencia/analizar.xhtml", "/estadisticas/tablaReferenciasPreguntas.xhtml",
                 "/estadisticas/tablaReferenciasTopicos.xhtml"};
         String[] labels = {"etiquetaMenuAnalizarReferencias", "etiquetaMenuAnalisisTablaReferenciaPregunta",
                 "etiquetaMenuAnalisisTablaReferenciaTopico"};
@@ -209,7 +245,8 @@ public class ProcesoBean extends AbstractRevisionBean {
                 .ajax(false)
                 .url(url)
                 //.command(url)
-
+                .styleClass(".ui-menu-child")
+                .style("overflow-y: auto; max-height: 60vh;")
                 .rendered(rendered)
                 .build();
         stage.getElements().add(item);
@@ -227,4 +264,5 @@ public class ProcesoBean extends AbstractRevisionBean {
                 .rendered(true)
                 .build();
     }
+
 }

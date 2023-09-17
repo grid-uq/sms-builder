@@ -29,23 +29,43 @@ public class PasosSetup implements SetupInterface {
     public void setup() {
         String[] recursos = {
                 "/revision/editarRevision.xhtml",
+                "/objetivo/registro.xhtml",
+                "/pregunta/registro.xhtml",
+                "/termino/registro.xhtml",
+                "/atributocalidad/registro.xhtml",
+                "/fuente/registro.xhtml",
+                "/criterioseleccion/registro.xhtml",
+                "/cadenabusqueda/registro.xhtml",
                 "/revision/importarReferencias.xhtml",
                 "/revision/importarReferenciasBaseDatos.xhtml",
                 "/revision/importarReferenciasManual.xhtml",
                 "/revision/importarReferenciasBolaNieve.xhtml",
                 "/revision/gestionarReferenciasRepetidas.xhtml",
                 "/revision/aplicarCriterios.xhtml",
-                "/revision/resumenReferenciasSeleccionadas.xhtml"
+                "/revision/resumenReferenciasSeleccionadas.xhtml",
+                "/referencia/adicionarCitas.xhtml",
+                "/calidad/evaluarReferencias.xhtml",
+                "/referencia/analizar.xhtml"
         };
         String[] keys = {
                 "etiquetaMenuRevisionEditar",
+                "etiquetaMenuObjetivo",
+                "etiquetaMenuPregunta",
+                "etiquetaTermino",
+                "etiquetaMenuAtributosCalidad",
+                "etiquetaFuente",
+                "etiquetaMenuCriterioSeleccion",
+                "etiquetaMenuCadenaBusqueda",
                 "etiquetaMenuReferenciasImportar",
                 "etiquetaMenuReferenciasImportarBD",
                 "etiquetaMenuReferenciasImportarID",
                 "etiquetaMenuReferenciasImportarBN",
                 "etiquetaMenuReferenciasDuplicadas",
                 "etiquetaMenuReferenciasSeleccionar",
-                "etiquetaMenuReferenciasSeleccionadas"
+                "etiquetaMenuReferenciasSeleccionadas",
+                "etiquetaMenuReferenciaNumeroCitas",
+                "etiquetaMenuEvaluarReferencia",
+                "etiquetaMenuAnalizarReferencias"
         };
 
         var seleccionar = List.of("etiquetaMenuReferenciasDuplicadas","etiquetaMenuReferenciasSeleccionar");

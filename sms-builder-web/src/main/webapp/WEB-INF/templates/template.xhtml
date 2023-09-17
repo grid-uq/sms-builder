@@ -32,6 +32,10 @@
                 background-color: #fca752 !important;
                 color: #FFFFFF;
             }
+            .ui-menu .ui-menu-parent .ui-menu-child{
+                overflow-y: auto;
+                max-height: 80vh;
+            }
         </style>
     </ui:insert>
     <ui:insert name="head"/>
@@ -40,7 +44,7 @@
 
 <h:body>
     <f:view>
-        <ui:include src="/WEB-INF/templates/panelControl.xhtml"></ui:include>
+        <ui:include src="/WEB-INF/templates/panelControl.xhtml" />
 
         <div id="header" align='center'>
             <div style="position: absolute; left: 10px; top: 10px">
@@ -59,11 +63,10 @@
             </div>
 
             <ui:insert name="header">
-
                 <p:panelGrid columns="1" id="tituloApp"
                              style="text-align:center; background-color:#123456; height: 30px"
                              layout="grid">
-                    :: #{msg['aplicacion.titulo']} :: #{registroInicialBean.titutlo}
+                    :: #{msg['aplicacion.titulo']} ::
                 </p:panelGrid>
                 <!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
                 <!-- <ui:include src="header.xhtml"/> -->
@@ -72,8 +75,22 @@
         </div>
         <br />
         <h:form>
-        <p:menubar model="#{procesoBean.model}" rendered="#{seguridadBean.autenticado}">
-        </p:menubar>
+            <div class="card" style="position:relative; width: 100%;border:1px solid black;">
+
+                <p:commandButton style="position:absolute; left:10px; top:0px; z-index: 1" action="#{revisionBean.anteriorPaso()}" icon="pi pi-arrow-circle-left" styleClass="rounded-button ui-button-flat ui-button-plain" rendered="#{seguridadBean.autenticado}"  />
+
+                <p:commandButton style="position:absolute; right:10px; top:0px; z-index: 100" action="#{revisionBean.siguientePaso()}" icon="pi pi-arrow-circle-right" styleClass="rounded-button ui-button-flat ui-button-plain" rendered="#{seguridadBean.autenticado}" />
+                <p:steps model="#{procesoBean.stepsModel}" rendered="#{seguridadBean.autenticado}" readonly="false" activeIndex="#{procesoBean.revision.pasoActual.orden-1}" style="width: 100%; overflow-x: scroll;" >
+
+                </p:steps>
+                <!--
+                <p:scrollPanel mode="native" style="width:100%; height: 150px">
+
+
+                </p:scrollPanel>
+                -->
+            </div>
+
         </h:form>
         <div id="content" align='center'>
             <p:growl id="msgs"/>

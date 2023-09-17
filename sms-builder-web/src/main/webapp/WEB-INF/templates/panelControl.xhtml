@@ -47,15 +47,17 @@
                     </p:panel>
                     </div>
                 </p:outputPanel>
-                    <p:panel rendered="#{seguridadBean.autenticado}">
+                    <p:panel rendered="#{seguridadBean.autenticado}" style="height: 100%; ">
                         <f:facet name="header">
                             <h:outputText value="#{msg.etiquetaMenuTitulo}"/>
                         </f:facet>
+                        <div class="card" >
                         <h:form id="menu">
-                            <p:panelMenu model="#{procesoBean.model}" style="width: 450px">
+                            <p:panelMenu model="#{procesoBean.model}" style="width: 450px; " >
 
                             </p:panelMenu>
                         </h:form>
+                        </div>
                     </p:panel>
         </p:panelGrid>
         </div>

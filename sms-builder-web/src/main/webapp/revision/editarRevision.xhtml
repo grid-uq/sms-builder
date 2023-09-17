@@ -19,19 +19,19 @@
 				<p:panelGrid columns="2" style="width:70%">
 				
 					<p:outputLabel for="nombre" value="#{msg.etiquetaNombre}:" />
-					<p:inputText id="nombre" value="#{configurarRevisionBean.revision.nombre}" />
+					<p:inputText id="nombre" value="#{revisionBean.revision.nombre}" />
 					
 					<p:outputLabel for="descripcion" value="#{msg.etiquetaDescripcion}:" />
-					<p:inputTextarea id="descripcion" value="#{configurarRevisionBean.revision.descripcion}" />
+					<p:inputTextarea id="descripcion" value="#{revisionBean.revision.descripcion}" />
 
 					<p:outputLabel for="paso" value="#{msg.etiquetaPasoEvaluacion}:" />
-					<p:selectOneMenu id="paso" value="#{configurarRevisionBean.revision.pasoSeleccionado}" converter="selectItemObjectConverter">
-						<f:selectItems value="#{configurarRevisionBean.pasos}" var="paso" itemLabel="#{paso.orden}-#{msg[paso.paso.nombre()]}" itemValue="#{paso}" />
+					<p:selectOneMenu id="paso" value="#{revisionBean.revision.pasoSeleccionado}" converter="selectItemObjectConverter">
+						<f:selectItems value="#{revisionBean.pasos}" var="paso" itemLabel="#{paso.orden}-#{msg[paso.paso.nombre()]}" itemValue="#{paso}" />
 					</p:selectOneMenu>
 
 					<f:facet name="footer">
 						<p:commandButton value="#{msg.botonAceptar}"
-							action="#{configurarRevisionBean.actualizar}"
+							action="#{revisionBean.actualizar}"
 							update=":registro,:menu, :msgs" />
 					</f:facet>
 
