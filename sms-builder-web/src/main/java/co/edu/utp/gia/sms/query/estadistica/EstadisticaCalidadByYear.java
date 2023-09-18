@@ -20,7 +20,7 @@ public class EstadisticaCalidadByYear {
      * @return TypedQuery<DatoDTO> que representa la consulta
      */
     public static Stream<DatoDTO> createQuery() {
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias);
     }
 
     /**

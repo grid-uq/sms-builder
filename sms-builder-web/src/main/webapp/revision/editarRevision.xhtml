@@ -6,10 +6,6 @@
 	xmlns:h="jakarta.faces.html"
 	xmlns:f="jakarta.faces.core"
 	xmlns:p="http://primefaces.org/ui">
-<head>
-
-
-</head>
 <ui:composition template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
 
@@ -23,11 +19,6 @@
 					
 					<p:outputLabel for="descripcion" value="#{msg.etiquetaDescripcion}:" />
 					<p:inputTextarea id="descripcion" value="#{revisionBean.revision.descripcion}" />
-
-					<p:outputLabel for="paso" value="#{msg.etiquetaPasoEvaluacion}:" />
-					<p:selectOneMenu id="paso" value="#{revisionBean.revision.pasoSeleccionado}" converter="selectItemObjectConverter">
-						<f:selectItems value="#{revisionBean.pasos}" var="paso" itemLabel="#{paso.orden}-#{msg[paso.paso.nombre()]}" itemValue="#{paso}" />
-					</p:selectOneMenu>
 
 					<f:facet name="footer">
 						<p:commandButton value="#{msg.botonAceptar}"

@@ -83,7 +83,7 @@ public class RevisionService {
      * @return El número total de referencias de un determinado tipo de fuente en el paso seleccionado
      */
     public long totalReferenciasPaso(TipoFuente tipoFuente){
-        return EstadisticaGetTotalReferenciasByTipoFuente.createQuery(get().getPasoSeleccionado()::getReferencias,tipoFuente);
+        return EstadisticaGetTotalReferenciasByTipoFuente.createQuery(get().getPasoActual()::getReferencias,tipoFuente);
     }
 
     /**
@@ -99,17 +99,13 @@ public class RevisionService {
      * @return El número de referencias en el paso
      */
     public long totalReferenciasSeleccionadas() {
-        return get().getPasoSeleccionado().getReferencias().size();
+        return get().getPasoActual().getReferencias().size();
     }
 
     public void save() {
         DB.storageManager.store(DB.root.revision());
     }
 
-    public void changePasoSeleccionado(PasoProceso pasoProceso) {
-        get().setPasoSeleccionado(pasoProceso);
-        save();
-    }
 
     public void changePasoActual(PasoProceso pasoProceso ) {
         get().setPasoActual(pasoProceso);

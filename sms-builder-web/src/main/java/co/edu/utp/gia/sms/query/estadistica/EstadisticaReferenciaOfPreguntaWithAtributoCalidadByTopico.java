@@ -25,7 +25,7 @@ public class EstadisticaReferenciaOfPreguntaWithAtributoCalidadByTopico {
      * @return TypedQuery<DatoDTO> que representa la consulta
      */
     public static Stream<DatoDTO> createQuery(String codigo, String idAtributoCalidad) {
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,codigo,idAtributoCalidad);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias,codigo,idAtributoCalidad);
     }
 
     /**

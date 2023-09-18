@@ -77,7 +77,7 @@ public class EvaluacionCalidadService extends AbstractGenericService<EvaluacionC
 
 
 	public void evaluacionAcutomatica(){
-		var referencias = revisionService.get().getPasoSeleccionado().getReferencias();
+		var referencias = revisionService.get().getPasoActual().getReferencias();
 		referencias.forEach(this::evaluacionAutomatica);
 	}
 

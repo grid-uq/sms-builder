@@ -21,7 +21,7 @@ public class ReferenciaGetAllWithEvaluacionOfAtributoCalidad {
      * @return Stream<Referencia> que representa el resultado de la consulta
      */
     public static Stream<Referencia> createQuery(String idAtributoCalidad){
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,idAtributoCalidad);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias,idAtributoCalidad);
     }
 
     /**

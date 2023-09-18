@@ -63,7 +63,7 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
     public void inicializar() {
 
         if (getRevision() != null) {
-            referencias = referenciaService.findByPaso(getRevision().getPasoSeleccionado().getId())
+            referencias = referenciaService.findByPaso(getPasoActual().getId())
                     .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
             topicos = revisionService.getTopicos();
             years = estadisticaService.obtenerYears( );
@@ -72,7 +72,7 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
 
     public void consultarReferencias() {
         if (idAtributoCalidad == null) {
-            referencias = referenciaService.findByPaso(getRevision().getPasoSeleccionado().getId())
+            referencias = referenciaService.findByPaso(getPasoActual().getId())
                     .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
         } else if (evaluacion != null) {
             referencias = referenciaService.obtenerReferenciasAtributoCalidadEvaluacion(idAtributoCalidad, evaluacion)

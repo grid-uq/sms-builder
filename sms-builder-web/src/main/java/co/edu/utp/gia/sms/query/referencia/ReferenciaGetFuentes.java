@@ -21,7 +21,7 @@ public class ReferenciaGetFuentes {
      * @return TypedQuery<DatoDTO> que representa la consulta
      */
     public static Stream<Fuente> createQuery(String id) {
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,id);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias,id);
     }
 
     /**

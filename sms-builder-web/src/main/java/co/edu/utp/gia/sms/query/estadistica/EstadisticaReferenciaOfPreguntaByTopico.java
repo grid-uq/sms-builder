@@ -24,7 +24,7 @@ public class EstadisticaReferenciaOfPreguntaByTopico {
      * @return TypedQuery<DatoDTO> que representa la consulta
      */
     public static Stream<DatoDTO> createQuery(String codigo) {
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,codigo);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias,codigo);
     }
 
     /**

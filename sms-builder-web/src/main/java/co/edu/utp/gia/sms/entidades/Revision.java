@@ -47,12 +47,6 @@ public class Revision implements Serializable {
     private List<PasoProceso> pasosProceso = new ArrayList<>();
 
     /**
-     * Representa el paso seleccionado para la evaluación y extracción de estadísticas
-     */
-    @Setter
-    private PasoProceso pasoSeleccionado;
-
-    /**
      * Representa el paso que está siendo procesado
      */
     @Setter

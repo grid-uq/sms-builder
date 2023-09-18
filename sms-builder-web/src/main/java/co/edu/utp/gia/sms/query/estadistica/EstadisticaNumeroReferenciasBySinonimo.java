@@ -24,7 +24,7 @@ public class EstadisticaNumeroReferenciasBySinonimo {
      * @return Stream<DatoDTO> que representa el resultado de la consulta
      */
     public static Stream<DatoDTO> createQuery() {
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias);
     }
 
     /**

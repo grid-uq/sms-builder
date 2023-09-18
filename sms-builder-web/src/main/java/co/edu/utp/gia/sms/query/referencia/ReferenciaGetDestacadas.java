@@ -18,7 +18,7 @@ public class ReferenciaGetDestacadas {
      * @return Stream<Referencia> que representa el resultado de la consulta
      */
     public static Stream<Referencia> createQuery(){
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias);
     }
 
     /**

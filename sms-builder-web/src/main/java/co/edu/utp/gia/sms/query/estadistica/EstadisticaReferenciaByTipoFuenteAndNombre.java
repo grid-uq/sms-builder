@@ -23,7 +23,7 @@ public class EstadisticaReferenciaByTipoFuenteAndNombre {
      * @return TypedQuery<DatoDTO> que representa la consulta
      */
     public static Stream<DatoDTO> createQuery(TipoFuente tipoFuente) {
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,tipoFuente);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias,tipoFuente);
     }
 
     /**

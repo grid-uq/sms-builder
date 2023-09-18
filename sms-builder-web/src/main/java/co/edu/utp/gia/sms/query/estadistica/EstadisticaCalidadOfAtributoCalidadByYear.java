@@ -24,7 +24,7 @@ public class EstadisticaCalidadOfAtributoCalidadByYear {
      * @return TypedQuery<DatoDTO> que representa la consulta
      */
     public static Stream<DatoDTO> createQuery(String idAtributoCalidad) {
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,idAtributoCalidad);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias,idAtributoCalidad);
     }
 
     /**

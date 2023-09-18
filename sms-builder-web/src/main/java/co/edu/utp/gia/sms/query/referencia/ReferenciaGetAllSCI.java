@@ -17,7 +17,7 @@ public class ReferenciaGetAllSCI {
      * @return Stream<Float> que representa el resultado de la consulta
      */
     public static Stream<Float> createQuery(){
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias);
     }
 
     /**

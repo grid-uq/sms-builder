@@ -23,7 +23,7 @@ public class EstadisticaReferenciaByPalabrasClave {
      * @return Stream<DatoDTO> que representa el resultado de la consulta
      */
     public static Stream<Referencia> createQuery(String keyword, List<TipoMetadato> metadatos) {
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,keyword, metadatos);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias,keyword, metadatos);
     }
 
     /**

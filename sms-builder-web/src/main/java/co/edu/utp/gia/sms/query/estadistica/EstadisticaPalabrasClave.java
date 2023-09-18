@@ -24,7 +24,7 @@ public class EstadisticaPalabrasClave {
      * @return TypedQuery<DatoDTO> que representa la consulta
      */
     public static Stream<DatoDTO> createQuery(Integer minimo) {
-        return createQuery(DB.root.revision().getPasoSeleccionado()::getReferencias,minimo);
+        return createQuery(DB.root.revision().getPasoActual()::getReferencias,minimo);
     }
 
     /**

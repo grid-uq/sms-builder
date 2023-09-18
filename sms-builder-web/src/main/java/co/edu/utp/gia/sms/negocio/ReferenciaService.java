@@ -68,7 +68,7 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
     }
 
     public List<ReferenciaDTO> findByPasoSeleccionado() {
-        return findByPaso( revisionService.get().getPasoSeleccionado() );
+        return findByPaso( revisionService.get().getPasoActual() );
     }
     public List<ReferenciaDTO> findByPaso(String idPaso) {
         PasoProceso paso = procesoService.findOrThrow(idPaso);
@@ -95,7 +95,7 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
      * el id dado
      */
     public List<ReferenciaDTO> findWithEvaluacion() {
-        List<ReferenciaDTO> referencias = findByPaso( revisionService.get().getPasoSeleccionado() );
+        List<ReferenciaDTO> referencias = findByPasoSeleccionado();
         for (ReferenciaDTO referencia : referencias) {
             referencia.setEvaluaciones(referencia.getReferencia().getEvaluacionCalidad());
         }

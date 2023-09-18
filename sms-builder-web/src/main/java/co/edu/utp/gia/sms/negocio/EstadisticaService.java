@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
- * gestion de las Estadisticas.
+ * gestión de las estadísticas.
  *
  * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
  * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>
@@ -29,17 +29,17 @@ public class EstadisticaService {
     /**
      * Consulta que permite obtener el número de referencias por año en una revision
      *
-     * @return Listado de {@link DatoDTO} con estadisticas del número de referencias por año en una revision
+     * @return Listado de {@link DatoDTO} con estadísticas del número de referencias por año en una revision
      */
     public List<DatoDTO> obtenerReferenciasYear() {
         return EstadisticaReferenciaByYear.createQuery().toList();
     }
 
     /**
-     * Consulta que permite obtener el número de referencias que cumplem con un determinado atributo de calidad por Año en una revision
+     * Consulta que permite obtener el número de referencias que cumplen con un determinado atributo de calidad por Año en una revision
      *
      * @param idAtributoCalidad Id del atributo de calidad
-     * @return List<DatoDTO> Listado de {@link DatoDTO} con estadisticas del número de referencias que cumplem con un determinado atributo de calidad por Año en una revision
+     * @return List<DatoDTO> Listado de {@link DatoDTO} con estadísticas del número de referencias que cumplen con un determinado atributo de calidad por Año en una revision
      */
     public List<DatoDTO> obtenerReferenciasYear(String idAtributoCalidad) {
         return EstadisticaReferenciaWithAtributoCalidadByYear.createQuery(idAtributoCalidad).toList();
@@ -48,7 +48,7 @@ public class EstadisticaService {
     /**
      * Consulta que permite obtener el número de referencias por Tipo en una revision
      *
-     * @return List<DatoDTO> Listado de {@link DatoDTO} con estadisticas del número de referencias por Tipo en una revision
+     * @return List<DatoDTO> Listado de {@link DatoDTO} con estadísticas del número de referencias por Tipo en una revision
      */
     public List<DatoDTO> obtenerReferenciasTipo() {
         return EstadisticaReferenciaByTipo.createQuery().toList();
@@ -57,7 +57,7 @@ public class EstadisticaService {
     /**
      * Consulta que permite obtener el promedio de calidad por año
      *
-     * @return List<DatoDTO> Listado de {@link DatoDTO} con estadisticas del promedio de calidad por año
+     * @return List<DatoDTO> Listado de {@link DatoDTO} con estadísticas del promedio de calidad por año
      */
     public List<DatoDTO> obtenerReferenciasCalidadYear() {
         return EstadisticaCalidadByYear.createQuery().toList();
@@ -67,7 +67,7 @@ public class EstadisticaService {
      * Consulta que permite obtener el promedio de la evaluación de calidad de un determinado atributo de calidad por Año en una revision
      *
      * @param idAtributoCalidad Id del atributo de calidad
-     * @return List<DatoDTO> Listado de {@link DatoDTO} con estadisticas del promedio de la evaluación de calidad de un determinado atributo de calidad por Año en una revision
+     * @return List<DatoDTO> Listado de {@link DatoDTO} con estadísticas del promedio de la evaluación de calidad de un determinado atributo de calidad por Año en una revision
      */
     public List<DatoDTO> obtenerReferenciasCalidadYear(String idAtributoCalidad) {
         return EstadisticaCalidadOfAtributoCalidadByYear.createQuery(idAtributoCalidad).toList();
@@ -76,7 +76,7 @@ public class EstadisticaService {
     /**
      * Consulta que permite obtener el número de referencias por Pregunta en una revision
      *
-     * @return List<DatoDTO> Listado de {@link DatoDTO} con estadisticas del número de referencias por pregunta
+     * @return List<DatoDTO> Listado de {@link DatoDTO} con estadísticas del número de referencias por pregunta
      */
     public List<DatoDTO> obtenerReferenciasPregunta() {
         return EstadisticaReferenciaByPregunta.createQuery().toList();
@@ -85,7 +85,7 @@ public class EstadisticaService {
     /**
      * Consulta que permite obtener el número de referencias por tipo de fuente en una revision <br />
      *
-     * @return List<DatoDTO> con Estadisticas de los datos obtenidos
+     * @return List<DatoDTO> con Estadísticas de los datos obtenidos
      */
     public List<DatoDTO> obtenerReferenciasTipoFuente() {
         List<DatoDTO> resultado = new ArrayList<>(EstadisticaReferenciaByTipoFuente.createQuery().toList());
@@ -102,7 +102,7 @@ public class EstadisticaService {
      * Permite obtener el número de referencias por cada fuente de un determinado tipo de fuente en una revision
      *
      * @param tipo Tipo de fuente a consultar
-     * @return List<DatoDTO> Con Estadisticas de referencia por tipo de fuente.
+     * @return List<DatoDTO> Con Estadísticas de referencia por tipo de fuente.
      */
     public List<DatoDTO> obtenerReferenciasTipoFuenteNombre(TipoFuente tipo) {
         List<DatoDTO> resultado = new ArrayList<>(EstadisticaReferenciaByTipoFuenteAndNombre.createQuery(tipo)
@@ -120,17 +120,17 @@ public class EstadisticaService {
     /**
      * Consulta que permite obtener el número de referencias por Topico en una revision
      *
-     * @return List<DatoDTO> Con Estadisticas de el número de referencias por Topico en una revision
+     * @return List<DatoDTO> Con Estadísticas del número de referencias por Topico en una revision
      */
     public List<DatoDTO> obtenerReferenciasTopico() {
         return EstadisticaReferenciaByTopico.createQuery().toList();
     }
 
     /**
-     * Consulta que permite obtener el número de referencias que cumplem con un determinado atributo de calidad por Topico en una revision
+     * Consulta que permite obtener el número de referencias que cumplen con un determinado atributo de calidad por Topico en una revision
      *
      * @param idAtributoCalidad Id del atributo de calidad
-     * @return List<DatoDTO> Con Estadisticas de referencias que cumplem con un determinado atributo de calidad por Topico en una revision
+     * @return List<DatoDTO> Con Estadísticas de referencias que cumplen con un determinado atributo de calidad por Topico en una revision
      */
     public List<DatoDTO> obtenerReferenciasTopico(String idAtributoCalidad) {
         return EstadisticaReferenciaWithAtributoCalidadByTopico.createQuery(idAtributoCalidad).toList();
@@ -139,7 +139,7 @@ public class EstadisticaService {
     /**
      * Consulta que permite obtener el número de referencias por Topico de una Pregunta en una revision
      *
-     * @param codigo Codigo de la pregunta de la que se desean obtener las estadisticas
+     * @param codigo Codigo de la pregunta de la que se desean obtener las estadísticas
      * @return List<DatoDTO> Con Estadisticas de referencias por Topico de una Pregunta en una revision
      */
     public List<DatoDTO> obtenerReferenciasTopicoPregunta(String codigo) {
@@ -147,11 +147,11 @@ public class EstadisticaService {
     }
 
     /**
-     * Consulta que permite obtener el número de referencias que cumplem con un determinado atributo de calidad por Topico de una Pregunta en una revision
+     * Consulta que permite obtener el número de referencias que cumplen con un determinado atributo de calidad por Topico de una Pregunta en una revision
      *
-     * @param codigo            Codigo de la pregunta de la que se desean obtener las estadisticas
+     * @param codigo            Codigo de la pregunta de la que se desean obtener las estadísticas
      * @param idAtributoCalidad Id del atributo de calidad
-     * @return List<DatoDTO> Con Estadisticas de referencias que cumplem con un determinado atributo de calidad por Topico de una Pregunta en una revision
+     * @return List<DatoDTO> Con Estadísticas de referencias que cumplen con un determinado atributo de calidad por Topico de una Pregunta en una revision
      */
     public List<DatoDTO> obtenerReferenciasTopico(String codigo, String idAtributoCalidad) {
         return EstadisticaReferenciaOfPreguntaWithAtributoCalidadByTopico.createQuery(codigo, idAtributoCalidad).toList();
@@ -161,7 +161,7 @@ public class EstadisticaService {
      * Consulta que permite obtener las palabras claves y su número de apariciones en las referencias seleccionadas
      *
      * @param minimo Cantidad minima de apariciones que debe tener una palabra clave para ser considerada
-     * @return List<DatoDTO> Con Estadisticas de las palabras claves y su número de apariciones en las referencias seleccionadas
+     * @return List<DatoDTO> Con Estadísticas de las palabras claves y su número de apariciones en las referencias seleccionadas
      */
     public List<DatoDTO> obtenerPalabrasClave(int minimo) {
         return EstadisticaPalabrasClave.createQuery(minimo).toList();
@@ -179,18 +179,18 @@ public class EstadisticaService {
     }
 
     /**
-     * Consulta que permite obtener el número de referencias por termino
+     * Consulta que permite obtener el número de referencias por término
      *
-     * @return List<DatoDTO> Con Estadisticas de referencia por termino.
+     * @return List<DatoDTO> Con Estadísticas de referencia por término.
      */
     public List<DatoDTO> obtenerReferenciasTermino() {
         return EstadisticaNumeroReferenciasByTermino.createQuery().toList();
     }
 
     /**
-     * Consulta que permite obtener el número de referencias por termino y sinonimo
+     * Consulta que permite obtener el número de referencias por término y sinónimo
      *
-     * @return List<DatoDTO> Con Estadisticas de referencia por termino y sinonimo.
+     * @return List<DatoDTO> Con Estadísticas de referencia por término y sinónimo.
      */
     public List<DatoDTO> obtenerReferenciasSinonimo() {
         return EstadisticaNumeroReferenciasBySinonimo.createQuery().toList();
