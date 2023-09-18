@@ -13,7 +13,7 @@ import jakarta.inject.Named;
 import java.util.Collection;
 
 /**
- * Clase controladora de interfaz web que se encarga de la gestión de los atributos de calidad.
+ * Clase controladora de interfaz web que se encarga de la gestión de las fuentes.
  *
  * @author Christian A. Candela <christiancandela@uniquindio.edu.co>
  * @author Luis E. Sepúlveda R <lesepulveda@uniquindio.edu.co>

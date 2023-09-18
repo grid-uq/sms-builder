@@ -3,11 +3,13 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.negocio.RevisionService;
+import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.extern.java.Log;
 
-import jakarta.faces.annotation.ManagedProperty;
-import jakarta.inject.Inject;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 /**
  * Clase controladora de interfaz web que define los elementos básicos de las interfaces para el manejo de referencias.
  *
@@ -21,8 +23,6 @@ import jakarta.inject.Inject;
 @Log
 public abstract class AbstractRevisionBean extends AbstractBean {
     private Revision revision;
-    @Inject @ManagedProperty("#{param.paso}")
-    protected String paso;
     @Getter
     private PasoProceso pasoActual;
     @Getter
@@ -30,7 +30,7 @@ public abstract class AbstractRevisionBean extends AbstractBean {
     @Getter
     private PasoProceso pasoSiguiente;
     @Inject
-    private RevisionService revisionService;
+    protected RevisionService revisionService;
 
     public Revision getRevision() {
         if( revision == null ){
@@ -46,21 +46,14 @@ public abstract class AbstractRevisionBean extends AbstractBean {
     }
 
     protected void initPasos(){
+        Function<Integer,Predicate<PasoProceso>> filtro = (orden)->paso-> paso.getOrden().equals(orden);
         var pasos = getRevision().getPasosProceso();
-        pasoActual = pasoAnterior = pasoSiguiente = null;
-        pasos.forEach( paso->{
-            if( pasoActual != null ){
-                if( pasoSiguiente == null ){
-                    pasoSiguiente = paso;
-                }
-            } else {
-                if( paso.getId().equals(this.paso)){
-                    pasoActual = paso;
-                } else {
-                    pasoAnterior = paso;
-                }
-            }
-                }
-        );
+        pasoActual = getRevision().getPasoActual();
+
+        int orden = pasoActual.getOrden();
+        int ordenAnterior = orden -1;
+        int ordenSiguiente = orden +1;
+        pasoAnterior = pasos.stream().filter(filtro.apply(ordenAnterior)).findAny().orElse(null);
+        pasoSiguiente = pasos.stream().filter(filtro.apply(ordenSiguiente)).findAny().orElse(null);
     }
 }

@@ -2,15 +2,12 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
-import co.edu.utp.gia.sms.entidades.Revision;
 import co.edu.utp.gia.sms.negocio.ProcesoService;
-import co.edu.utp.gia.sms.negocio.RevisionService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Collection;
 
@@ -26,54 +23,48 @@ import java.util.Collection;
  */
 @Named
 @ViewScoped
-public class RevisionBean extends AbstractBean {
-    @Getter
-    @Setter
-    private Revision revision;
+public class RevisionBean extends AbstractRevisionBean {
+
     @Getter
     private Collection<PasoProceso> pasos;
     @Inject
     private SeguridadBeanImpl seguridadBean;
     @Inject
     private ProcesoService procesoService;
-    @Inject
-    private RevisionService revisionService;
 
     @PostConstruct
     public void inicializar() {
         if (seguridadBean.isAutenticado()) {
-            revision = revisionService.get();
             pasos = procesoService.get();
         }
     }
 
     public String actualizar() {
-        revisionService.save(revision.getNombre(), revision.getDescripcion());
+        revisionService.save(getRevision().getNombre(), getRevision().getDescripcion());
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         return siguientePaso();
     }
 
 
     public String irPasoActual() {
-        return revision.getPasoActual().getPaso().recurso().getUrl();
+        return getRevision().getPasoActual().getPaso().recurso().getUrl();
     }
 
     public String anteriorPaso() {
-        if( revision.getPasoActual().getOrden() > 1) {
-            return irPaso(revision.getPasoActual().getOrden() - 1);
+        if( getRevision().getPasoActual().getOrden() > 1) {
+            return irPaso(getRevision().getPasoActual().getOrden() - 1);
         }
         return null;
     }
     public String siguientePaso() {
-        if( revision.getPasoActual().getOrden() < revision.getPasosProceso().size()) {
-            return irPaso(revision.getPasoActual().getOrden() +1);
+        if( getRevision().getPasoActual().getOrden() < getRevision().getPasosProceso().size()) {
+            return irPaso(getRevision().getPasoActual().getOrden() +1);
         }
         return null;
     }
     public String irPaso(int i) {
-        var paso = revision.getPasosProceso().stream().filter( pasoProceso-> pasoProceso.getOrden() == i ).findFirst();
+        var paso = getRevision().getPasosProceso().stream().filter( pasoProceso-> pasoProceso.getOrden() == i ).findFirst();
         paso.ifPresent( revisionService::changePasoActual );
-        var pasoActual = revision.getPasoActual();
-        return pasoActual.getPaso().recurso().getUrl()+"?faces-redirect=true&paso="+pasoActual.getId();
+        return "/sms.xhtml?faces-redirect=true";
     }
 }

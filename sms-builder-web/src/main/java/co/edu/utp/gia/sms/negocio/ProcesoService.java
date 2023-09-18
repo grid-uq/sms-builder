@@ -119,7 +119,7 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
      */
     private void removeReferencia(PasoProceso paso, Referencia referencia) {
         var pasoSiguiente = findByOrden( paso.getOrden() + 1 );
-        if( pasoSiguiente != null && pasoSiguiente.getReferencias().contains(referencia) ){
+        if( pasoSiguiente != null ){
             removeReferencia(pasoSiguiente,referencia);
         }
         paso.getReferencias().remove(referencia);

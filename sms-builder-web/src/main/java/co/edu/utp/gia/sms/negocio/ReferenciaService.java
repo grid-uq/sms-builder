@@ -50,6 +50,19 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         return referencia;
     }
 
+    public void delete(Referencia referencia, String idPasoProceso) {
+        procesoService.removeReferencia(idPasoProceso,referencia.getId());
+    }
+
+    @Override
+    public void delete(Referencia referencia) {
+        var primerPaso = procesoService.findByOrden(1);
+        if( primerPaso != null ){
+            procesoService.removeReferencia(primerPaso.getId(), referencia.getId());
+        }
+        super.delete(referencia);
+    }
+
     public void save(List<Referencia> referencias,  String idPasoProceso) {
         referencias.forEach(referencia -> save(referencia,idPasoProceso));
     }
@@ -60,6 +73,12 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
     public List<ReferenciaDTO> findByPaso(String idPaso) {
         PasoProceso paso = procesoService.findOrThrow(idPaso);
         return findByPaso(paso);
+    }
+
+    public List<ReferenciaDTO> findAll() {
+        return get().stream()
+                .sorted(Comparator.comparing(Referencia::getNombre))
+                .map(r -> new ReferenciaDTO(r, 0)).toList();
     }
 
     private List<ReferenciaDTO> findByPaso(PasoProceso paso) {

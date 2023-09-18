@@ -76,7 +76,7 @@ public class ImportarReferenciasBean extends GenericBean<Referencia> {
             ReferenceParse parser = FileMultipleRegisterParseFactory
                     .getInstance(tipoArchivo, fuente);
             List<Referencia> referencias = parser.parse(file.getInputStream());
-            referenciaService.save(referencias, paso);
+            referenciaService.save(referencias, getPasoActual().getId());
             mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA) + " " + referencias.size());
         } catch (IOException e) {
             log.log(Level.WARNING, "Error al procesar un archivo", e);

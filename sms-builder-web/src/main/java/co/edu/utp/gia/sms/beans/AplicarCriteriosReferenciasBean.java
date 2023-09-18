@@ -36,7 +36,7 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
     private ProcesoService procesoService;
 
     public void inicializar() {
-        log.info("Aplicar criterios paso " + paso);
+        log.info("Aplicar criterios paso " + getPasoActual().getPaso().nombre());
         referencias = referenciaService.findByPaso(getPasoAnterior().getId());
 
         referencias.forEach(

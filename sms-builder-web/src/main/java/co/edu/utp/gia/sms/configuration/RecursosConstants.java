@@ -16,7 +16,25 @@ public final class RecursosConstants {
      * Variable que representa el atributo recursos disponibles en la aplicacion
      */
     static final String[] RECURSOS_ADMINISTRADOR = { "/administracion/index.xhtml", "/seguridad/recurso/index.xhtml",
-            "/seguridad/rol/index.xhtml", "/seguridad/usuario/index.xhtml", "/seguridad/usuario/actualizar.xhtml","/backup/importar.xhtml" };
+            "/seguridad/rol/index.xhtml", "/seguridad/usuario/index.xhtml", "/seguridad/usuario/actualizar.xhtml","/backup/importar.xhtml",
+            "/revision/editarRevision.xhtml",
+            "/objetivo/registro.xhtml",
+            "/pregunta/registro.xhtml",
+            "/termino/registro.xhtml",
+            "/atributocalidad/registro.xhtml",
+            "/fuente/registro.xhtml",
+            "/criterioseleccion/registro.xhtml",
+            "/cadenabusqueda/registro.xhtml",
+            "/revision/importarReferencias.xhtml",
+            "/revision/importarReferenciasBaseDatos.xhtml",
+            "/revision/importarReferenciasManual.xhtml",
+            "/revision/importarReferenciasBolaNieve.xhtml",
+            "/revision/gestionarReferenciasRepetidas.xhtml",
+            "/revision/aplicarCriterios.xhtml",
+            "/revision/resumenReferenciasSeleccionadas.xhtml",
+            "/referencia/adicionarCitas.xhtml",
+            "/calidad/evaluarReferencias.xhtml",
+            "/referencia/analizar.xhtml"};
 
 
     /**
@@ -24,32 +42,16 @@ public final class RecursosConstants {
      * listado de los recursos disponibles para usuarios no empleados o
      * administradores dentro de la aplicacion
      */
-    static final String[] RECURSOS_USUARIO = { "/atributocalidad/registro.xhtml", "/seguridad/usuario/actualizar.xhtml",
-            "/objetivo/registro.xhtml",
-            "/termino/registro.xhtml",
-            "/pregunta/registro.xhtml",
-            "/cadenabusqueda/registro.xhtml",
-            "/criterioseleccion/registro.xhtml",
-            "/fuente/registro.xhtml",
+    static final String[] RECURSOS_USUARIO = { "/sms.xhtml", "/seguridad/usuario/actualizar.xhtml",
+            "/referencia/navegar.xhtml",
+            "/referencia/navegar.xhtml?all=true",
             "/proceso/registro.xhtml",
             "/referencia/editar.xhtml",
-            "/referencia/adicionarCitas.xhtml",
-            "/referencia/analizar.xhtml",
             "/calidad/evaluarReferencia.xhtml",
-            "/calidad/evaluarReferencias.xhtml",
             "/calidad/resumenEvaluacionReferencias.xhtml",
             "/calidad/resumenEvaluacionReferenciasAtributo.xhtml",
-            "/revision/aplicarCriterios.xhtml",
-            "/revision/aplicarCriterios2.xhtml",
-            "/revision/gestionarReferenciasRepetidas.xhtml",
-            "/revision/editarRevision.xhtml",
             "/revision/registroReferencias.xhtml",
-            "/revision/importarReferencias.xhtml",
-            "/revision/importarReferenciasBaseDatos.xhtml",
-            "/revision/importarReferenciasManual.xhtml",
-            "/revision/importarReferenciasBolaNieve.xhtml",
             "/revision/resumenReferenciasDestacadas.xhtml",
-            "/revision/resumenReferenciasSeleccionadas.xhtml",
             "/revision/revisores/index.xhtml",
             "/estadisticas/palabrasClave.xhtml",
             "/estadisticas/referenciaPalabrasClave.xhtml",

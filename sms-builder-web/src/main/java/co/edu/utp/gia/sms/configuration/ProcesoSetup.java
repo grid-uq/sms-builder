@@ -41,6 +41,7 @@ public class ProcesoSetup implements SetupInterface{
                 "etiquetaMenuReferenciaNumeroCitas",
                 "etiquetaMenuEvaluarReferencia",
                 "etiquetaMenuReferenciasImportarBN",
+                "etiquetaMenuReferenciasDuplicadas",
                 "etiquetaMenuReferenciasSeleccionar",
                 "etiquetaMenuReferenciasSeleccionadas",
                 "etiquetaMenuReferenciaNumeroCitas",

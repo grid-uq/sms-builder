@@ -102,7 +102,7 @@ public class ProcesoBean extends AbstractRevisionBean {
 //            DefaultMenuItem menuItem = addItem(stage, paso.getPaso().getNombre(), url);
             DefaultMenuItem menuItem= addItem(stage, getMessage(paso.getPaso().nombre()), url,
                     getRevision() != null&&seguridadBean.verifivarAcceso(url));
-            menuItem.setParam("paso", paso.getId());
+//            menuItem.setParam("paso", paso.getId());
 
         });
         stage.setExpanded(false);
@@ -125,13 +125,8 @@ public class ProcesoBean extends AbstractRevisionBean {
     }
 
     private void configurarStage1(MenuModel model) {
-        String[] urls = {"/revision/editarRevision.xhtml",
-                "/objetivo/registro.xhtml", "/pregunta/registro.xhtml", "/termino/registro.xhtml",
-                "/atributocalidad/registro.xhtml","/fuente/registro.xhtml","/criterioseleccion/registro.xhtml",
-                "/cadenabusqueda/registro.xhtml","/proceso/registro.xhtml","/backup/importar.xhtml"};
-        String[] labels = {"etiquetaMenuRevisionEditar", "etiquetaMenuObjetivo",
-                "etiquetaMenuPregunta", "etiquetaTermino", "etiquetaMenuAtributosCalidad","etiquetaFuente",
-                "etiquetaMenuCriterioSeleccion","etiquetaMenuCadenaBusqueda","etiquetaProceso","etiquetaRestaurar"};
+        String[] urls = {"/referencia/navegar.xhtml","/referencia/navegar.xhtml?all=true","/proceso/registro.xhtml","/backup/importar.xhtml"};
+        String[] labels = {"etiquetaMenuReferenciasSeleccionadas","etiquetaMenuReferencias","etiquetaProceso","etiquetaRestaurar"};
         DefaultSubMenu stage = DefaultSubMenu.builder()
                 .label("Stage 1 Planing")
                 .build();

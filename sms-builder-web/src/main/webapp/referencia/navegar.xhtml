@@ -1,0 +1,60 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="tabla">
+			<p:dataTable value="#{referenciaBean.records}" var="referencia"
+				editable="true">
+				<p:column headerText="#{msg.etiquetaNombre}" sortBy="#{referencia.nombre}" filterBy="#{referencia.nombre}"
+						  filterMatchMode="contains">
+					<p:link href="https://scholar.google.com/scholar" target="_blank" value="#{referencia.nombre}">
+						<f:param name="hl" value="es" />
+						<f:param name="q" value="#{referencia.nombre}" />
+					</p:link>
+					<h:outputText value=" - " />
+					<p:linkButton icon="pi pi-pencil"
+								  styleClass="rounded-button ui-button-flat ui-button-plain"
+								  href="/referencia/editar.xhtml"
+								  ajax="false" immediate="true" >
+						<f:param name="referencia" value="#{referencia.id}"   />
+					</p:linkButton>
+				</p:column>
+				<p:column headerText="#{msg.etiquetaKeywords}" filterBy="#{referencia.keywords}"
+						  filterMatchMode="contains" field="keywords" />
+				<p:column headerText="#{msg.etiquetaAutores}" filterBy="#{referencia.autores}"
+						  filterMatchMode="contains" field="autores" />
+				<p:column style="width:35px">
+					<p:commandButton action="#{referenciaBean.eliminar(referencia)}"
+									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
+						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+							message="#{msg['dialogoConfirmacion.eliminar']}"
+							icon="ui-icon ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+				<p:commandButton value="#{msg.no}" type="button"
+								 styleClass="ui-confirmdialog-no ui-button-flat"  />
+				<p:commandButton value="#{msg.si}" type="button"
+								 styleClass="ui-confirmdialog-yes"  />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

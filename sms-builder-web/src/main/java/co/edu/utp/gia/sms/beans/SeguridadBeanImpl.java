@@ -3,14 +3,11 @@ package co.edu.utp.gia.sms.beans;
 import co.edu.utp.gia.sms.beans.seguridad.SeguridadBean;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.negocio.RevisionService;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.java.Log;
 
 import java.io.IOException;
@@ -51,7 +48,7 @@ public class SeguridadBeanImpl extends SeguridadBean {
 		if(isAutenticado()){
 			addToSession("revision", revisionService.get());
 		}
-		var url = revisionService.get().getPasoActual().getPaso().recurso().getUrl();
+		var url = "/sms.xhtml";
 		log.info( url );
 
 		try {
