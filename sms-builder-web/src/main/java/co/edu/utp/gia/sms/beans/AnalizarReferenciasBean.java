@@ -5,14 +5,12 @@ import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
 import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import co.edu.utp.gia.sms.negocio.RevisionService;
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serial;
 import java.util.List;
 
 /**
@@ -28,13 +26,6 @@ import java.util.List;
 @Named
 @ViewScoped
 public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
-
-    /**
-     * Variable que representa el atributo serialVersionUID de la clase
-     */
-    @Serial
-    private static final long serialVersionUID = 4009685061343184778L;
-
     @Inject
     private ReferenciaService referenciaService;
     @Inject
@@ -65,16 +56,8 @@ public class AnalizarReferenciasBean extends GenericBean<ReferenciaDTO> {
         referencia.setNota(nota);
     }
 
-    public void actualizarNota(ReferenciaDTO referencia) {
-        referenciaService.updateNota(referencia.getId(), referencia.getNota());
+    public void asociacionAutomatica(){
+        referenciaService.asociciacionAutomatica();
+        referencias = referenciaService.findByPasoSeleccionado();
     }
-
-    public void actualizarRelevancia(ReferenciaDTO referencia) {
-        referenciaService.updateRelevancia(referencia.getId(), referencia.getRelevancia());
-    }
-
-    public void actualizarResumen(ReferenciaDTO referencia) {
-        referenciaService.updateResumen(referencia.getId(), referencia.getResumen());
-    }
-
 }

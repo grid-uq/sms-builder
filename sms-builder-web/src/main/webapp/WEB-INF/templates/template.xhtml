@@ -63,11 +63,11 @@
             </div>
 
             <ui:insert name="header">
-                <p:panelGrid columns="1" id="tituloApp"
-                             style="text-align:center; background-color:#123456; height: 30px"
-                             layout="grid">
-                    :: #{msg['aplicacion.titulo']} ::
-                </p:panelGrid>
+                <div id="tituloApp" class="card"
+                             style="text-align:center; height: 50px; "
+                             >
+                    <h1>:: #{msg['aplicacion.titulo']} :: <h:outputText value="#{msg[procesoBean.revision.pasoActual.paso.nombre()]} :: " rendered="#{seguridadBean.autenticado}" /></h1>
+                </div>
                 <!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
                 <!-- <ui:include src="header.xhtml"/> -->
             </ui:insert>

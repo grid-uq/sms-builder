@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 /**
  * Clase usada para encapsular datos de una referencia que serán mostrados al usuario
@@ -156,19 +155,6 @@ public class ReferenciaDTO implements Serializable {
         return referencia.getTopicos();
     }
 
-    /**
-     * Permimte adicionar una evaluacion a la referencia
-     *
-     * @param evaluacion Evaluacion a ser adicionada
-     */
-    public void addEvaluacion(EvaluacionCalidad evaluacion) {
-        if (evaluaciones == null) {
-            evaluaciones = new ArrayList<>();
-        }
-        evaluaciones.add(evaluacion);
-    }
-
-
     /*
      * @see co.edu.utp.gia.sms.entidades.Referencia#getTotalEvaluacionCalidad()
      */
@@ -282,5 +268,13 @@ public class ReferenciaDTO implements Serializable {
                 .map(EvaluacionCualitativa::toString)
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<String> getTags() {
+        return referencia.getTags();
+    }
+
+    public void setTags(List<String> tags) {
+        referencia.setTags(tags);
     }
 }

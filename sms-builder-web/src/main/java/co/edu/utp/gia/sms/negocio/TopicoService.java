@@ -3,8 +3,12 @@ package co.edu.utp.gia.sms.negocio;
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
+import co.edu.utp.gia.sms.query.referencia.ReferenciaGetTags;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+
+import java.util.Collection;
+
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
  * gestion del {@link Topico}.
@@ -38,4 +42,8 @@ public class TopicoService extends AbstractGenericService<Topico, String> {
 		preguntaService.add(pregunta,topico);
 		return topico;
 	}
+
+    public Collection<String> getTags() {
+		return ReferenciaGetTags.createQuery().toList();
+    }
 }

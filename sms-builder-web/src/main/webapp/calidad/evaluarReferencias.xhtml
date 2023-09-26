@@ -25,10 +25,10 @@
 						<p:row style="vertical-align: center">
 						<p:column style="width: 100%; vertical-align: center">
 							<h:outputText value="#{referencia.spsid}"
-										  style="font-weight:bold; color:blue"/>
+										  style="font-weight:bold; "/>
 						|&nbsp;
 							<h:outputText value="#{referencia.nombre}"
-										  style="font-weight:bold; color:blue"/><h:outputText value=" - " />
+										  style="font-weight:bold; "/><h:outputText value=" - " />
 							<p:linkButton icon="pi pi-pencil"
 										  styleClass="rounded-button ui-button-flat ui-button-plain"
 										  href="/referencia/editar.xhtml"
@@ -40,42 +40,57 @@
 					</p:panelGrid>
 					</div>
 					<hr />
-					<p:panelGrid styleClass="ui-panelgrid-blank" columns="3">
-						<p:row>
-							<p:column style="width: 200px">
+					<table border="0"  class="card ui-panelgrid-blank ui-fluid" style="width: 100%; border: none; border-collapse: collapse; ">
+						<tbody style="border: none">
+						<tr style="border: none">
+							<td width="200px" style="border: none">
 								<p:rating value="#{referencia.relevancia}">
 									<p:ajax event="rate"
-											listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}" />
+											listener="#{referenciaBean.actualizarRelevancia(referencia)}" />
 									<p:ajax event="cancel"
-											listener="#{analizarReferenciasBean.actualizarRelevancia(referencia)}" />
+											listener="#{referenciaBean.actualizarRelevancia(referencia)}" />
 								</p:rating>
-							</p:column>
-							<p:column style="width: 180px">
-								|&nbsp;<h:outputLabel value="#{msg.etiquetaKeywords}:"
-											   style="font-weight:bold; color:blue" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{referencia.keywords}"
-											  style="font-weight:bold; color:blue" />
-							</p:column>
-						</p:row>
-					</p:panelGrid>
+							</td><td width="10px" style="border: none"> | </td>
+							<td width="*" style="border: none">
+								<h:outputLabel value="#{msg.etiquetaKeywords}:"
+								style="font-weight:bold; " />
+								<ui:repeat value="#{referencia.referencia.keyWordsList()}" var="keyword">
+									<p:chip label="#{keyword}" />
+								</ui:repeat>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+
 
 					<hr />
 					<h:outputLabel value="#{msg.etiquetaAbstract}"
-						style="font-weight:bold; color:blue" />
+						style="font-weight:bold; " />
 					<hr />
 					<h:outputText value="#{referencia.resumen}" />
 					<hr />
 
+					<h:outputLabel value="#{msg.etiquetaTags}"
+								   style="font-weight:bold; " />
+					<hr />
+
+					<div class="card">
+						<p:chips value="#{referencia.tags}" style="width:100%;" >
+							<p:ajax event="itemSelect" listener="#{referenciaBean.actualizarTags(referencia)}"  />
+							<p:ajax event="itemUnselect" listener="#{referenciaBean.actualizarTags(referencia)}"  />
+						</p:chips>
+					</div>
+
+					<hr />
+
 					<h:outputLabel value="#{msg.etiquetaNota}"
-						style="font-weight:bold; color:blue" />
+						style="font-weight:bold; " />
 
 
 					<hr />
 					<p:inputTextarea cols="120" value="#{referencia.nota}">
 						<p:ajax event="blur"
-							listener="#{analizarReferenciasBean.actualizarNota(referencia)}" />
+							listener="#{referenciaBean.actualizarNota(referencia)}" />
 					</p:inputTextarea>
 				</p:column>
 								

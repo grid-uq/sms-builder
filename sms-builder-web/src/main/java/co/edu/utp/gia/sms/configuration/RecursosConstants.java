@@ -30,7 +30,7 @@ public final class RecursosConstants {
             "/revision/importarReferenciasManual.xhtml",
             "/revision/importarReferenciasBolaNieve.xhtml",
             "/revision/gestionarReferenciasRepetidas.xhtml",
-            "/revision/aplicarCriterios.xhtml",
+            "/referencia/aplicarCriterios.xhtml",
             "/revision/resumenReferenciasSeleccionadas.xhtml",
             "/referencia/adicionarCitas.xhtml",
             "/calidad/evaluarReferencias.xhtml",

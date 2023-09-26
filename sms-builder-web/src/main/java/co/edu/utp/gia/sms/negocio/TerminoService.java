@@ -41,27 +41,12 @@ public class TerminoService extends AbstractGenericService<Termino, String>{
 		find(id).ifPresent(termino->termino.setDescripcion(descripcion));
 	}
 
-	/**
-	 * Permite adicionar un sinónimo a un Termino
-	 *
-	 * @param id          Id de la {@link Termino} al que se adicionará el sinónimo
-	 * @param sinonimo Sinónimo a ser adicionado
-	 */
-    public void addSinonimo(String id, String sinonimo) {
-		var termino = findOrThrow(id);
-		termino.adicionarSinonimo( sinonimo );
+    public void actualizarSinonimos(Termino termino) {
+		var storedTermino = findOrThrow( termino.getId() );
+		if( storedTermino != termino ){
+			storedTermino.setSinonimos( termino.getSinonimos() );
+		}
+		update(termino);
 		DB.storageManager.store(termino.getSinonimos());
     }
-
-	/**
-	 * Permite remover un sinónimo a un Termino
-	 *
-	 * @param id          Id de la {@link Termino} al que se adicionará el sinónimo
-	 * @param sinonimo Sinónimo a ser removido
-	 */
-	public void removeSinonimo(String id, String sinonimo) {
-		var termino = findOrThrow(id);
-		termino.removerSinonimo( sinonimo );
-		DB.storageManager.store(termino.getSinonimos());
-	}
 }

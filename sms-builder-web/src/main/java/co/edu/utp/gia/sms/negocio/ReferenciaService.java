@@ -14,6 +14,7 @@ import lombok.extern.java.Log;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 // TODO Pendiente la indicación de las revistas con mayor frecuencia dentro del SMS.
 //      importante para la toma de decisión sobre el destino de publicación.
@@ -105,8 +106,10 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
     public void addTopico(String id, String idTopico) {
         Referencia referencia = findOrThrow(id);
         Topico topico = topicoService.findOrThrow(idTopico);
-        referencia.getTopicos().add(topico);
-        DB.storageManager.store(referencia.getTopicos());
+        if( !referencia.getTopicos().contains(topico)  ) {
+            referencia.getTopicos().add(topico);
+            DB.storageManager.store(referencia.getTopicos());
+        }
     }
 
     public void cleanTopicos(String id) {
@@ -224,5 +227,24 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         Referencia referencia = findOrThrow(id);
         referencia.setDuplicada(duplicada);
         update(referencia);
+    }
+
+    public void updateTags(String id, List<String> tags) {
+        Referencia referencia = findOrThrow(id);
+        referencia.setTags(tags);
+        update(referencia);
+        DB.storageManager.store(referencia.getTags());
+    }
+
+    public void asociciacionAutomatica() {
+        dataProvider.get().forEach(this::asociciacionAutomaticamente);
+    }
+
+    private void asociciacionAutomaticamente(Referencia referencia) {
+        Predicate<Topico> condicion = topico -> referencia.getTags().stream()
+                .anyMatch(topico.getDescripcion()::equalsIgnoreCase);
+        revisionService.get().getTopicos().stream()
+                .filter( condicion )
+                .forEach(topico -> addTopico(referencia.getId(), topico.getId()));
     }
 }

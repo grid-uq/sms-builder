@@ -55,4 +55,20 @@ public class ReferenciaBean extends AbstractRevisionBean {
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         inicializar();
     }
+
+    public void actualizarTags(ReferenciaDTO referencia) {
+        referenciaService.updateTags(referencia.getId(),referencia.getTags());
+    }
+
+    public void actualizarNota(ReferenciaDTO referencia) {
+        referenciaService.updateNota(referencia.getId(), referencia.getNota());
+    }
+
+    public void actualizarRelevancia(ReferenciaDTO referencia) {
+        referenciaService.updateRelevancia(referencia.getId(), referencia.getRelevancia());
+    }
+
+    public void actualizarResumen(ReferenciaDTO referencia) {
+        referenciaService.updateResumen(referencia.getId(), referencia.getResumen());
+    }
 }

@@ -98,6 +98,9 @@ public class Referencia implements Entidad<String> {
     @Setter
     private List<EvaluacionCalidad> evaluacionCalidad = new ArrayList<>();
 
+    @Setter
+    private List<String> tags = new ArrayList<>();
+
     /**
      * Metodo que permite inicializar los elementos de la clase Reference
      */
@@ -145,6 +148,9 @@ public class Referencia implements Entidad<String> {
         return MetadatoUtil.INSTANCE.getKeyWordsAsString(metadatos);
     }
 
+    public List<String> keyWordsList(){
+        return MetadatoUtil.INSTANCE.getKeyWords(metadatos);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

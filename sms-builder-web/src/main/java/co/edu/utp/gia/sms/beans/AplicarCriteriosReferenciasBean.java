@@ -1,7 +1,6 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
-import co.edu.utp.gia.sms.importutil.FindReferenceCitation;
 import co.edu.utp.gia.sms.negocio.ProcesoService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
 import jakarta.faces.view.ViewScoped;
@@ -36,7 +35,6 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
     private ProcesoService procesoService;
 
     public void inicializar() {
-        log.info("Aplicar criterios paso " + getPasoActual().getPaso().nombre());
         referencias = referenciaService.findByPaso(getPasoAnterior().getId());
 
         referencias.forEach(
@@ -44,17 +42,6 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
                         .anyMatch(referencia.getReferencia()::equals)
                 )
         );
-        log.info("Numero referecias " + referencias.size());
-    }
-
-    public void actualizarNota(ReferenciaDTO referencia) {
-        referenciaService.updateNota(referencia.getId(), referencia.getNota());
-    }
-
-    public void adicionarResumen(ReferenciaDTO referencia) {
-        String tranduccion = FindReferenceCitation.INSTANCE.findTranslate(referencia.getResumen());
-        referencia.setNota(referencia.getNota() + "\n" + tranduccion);
-        actualizarNota(referencia);
     }
 
     public void seleccionarReferencia(ReferenciaDTO referencia) {
@@ -65,7 +52,4 @@ public class AplicarCriteriosReferenciasBean extends GenericBean<ReferenciaDTO> 
         }
     }
 
-    public void actualizarRelevancia(ReferenciaDTO referencia) {
-        referenciaService.updateRelevancia(referencia.getId(), referencia.getRelevancia());
-    }
 }

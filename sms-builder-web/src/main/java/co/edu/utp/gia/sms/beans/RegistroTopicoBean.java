@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
 
+import java.util.Collection;
+
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de tópicos.
  *
@@ -36,6 +38,9 @@ public class RegistroTopicoBean extends GenericBean<Topico> {
     @Inject
     private PreguntaService preguntaService;
 
+    @Getter
+    private Collection<String> tags;
+
     /**
      * Permite registrar un topico
      */
@@ -52,6 +57,7 @@ public class RegistroTopicoBean extends GenericBean<Topico> {
     @Override
     public void inicializar() {
         // No se requiere inicializar ningún dato
+        tags = topicoService.getTags();
     }
 
     public void validate(FacesContext facesContext, UIComponent component, java.lang.Object object){

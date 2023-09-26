@@ -2,7 +2,6 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Termino;
-import co.edu.utp.gia.sms.entidades.Topico;
 import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import co.edu.utp.gia.sms.negocio.TerminoService;
 import jakarta.faces.component.UIComponent;
@@ -10,11 +9,6 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.primefaces.PrimeFaces;
-import org.primefaces.event.SelectEvent;
-
-import java.util.HashMap;
-import java.util.Map;
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de terminos.
  *
@@ -27,7 +21,7 @@ import java.util.Map;
  */
 @Named
 @ViewScoped
-public class RegistroTerminoBean extends GenericBeanNew<Termino,String> {
+public class TerminoBean extends GenericBeanNew<Termino,String> {
     @Inject
     private TerminoService terminoService;
 
@@ -45,24 +39,9 @@ public class RegistroTerminoBean extends GenericBeanNew<Termino,String> {
         return terminoService;
     }
 
-    public void adicionarSinonimo(String id) {
-        Map<String, Object> options = new HashMap<>();
-        options.put("resizable", false);
-        options.put("draggable", false);
-        options.put("modal", true);
-        addToSession("idTermino", id);
-        PrimeFaces.current().dialog().openDynamic("/termino/registroSinonimo", options, null);
-    }
-
-    public void eliminarSinonimo(Termino termino,String sinonimo){
-        terminoService.removeSinonimo(termino.getId(),sinonimo);
+    public void actualizarSinonimos(Termino termino){
+        terminoService.actualizarSinonimos(termino);
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        termino.removerSinonimo(sinonimo);
-    }
-
-    public void onSinonimoCreado(SelectEvent<Topico> event) {
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        inicializar();
     }
 
     public void validate(FacesContext facesContext, UIComponent component, java.lang.Object object){

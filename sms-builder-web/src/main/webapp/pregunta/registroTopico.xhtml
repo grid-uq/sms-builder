@@ -15,7 +15,10 @@
 		<h:form>
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Name:" />
-				<p:inputText value="#{registroTopicoBean.descripcion}" validator="#{registroTopicoBean.validate}" />
+				<p:selectOneMenu id="tag" value="#{registroTopicoBean.descripcion}" editable="true" validator="#{registroTopicoBean.validate}">
+					<f:selectItem itemLabel="" itemValue=""/>
+					<f:selectItems value="#{registroTopicoBean.tags}"/>
+				</p:selectOneMenu>
 				<f:facet name="footer">
 					<p:commandButton value="#{msg.botonAceptar}"
 						action="#{registroTopicoBean.registrar}" update=":msgs"  />

@@ -17,13 +17,14 @@
 
 			<div class="ui-fluid">
 				<p:panelGrid columns="2">
-					<p:outputLabel value="#{msg.etiquetaTermino}: " />
-					<p:inputText value="#{registroTerminoBean.record.descripcion}" validator="#{registroTerminoBean.validate}" required="true" />
-
+					<p:outputLabel value="#{msg.etiquetaTermino}: " for="@next" />
+					<p:inputText value="#{terminoBean.record.descripcion}" validator="#{terminoBean.validate}" required="true" />
+					<p:outputLabel value="#{msg.etiquetaSinonimo}" for="@next" />
+					<p:chips value="#{terminoBean.record.sinonimos}" style="width:100%;" unique="true"  />
 
 					<f:facet name="footer">
 						<p:commandButton value="#{msg.botonAceptar}"
-							action="#{registroTerminoBean.registrar()}"
+							action="#{terminoBean.registrar()}"
 							update=":tabla :msgs :formulario" />
 					</f:facet>
 
@@ -32,57 +33,41 @@
 			</div>
 		</h:form>
 		<h:form id="tabla">
-			<p:dataTable value="#{registroTerminoBean.records}" var="termino"
-				editable="true">
-				<p:ajax event="rowEdit" listener="#{registroTerminoBean.onRowEdit}"
+			<p:dataTable value="#{terminoBean.records}" var="termino"
+						 editable="true">
+				<p:ajax event="rowEdit" listener="#{terminoBean.onRowEdit}"
 					update=":msgs" />
 				<p:ajax event="rowEditCancel"
-					listener="#{registroTerminoBean.onRowCancel}" update=":msgs" />
+						listener="#{terminoBean.onRowCancel}" update=":msgs" />
 				<p:column headerText="#{msg.etiquetaTermino}">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{termino.descripcion}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{termino.descripcion}" validator="#{registroTerminoBean.validate}" required="true" />
+							<p:inputText value="#{termino.descripcion}" validator="#{terminoBean.validate}" required="true" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 				<p:column headerText="#{msg.etiquetaSinonimo}">
-					<p:commandButton
-							action="#{registroTerminoBean.adicionarSinonimo(termino.id)}"
-							icon="pi pi-plus-circle" styleClass="rounded-button ui-button-flat ui-button-plain">
-						<p:ajax event="dialogReturn"
-								listener="#{registroTerminoBean.onSinonimoCreado}" update=":tabla formulario :msgs" />
-					</p:commandButton>
-
-
-					<ui:repeat value="#{termino.sinonimos}" var="sinonimo">
-						<div class="card">
-						<p:panelGrid columns="2">
-							<p:column>
-								<h:outputText value="#{sinonimo}" />
-							</p:column>
-							<p:column style="width: 70px">
-								<p:commandButton
-										action="#{registroTerminoBean.eliminarSinonimo(termino,sinonimo)}"
-										immediate="true"
-										icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
-
-									<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
-											   message="#{msg['dialogoConfirmacion.eliminar']}"
-											   icon="ui-icon ui-icon-alert" />
-								</p:commandButton>
-							</p:column>
-						</p:panelGrid>
-						</div>
-					</ui:repeat>
-
+					<p:cellEditor>
+						<f:facet name="output">
+							<ui:repeat value="#{termino.sinonimos}" var="sinonimo">
+								<p:chip label="#{sinonimo}" />
+							</ui:repeat>
+						</f:facet>
+						<f:facet name="input">
+							<p:chips value="#{termino.sinonimos}" style="width:100%;" unique="true">
+								<p:ajax event="itemSelect" listener="#{terminoBean.actualizarSinonimos(termino)}"  />
+								<p:ajax event="itemUnselect" listener="#{terminoBean.actualizarSinonimos(termino)}"  />
+							</p:chips>
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
 
 				<p:column style="width:35px">
 					<p:rowEditor   />
-					<p:commandButton action="#{registroTerminoBean.eliminar(termino)}" immediate="true"
+					<p:commandButton action="#{terminoBean.eliminar(termino)}" immediate="true"
 									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs">
 
 						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"

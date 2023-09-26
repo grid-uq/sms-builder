@@ -90,7 +90,9 @@
 					<h:outputText value="#{referencia.autores}" />
 				</p:column>
 				<p:column headerText="#{msg.etiquetaKeywords}">
-					<h:outputText value="#{referencia.keywords}" />
+					<ui:repeat value="#{referencia.referencia.keyWordsList()}" var="keyword">
+						<p:chip label="#{keyword}" />
+					</ui:repeat>
 				</p:column>
 				<p:column headerText="#{msg.etiquetaAbstract}">
 					<h:outputText value="#{referencia.resumen}" />

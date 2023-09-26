@@ -41,7 +41,7 @@ public class PasosSetup implements SetupInterface {
                 "/revision/importarReferenciasManual.xhtml",
                 "/revision/importarReferenciasBolaNieve.xhtml",
                 "/revision/gestionarReferenciasRepetidas.xhtml",
-                "/revision/aplicarCriterios.xhtml",
+                "/referencia/aplicarCriterios.xhtml",
                 "/revision/resumenReferenciasSeleccionadas.xhtml",
                 "/referencia/adicionarCitas.xhtml",
                 "/calidad/evaluarReferencias.xhtml",
@@ -68,7 +68,7 @@ public class PasosSetup implements SetupInterface {
                 "etiquetaMenuAnalizarReferencias"
         };
 
-        var seleccionar = List.of("etiquetaMenuReferenciasDuplicadas","etiquetaMenuReferenciasSeleccionar");
+        var seleccionar = List.of("etiquetaMenuReferenciasSeleccionar");
 
         for (var i = 0; i < recursos.length; i++) {
             if( pasoService.findByName(keys[i]) == null ) {

@@ -31,7 +31,11 @@
 					</p:linkButton>
 				</p:column>
 				<p:column headerText="#{msg.etiquetaKeywords}" filterBy="#{referencia.keywords}"
-						  filterMatchMode="contains" field="keywords" />
+						  filterMatchMode="contains" field="keywords" >
+					<ui:repeat value="#{referencia.referencia.keyWordsList()}" var="keyword">
+						<p:chip label="#{keyword}" />
+					</ui:repeat>
+				</p:column>
 				<p:column headerText="#{msg.etiquetaAutores}" filterBy="#{referencia.autores}"
 						  filterMatchMode="contains" field="autores" />
 				<p:column style="width:35px">
