@@ -8,6 +8,7 @@ import co.edu.utp.gia.sms.exceptions.TecnicalException;
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
 import lombok.Getter;
+import one.microstream.concurrency.XThreads;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.Serializable;
@@ -64,14 +65,18 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
      * @return El elemento almacenado
      */
     protected E save(Provider<Collection<E>> dataProvider,E entidad) {
-        try {
-            validateBeforeSave(entidad);
-            dataProvider.get().add(entidad);
-            DB.storageManager.store(dataProvider.get());
-            return entidad;
-        } catch (Throwable t) {
-            throw new TecnicalException(t);
-        }
+        // TODO ejemplo de sincronización para el almacenamiento de datos
+        XThreads.executeSynchronized(() -> {
+            try {
+                validateBeforeSave(entidad);
+                dataProvider.get().add(entidad);
+                DB.storageManager.store(dataProvider.get());
+
+            } catch (Throwable t) {
+                throw new TecnicalException(t);
+            }
+        });
+        return entidad;
     }
 
     public void update(E entidad) {
