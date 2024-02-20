@@ -56,7 +56,7 @@ public class EvaluarReferenciasBean extends GenericBean<ReferenciaDTO> {
         options.put("modal", true);
 
         addToSession("referenciaDTO", referencia);
-        PrimeFaces.current().dialog().openDynamic("/revision/evaluarReferencia", options, null);
+        PrimeFaces.current().dialog().openDynamic("/calidad/evaluarReferencia", options, null);
     }
 
     public void evaluacionAutomatica() {
