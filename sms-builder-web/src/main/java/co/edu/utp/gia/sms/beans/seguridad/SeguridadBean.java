@@ -8,6 +8,14 @@ import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.negocio.RecursoService;
 import co.edu.utp.gia.sms.negocio.UsuarioService;
+import jakarta.faces.application.FacesMessage;
+import jakarta.security.enterprise.AuthenticationStatus;
+import jakarta.security.enterprise.SecurityContext;
+import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
+import jakarta.security.enterprise.credential.Credential;
+import jakarta.security.enterprise.credential.UsernamePasswordCredential;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +25,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import lombok.extern.java.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -87,6 +96,9 @@ public abstract class SeguridadBean extends AbstractBean {
     @Inject
     private ExceptionMessage exceptionMessage;
 
+    @Inject
+    private SecurityContext securityContext;
+
     /**
      * Método que inicializa los elementos básicos del sistema
      */
@@ -99,8 +111,16 @@ public abstract class SeguridadBean extends AbstractBean {
      * Realiza la verificación de los datos de autenticación proporcioandos por
      * el {@link Usuario}
      */
-    public void ingresar() {
+    public void ingresar() throws IOException {
+        AuthenticationStatus status = null;
         try {
+            Credential credential = new UsernamePasswordCredential(nombreUsuario, clave);
+            status = securityContext
+                    .authenticate(
+                            (HttpServletRequest) getFacesContext().getExternalContext().getRequest(),
+                            (HttpServletResponse) getFacesContext().getExternalContext().getResponse(),
+                            AuthenticationParameters.withParams().credential(credential));
+
             setUsuario(usuarioService.login(nombreUsuario, clave));
             if (getUsuario() == null) {
                 throw new LogicException(exceptionMessage.getLoginFailMessage());
@@ -112,6 +132,22 @@ public abstract class SeguridadBean extends AbstractBean {
             log.log(Level.WARNING,"Problemas al autenticar",t);
             mostrarErrorGeneral(String.format("ERROR: %s", t.getMessage()));
         }
+        switch (status) {
+            case SEND_CONTINUE:
+                System.out.println("CONTINUE");
+                getFacesContext().responseComplete();
+                break;
+            case SEND_FAILURE:
+                System.out.println("FALLO AUNTENTICACION");
+//                    getFacesContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid username and password", null));
+                break;
+            case SUCCESS:
+                System.out.println("EXITO AUNTENTICACION");
+//                getFacesContext().getExternalContext().redirect(getFacesContext().getExternalContext().getRequestContextPath() + "/");
+                break;
+            case NOT_DONE:
+        }
+
         //return null;
     }
 

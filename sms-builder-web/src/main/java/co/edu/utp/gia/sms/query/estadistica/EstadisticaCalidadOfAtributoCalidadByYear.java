@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
-import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.Referencia;
@@ -15,18 +14,6 @@ import java.util.stream.Stream;
  * Consulta que permite obtener el promedio de la evaluación de calidad de un determinado atributo de calidad por Año en una revision
  */
 public class EstadisticaCalidadOfAtributoCalidadByYear {
-
-    /**
-     * Consulta que permite obtener el promedio de la evaluación de calidad de un determinado atributo de calidad por Año en una revision
-     *
-     * @param idAtributoCalidad Id del atributo de calidad
-     *
-     * @return TypedQuery<DatoDTO> que representa la consulta
-     */
-    public static Stream<DatoDTO> createQuery(String idAtributoCalidad) {
-        return createQuery(DB.root.revision().getPasoActual()::getReferencias,idAtributoCalidad);
-    }
-
     /**
      * Consulta que permite obtener el promedio de la evaluación de calidad de un determinado atributo de calidad por Año en una revision
      *

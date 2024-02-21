@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.query.referencia;
 
-import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.EvaluacionCalidad;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import jakarta.inject.Provider;
@@ -14,16 +13,6 @@ import java.util.stream.Stream;
  * Consulta que permite obtener las referencias con evaliacón de un atributo de calidad dado
  */
 public class ReferenciaGetAllWithEvaluacionOfAtributoCalidad {
-    /**
-     * Consulta que permite obtener las referencias con evaliacón de un atributo de calidad dado
-     *
-     * @param idAtributoCalidad Id del atributo de calidad
-     * @return Stream<Referencia> que representa el resultado de la consulta
-     */
-    public static Stream<Referencia> createQuery(String idAtributoCalidad){
-        return createQuery(DB.root.revision().getPasoActual()::getReferencias,idAtributoCalidad);
-    }
-
     /**
      * Consulta que permite obtener las referencias con evaliacón de un atributo de calidad dado
      *

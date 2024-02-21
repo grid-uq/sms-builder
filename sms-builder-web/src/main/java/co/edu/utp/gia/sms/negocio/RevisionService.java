@@ -6,6 +6,7 @@ import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.query.estadistica.EstadisticaGetTotalReferenciasByTipoFuente;
 import co.edu.utp.gia.sms.query.estadistica.EstadisticaGetTotalReferenciasRepetidas;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,7 +23,12 @@ import java.util.List;
  * @since 12/11/2015
  */
 @ApplicationScoped
+
 public class RevisionService {
+
+    @Inject
+    private UsuarioService usuarioService;
+
     /**
      * Constructor del servicio.
      */
@@ -77,13 +83,25 @@ public class RevisionService {
         return EstadisticaGetTotalReferenciasByTipoFuente.createQuery(tipoFuente);
     }
 
+    public PasoProceso getPasoActual(){
+        PasoProceso pasoActual = null;
+        var usuario = usuarioService.getUsuario();
+        if( usuario != null ){
+            pasoActual = usuario.getPasoActual();
+            if (pasoActual == null){
+                pasoActual = get().getPasosProceso().stream().filter(paso->paso.getOrden()==1).findFirst().orElse(null);
+                changePasoActual(pasoActual);
+            }
+        }
+        return pasoActual;
+    }
     /**
      * Permite obterner el total de referencias de un determinado tipo de fuente en el paso seleccionado
      * @param tipoFuente Tipo de la fuente de la que se desea contar las referencias
      * @return El número total de referencias de un determinado tipo de fuente en el paso seleccionado
      */
     public long totalReferenciasPaso(TipoFuente tipoFuente){
-        return EstadisticaGetTotalReferenciasByTipoFuente.createQuery(get().getPasoActual()::getReferencias,tipoFuente);
+        return EstadisticaGetTotalReferenciasByTipoFuente.createQuery(getPasoActual()::getReferencias,tipoFuente);
     }
 
     /**
@@ -95,21 +113,23 @@ public class RevisionService {
     }
 
     /**
-     * Permite obterner el total de referencias seleccionadas de una revision
+     * Permite obtener el total de referencias seleccionadas de una revision
      * @return El número de referencias en el paso
      */
     public long totalReferenciasSeleccionadas() {
-        return get().getPasoActual().getReferencias().size();
+        return getPasoActual().getReferencias().size();
     }
 
     public void save() {
         DB.storageManager.store(DB.root.revision());
     }
 
-
     public void changePasoActual(PasoProceso pasoProceso ) {
-        get().setPasoActual(pasoProceso);
-        save();
+        var usuario = usuarioService.getUsuario();
+        if( usuario != null ){
+            usuario.setPasoActual(pasoProceso);
+            usuarioService.save(usuario);
+        }
     }
 
     public void restore(Revision revisionRestored) {

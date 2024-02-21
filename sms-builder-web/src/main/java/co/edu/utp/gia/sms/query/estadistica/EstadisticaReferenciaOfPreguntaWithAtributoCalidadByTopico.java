@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
-import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.EvaluacionCualitativa;
 import co.edu.utp.gia.sms.entidades.Referencia;
@@ -17,17 +16,6 @@ import java.util.stream.Stream;
  * Consulta que permite obtener el número de referencias que cumplem con un determinado atributo de calidad por Topico de una Pregunta en una revision
  */
 public class EstadisticaReferenciaOfPreguntaWithAtributoCalidadByTopico {
-    /**
-     * Consulta que permite obtener el número de referencias que cumplem con un determinado atributo de calidad por Topico de una Pregunta en una revision
-     *
-     * @param codigo        Codigo de la pregunta de la que se desean obtener las estadisticas
-     * @param idAtributoCalidad Id del atributo de calidad
-     * @return TypedQuery<DatoDTO> que representa la consulta
-     */
-    public static Stream<DatoDTO> createQuery(String codigo, String idAtributoCalidad) {
-        return createQuery(DB.root.revision().getPasoActual()::getReferencias,codigo,idAtributoCalidad);
-    }
-
     /**
      * Consulta que permite obtener el número de referencias que cumplem con un determinado atributo de calidad por Topico de una Pregunta en una revision
      *

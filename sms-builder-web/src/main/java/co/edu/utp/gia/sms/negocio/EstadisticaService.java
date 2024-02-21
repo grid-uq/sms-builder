@@ -26,13 +26,15 @@ import java.util.List;
 public class EstadisticaService {
     @Inject
     private FuenteService fuenteService;
+    @Inject
+    private RevisionService revisionService;
     /**
      * Consulta que permite obtener el número de referencias por año en una revision
      *
      * @return Listado de {@link DatoDTO} con estadísticas del número de referencias por año en una revision
      */
     public List<DatoDTO> obtenerReferenciasYear() {
-        return EstadisticaReferenciaByYear.createQuery().toList();
+        return EstadisticaReferenciaByYear.createQuery(revisionService.getPasoActual()::getReferencias).toList();
     }
 
     /**
@@ -42,7 +44,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Listado de {@link DatoDTO} con estadísticas del número de referencias que cumplen con un determinado atributo de calidad por Año en una revision
      */
     public List<DatoDTO> obtenerReferenciasYear(String idAtributoCalidad) {
-        return EstadisticaReferenciaWithAtributoCalidadByYear.createQuery(idAtributoCalidad).toList();
+        return EstadisticaReferenciaWithAtributoCalidadByYear.createQuery(revisionService.getPasoActual()::getReferencias,idAtributoCalidad).toList();
     }
 
     /**
@@ -51,7 +53,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Listado de {@link DatoDTO} con estadísticas del número de referencias por Tipo en una revision
      */
     public List<DatoDTO> obtenerReferenciasTipo() {
-        return EstadisticaReferenciaByTipo.createQuery().toList();
+        return EstadisticaReferenciaByTipo.createQuery(revisionService.getPasoActual()::getReferencias).toList();
     }
 
     /**
@@ -60,7 +62,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Listado de {@link DatoDTO} con estadísticas del promedio de calidad por año
      */
     public List<DatoDTO> obtenerReferenciasCalidadYear() {
-        return EstadisticaCalidadByYear.createQuery().toList();
+        return EstadisticaCalidadByYear.createQuery(revisionService.getPasoActual()::getReferencias).toList();
     }
 
     /**
@@ -70,7 +72,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Listado de {@link DatoDTO} con estadísticas del promedio de la evaluación de calidad de un determinado atributo de calidad por Año en una revision
      */
     public List<DatoDTO> obtenerReferenciasCalidadYear(String idAtributoCalidad) {
-        return EstadisticaCalidadOfAtributoCalidadByYear.createQuery(idAtributoCalidad).toList();
+        return EstadisticaCalidadOfAtributoCalidadByYear.createQuery(revisionService.getPasoActual()::getReferencias,idAtributoCalidad).toList();
     }
 
     /**
@@ -79,7 +81,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Listado de {@link DatoDTO} con estadísticas del número de referencias por pregunta
      */
     public List<DatoDTO> obtenerReferenciasPregunta() {
-        return EstadisticaReferenciaByPregunta.createQuery().toList();
+        return EstadisticaReferenciaByPregunta.createQuery(revisionService.getPasoActual()::getReferencias).toList();
     }
 
     /**
@@ -88,7 +90,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> con Estadísticas de los datos obtenidos
      */
     public List<DatoDTO> obtenerReferenciasTipoFuente() {
-        List<DatoDTO> resultado = new ArrayList<>(EstadisticaReferenciaByTipoFuente.createQuery().toList());
+        List<DatoDTO> resultado = new ArrayList<>(EstadisticaReferenciaByTipoFuente.createQuery(revisionService.getPasoActual()::getReferencias).toList());
 
         for (TipoFuente fuente : TipoFuente.values()) {
             if (resultado.stream().noneMatch(d -> d.getEtiqueta().equals(fuente.toString()))) {
@@ -105,7 +107,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Con Estadísticas de referencia por tipo de fuente.
      */
     public List<DatoDTO> obtenerReferenciasTipoFuenteNombre(TipoFuente tipo) {
-        List<DatoDTO> resultado = new ArrayList<>(EstadisticaReferenciaByTipoFuenteAndNombre.createQuery(tipo)
+        List<DatoDTO> resultado = new ArrayList<>(EstadisticaReferenciaByTipoFuenteAndNombre.createQuery(revisionService.getPasoActual()::getReferencias,tipo)
                 .toList());
         List<Fuente> fuentes = fuenteService.getByTipoFuente(tipo);
         for (Fuente fuente : fuentes) {
@@ -123,7 +125,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Con Estadísticas del número de referencias por Topico en una revision
      */
     public List<DatoDTO> obtenerReferenciasTopico() {
-        return EstadisticaReferenciaByTopico.createQuery().toList();
+        return EstadisticaReferenciaByTopico.createQuery(revisionService.getPasoActual()::getReferencias).toList();
     }
 
     /**
@@ -133,7 +135,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Con Estadísticas de referencias que cumplen con un determinado atributo de calidad por Topico en una revision
      */
     public List<DatoDTO> obtenerReferenciasTopico(String idAtributoCalidad) {
-        return EstadisticaReferenciaWithAtributoCalidadByTopico.createQuery(idAtributoCalidad).toList();
+        return EstadisticaReferenciaWithAtributoCalidadByTopico.createQuery(revisionService.getPasoActual()::getReferencias,idAtributoCalidad).toList();
     }
 
     /**
@@ -143,7 +145,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Con Estadisticas de referencias por Topico de una Pregunta en una revision
      */
     public List<DatoDTO> obtenerReferenciasTopicoPregunta(String codigo) {
-        return EstadisticaReferenciaOfPreguntaByTopico.createQuery(codigo).toList();
+        return EstadisticaReferenciaOfPreguntaByTopico.createQuery(revisionService.getPasoActual()::getReferencias,codigo).toList();
     }
 
     /**
@@ -154,7 +156,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Con Estadísticas de referencias que cumplen con un determinado atributo de calidad por Topico de una Pregunta en una revision
      */
     public List<DatoDTO> obtenerReferenciasTopico(String codigo, String idAtributoCalidad) {
-        return EstadisticaReferenciaOfPreguntaWithAtributoCalidadByTopico.createQuery(codigo, idAtributoCalidad).toList();
+        return EstadisticaReferenciaOfPreguntaWithAtributoCalidadByTopico.createQuery(revisionService.getPasoActual()::getReferencias,codigo, idAtributoCalidad).toList();
     }
 
     /**
@@ -164,7 +166,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Con Estadísticas de las palabras claves y su número de apariciones en las referencias seleccionadas
      */
     public List<DatoDTO> obtenerPalabrasClave(int minimo) {
-        return EstadisticaPalabrasClave.createQuery(minimo).toList();
+        return EstadisticaPalabrasClave.createQuery(revisionService.getPasoActual()::getReferencias,minimo).toList();
     }
 
     /**
@@ -175,7 +177,7 @@ public class EstadisticaService {
      * @return List<Referencia> que contienen la keyword buscada en uno de sus metadatos
      */
     public List<Referencia> obtenerReferencias(String keyword, List<TipoMetadato> metadatos) {
-        return EstadisticaReferenciaByPalabrasClave.createQuery(keyword, metadatos).toList();
+        return EstadisticaReferenciaByPalabrasClave.createQuery(revisionService.getPasoActual()::getReferencias,keyword, metadatos).toList();
     }
 
     /**
@@ -184,7 +186,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Con Estadísticas de referencia por término.
      */
     public List<DatoDTO> obtenerReferenciasTermino() {
-        return EstadisticaNumeroReferenciasByTermino.createQuery().toList();
+        return EstadisticaNumeroReferenciasByTermino.createQuery(revisionService.getPasoActual()::getReferencias).toList();
     }
 
     /**
@@ -193,7 +195,7 @@ public class EstadisticaService {
      * @return List<DatoDTO> Con Estadísticas de referencia por término y sinónimo.
      */
     public List<DatoDTO> obtenerReferenciasSinonimo() {
-        return EstadisticaNumeroReferenciasBySinonimo.createQuery().toList();
+        return EstadisticaNumeroReferenciasBySinonimo.createQuery(revisionService.getPasoActual()::getReferencias).toList();
     }
 
     /**

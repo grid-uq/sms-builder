@@ -22,6 +22,7 @@ import java.util.UUID;
  * @version 1.0
  * @since 13/06/2019
  */
+@Setter
 @Getter
 @NoArgsConstructor
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
@@ -29,54 +30,52 @@ public class Usuario implements Entidad<String> {
     /**
      * Variable que representa el atributo id de la clase
      */
-    @Setter
     private String id = UUID.randomUUID().toString();
     /**
      * Variable que representa el atributo nombreUsuario, que permite a los
      * usuario autenticarse en la aplicacion
      */
-    @Setter
     @EqualsAndHashCode.Exclude
     private String nombreUsuario;
     /**
      * Variable que representa el atributo clave, el cual es usado por los
      * usuario para autenticarse en la aplicacion
      */
-    @Setter
     @EqualsAndHashCode.Exclude
     private String clave;
     /**
      * Representa el {@link EstadoUsuario} de la cuenta del usuario en el sistema.
      */
-    @Setter
     @EqualsAndHashCode.Exclude
     private EstadoUsuario estado = EstadoUsuario.ACTIVO;
     /**
      * Variable que representa el atributo intentos de la clase, el lleva el
      * conteo del número de intentos de autenticación fallidos
      */
-    @Setter
     @EqualsAndHashCode.Exclude
     private Integer intentos = 0;
     /**
      * Variable que representa el atributo roles de la clase. Roles a los cuales
      * pertenece el usuario
      */
-    @Setter
     @EqualsAndHashCode.Exclude
     private List<Rol> roles = new ArrayList<>();
     /**
      * Variable que representa el atributo nombre del {@link Usuario}
      */
-    @Setter
     @EqualsAndHashCode.Exclude
     private String nombre;
     /**
      * Variable que representa el atributo email del {@link Usuario}
      */
-    @Setter
     @EqualsAndHashCode.Exclude
     private String email;
+
+    /**
+     * Representa el paso que está siendo procesado por el usuario
+     */
+    private PasoProceso pasoActual;
+
 
     @Override
     public boolean equals(Object o) {

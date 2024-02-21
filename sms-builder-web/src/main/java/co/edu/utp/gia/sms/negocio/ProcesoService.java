@@ -36,9 +36,9 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
         paso.setOrden( get().size() + 1 );
         pasoService.findOrThrow( paso.getPaso().getId() );
         super.save(paso);
-        if( paso.getOrden() == 1 ){
-            revisionService.changePasoActual(paso);
-        }
+//        if( paso.getOrden() == 1 ){
+//            revisionService.changePasoActual(paso);
+//        }
         return paso;
     }
 
@@ -47,7 +47,7 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
         super.delete(entidad);
         checkOrder();
         var paso = findByOrden(entidad.getOrden());
-        if( revisionService.get().getPasoActual().equals(entidad) ){
+        if( revisionService.getPasoActual().equals(entidad) ){
             revisionService.changePasoActual(paso);
         }
     }

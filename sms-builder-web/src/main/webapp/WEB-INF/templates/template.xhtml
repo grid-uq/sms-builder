@@ -66,7 +66,7 @@
                 <div id="tituloApp" class="card"
                              style="text-align:center; height: 50px; "
                              >
-                    <h1>:: #{msg['aplicacion.titulo']} :: <h:outputText value="#{msg[procesoBean.revision.pasoActual.paso.nombre()]} :: " rendered="#{seguridadBean.autenticado}" /></h1>
+                    <h1>:: #{msg['aplicacion.titulo']} :: <h:outputText value="#{msg[procesoBean.pasoActual.paso.nombre()]} :: " rendered="#{seguridadBean.autenticado}" /></h1>
                 </div>
                 <!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
                 <!-- <ui:include src="header.xhtml"/> -->
@@ -80,7 +80,7 @@
                 <p:commandButton style="position:absolute; left:10px; top:0px; z-index: 1" action="#{revisionBean.anteriorPaso()}" icon="pi pi-arrow-circle-left" styleClass="rounded-button ui-button-flat ui-button-plain" rendered="#{seguridadBean.autenticado}"  />
 
                 <p:commandButton style="position:absolute; right:10px; top:0px; z-index: 100" action="#{revisionBean.siguientePaso()}" icon="pi pi-arrow-circle-right" styleClass="rounded-button ui-button-flat ui-button-plain" rendered="#{seguridadBean.autenticado}" />
-                <p:steps model="#{procesoBean.stepsModel}" rendered="#{seguridadBean.autenticado}" readonly="false" activeIndex="#{procesoBean.revision.pasoActual.orden-1}" style="width: 100%; overflow-x: scroll;" >
+                <p:steps model="#{procesoBean.stepsModel}" rendered="#{seguridadBean.autenticado}" readonly="false" activeIndex="#{procesoBean.pasoActual.orden-1}" style="width: 100%; overflow-x: scroll;" >
 
                 </p:steps>
                 <!--

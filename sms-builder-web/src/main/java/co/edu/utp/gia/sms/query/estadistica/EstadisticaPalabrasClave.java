@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
-import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.Metadato;
 import co.edu.utp.gia.sms.entidades.Referencia;
@@ -16,17 +15,6 @@ import java.util.stream.Stream;
  * Consulta que permite obtener las palabras claves y su número de apariciones en las referencias seleccionadas <br />
  */
 public class EstadisticaPalabrasClave {
-    /**
-     * Consulta que permite obtener las palabras claves y su número de apariciones en las referencias seleccionadas
-     *
-     * @param minimo        Cantidad minima de apariciones que debe tener una palabra clave para ser considerada
-     *
-     * @return TypedQuery<DatoDTO> que representa la consulta
-     */
-    public static Stream<DatoDTO> createQuery(Integer minimo) {
-        return createQuery(DB.root.revision().getPasoActual()::getReferencias,minimo);
-    }
-
     /**
      * Consulta que permite obtener las palabras claves y su número de apariciones en las referencias seleccionadas
      *

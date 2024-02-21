@@ -91,7 +91,7 @@ public class ProcesoBean extends AbstractRevisionBean {
     }
 
     private void configurarPasoActual() {
-        var paso = getRevision().getPasoActual().getPaso();
+        var paso = revisionService.getPasoActual().getPaso();
         var item = DefaultMenuItem.builder()
                 .value(getMessage(paso.nombre()))
                 .url(paso.recurso().getUrl())

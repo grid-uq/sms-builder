@@ -69,7 +69,7 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
     }
 
     public List<ReferenciaDTO> findByPasoSeleccionado() {
-        return findByPaso( revisionService.get().getPasoActual() );
+        return findByPaso( revisionService.getPasoActual() );
     }
     public List<ReferenciaDTO> findByPaso(String idPaso) {
         PasoProceso paso = procesoService.findOrThrow(idPaso);
@@ -187,7 +187,7 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
     public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(
             String idAtributoCalidad, EvaluacionCualitativa valorEvaluacion) {
         return ReferenciaGetAllByEvaluacionOfAtributoCalidad
-                        .createQuery(idAtributoCalidad, valorEvaluacion)
+                        .createQuery(revisionService.getPasoActual()::getReferencias,idAtributoCalidad, valorEvaluacion)
                         .map(r -> new ReferenciaDTO(r, 0)).toList();
     }
 
@@ -198,7 +198,7 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
      * @return List<ReferenciaDTO> Listado de las con evaliacón de un atributo de calidad del id dado
      */
     public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(String idAtributoCalidad) {
-        return ReferenciaGetAllWithEvaluacionOfAtributoCalidad.createQuery(idAtributoCalidad)
+        return ReferenciaGetAllWithEvaluacionOfAtributoCalidad.createQuery(revisionService.getPasoActual()::getReferencias,idAtributoCalidad)
                 .map(r -> new ReferenciaDTO(r, 0)).toList();
     }
 
@@ -220,7 +220,7 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
      * @return List<ReferenciaDTO> listado de las referencias destacadas, en caso de no haber ninguna el listado sera vacio
      */
     public List<ReferenciaDTO> obtenerDestacadas() {
-        return ReferenciaGetDestacadas.createQuery().map(r -> new ReferenciaDTO(r, 0)).toList();
+        return ReferenciaGetDestacadas.createQuery(revisionService.getPasoActual()::getReferencias).map(r -> new ReferenciaDTO(r, 0)).toList();
     }
 
     public void updateDuplicada(String id, Boolean duplicada) {

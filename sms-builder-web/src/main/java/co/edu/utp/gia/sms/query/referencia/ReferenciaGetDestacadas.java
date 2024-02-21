@@ -15,15 +15,6 @@ public class ReferenciaGetDestacadas {
     /**
      * Consulta que permite obtener los Referencias que han recivido una valoración de su contenido
      *
-     * @return Stream<Referencia> que representa el resultado de la consulta
-     */
-    public static Stream<Referencia> createQuery(){
-        return createQuery(DB.root.revision().getPasoActual()::getReferencias);
-    }
-
-    /**
-     * Consulta que permite obtener los Referencias que han recivido una valoración de su contenido
-     *
      * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
      * @return Stream<Referencia> que representa el resultado de la consulta
      */

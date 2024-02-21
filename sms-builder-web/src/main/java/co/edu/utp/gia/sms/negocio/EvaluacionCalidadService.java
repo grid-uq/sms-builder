@@ -77,7 +77,7 @@ public class EvaluacionCalidadService extends AbstractGenericService<EvaluacionC
 
 
 	public void evaluacionAcutomatica(){
-		var referencias = revisionService.get().getPasoActual().getReferencias();
+		var referencias = revisionService.getPasoActual().getReferencias();
 		referencias.forEach(this::evaluacionAutomatica);
 	}
 
@@ -200,6 +200,6 @@ public class EvaluacionCalidadService extends AbstractGenericService<EvaluacionC
 	 * @return List<Float> listado de los SCI de las referencias de una revision
 	 */
 	private List<Float> obtenerSCIs() {
-		return ReferenciaGetAllSCI.createQuery().toList();
+		return ReferenciaGetAllSCI.createQuery(revisionService.getPasoActual()::getReferencias).toList();
 	}
 }

@@ -21,15 +21,6 @@ public class EstadisticaNumeroReferenciasBySinonimo {
     /**
      * Consulta que permite obtener el número de referencias por termino y sinonimo
      *
-     * @return Stream<DatoDTO> que representa el resultado de la consulta
-     */
-    public static Stream<DatoDTO> createQuery() {
-        return createQuery(DB.root.revision().getPasoActual()::getReferencias);
-    }
-
-    /**
-     * Consulta que permite obtener el número de referencias por termino y sinonimo
-     *
      * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
      * @return Stream<DatoDTO> que representa el resultado de la consulta
      */

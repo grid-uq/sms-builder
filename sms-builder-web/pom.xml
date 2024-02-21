@@ -14,8 +14,8 @@
 
 		<jsf-impl.version>2.3.9.SP08</jsf-impl.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<payaraVersion>6.2023.8</payaraVersion>
-		<microprofileVersion>6.0</microprofileVersion>
+		<payaraVersion>6.2024.2</payaraVersion>
+		<microprofileVersion>6.1</microprofileVersion>
 		<maven.forceversion>3.6.3</maven.forceversion>
 		<maven.compiler.target>17</maven.compiler.target>
 		<maven.compiler.source>17</maven.compiler.source>

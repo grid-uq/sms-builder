@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
-import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.Referencia;
 import co.edu.utp.gia.sms.entidades.Topico;
@@ -16,17 +15,6 @@ import java.util.stream.Stream;
  * Consulta que permite obtener el número de referencias por Topico de una Pregunta en una revision
  */
 public class EstadisticaReferenciaOfPreguntaByTopico {
-    /**
-     * Consulta que permite obtener el número de referencias por Topico de una Pregunta en una revision
-     *
-     * @param codigo        Codigo de la pregunta de la que se desean obtener las estadisticas
-     *
-     * @return TypedQuery<DatoDTO> que representa la consulta
-     */
-    public static Stream<DatoDTO> createQuery(String codigo) {
-        return createQuery(DB.root.revision().getPasoActual()::getReferencias,codigo);
-    }
-
     /**
      * Consulta que permite obtener el número de referencias por Topico de una Pregunta en una revision
      *

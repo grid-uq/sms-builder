@@ -5,7 +5,10 @@ import co.edu.utp.gia.sms.entidades.EstadoUsuario;
 import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.exceptions.LogicException;
+import co.edu.utp.gia.sms.query.seguridad.SeguridadUsuarioLogin;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.security.enterprise.SecurityContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +27,18 @@ import java.util.Optional;
 @ApplicationScoped
 public class UsuarioService extends AbstractGenericService<Usuario, String> {
 
+    @Inject
+    private SecurityContext securityContext;
+
+    public Usuario getUsuario() {
+        var principal = securityContext.getCallerPrincipal();
+        if( principal != null ) {
+            var usuario =  SeguridadUsuarioLogin.createQuery(principal.getName()).findFirst().orElse(null);
+            System.out.println("ENCONTRO USUARIO "+usuario);
+            return usuario;
+        }
+        return null;
+    }
 
     public UsuarioService() {
         super(DB.root.getProvider(Usuario.class));
@@ -102,10 +117,11 @@ public class UsuarioService extends AbstractGenericService<Usuario, String> {
      * @param nombreUsuario Email del usuario que se desea autenticar
      * @param clave         Clave del usuario que se desea autenticar
      * @return Si los datos de email y clave corresponden con un {@link Usuario}
-     * valido, se retorna dicho {@link Usuario}, en caso contrario
+     * válido, se retorna dicho {@link Usuario}, en caso contrario
      * retorna null
      * @throws LogicException Error de autenticacion En caso de
      *                        que no se encuentre el nombre de usuario proporcionado
+     * TODO Es posible que se requiera un logout
      */
     public Usuario login(String nombreUsuario, String clave) {
         var usuario = findByName(nombreUsuario)

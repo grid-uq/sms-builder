@@ -1,6 +1,5 @@
 package co.edu.utp.gia.sms.query.estadistica;
 
-import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.*;
 import co.edu.utp.gia.sms.query.fuente.FuenteGetByTipoFuente;
@@ -15,17 +14,6 @@ import java.util.stream.Stream;
  * Consulta que permite obtener el número de referencias por cada fuente de un determinado tipo de fuente en una revision <br />
  */
 public class EstadisticaReferenciaByTipoFuenteAndNombre {
-    /**
-     * Consulta que permite obtener el número de referencias por cada fuente de un determinado tipo de fuente en una revision
-     *
-     * @param tipoFuente    Tipo de fuente de las referencias a tener en cuenta
-     *
-     * @return TypedQuery<DatoDTO> que representa la consulta
-     */
-    public static Stream<DatoDTO> createQuery(TipoFuente tipoFuente) {
-        return createQuery(DB.root.revision().getPasoActual()::getReferencias,tipoFuente);
-    }
-
     /**
      * Consulta que permite obtener el número de referencias por cada fuente de un determinado tipo de fuente en una revision
      *

@@ -43,7 +43,7 @@ public class SeguridadBeanImpl extends SeguridadBean {
 	 * el {@link Usuario}
 	 */
 	@Override
-	public void ingresar() {
+	public void ingresar() throws IOException {
 		super.ingresar();
 		if(isAutenticado()){
 			addToSession("revision", revisionService.get());

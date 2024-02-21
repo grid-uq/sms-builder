@@ -17,16 +17,6 @@ public class ReferenciaGetFuentes {
     /**
      * Consulta que permite obtener las fuentes registradas en el sistema para una referencia
      *
-     * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
-     * @return TypedQuery<DatoDTO> que representa la consulta
-     */
-    public static Stream<Fuente> createQuery(String id) {
-        return createQuery(DB.root.revision().getPasoActual()::getReferencias,id);
-    }
-
-    /**
-     * Consulta que permite obtener las fuentes registradas en el sistema para una referencia
-     *
      * @param dataProvider Proveedor de la colección de datos en la que se realizará la búsqueda
      * @param id Id de la {@link co.edu.utp.gia.sms.entidades.Referencia}
      * @return Stream<DatoDTO> que representa el resultado de la consulta

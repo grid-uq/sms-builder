@@ -47,18 +47,18 @@ public class RevisionBean extends AbstractRevisionBean {
 
 
     public String irPasoActual() {
-        return getRevision().getPasoActual().getPaso().recurso().getUrl();
+        return revisionService.getPasoActual().getPaso().recurso().getUrl();
     }
 
     public String anteriorPaso() {
-        if( getRevision().getPasoActual().getOrden() > 1) {
-            return irPaso(getRevision().getPasoActual().getOrden() - 1);
+        if( revisionService.getPasoActual().getOrden() > 1) {
+            return irPaso(revisionService.getPasoActual().getOrden() - 1);
         }
         return null;
     }
     public String siguientePaso() {
-        if( getRevision().getPasoActual().getOrden() < getRevision().getPasosProceso().size()) {
-            return irPaso(getRevision().getPasoActual().getOrden() +1);
+        if( revisionService.getPasoActual().getOrden() < getRevision().getPasosProceso().size()) {
+            return irPaso(revisionService.getPasoActual().getOrden() +1);
         }
         return null;
     }
