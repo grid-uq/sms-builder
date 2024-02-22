@@ -128,7 +128,7 @@ public class RevisionService {
         var usuario = usuarioService.getUsuario();
         if( usuario != null ){
             usuario.setPasoActual(pasoProceso);
-            usuarioService.save(usuario);
+            usuarioService.update(usuario);
         }
     }
 

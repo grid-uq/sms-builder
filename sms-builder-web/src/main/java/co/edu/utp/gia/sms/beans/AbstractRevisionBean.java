@@ -49,16 +49,20 @@ public abstract class AbstractRevisionBean extends AbstractBean {
         Function<Integer,Predicate<PasoProceso>> filtro = (orden)->paso-> paso.getOrden().equals(orden);
         var pasos = getRevision().getPasosProceso();
         pasoActual = revisionService.getPasoActual();
-
-        int orden = pasoActual.getOrden();
-        int ordenAnterior = orden -1;
-        int ordenSiguiente = orden +1;
-        pasoAnterior = pasos.stream().filter(filtro.apply(ordenAnterior)).findAny().orElse(null);
-        pasoSiguiente = pasos.stream().filter(filtro.apply(ordenSiguiente)).findAny().orElse(null);
+        if (pasoActual != null) {
+            int orden = pasoActual.getOrden();
+            int ordenAnterior = orden -1;
+            int ordenSiguiente = orden +1;
+            pasoAnterior = pasos.stream().filter(filtro.apply(ordenAnterior)).findAny().orElse(null);
+            pasoSiguiente = pasos.stream().filter(filtro.apply(ordenSiguiente)).findAny().orElse(null);
+        }
     }
 
-    public PasoProceso getPasoActual(){
-        return revisionService.getPasoActual();
+    public String getUrlActual(){
+        String url = "/index.xhtml";
+        if( pasoActual != null ){
+            url = pasoActual.getPaso().recurso().getUrl();
+        }
+        return url;
     }
-
 }

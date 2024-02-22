@@ -33,9 +33,7 @@ public class UsuarioService extends AbstractGenericService<Usuario, String> {
     public Usuario getUsuario() {
         var principal = securityContext.getCallerPrincipal();
         if( principal != null ) {
-            var usuario =  SeguridadUsuarioLogin.createQuery(principal.getName()).findFirst().orElse(null);
-            System.out.println("ENCONTRO USUARIO "+usuario);
-            return usuario;
+            return SeguridadUsuarioLogin.createQuery(principal.getName()).findFirst().orElse(null);
         }
         return null;
     }

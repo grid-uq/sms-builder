@@ -49,8 +49,6 @@ public class SeguridadBeanImpl extends SeguridadBean {
 			addToSession("revision", revisionService.get());
 		}
 		var url = "/sms.xhtml";
-		log.info( url );
-
 		try {
 			getFacesContext().getExternalContext().redirect(getFacesContext().getExternalContext().getApplicationContextPath() + url);
 			getFacesContext().responseComplete();
