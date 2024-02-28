@@ -28,6 +28,7 @@ public class ReferenciaGetTags {
      */
     public static Stream<String> createQuery(Provider<Collection<Referencia>> dataProvider) {
         return dataProvider.get().stream()
+                .filter(referencia -> referencia.getTags() != null)
                 .flatMap(referencia -> referencia.getTags().stream())
                 .map(String::toUpperCase)
                 .distinct()
