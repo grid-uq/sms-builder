@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * Elemento que representa de forma general una referencia a ser procesada
@@ -101,6 +102,7 @@ public class Referencia implements Entidad<String> {
     @Setter
     private List<String> tags = new ArrayList<>();
 
+    private Map<Usuario,Integer> relevacias = new HashMap<>();
     /**
      * Metodo que permite inicializar los elementos de la clase Reference
      */
@@ -138,6 +140,19 @@ public class Referencia implements Entidad<String> {
         if (metadatos == null) {
             metadatos = new ArrayList<>();
         }
+    }
+
+    public void putRelevancia(Usuario usuario,Integer relevancia){
+        relevacias.put(usuario,relevancia);
+        uodateRelevancia();
+    }
+
+    private void uodateRelevancia(){
+        relevancia = Math.toIntExact(Math.round(relevacias.values().stream().mapToInt(r -> r).summaryStatistics().getAverage()));
+    }
+
+    public void getRelevanciaUsuario(Usuario usuario){
+        relevacias.get(usuario);
     }
 
     public String autoresAsString(){
