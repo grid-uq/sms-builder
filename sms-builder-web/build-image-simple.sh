@@ -7,5 +7,5 @@ export DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
 #docker buildx create --name sms-buildx --use
 docker buildx use sms-buildx
-docker buildx build --platform linux/amd64,linux/arm64 -t griduq/sms-builder -t griduq/sms-builder:$version  --push -f -f src/main/docker/Dockerfile .
+docker buildx build --platform linux/amd64,linux/arm64 -t griduq/sms-builder -t griduq/sms-builder:$version  --push -f src/main/docker/Dockerfile.simple .
 

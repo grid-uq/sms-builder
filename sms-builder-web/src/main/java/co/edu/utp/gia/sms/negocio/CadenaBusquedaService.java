@@ -90,7 +90,7 @@ public class CadenaBusquedaService extends AbstractGenericService<CadenaBusqueda
 		StringBuilder stringBuilder = new StringBuilder("(");
 		stringBuilder.append(termino.getDescripcion());
 
-		if(!termino.getSinonimos().isEmpty()){
+		if(termino.getSinonimos() != null && !termino.getSinonimos().isEmpty()){
 			stringBuilder.append(" OR ");
 			stringBuilder.append(
 					String.join(" OR ", termino.getSinonimos())
