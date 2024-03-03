@@ -18,7 +18,6 @@ public class CustomIdentityStore implements IdentityStore {
 
     @Override
     public CredentialValidationResult validate(Credential credential) {
-        System.out.println("AUTENTICANDO ...");
         UsernamePasswordCredential userCredential = (UsernamePasswordCredential) credential;
 
         var user = SeguridadUsuarioLogin.createQuery(userCredential.getCaller()).findFirst().orElse(null);

@@ -8,7 +8,10 @@ import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.negocio.RecursoService;
 import co.edu.utp.gia.sms.negocio.UsuarioService;
-import jakarta.faces.application.FacesMessage;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationStatus;
 import jakarta.security.enterprise.SecurityContext;
 import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
@@ -18,17 +21,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.Setter;
-
-import jakarta.annotation.PostConstruct;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.inject.Inject;
 import lombok.extern.java.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+
+import static jakarta.security.enterprise.AuthenticationStatus.SEND_FAILURE;
 
 
 /**
@@ -112,7 +112,7 @@ public abstract class SeguridadBean extends AbstractBean {
      * el {@link Usuario}
      */
     public void ingresar() throws IOException {
-        AuthenticationStatus status = null;
+        AuthenticationStatus status;
         try {
             Credential credential = new UsernamePasswordCredential(nombreUsuario, clave);
             status = securityContext
@@ -131,18 +131,16 @@ public abstract class SeguridadBean extends AbstractBean {
         } catch (Throwable t) {
             log.log(Level.WARNING,"Problemas al autenticar",t);
             mostrarErrorGeneral(String.format("ERROR: %s", t.getMessage()));
+            status = SEND_FAILURE;
         }
         switch (status) {
             case SEND_CONTINUE:
-                System.out.println("CONTINUE");
                 getFacesContext().responseComplete();
                 break;
             case SEND_FAILURE:
-                System.out.println("FALLO AUNTENTICACION");
 //                    getFacesContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid username and password", null));
                 break;
             case SUCCESS:
-                System.out.println("EXITO AUNTENTICACION");
 //                getFacesContext().getExternalContext().redirect(getFacesContext().getExternalContext().getRequestContextPath() + "/");
                 break;
             case NOT_DONE:
