@@ -1,5 +1,7 @@
 package co.edu.utp.gia.sms.exceptions;
 
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +18,7 @@ import lombok.Setter;
  * @version 1.0
  * @since 10 abr. 2020
  */
-public class TecnicalException extends RuntimeException {
+public class TecnicalException extends WebApplicationException {
     /**
      * Determina si la excepcion debe o no tener visibilidad hacia el usuario.
      */
@@ -31,7 +33,7 @@ public class TecnicalException extends RuntimeException {
      * @param message Mensaje de error
      */
     public TecnicalException(String message) {
-        super(message);
+        super(message,Status.INTERNAL_SERVER_ERROR);
         setVisible(true);
     }
 
@@ -42,7 +44,7 @@ public class TecnicalException extends RuntimeException {
      * @param cause Causa del error
      */
     public TecnicalException(Throwable cause) {
-        super(cause);
+        super(cause, Status.INTERNAL_SERVER_ERROR);
         setVisible(false);
     }
 
@@ -54,8 +56,12 @@ public class TecnicalException extends RuntimeException {
      * @param cause   Causa del error
      */
     public TecnicalException(String message, Throwable cause) {
-        super(message, cause);
+        super(message, cause,Status.INTERNAL_SERVER_ERROR);
         setVisible(true);
     }
 
+    public TecnicalException(String message, Status status) {
+        super(message, status);
+        setVisible(true);
+    }
 }

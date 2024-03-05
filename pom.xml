@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>co.edu.utp.gia.sms</groupId>
 	<artifactId>sms-builder</artifactId>
-	<version>4.3</version>
+	<version>5.0</version>
 	<packaging>pom</packaging>
 	<name>SMS-Builder Systematic Mapping Study</name>
 	<properties>

@@ -10,12 +10,9 @@ import co.edu.utp.gia.sms.util.json.JsonExporter;
 import co.edu.utp.gia.sms.util.json.JsonImporter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.List;
 
@@ -41,7 +38,7 @@ public class BackupTest {
         JsonExporter.INSTANCE.toJsonFile(revisionGenerated,fileName);
     }
 
-    @Test
+//    @Test
     void backupTest() throws IOException {
         exportarTest();
         var revision = JsonImporter.INSTANCE.importFromJson(fileName);

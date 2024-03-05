@@ -7,6 +7,7 @@ import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.exceptions.TecnicalException;
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
+import jakarta.ws.rs.core.Response;
 import lombok.Getter;
 import one.microstream.concurrency.XThreads;
 import org.apache.commons.beanutils.BeanUtils;
@@ -54,7 +55,7 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     protected void validateBeforeSave(E entidad){
         var stored = find(dataProvider,entidad.getId());
         if (stored.isPresent()) {
-            throw new LogicException(exceptionMessage.getRegistroExistente());
+            throw new LogicException(exceptionMessage.getRegistroExistente(), Response.Status.CONFLICT);
         }
     }
 
@@ -154,7 +155,7 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
 
     protected E findOrThrow(Provider<Collection<E>> dataProvider,TipoId id) {
         return find(dataProvider,id).orElseThrow(
-                () -> new LogicException(exceptionMessage.getRegistroNoEncontrado()));
+                () -> new LogicException(exceptionMessage.getRegistroNoEncontrado(), Response.Status.NOT_FOUND));
     }
 
     public Collection<E> get() {
