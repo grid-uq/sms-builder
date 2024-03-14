@@ -47,8 +47,8 @@ public class RecursoService extends AbstractGenericService<Recurso, String> {
      * @return Lista de las URL de los {@link Recurso} registrados en el sistema
      * como públicos
      */
-    public List<String> buscarRecursosPublicos() {
-        return SeguridadRecursoFindUrlByPublic.createQuery(true).toList();
+    public List<String> buscarRecursosPublicos(boolean publico) {
+        return SeguridadRecursoFindUrlByPublic.createQuery(publico).toList();
     }
 
 }

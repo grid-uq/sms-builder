@@ -154,7 +154,7 @@ public abstract class SeguridadBean extends AbstractBean {
      * acceso
      */
     private void cargarRecursos() {
-        urlRecursos = new ArrayList<>(recursoService.buscarRecursosPublicos());
+        urlRecursos = new ArrayList<>(recursoService.buscarRecursosPublicos(true));
         if (getUsuario() != null) {
             for (Rol rol : getUsuario().getRoles()) {
                 for (Recurso recurso : rol.getRecursos()) {

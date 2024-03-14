@@ -69,28 +69,31 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
      * Adiciona una referencia al paso
      * @param idPasoProceso Identificador del paso al que se desea adicionar la referencia
      * @param idReferencia  Identificador de la Referencia a ser adicionada
+     * @return El paso modificado
      */
-    public void addReferencia(String idPasoProceso, String idReferencia) {
+    public PasoProceso addReferencia(String idPasoProceso, String idReferencia) {
         var referencia = referenciaService.findOrThrow(idReferencia);
-        addReferencia(idPasoProceso,referencia);
+        return addReferencia(idPasoProceso,referencia);
     }
 
     /**
      * Adiciona una referencia al paso
      * @param idPasoProceso Identificador del paso al que se desea adicionar la referencia
      * @param referencia Referencia a ser adicionada
+     * @return El paso modificado
      */
-    public void addReferencia(String idPasoProceso, Referencia referencia) {
+    public PasoProceso addReferencia(String idPasoProceso, Referencia referencia) {
         var paso = findOrThrow(idPasoProceso);
-        addReferencia(paso,referencia);
+        return addReferencia(paso,referencia);
     }
 
     /**
      * Adiciona una referencia al paso
      * @param paso paso al que se desea adicionar la referencia
      * @param referencia Referencia a ser adicionada
+     * @return El paso modificado
      */
-    private void addReferencia(PasoProceso paso, Referencia referencia) {
+    private PasoProceso addReferencia(PasoProceso paso, Referencia referencia) {
         var pasoSiguiente = findByOrden( paso.getOrden() + 1 );
         if( !paso.getReferencias().contains(referencia) ) {
             paso.getReferencias().add(referencia);
@@ -99,31 +102,35 @@ public class ProcesoService extends AbstractGenericService<PasoProceso, String> 
         if( pasoSiguiente != null && !pasoSiguiente.getPaso().forFilter()){
             addReferencia(pasoSiguiente,referencia);
         }
+        return paso;
     }
 
     /**
      * Permite remover una referencia de un paso
      * @param idPasoProceso Identificador del paso del que se desea remover la referencia
      * @param idReferencia Identificador de la referencia que se desea remover.
+     * @return El paso modificado
      */
-    public void removeReferencia(String idPasoProceso, String idReferencia) {
+    public PasoProceso removeReferencia(String idPasoProceso, String idReferencia) {
         var paso = findOrThrow(idPasoProceso);
         var referencia = referenciaService.findOrThrow(idReferencia);
-        removeReferencia(paso,referencia);
+        return removeReferencia(paso,referencia);
     }
 
     /**
      * Permite remover una referencia de un paso
      * @param paso paso del que se desea remover la referencia
      * @param referencia referencia que se desea remover.
+     * @return El paso modificado
      */
-    private void removeReferencia(PasoProceso paso, Referencia referencia) {
+    private PasoProceso removeReferencia(PasoProceso paso, Referencia referencia) {
         var pasoSiguiente = findByOrden( paso.getOrden() + 1 );
         if( pasoSiguiente != null ){
             removeReferencia(pasoSiguiente,referencia);
         }
         paso.getReferencias().remove(referencia);
         DB.storageManager.store(paso.getReferencias());
+        return paso;
     }
 
     /**
