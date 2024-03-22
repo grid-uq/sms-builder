@@ -1,9 +1,7 @@
 package co.edu.utp.gia.sms.beans;
 
-import co.edu.utp.gia.sms.beans.seguridad.SeguridadBean;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.negocio.ProcesoService;
-import jakarta.faces.annotation.ManagedProperty;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -31,10 +29,6 @@ public class ProcesoBean extends AbstractRevisionBean {
     private ProcesoService procesoService;
     @Getter
     private Collection<PasoProceso> pasosProceso;
-
-    @Inject
-    @ManagedProperty("#{seguridadBean}")
-    private SeguridadBean seguridadBean;
 
     @Getter
     private MenuModel model;
@@ -178,7 +172,7 @@ public class ProcesoBean extends AbstractRevisionBean {
     }
 
     private MenuItem createItem(String label, String url) {
-        return createItem(label, url, getRevision() != null && seguridadBean.verifivarAcceso(url));
+        return createItem(label, url, getRevision() != null && hasPermision(url));
     }
 
     private MenuItem createItem(String label, String url, boolean rendered) {

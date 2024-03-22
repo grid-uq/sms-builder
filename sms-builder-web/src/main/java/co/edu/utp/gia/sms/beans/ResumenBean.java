@@ -4,10 +4,11 @@ import co.edu.utp.gia.sms.dtos.DatoDTO;
 import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.negocio.EstadisticaService;
 import co.edu.utp.gia.sms.negocio.RevisionService;
-import lombok.Getter;
-
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
+
 import java.util.List;
 /**
  * Clase controladora de interfaz web que se encarga de presentar un resumen del proceso de SMS.
@@ -20,6 +21,7 @@ import java.util.List;
  * @since 13/06/2019
  */
 @Named
+@RequestScoped
 public class ResumenBean extends AbstractRevisionBean{
     @Getter
     private long numeroReferencias;

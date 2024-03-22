@@ -1,15 +1,11 @@
 package co.edu.utp.gia.sms.seguridad;
 
-//import io.undertow.security.api.SecurityContext;
-import io.quarkus.security.runtime.SecurityIdentityAssociation;
-import jakarta.faces.context.FacesContext;
+
 import jakarta.inject.Inject;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.container.PreMatching;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.SecurityContext;
-import jakarta.ws.rs.ext.Provider;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -33,11 +29,11 @@ public class SecurityFilter implements ContainerRequestFilter {
         log.info("APLICANDO FILTRO "+securityCtx.isSecure()+" --> "+securityCtx.getAuthenticationScheme());
         try {
             var user = securityCtx.getUserPrincipal() != null ? securityCtx.getUserPrincipal().getName() : null;
-            authCtx.setCurrentUser(user);
+//            authCtx.setCurrentUser(user);
             log.info("ASIGNANDO USUARIO "+authCtx.getCurrentUser());
         }catch (Throwable t){
             t.printStackTrace();
-            authCtx.setCurrentUser(null);
+//            authCtx.setCurrentUser(null);
         }
     }
 }

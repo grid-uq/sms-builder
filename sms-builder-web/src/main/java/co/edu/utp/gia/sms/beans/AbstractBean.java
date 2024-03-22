@@ -4,15 +4,14 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.seguridad.AuthenticationContext;
-import lombok.Getter;
-
 import jakarta.annotation.PostConstruct;
-import jakarta.faces.annotation.ManagedProperty;
 import jakarta.faces.annotation.SessionMap;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.application.FacesMessage.Severity;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
+import lombok.Getter;
+
 import java.io.Serializable;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -33,7 +32,7 @@ import java.util.ResourceBundle;
  * @since 6 oct. 2020
  *
  */
-public abstract class AbstractBean implements Serializable {
+public abstract class AbstractBean implements Serializable{
 	@Inject
 	private FacesContext facesContext;
 	@Inject
@@ -45,10 +44,8 @@ public abstract class AbstractBean implements Serializable {
 	protected ExceptionMessage exceptionMessage;
 
 	@Inject
-	protected AuthenticationContext authenticationContext;
+	private AuthenticationContext authenticationContext;
 
-//	@Inject
-//	@ManagedProperty("#{msg}")
 	private ResourceBundle bundle;
 
 	protected void preInicializar(){}
@@ -135,5 +132,13 @@ public abstract class AbstractBean implements Serializable {
 
 	public Usuario getCurrentUser(){
 		return authenticationContext.getCurrentUser();
+	}
+
+	public boolean isAuthenticated() {
+		return authenticationContext.isAuthenticated();
+	}
+
+	public boolean hasPermision(String resource) {
+		return authenticationContext.hasPermision(resource);
 	}
 }

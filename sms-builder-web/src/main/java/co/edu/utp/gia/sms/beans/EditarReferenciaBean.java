@@ -6,7 +6,6 @@ import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import co.edu.utp.gia.sms.negocio.MetadatoServices;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
-import jakarta.faces.annotation.ManagedProperty;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -26,8 +25,6 @@ import org.primefaces.PrimeFaces;
 @Named
 @ViewScoped
 public class EditarReferenciaBean extends GenericBeanNew<Metadato,String> {
-    @Inject @ManagedProperty("#{param.referencia}")
-    protected String idReferencia;
     @Inject
     private ReferenciaService referenciaService;
     @Inject
@@ -36,6 +33,7 @@ public class EditarReferenciaBean extends GenericBeanNew<Metadato,String> {
     private ReferenciaDTO referencia;
 
     public void inicializar() {
+        var idReferencia = getFacesContext().getExternalContext().getRequestParameterMap().get("referencia");
         referencia = referenciaService.find(idReferencia).stream().map(ReferenciaDTO::new).findFirst().orElse(null);
         if( referencia != null ) {
             setRecords(referencia.getMetadatos());

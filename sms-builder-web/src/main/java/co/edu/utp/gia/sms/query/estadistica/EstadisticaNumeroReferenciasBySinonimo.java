@@ -27,6 +27,7 @@ public class EstadisticaNumeroReferenciasBySinonimo {
     public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider) {
 
         var sinonimos = DB.root.revision().getTerminos().stream()
+                .filter(termino -> termino.getSinonimos() != null)
                 .flatMap(termino -> termino.getSinonimos().stream())
                 .toList();
         var terminos = DB.root.revision().getTerminos().stream()
@@ -34,7 +35,6 @@ public class EstadisticaNumeroReferenciasBySinonimo {
                 .toList();
         var palabras = new ArrayList<>(terminos);
         palabras.addAll(sinonimos);
-
 
         return palabras.stream().distinct()
                 .map(palabra -> new DatoDTO(palabra,count(dataProvider,palabra)));

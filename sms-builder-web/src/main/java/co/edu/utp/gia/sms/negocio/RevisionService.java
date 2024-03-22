@@ -86,6 +86,7 @@ public class RevisionService {
     public PasoProceso getPasoActual(){
         PasoProceso pasoActual = null;
         var usuario = usuarioService.getUsuario();
+        System.out.println("USUARIO  "+(usuario!=null?usuario.getNombreUsuario():"NONE"));
         if( usuario != null ){
             pasoActual = usuario.getPasoActual();
             if (pasoActual == null){

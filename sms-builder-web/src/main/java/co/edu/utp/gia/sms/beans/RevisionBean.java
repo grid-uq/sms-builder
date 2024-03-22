@@ -28,13 +28,11 @@ public class RevisionBean extends AbstractRevisionBean {
     @Getter
     private Collection<PasoProceso> pasos;
     @Inject
-    private SeguridadBeanImpl seguridadBean;
-    @Inject
     private ProcesoService procesoService;
 
     @PostConstruct
     public void inicializar() {
-        if (seguridadBean.isAutenticado()) {
+        if ( isAuthenticated() ) {
             pasos = procesoService.get();
         }
     }

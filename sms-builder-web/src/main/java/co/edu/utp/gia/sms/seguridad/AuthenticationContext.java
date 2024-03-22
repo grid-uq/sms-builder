@@ -5,4 +5,6 @@ import co.edu.utp.gia.sms.entidades.Usuario;
 public interface AuthenticationContext {
     Usuario getCurrentUser();
     boolean isAuthenticated();
+
+    boolean hasPermision(String resource);
 }

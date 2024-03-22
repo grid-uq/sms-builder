@@ -94,8 +94,8 @@
         </h:form>
         <div id="content" align='center'>
             <p:growl id="msgs"/>
-            <h:panelGrid rendered="#{!seguridadBean.autenticado}">
-                <h:form prependId="false">
+            <h:panelGrid rendered="#{!seguridadBean.autenticado}" columns="12">
+                <form action="/j_security_check" method="post">
                     <p:outputLabel value="#{msg['usuario.nombreUsuario']}: "
                                    for="nombreUsuario"/>
                     <h:outputText value=" " />
@@ -106,13 +106,13 @@
                     <h:outputText value=" " />
                     <p:password id="clave" value="#{seguridadBean.clave}" size="28"/>
                     <h:outputText value=" " />
-                    <p:commandButton value="#{msg['seguridad.boton.ingresar']}"
-                                     action="#{seguridadBean.ingresar}" ajax="false"/>
+                    <button  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                             type="submit"><span class="ui-button-text ui-c">Ingresar</span></button>
                     <h:outputText value=" " />
-                    <p:commandButton value="#{msg['seguridad.boton.registrarse']}"
-                                     action="/seguridad/usuario/registro" ajax="false" immediate="true"/>
+                    <p:linkButton href="/seguridad/usuario/registro.xhtml" value="#{msg['seguridad.boton.registrarse']}" ajax="false" immediate="true">
+                    </p:linkButton>
 
-                </h:form>
+                </form>
             </h:panelGrid>
 
             <h:panelGroup id="panelContenido" style="width:100%">

@@ -14,6 +14,7 @@ public class DB {
         foundation.onConnectionFoundation(connectionFoundation ->
                 connectionFoundation.setClassLoaderProvider(ClassLoaderProvider.New(Thread.currentThread()
                         .getContextClassLoader())));
-        storageManager = foundation.createEmbeddedStorageManager(root).start();
+        var storage =foundation.createEmbeddedStorageManager(root);
+        storageManager = storage.start();
     }
 }

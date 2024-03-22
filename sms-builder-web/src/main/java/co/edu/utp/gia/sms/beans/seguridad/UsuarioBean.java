@@ -5,7 +5,6 @@ import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.entidades.EstadoUsuario;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.negocio.UsuarioService;
-import jakarta.faces.annotation.ManagedProperty;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,8 +33,8 @@ public abstract class UsuarioBean extends AbstractBean {
      * Variable que representa el atributo usuarioAutenticado de la clase.
      * Instancia del usuario autenticado en el sistema
      */
-    @Inject
-    @ManagedProperty("#{seguridadBean.usuario}")
+//    @Inject
+//    @ManagedProperty("#{seguridadBean.usuario}")
     @Getter
     @Setter
     private Usuario usuarioAutenticado;
@@ -105,6 +104,7 @@ public abstract class UsuarioBean extends AbstractBean {
      * Metodo encargado de inicializar los datos de la clase
      */
     public void inicializar() {
+        usuarioAutenticado = getCurrentUser();
         usuarios = usuarioService.get();
         setUsuario(newUsuario());
         estados = Arrays.asList(EstadoUsuario.values());
