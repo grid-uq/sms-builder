@@ -139,7 +139,8 @@ public abstract class SeguridadBean extends AbstractBean {
 //                            (HttpServletResponse) getFacesContext().getExternalContext().getResponse(),
 //                            AuthenticationParameters.withParams().credential(credential));
 
-            setUsuario(usuarioService.login(nombreUsuario, clave));
+            // TODO verifciar modficación de usuario
+            //setUsuario(usuarioService.login(nombreUsuario, clave));
             if (getUsuario() == null) {
                 throw new LogicException(exceptionMessage.getLoginFailMessage());
             }
