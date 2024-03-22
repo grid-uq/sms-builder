@@ -13,7 +13,7 @@ public enum EvaluacionCualitativa {
 
     @Override
     public String toString() {
-        ApplicationGeneralProducer instancia = new ApplicationGeneralProducer();
+        ApplicationGeneralProducer instancia = ApplicationGeneralProducer.getInstance();//new ApplicationGeneralProducer();
         Locale locale = instancia.getDefaultLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("mensajes",locale);
         return switch (this) {

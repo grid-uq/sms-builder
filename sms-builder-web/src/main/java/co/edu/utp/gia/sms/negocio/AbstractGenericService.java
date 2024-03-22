@@ -5,10 +5,12 @@ import co.edu.utp.gia.sms.entidades.Entidad;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.exceptions.TecnicalException;
+import co.edu.utp.gia.sms.util.ApplicationGeneralProducer;
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
 import jakarta.ws.rs.core.Response;
 import lombok.Getter;
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.commons.beanutils.BeanUtils;
 import org.eclipse.serializer.concurrency.XThreads;
 
@@ -26,9 +28,9 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
 
     protected final Provider<Collection<E>> dataProvider;
     /**
-     * Instancia que perite obtener los mensajes de las excepciones generadas.
+     * Instancia que permite obtener los mensajes de las excepciones generadas.
      */
-    @Inject
+//    @Inject
     @Getter
     protected ExceptionMessage exceptionMessage;
 
@@ -37,11 +39,14 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     }
 
     public AbstractGenericService() {
-        dataProvider = AbstractGenericService::defaultDataProvider;
+        this(AbstractGenericService::defaultDataProvider);
+//        dataProvider = AbstractGenericService::defaultDataProvider;
     }
 
     public AbstractGenericService(Provider<Collection<E>> dataProvider) {
         this.dataProvider = dataProvider;
+//        exceptionMessage = ApplicationGeneralProducer.getInstance().getExceptionMessage();
+        exceptionMessage = ConfigFactory.create(ExceptionMessage.class);
     }
 
     public E save(E entidad) {

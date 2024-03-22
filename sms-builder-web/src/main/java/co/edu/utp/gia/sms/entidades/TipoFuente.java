@@ -19,7 +19,7 @@ public enum TipoFuente {
 
 	@Override
 	public String toString() {
-		ApplicationGeneralProducer instancia = new ApplicationGeneralProducer();
+		ApplicationGeneralProducer instancia = ApplicationGeneralProducer.getInstance();
 		Locale locale = instancia.getDefaultLocale();
 		ResourceBundle bundle = ResourceBundle.getBundle("mensajes",locale);
         return switch (this) {

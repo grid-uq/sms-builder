@@ -10,6 +10,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriBuilder;
 import lombok.Getter;
+import org.aeonbits.owner.ConfigFactory;
 
 import java.io.Serializable;
 import java.net.URI;
@@ -23,16 +24,18 @@ public abstract class AbstractGenericApi<E extends Entidad<TipoId>, TipoId> impl
     /**
      * Instancia que perite obtener los mensajes de las excepciones generadas.
      */
-    @Inject
-    @Getter
+//    @Inject
+//    @Getter
     protected ExceptionMessage exceptionMessage;
 
     protected AbstractGenericService<E,TipoId> service;
 
     public AbstractGenericApi() {
+        exceptionMessage = ConfigFactory.create(ExceptionMessage.class);
     }
 
     public AbstractGenericApi(AbstractGenericService<E, TipoId> service) {
+        this();
         this.service = service;
     }
 

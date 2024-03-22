@@ -43,6 +43,7 @@ public class GenericMessageFactory<T extends Config>{
 
     private Properties getPropertiesBase(Locale locale) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle(propertiesName,locale);
+//        ResourceBundle resourceBundle = ResourceBundle.getBundle(propertiesName, locale, Thread.currentThread().getContextClassLoader());
         return resourcesBundleToProperties(resourceBundle);
     }
 

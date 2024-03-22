@@ -11,6 +11,8 @@ import org.aeonbits.owner.Config;
  * @version 1.0
  * @since 12/11/2015
  */
+@Config.Sources("classpath:exception.properties")
+
 public interface ExceptionMessage extends Config {
     @Key("message.exception.defaultDetail")
     String getDefaultMessageDetail();
