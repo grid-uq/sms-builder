@@ -2,6 +2,9 @@ package co.edu.utp.gia.sms.util;
 
 import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessageFactory;
+import co.edu.utp.gia.sms.seguridad.AuthenticationContext;
+import co.edu.utp.gia.sms.seguridad.AuthenticationContextImpl;
+import io.quarkus.security.runtime.SecurityIdentityAssociation;
 import lombok.Getter;
 import lombok.extern.java.Log;
 
@@ -39,5 +42,12 @@ public class ApplicationGeneralProducer {
             locale = Locale.ROOT;
         }
         return ExceptionMessageFactory.getInstance().getMessageInstance( locale );
+    }
+
+    @Produces
+    public AuthenticationContext getAuthenticationContext(SecurityIdentityAssociation identity){
+
+        var user = identity.getIdentity().getPrincipal() != null ? identity.getIdentity().getPrincipal().getName() : null;
+        return AuthenticationContextImpl.of( user );
     }
 }

@@ -8,7 +8,8 @@ import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.query.seguridad.SeguridadUsuarioLogin;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.security.enterprise.SecurityContext;
+import jakarta.ws.rs.core.SecurityContext;
+//import jakarta.security.enterprise.SecurityContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class UsuarioService extends AbstractGenericService<Usuario, String> {
     private SecurityContext securityContext;
 
     public Usuario getUsuario() {
-        var principal = securityContext.getCallerPrincipal();
+        var principal = securityContext.getUserPrincipal();
         if( principal != null ) {
             return SeguridadUsuarioLogin.createQuery(principal.getName()).findFirst().orElse(null);
         }

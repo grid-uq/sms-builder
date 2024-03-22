@@ -4,6 +4,7 @@ import co.edu.utp.gia.sms.entidades.Paso;
 import co.edu.utp.gia.sms.negocio.PasoService;
 import co.edu.utp.gia.sms.negocio.RecursoService;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  * @version 1.0
  * @since 13/06/2019
  */
+@ApplicationScoped
 public class PasosSetup implements SetupInterface {
     @Inject
     private RecursoService recursoService;

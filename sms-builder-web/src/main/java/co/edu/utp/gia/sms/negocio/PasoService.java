@@ -2,6 +2,8 @@ package co.edu.utp.gia.sms.negocio;
 
 import co.edu.utp.gia.sms.db.DB;
 import co.edu.utp.gia.sms.entidades.Paso;
+import jakarta.enterprise.context.ApplicationScoped;
+
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
  * gestion del {@link Paso}.
@@ -13,6 +15,7 @@ import co.edu.utp.gia.sms.entidades.Paso;
  * @version 1.0
  * @since 12/11/2015
  */
+@ApplicationScoped
 public class PasoService extends AbstractGenericService<Paso, String> {
 
     public PasoService() {

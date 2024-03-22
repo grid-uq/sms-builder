@@ -1,6 +1,7 @@
 package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.negocio.AtributoCalidadService;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 /**
@@ -13,6 +14,7 @@ import jakarta.inject.Inject;
  * @version 1.0
  * @since 13/06/2019
  */
+@ApplicationScoped
 public class AtributosCalidadSetup implements SetupInterface {
     @Inject
     private AtributoCalidadService atributoCalidadService;

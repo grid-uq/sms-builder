@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.configuration;
 import co.edu.utp.gia.sms.entidades.Recurso;
 import co.edu.utp.gia.sms.negocio.RecursoService;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 /**
  * Clase encargada de realizar la configuración inicial de los recursos en la aplicación
@@ -14,6 +15,7 @@ import jakarta.inject.Inject;
  * @version 1.0
  * @since 13/06/2019
  */
+@ApplicationScoped
 public class RecursosSetup implements SetupInterface{
 
     /**

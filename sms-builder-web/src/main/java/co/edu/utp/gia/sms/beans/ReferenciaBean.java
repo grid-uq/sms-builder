@@ -25,7 +25,7 @@ import java.util.Collection;
 @Named
 @ViewScoped
 public class ReferenciaBean extends AbstractRevisionBean {
-    @Inject @ManagedProperty("#{param.all}")
+//    @Inject @ManagedProperty("#{param.all}")
     protected boolean todas;
     @Inject
     private ReferenciaService referenciaService;
@@ -34,6 +34,7 @@ public class ReferenciaBean extends AbstractRevisionBean {
     private Collection<ReferenciaDTO> records;
 
     public void inicializar() {
+        todas = Boolean.parseBoolean( getFacesContext().getExternalContext().getRequestParameterMap().get("all") );
         if( todas ){
             setRecords(referenciaService.findAll());
         } else {

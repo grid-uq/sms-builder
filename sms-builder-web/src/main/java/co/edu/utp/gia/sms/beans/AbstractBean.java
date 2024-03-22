@@ -42,8 +42,8 @@ public abstract class AbstractBean implements Serializable {
 	@Inject
 	protected ExceptionMessage exceptionMessage;
 
-	@Inject
-	@ManagedProperty("#{msg}")
+//	@Inject
+//	@ManagedProperty("#{msg}")
 	private ResourceBundle bundle;
 
 	protected void preInicializar(){}
@@ -51,6 +51,7 @@ public abstract class AbstractBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		bundle = ResourceBundle.getBundle("mensajes",getFacesContext().getViewRoot().getLocale());
 		preInicializar();
 		inicializar();
 		postInicializar();

@@ -3,6 +3,7 @@ package co.edu.utp.gia.sms.configuration;
 import co.edu.utp.gia.sms.entidades.PasoProceso;
 import co.edu.utp.gia.sms.negocio.PasoService;
 import co.edu.utp.gia.sms.negocio.ProcesoService;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import java.util.Arrays;
  * @version 1.0
  * @since 13/06/2019
  */
+@ApplicationScoped
 public class ProcesoSetup implements SetupInterface{
     @Inject
     private ProcesoService procesoService;

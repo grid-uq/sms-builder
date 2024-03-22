@@ -4,6 +4,7 @@ import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.negocio.RolService;
 import co.edu.utp.gia.sms.negocio.UsuarioService;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  * @version 1.0
  * @since 13/06/2019
  */
+@ApplicationScoped
 public class UsuariosSetup implements SetupInterface{
     /**
      * Variable que representa el atributo usuarioBO de la clase

@@ -1,8 +1,8 @@
 package co.edu.utp.gia.sms.configuration;
 
+import io.quarkus.runtime.Startup;
 import jakarta.annotation.PostConstruct;
-import jakarta.ejb.Singleton;
-import jakarta.ejb.Startup;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.extern.java.Log;
 
@@ -19,7 +19,7 @@ import java.util.logging.Level;
  * @since 13/06/2019
  */
 @Startup
-@Singleton
+@ApplicationScoped
 @Log
 public class Setup implements SetupInterface {
 

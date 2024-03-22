@@ -1,6 +1,7 @@
 package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.negocio.RevisionService;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 /**
  * Clase encargada de realizar la configuración inicial de la revision en la aplicación
@@ -12,6 +13,7 @@ import jakarta.inject.Inject;
  * @version 1.0
  * @since 13/06/2019
  */
+@ApplicationScoped
 public class RevisionSetup implements SetupInterface{
     @Inject
     private RevisionService revisionService;

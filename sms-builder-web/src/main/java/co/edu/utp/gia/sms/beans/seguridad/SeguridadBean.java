@@ -8,27 +8,33 @@ import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.negocio.RecursoService;
 import co.edu.utp.gia.sms.negocio.UsuarioService;
+import io.quarkus.security.credential.PasswordCredential;
+import io.quarkus.security.identity.SecurityIdentity;
+import io.quarkus.security.identity.request.UsernamePasswordAuthenticationRequest;
+import io.undertow.security.api.SecurityContext;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
-import jakarta.security.enterprise.AuthenticationStatus;
-import jakarta.security.enterprise.SecurityContext;
-import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
-import jakarta.security.enterprise.credential.Credential;
-import jakarta.security.enterprise.credential.UsernamePasswordCredential;
+//import jakarta.security.enterprise.AuthenticationStatus;
+//import jakarta.security.enterprise.SecurityContext;
+//import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
+//import jakarta.security.enterprise.credential.Credential;
+//import jakarta.security.enterprise.credential.UsernamePasswordCredential;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.ws.rs.core.SecurityContext;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import io.quarkus.security.identity.IdentityProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-import static jakarta.security.enterprise.AuthenticationStatus.SEND_FAILURE;
+//import static jakarta.security.enterprise.AuthenticationStatus.SEND_FAILURE;
 
 
 /**
@@ -96,8 +102,10 @@ public abstract class SeguridadBean extends AbstractBean {
     @Inject
     private ExceptionMessage exceptionMessage;
 
+
+
     @Inject
-    private SecurityContext securityContext;
+    private IdentityProvider<UsernamePasswordAuthenticationRequest> identityProvider;
 
     /**
      * Método que inicializa los elementos básicos del sistema
@@ -112,14 +120,18 @@ public abstract class SeguridadBean extends AbstractBean {
      * el {@link Usuario}
      */
     public void ingresar() throws IOException {
-        AuthenticationStatus status;
+//        AuthenticationStatus status;
+        boolean status = false;
         try {
-            Credential credential = new UsernamePasswordCredential(nombreUsuario, clave);
-            status = securityContext
-                    .authenticate(
-                            (HttpServletRequest) getFacesContext().getExternalContext().getRequest(),
-                            (HttpServletResponse) getFacesContext().getExternalContext().getResponse(),
-                            AuthenticationParameters.withParams().credential(credential));
+            var r = identityProvider.authenticate(new UsernamePasswordAuthenticationRequest(nombreUsuario,new PasswordCredential(clave.toCharArray())),null);
+            r.attachContext();
+
+//            Credential credential = new UsernamePasswordCredential(nombreUsuario, clave);
+//            status = securityContext
+//                    .authenticate(
+//                            (HttpServletRequest) getFacesContext().getExternalContext().getRequest(),
+//                            (HttpServletResponse) getFacesContext().getExternalContext().getResponse(),
+//                            AuthenticationParameters.withParams().credential(credential));
 
             setUsuario(usuarioService.login(nombreUsuario, clave));
             if (getUsuario() == null) {
@@ -131,20 +143,20 @@ public abstract class SeguridadBean extends AbstractBean {
         } catch (Throwable t) {
             log.log(Level.WARNING,"Problemas al autenticar",t);
             mostrarErrorGeneral(String.format("ERROR: %s", t.getMessage()));
-            status = SEND_FAILURE;
+//            status = SEND_FAILURE;
         }
-        switch (status) {
-            case SEND_CONTINUE:
-                getFacesContext().responseComplete();
-                break;
-            case SEND_FAILURE:
-//                    getFacesContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid username and password", null));
-                break;
-            case SUCCESS:
-//                getFacesContext().getExternalContext().redirect(getFacesContext().getExternalContext().getRequestContextPath() + "/");
-                break;
-            case NOT_DONE:
-        }
+//        switch (status) {
+//            case SEND_CONTINUE:
+//                getFacesContext().responseComplete();
+//                break;
+//            case SEND_FAILURE:
+////                    getFacesContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid username and password", null));
+//                break;
+//            case SUCCESS:
+////                getFacesContext().getExternalContext().redirect(getFacesContext().getExternalContext().getRequestContextPath() + "/");
+//                break;
+//            case NOT_DONE:
+//        }
 
         //return null;
     }

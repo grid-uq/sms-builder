@@ -2,6 +2,7 @@ package co.edu.utp.gia.sms.configuration;
 
 import co.edu.utp.gia.sms.entidades.TipoFuente;
 import co.edu.utp.gia.sms.negocio.FuenteService;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 /**
@@ -14,6 +15,7 @@ import jakarta.inject.Inject;
  * @version 1.0
  * @since 13/06/2019
  */
+@ApplicationScoped
 public class FuentesSetup implements SetupInterface {
     @Inject
     private FuenteService fuenteService;

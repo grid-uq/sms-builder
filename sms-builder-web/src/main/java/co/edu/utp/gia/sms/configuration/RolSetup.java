@@ -4,6 +4,7 @@ import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.negocio.RecursoService;
 import co.edu.utp.gia.sms.negocio.RolService;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 /**
  * Clase encargada de realizar la configuración inicial de los roles en la aplicación
@@ -15,7 +16,7 @@ import jakarta.inject.Inject;
  * @version 1.0
  * @since 13/06/2019
  */
-
+@ApplicationScoped
 public class RolSetup implements SetupInterface{
     /**
      * Variable que representa el atributo rolBO de la clase
