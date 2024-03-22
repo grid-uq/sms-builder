@@ -17,4 +17,8 @@ public class AuthenticationContextImpl implements AuthenticationContext {
         var user = SeguridadUsuarioLogin.createQuery(username).findFirst().orElse(null);
         return new AuthenticationContextImpl(user);
     }
+
+    public boolean isAuthenticated(){
+        return currentUser == null;
+    }
 }

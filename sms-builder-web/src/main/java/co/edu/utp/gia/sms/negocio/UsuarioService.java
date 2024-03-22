@@ -6,6 +6,7 @@ import co.edu.utp.gia.sms.entidades.Rol;
 import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.exceptions.LogicException;
 import co.edu.utp.gia.sms.query.seguridad.SeguridadUsuarioLogin;
+import co.edu.utp.gia.sms.seguridad.AuthenticationContext;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.SecurityContext;
@@ -29,14 +30,10 @@ import java.util.Optional;
 public class UsuarioService extends AbstractGenericService<Usuario, String> {
 
     @Inject
-    private SecurityContext securityContext;
+    private AuthenticationContext autenticationContext;
 
     public Usuario getUsuario() {
-        var principal = securityContext.getUserPrincipal();
-        if( principal != null ) {
-            return SeguridadUsuarioLogin.createQuery(principal.getName()).findFirst().orElse(null);
-        }
-        return null;
+        return autenticationContext.getCurrentUser();
     }
 
     public UsuarioService() {

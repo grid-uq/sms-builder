@@ -21,6 +21,7 @@ import jakarta.inject.Inject;
 //import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
 //import jakarta.security.enterprise.credential.Credential;
 //import jakarta.security.enterprise.credential.UsernamePasswordCredential;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 //import jakarta.ws.rs.core.SecurityContext;
@@ -28,6 +29,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import io.quarkus.security.identity.IdentityProvider;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -106,6 +108,10 @@ public abstract class SeguridadBean extends AbstractBean {
 
     @Inject
     private IdentityProvider<UsernamePasswordAuthenticationRequest> identityProvider;
+
+    @ConfigProperty(name = "quarkus.http.auth.form.cookie-name")
+    String cookieName;
+
 
     /**
      * Método que inicializa los elementos básicos del sistema
@@ -222,10 +228,15 @@ public abstract class SeguridadBean extends AbstractBean {
      */
     public String cerrarSesion() {
         autenticado = false;
-        setUsuario(null);
+//        setUsuario(null);
         cargarRecursos();
         FacesContext.getCurrentInstance().getExternalContext()
                 .invalidateSession();
+        var cookie = new Cookie(cookieName,"");
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        HttpServletResponse response = (HttpServletResponse) getFacesContext().getExternalContext().getResponse();
+        response.addCookie(cookie);
         return "/administracion/index";
     }
 
@@ -234,14 +245,16 @@ public abstract class SeguridadBean extends AbstractBean {
      *
      * @return El valor del atributo usuario
      */
-    public abstract Usuario getUsuario();
+    public Usuario getUsuario(){
+        return getCurrentUser();
+    }
 
-    /**
-     * Metodo que permite asignar un valor al atributo usuario
-     *
-     * @param usuario Valor a ser asignado al atributo usuario
-     */
-    public abstract void setUsuario(Usuario usuario);
+//    /**
+//     * Metodo que permite asignar un valor al atributo usuario
+//     *
+//     * @param usuario Valor a ser asignado al atributo usuario
+//     */
+//    public abstract void setUsuario(Usuario usuario);
 
 
 }

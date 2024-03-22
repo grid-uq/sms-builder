@@ -46,7 +46,6 @@ public class ApplicationGeneralProducer {
 
     @Produces
     public AuthenticationContext getAuthenticationContext(SecurityIdentityAssociation identity){
-
         var user = identity.getIdentity().getPrincipal() != null ? identity.getIdentity().getPrincipal().getName() : null;
         return AuthenticationContextImpl.of( user );
     }

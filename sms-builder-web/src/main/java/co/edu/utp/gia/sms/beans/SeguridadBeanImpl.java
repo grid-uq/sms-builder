@@ -29,12 +29,12 @@ import java.io.IOException;
 @SessionScoped
 @Log
 public class SeguridadBeanImpl extends SeguridadBean {
-	/**
-	 * Variable que representa el {@link Usuario} que esta autenticado
-	 */
-	@Getter
-	@Setter
-	private Usuario usuario = null;
+//	/**
+//	 * Variable que representa el {@link Usuario} que esta autenticado
+//	 */
+//	@Getter
+//	@Setter
+//	private Usuario usuario = null;
 	@Inject
 	private RevisionService revisionService;
 

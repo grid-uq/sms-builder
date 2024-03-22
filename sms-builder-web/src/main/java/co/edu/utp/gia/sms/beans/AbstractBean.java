@@ -1,7 +1,9 @@
 package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
+import co.edu.utp.gia.sms.entidades.Usuario;
 import co.edu.utp.gia.sms.exceptions.ExceptionMessage;
+import co.edu.utp.gia.sms.seguridad.AuthenticationContext;
 import lombok.Getter;
 
 import jakarta.annotation.PostConstruct;
@@ -41,6 +43,9 @@ public abstract class AbstractBean implements Serializable {
 
 	@Inject
 	protected ExceptionMessage exceptionMessage;
+
+	@Inject
+	protected AuthenticationContext authenticationContext;
 
 //	@Inject
 //	@ManagedProperty("#{msg}")
@@ -128,4 +133,7 @@ public abstract class AbstractBean implements Serializable {
 		return bundle.getString(key);
 	}
 
+	public Usuario getCurrentUser(){
+		return authenticationContext.getCurrentUser();
+	}
 }
