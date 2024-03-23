@@ -30,7 +30,7 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     /**
      * Instancia que permite obtener los mensajes de las excepciones generadas.
      */
-//    @Inject
+    @Inject
     @Getter
     protected ExceptionMessage exceptionMessage;
 
@@ -46,7 +46,7 @@ public abstract class AbstractGenericService<E extends Entidad<TipoId>, TipoId> 
     public AbstractGenericService(Provider<Collection<E>> dataProvider) {
         this.dataProvider = dataProvider;
 //        exceptionMessage = ApplicationGeneralProducer.getInstance().getExceptionMessage();
-        exceptionMessage = ConfigFactory.create(ExceptionMessage.class);
+//        exceptionMessage = ConfigFactory.create(ExceptionMessage.class);
     }
 
     public E save(E entidad) {

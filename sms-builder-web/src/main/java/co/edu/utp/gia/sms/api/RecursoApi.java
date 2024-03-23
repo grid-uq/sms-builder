@@ -54,7 +54,7 @@ public class RecursoApi extends AbstractGenericApi<Recurso,String> {
     }
 
     @GET
-    public Response get(@QueryParam("url") String url,Boolean publico) {
+    public Response get(@QueryParam("url") String url,@QueryParam("publico") Boolean publico) {
         if( url != null ){
             var recurso = ((RecursoService)service).findByUrl(url);
             var result = recurso != null && recurso.getPublico().equals(publico) ? List.of( recurso ) : Collections.emptyList();

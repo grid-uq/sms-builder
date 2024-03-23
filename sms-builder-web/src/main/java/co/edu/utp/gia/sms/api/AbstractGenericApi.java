@@ -24,14 +24,14 @@ public abstract class AbstractGenericApi<E extends Entidad<TipoId>, TipoId> impl
     /**
      * Instancia que perite obtener los mensajes de las excepciones generadas.
      */
-//    @Inject
+    @Inject
 //    @Getter
     protected ExceptionMessage exceptionMessage;
 
     protected AbstractGenericService<E,TipoId> service;
 
     public AbstractGenericApi() {
-        exceptionMessage = ConfigFactory.create(ExceptionMessage.class);
+//        exceptionMessage = ConfigFactory.create(ExceptionMessage.class);
     }
 
     public AbstractGenericApi(AbstractGenericService<E, TipoId> service) {
