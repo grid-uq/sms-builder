@@ -6,14 +6,12 @@ import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriBuilder;
-import lombok.Getter;
-import org.aeonbits.owner.ConfigFactory;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.io.Serializable;
-import java.net.URI;
 
 /**
  * Clase abstracta que define los elementos de logica generales asociados al
@@ -22,11 +20,14 @@ import java.net.URI;
 public abstract class AbstractGenericApi<E extends Entidad<TipoId>, TipoId> implements Serializable {
 
     /**
-     * Instancia que perite obtener los mensajes de las excepciones generadas.
+     * Instancia que permite obtener los mensajes de las excepciones generadas.
      */
     @Inject
 //    @Getter
     protected ExceptionMessage exceptionMessage;
+
+    @Context
+    protected UriInfo uriInfo;
 
     protected AbstractGenericService<E,TipoId> service;
 
@@ -43,16 +44,18 @@ public abstract class AbstractGenericApi<E extends Entidad<TipoId>, TipoId> impl
     @Produces(MediaType.APPLICATION_JSON)
     public Response save(E entidad) {
         validateBeforeSave(entidad);
-
         var registro = service.save(entidad);
         if( registro == null ){
             throw new WebApplicationException(exceptionMessage.getDefaultMessageSumary(), Response.Status.INTERNAL_SERVER_ERROR);
         }
-        URI uri = UriBuilder.fromPath("/{id}").build(registro.getId());
-        return Response.created(uri)
-                .entity(registro).type(MediaType.APPLICATION_JSON).build() ;
+        return createResponse(registro);
     }
 
+    protected Response createResponse(E registro){
+        var urlNewUserResource = uriInfo.getAbsolutePathBuilder().path(registro.getId().toString()).build();
+        return Response.created(urlNewUserResource)
+                .entity(registro).type(MediaType.APPLICATION_JSON).build() ;
+    }
     /**
      * Verificaciones a realizar antes de que la entidad sea almacenada
      * @param entidad Entidad a almacenar

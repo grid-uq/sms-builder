@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>co.edu.utp.gia.sms</groupId>
 	<artifactId>sms-builder-web</artifactId>
-	<version>5.0</version>
+	<version>5.1</version>
 	<name>SMS-Builder Web</name>
 	<properties>
 		<compiler-plugin.version>3.12.1</compiler-plugin.version>

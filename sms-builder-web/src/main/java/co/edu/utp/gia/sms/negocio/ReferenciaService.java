@@ -51,10 +51,6 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         return referencia;
     }
 
-    public void delete(Referencia referencia, String idPasoProceso) {
-        procesoService.removeReferencia(idPasoProceso,referencia.getId());
-    }
-
     @Override
     public void delete(Referencia referencia) {
         var primerPaso = procesoService.findByOrden(1);
@@ -103,13 +99,14 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         return referencias;
     }
 
-    public void addTopico(String id, String idTopico) {
+    public Referencia addTopico(String id, String idTopico) {
         Referencia referencia = findOrThrow(id);
         Topico topico = topicoService.findOrThrow(idTopico);
         if( !referencia.getTopicos().contains(topico)  ) {
             referencia.getTopicos().add(topico);
             DB.storageManager.store(referencia.getTopicos());
         }
+        return referencia;
     }
 
     public void cleanTopicos(String id) {
@@ -118,15 +115,16 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         DB.storageManager.store(referencia.getTopicos());
     }
 
-    public void updateRelevancia(String id, Integer relevancia) {
+    public Referencia updateRelevancia(String id, Integer relevancia) {
         Referencia referencia = findOrThrow(id);
         if (referencia != null) {
             referencia.setRelevancia(relevancia);
         }
         update(referencia);
+        return referencia;
     }
 
-    public void updateCita(String id, Integer citas) {
+    public Referencia updateCita(String id, Integer citas) {
 
         Referencia referencia = findOrThrow(id);
         if (referencia != null) {
@@ -144,38 +142,71 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
             }
         }
         update(referencia);
+        return referencia;
     }
 
-    public void updateNota(String id, String nota) {
+    public Referencia updateNota(String id, String nota) {
 
         Referencia referencia = findOrThrow(id);
         if (referencia != null) {
             referencia.setNota(nota);
         }
         update(referencia);
+        return referencia;
     }
 
-    public void updateResumen(String id, String resumen) {
+    public Referencia updateResumen(String id, String resumen) {
         Referencia referencia = findOrThrow(id);
         if (referencia != null) {
             referencia.setResumen(resumen);
         }
         update(referencia);
+        return referencia;
     }
 
-    public void removeTopico(String id, String idTopico) {
+    public Referencia removeTopico(String id, String idTopico) {
         Referencia referencia = findOrThrow(id);
         Topico topico =  topicoService.findOrThrow(idTopico);
         referencia.getTopicos().remove(topico);
         DB.storageManager.store(referencia.getTopicos());
+        return referencia;
     }
 
-    public void updateSPS(String id, String spsid) {
+    public Referencia updateSPS(String id, String spsid) {
         Referencia referencia = findOrThrow(id);
-        if (referencia != null) {
-            referencia.setSpsid(spsid);
-        }
+        referencia.setSpsid(spsid);
+        return referencia;
     }
+
+    /**
+     * Consulta que permite obtener las referencias con una determinada calificación de un atributo de calidad dado
+     *
+     * @param paso Paso del que se desean obtener las referencias.
+     * @param idAtributoCalidad Id del atributo de calidad
+     * @param valorEvaluacion   Evaluación que deben cumplir las referencias seleccionadas
+     * @return List<ReferenciaDTO> listado de las referencias que cumplen con la evaluación solicitada en el atributo de calidad dado
+     */
+    public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(PasoProceso paso,
+                                                                           String idAtributoCalidad, EvaluacionCualitativa valorEvaluacion) {
+        return ReferenciaGetAllByEvaluacionOfAtributoCalidad
+                .createQuery(paso::getReferencias,idAtributoCalidad, valorEvaluacion)
+                .map(r -> new ReferenciaDTO(r, 0)).toList();
+    }
+
+
+    /**
+     * Consulta que permite obtener las referencias con una determinada calificación de un atributo de calidad dado
+     *
+     * @param idAtributoCalidad Id del atributo de calidad
+     * @param valorEvaluacion   Evaluación que deben cumplir las referencias seleccionadas
+     * @return List<ReferenciaDTO> listado de las referencias que cumplen con la evaluación solicitada en el atributo de calidad dado
+     */
+    public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(String idPaso,
+            String idAtributoCalidad, EvaluacionCualitativa valorEvaluacion) {
+        var paso = this.procesoService.findOrThrow(idPaso);
+        return obtenerReferenciasAtributoCalidadEvaluacion(paso,idAtributoCalidad,valorEvaluacion);
+    }
+
 
     /**
      * Consulta que permite obtener las referencias con una determinada calificación de un atributo de calidad dado
@@ -186,32 +217,39 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
      */
     public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(
             String idAtributoCalidad, EvaluacionCualitativa valorEvaluacion) {
-        return ReferenciaGetAllByEvaluacionOfAtributoCalidad
-                        .createQuery(revisionService.getPasoActual()::getReferencias,idAtributoCalidad, valorEvaluacion)
-                        .map(r -> new ReferenciaDTO(r, 0)).toList();
+        return obtenerReferenciasAtributoCalidadEvaluacion(revisionService.getPasoActual(),idAtributoCalidad,valorEvaluacion);
     }
 
     /**
-     * Consulta que permite obtener las referencias con evaliacón de un atributo de calidad dado
-     *
+     * Consulta que permite obtener las referencias con evaluación de un atributo de calidad dado
+     * @param paso Paso del que se desean obtener las referencias.
      * @param idAtributoCalidad Id del atributo de calidad
-     * @return List<ReferenciaDTO> Listado de las con evaliacón de un atributo de calidad del id dado
+     * @return List<ReferenciaDTO> Listado de las con evaluación de un atributo de calidad del id dado
      */
-    public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(String idAtributoCalidad) {
-        return ReferenciaGetAllWithEvaluacionOfAtributoCalidad.createQuery(revisionService.getPasoActual()::getReferencias,idAtributoCalidad)
+    public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(PasoProceso paso,String idAtributoCalidad) {
+        return ReferenciaGetAllWithEvaluacionOfAtributoCalidad.createQuery(paso::getReferencias,idAtributoCalidad)
                 .map(r -> new ReferenciaDTO(r, 0)).toList();
     }
 
-    public void actualizarYear(String id, String year) {
+    /**
+     * Consulta que permite obtener las referencias con evaluación de un atributo de calidad dado
+     *
+     * @param idAtributoCalidad Id del atributo de calidad
+     * @return List<ReferenciaDTO> Listado de las con evaluación de un atributo de calidad del id dado
+     */
+    public List<ReferenciaDTO> obtenerReferenciasAtributoCalidadEvaluacion(String idAtributoCalidad) {
+        return obtenerReferenciasAtributoCalidadEvaluacion(revisionService.getPasoActual(),idAtributoCalidad);
+    }
+
+    public Referencia updateYear(String id, String year) {
         Referencia referencia = findOrThrow(id);
-        if (referencia != null) {
-            referencia.setYear(year);
-            if (referencia.getCitas() != null && referencia.getYear() != null) {
-                float media = referencia.getCitas() / (float) (1 + Calendar.getInstance().get(Calendar.YEAR)
-                        - Integer.parseInt(referencia.getYear()));
-                referencia.setSci(media);
-            }
+        referencia.setYear(year);
+        if (referencia.getCitas() != null && referencia.getYear() != null) {
+            float media = referencia.getCitas() / (float) (1 + Calendar.getInstance().get(Calendar.YEAR)
+                    - Integer.parseInt(referencia.getYear()));
+            referencia.setSci(media);
         }
+        return referencia;
     }
 
     /**
@@ -223,17 +261,19 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
         return ReferenciaGetDestacadas.createQuery(revisionService.getPasoActual()::getReferencias).map(r -> new ReferenciaDTO(r, 0)).toList();
     }
 
-    public void updateDuplicada(String id, Boolean duplicada) {
+    public Referencia updateDuplicada(String id, Boolean duplicada) {
         Referencia referencia = findOrThrow(id);
         referencia.setDuplicada(duplicada);
         update(referencia);
+        return referencia;
     }
 
-    public void updateTags(String id, List<String> tags) {
+    public Referencia updateTags(String id, List<String> tags) {
         Referencia referencia = findOrThrow(id);
         referencia.setTags(tags);
         update(referencia);
         DB.storageManager.store(referencia.getTags());
+        return referencia;
     }
 
     public void asociciacionAutomatica() {

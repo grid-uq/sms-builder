@@ -2,8 +2,8 @@ package co.edu.utp.gia.sms.beans;
 
 import co.edu.utp.gia.sms.beans.util.MessageConstants;
 import co.edu.utp.gia.sms.dtos.ReferenciaDTO;
+import co.edu.utp.gia.sms.negocio.ProcesoService;
 import co.edu.utp.gia.sms.negocio.ReferenciaService;
-import jakarta.faces.annotation.ManagedProperty;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -29,6 +29,8 @@ public class ReferenciaBean extends AbstractRevisionBean {
     protected boolean todas;
     @Inject
     private ReferenciaService referenciaService;
+    @Inject
+    private ProcesoService procesoService;
 
     @Getter @Setter
     private Collection<ReferenciaDTO> records;
@@ -51,7 +53,8 @@ public class ReferenciaBean extends AbstractRevisionBean {
         if(todas) {
             referenciaService.delete(referencia.getReferencia());
         }else {
-            referenciaService.delete(referencia.getReferencia(),getPasoActual().getId());
+
+            procesoService.removeReferencia(getPasoActual().getId(),referencia.getReferencia().getId());
         }
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
         inicializar();

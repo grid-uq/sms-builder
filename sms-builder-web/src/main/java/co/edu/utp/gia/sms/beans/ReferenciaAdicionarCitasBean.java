@@ -50,7 +50,7 @@ public class ReferenciaAdicionarCitasBean extends GenericBean<ReferenciaDTO> {
 
     public void guardarYear(ReferenciaDTO referencia) {
         try {
-            referenciaService.actualizarYear(referencia.getId(), referencia.getYear());
+            referenciaService.updateYear(referencia.getId(), referencia.getYear());
         } catch (Exception e) {
             mostrarErrorGeneral(e.getMessage());
 
