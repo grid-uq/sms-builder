@@ -8,8 +8,8 @@ import co.edu.utp.gia.sms.exceptions.TecnicalException;
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
 import lombok.Getter;
-import one.microstream.concurrency.XThreads;
 import org.apache.commons.beanutils.BeanUtils;
+import org.eclipse.serializer.concurrency.XThreads;
 
 import java.io.Serializable;
 import java.util.Collection;

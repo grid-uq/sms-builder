@@ -9,7 +9,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.model.charts.bar.BarChartModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,9 +59,4 @@ public class ReferenciasYearBean extends EstaditicaSerieDatoDTOBaseBean {
         years = new ArrayList<>();
         serie.getDatos().forEach(y -> years.add(y.getEtiqueta()));
     }
-
-    public BarChartModel getModel(){
-        return (BarChartModel) super.getModel();
-    }
-
 }

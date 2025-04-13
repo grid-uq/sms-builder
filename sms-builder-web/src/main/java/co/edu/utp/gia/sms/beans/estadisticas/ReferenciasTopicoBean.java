@@ -43,26 +43,19 @@ public class ReferenciasTopicoBean extends EstaditicaDatoDTOBaseBean {
         getDatosSeries().clear();
 
         if (codigo != null) {
-            datos = getEstadisticaService().obtenerReferenciasTopico(codigo);
+            datos = getEstadisticaService().obtenerReferenciasTopicoPregunta(codigo);
         } else {
             datos = getEstadisticaService().obtenerReferenciasTopico();
         }
         actualizarTopicos(datos);
         Predicate<DatoDTO> filtro = dato->topicosSeleccionados.stream().anyMatch(dato.getEtiqueta()::equalsIgnoreCase);
         datos = datos.stream().filter( filtro ).toList();
-        setDatos(datos);
+        addSerie(datos,getTitulo());
         crearModelo();
     }
 
     private void actualizarTopicos(List<DatoDTO> datos) {
-
-        Predicate<String> filtroTopicos = topico -> datos.stream()
-                .map(DatoDTO::getEtiqueta)
-                .anyMatch( topico::equalsIgnoreCase );
-
-//        topicos = revisionService.getTopicos().stream().filter(filtroTopicos).toList();
-        topicos = datos.stream().map(DatoDTO::getEtiqueta).filter(filtroTopicos).toList();
-
+        topicos = datos.stream().map(DatoDTO::getEtiqueta).toList();
         Predicate<String> filtroTopicosSeleccionados = topicos::contains;
         topicosSeleccionados = new ArrayList<>(
                 (topicosSeleccionados == null ? new ArrayList<>( topicos ): topicosSeleccionados)
@@ -71,5 +64,8 @@ public class ReferenciasTopicoBean extends EstaditicaDatoDTOBaseBean {
         );
     }
 
-
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+        setTopicosSeleccionados(null);
+    }
 }

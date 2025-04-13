@@ -35,9 +35,11 @@ public class ReferenciasTerminoBean extends EstaditicaDatoDTOBaseBean {
 
     public void onChangePregunta() {
         if ( "2".equals(informacion) ) {
-            setDatos(getEstadisticaService().obtenerReferenciasSinonimo());
+//            setDatos(getEstadisticaService().obtenerReferenciasSinonimo());
+            addSerie(getEstadisticaService().obtenerReferenciasSinonimo(),getTitulo());
         } else {
-            setDatos(getEstadisticaService().obtenerReferenciasTermino());
+//            setDatos(getEstadisticaService().obtenerReferenciasTermino());
+            addSerie(getEstadisticaService().obtenerReferenciasTermino(),getTitulo());
         }
         crearModelo();
     }

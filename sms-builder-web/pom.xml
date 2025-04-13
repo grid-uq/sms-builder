@@ -10,17 +10,19 @@
 	<properties>
 		<omnifaces.version>1.14.1</omnifaces.version>
 		<junit.jupiter.version>5.9.1</junit.jupiter.version>
-		<primefaces.version>14.0.2</primefaces.version>
+		<primefaces.version>15.0.3</primefaces.version>
+		<poi.version>5.4.0</poi.version>
 
 		<jsf-impl.version>2.3.9.SP08</jsf-impl.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<payaraVersion>6.2024.8</payaraVersion>
-		<microprofileVersion>6.1</microprofileVersion>
+		<payaraVersion>6.2025.3</payaraVersion>
+		<microprofileVersion>7.0</microprofileVersion>
 		<maven.forceversion>3.6.3</maven.forceversion>
-		<maven.compiler.target>17</maven.compiler.target>
-		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.source>21</maven.compiler.source>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
-		<lombok.version>1.18.34</lombok.version>
+		<lombok.version>1.18.38</lombok.version>
+
 	</properties>
 	<prerequisites>
 		<maven>${maven.forceversion}</maven>
@@ -32,7 +34,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.4.0</version>
+				<version>3.5.0</version>
 				<executions>
 					<execution>
 						<id>enforce-maven</id>
@@ -59,7 +61,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
+				<version>3.14.0</version>
 				<configuration>
 					<source>${maven.compiler.source}</source>
 					<target>${maven.compiler.target}</target>
@@ -75,7 +77,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.1.2</version>
+				<version>3.5.3</version>
 				<configuration>
 					<argLine>
 						--illegal-access=permit
@@ -85,7 +87,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>3.1.2</version>
+				<version>3.5.3</version>
 				<configuration>
 					<argLine>
 						--illegal-access=permit
@@ -125,7 +127,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.11.2</version>
 				<configuration>
 					<doclet>co.edu.utp.javadoc.utpdoclet.UTPDoclet</doclet>
 					<!-- <doclet>co.edu.utp.javadoc.utpdoclet.UTPDoclet</doclet>UTPDocletModel -->
@@ -183,7 +185,7 @@
 		<dependency>
 			<groupId>jakarta.validation</groupId>
 			<artifactId>jakarta.validation-api</artifactId>
-			<version>3.1.0</version>
+			<version>3.1.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/jakarta.platform/jakarta.jakartaee-web-api -->
 		<dependency>
@@ -196,27 +198,9 @@
 		<dependency>
 			<groupId>jakarta.faces</groupId>
 			<artifactId>jakarta.faces-api</artifactId>
-			<version>4.1.0</version>
+			<version>4.1.2</version>
 			<scope>provided</scope>
 		</dependency>
-
-<!--  ESTAS NO SE SI SE REQUIEREN CON PRIME FACES 13-->
-<!--<dependency>-->
-<!--  <groupId>com.google.http-client</groupId>-->
-<!--  <artifactId>google-http-client</artifactId>-->
-<!--  <version>1.35.0</version>-->
-<!--</dependency>-->
-<!--<dependency>-->
-<!--    <groupId>com.google.http-client</groupId>-->
-<!--    <artifactId>google-http-client-jackson2</artifactId>-->
-<!--    <version>1.36.0</version>-->
-<!--</dependency>-->
-<!--<dependency>-->
-<!--    <groupId>org.apache.commons</groupId>-->
-<!--    <artifactId>commons-math3</artifactId>-->
-<!--    <version>3.6.1</version>-->
-<!--</dependency>-->
-
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -242,12 +226,10 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>5.2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>5.2.5</version>
 			<exclusions>
 				<exclusion>
 					<groupId>com.github.virtuald</groupId>
@@ -275,40 +257,28 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.github.librepdf/openpdf -->
 		<dependency>
 			<groupId>com.github.librepdf</groupId>
 			<artifactId>openpdf</artifactId>
-			<version>1.4.2</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.5</version>
 		</dependency>
 
 		<!-- FeedReader -->
 		<dependency>
-			<groupId>com.rometools</groupId>
-			<artifactId>rome</artifactId>
-			<version>1.19.0</version>
+			<groupId>com.apptasticsoftware</groupId>
+			<artifactId>rssreader</artifactId>
 		</dependency>
 
 		<!-- File Upload -->
 		<dependency>
 			<groupId>org.overviewproject</groupId>
 			<artifactId>mime-types</artifactId>
-			<version>2.0.0</version>
 		</dependency>
-
 
 		<!-- GraphicImage -->
 		<dependency>
 			<groupId>org.jfree</groupId>
 			<artifactId>jfreechart</artifactId>
-			<version>1.5.4</version>
+			<version>1.5.5</version>
 			<exclusions>
 				<exclusion>
 					<groupId>junit</groupId>
@@ -319,59 +289,87 @@
 
 		<!-- Barcode -->
 		<dependency>
-			<groupId>io.nayuki</groupId>
-			<artifactId>qrcodegen</artifactId>
-			<version>1.8.0</version>
+			<groupId>uk.org.okapibarcode</groupId>
+			<artifactId>okapibarcode</artifactId>
 		</dependency>
+
+		<!-- ChartJS model -->
 		<dependency>
-			<groupId>org.primefaces.extensions</groupId>
-			<artifactId>barcode4j-light</artifactId>
-			<version>2.3.0</version>
+			<groupId>software.xdev</groupId>
+			<artifactId>chartjs-java-model</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+
+		<!-- Conflict with resteasy-jackson2-provider -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.18.3</version>
 		</dependency>
 
 		<!-- Cache -->
 		<dependency>
 			<groupId>org.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
-			<version>3.9.9</version>
+			<version>3.10.8</version>
+			<classifier>jakarta</classifier>
+			<exclusions>
+				<exclusion>
+					<groupId>org.glassfish.jaxb</groupId>
+					<artifactId>jaxb-runtime</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- HTML sanitizer for the textEditor -->
 		<dependency>
 			<groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
 			<artifactId>owasp-java-html-sanitizer</artifactId>
-			<version>20240325.1</version>
 		</dependency>
+
+		<!-- JAXB required for JDK9+ -->
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>4.0.5</version>
+		</dependency>
+
 
 		<!-- JSON-parsing used by PrimeIconsView -->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20240303</version>
+			<version>20250107</version>
 		</dependency>
 
 		<!-- add dependencies which get shaded by PrimeFaces so IDE´s like IntelliJ can run und debug multimoduled showcase on eg Tomcat -->
 		<dependency>
 			<groupId>org.owasp.encoder</groupId>
 			<artifactId>encoder</artifactId>
-			<version>1.2.3</version>
+			<version>1.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.15.1</version>
+			<version>2.19.0</version>
 		</dependency>
 
 		<!-- JAXB required for JDK9+ -->
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
-			<version>4.0.2</version>
+			<version>4.0.5</version>
 		</dependency>
 
 
 
 		<!--  ya esta en la versión 4.2.2 -->
+<!--		&lt;!&ndash; https://mvnrepository.com/artifact/com.itextpdf/itextpdf &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>com.itextpdf</groupId>-->
+<!--			<artifactId>itextpdf</artifactId>-->
+<!--			<version>5.5.13.4</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
@@ -401,29 +399,41 @@
 
 		<!-- 5.1.48 5.1.49 6.0.2 6.0.6 8.0.20 8.0.22-->
 		<!-- https://mvnrepository.com/artifact/one.microstream/microstream-storage-embedded -->
+<!--		<dependency>-->
+<!--			<groupId>one.microstream</groupId>-->
+<!--			<artifactId>microstream-storage-embedded</artifactId>-->
+<!--			<version>08.01.01-MS-GA</version>-->
+<!--		</dependency>-->
+		<!-- https://mvnrepository.com/artifact/org.eclipse.store/storage-embedded -->
 		<dependency>
-			<groupId>one.microstream</groupId>
-			<artifactId>microstream-storage-embedded</artifactId>
-			<version>08.01.01-MS-GA</version>
+			<groupId>org.eclipse.store</groupId>
+			<artifactId>storage-embedded</artifactId>
+			<version>2.1.3</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/one.microstream/microstream-storage-embedded-configuration -->
+<!--		<dependency>-->
+<!--			<groupId>one.microstream</groupId>-->
+<!--			<artifactId>microstream-storage-embedded-configuration</artifactId>-->
+<!--			<version>08.01.01-MS-GA</version>-->
+<!--		</dependency>-->
+		<!-- https://mvnrepository.com/artifact/org.eclipse.store/storage-embedded-configuration -->
 		<dependency>
-			<groupId>one.microstream</groupId>
-			<artifactId>microstream-storage-embedded-configuration</artifactId>
-			<version>08.01.01-MS-GA</version>
+			<groupId>org.eclipse.store</groupId>
+			<artifactId>storage-embedded-configuration</artifactId>
+			<version>2.1.3</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/one.microstream/microstream-persistence-binary-jdk17 -->
-		<dependency>
-			<groupId>one.microstream</groupId>
-			<artifactId>microstream-persistence-binary-jdk17</artifactId>
-			<version>08.01.01-MS-GA</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>one.microstream</groupId>-->
+<!--			<artifactId>microstream-persistence-binary-jdk17</artifactId>-->
+<!--			<version>08.01.01-MS-GA</version>-->
+<!--		</dependency>-->
 
 		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<version>1.9.4</version>
+			<version>1.10.1</version>
 		</dependency>
 
 		<!-- Para importar los archivos bibtext -->
@@ -436,22 +446,76 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>2.15.2</version>
+			<version>2.18.3</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
-			<version>2.15.2</version>
+			<version>2.18.3</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.15.2</version>
-		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.glassfish</groupId>
+				<artifactId>jakarta.faces</artifactId>
+				<version>2.3.21</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+				<artifactId>owasp-java-html-sanitizer</artifactId>
+				<version>20240325.1</version>
+			</dependency>
+
+			<!-- Data Exporter -->
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.librepdf</groupId>
+				<artifactId>openpdf</artifactId>
+				<version>1.4.2</version>
+			</dependency>
+
+			<!-- FeedReader -->
+			<dependency>
+				<groupId>com.apptasticsoftware</groupId>
+				<artifactId>rssreader</artifactId>
+				<version>3.9.1</version>
+			</dependency>
+
+			<!-- File Upload -->
+			<dependency>
+				<groupId>org.overviewproject</groupId>
+				<artifactId>mime-types</artifactId>
+				<version>2.0.0</version>
+			</dependency>
+
+			<!-- Barcode -->
+			<dependency>
+				<groupId>uk.org.okapibarcode</groupId>
+				<artifactId>okapibarcode</artifactId>
+				<version>0.5.0</version>
+				<exclusions>
+					<exclusion>
+						<groupId>com.beust</groupId>
+						<artifactId>jcommander</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<repositories>
 		<repository>
 			<id>maven_central</id>

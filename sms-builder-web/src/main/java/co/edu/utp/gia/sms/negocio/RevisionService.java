@@ -10,6 +10,7 @@ import jakarta.inject.Inject;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
@@ -191,7 +192,12 @@ public class RevisionService {
 
     private void restoreTerminos() {
         DB.storageManager.store(DB.root.revision().getTerminos());
-        DB.root.revision().getTerminos().forEach(termino -> DB.storageManager.store(termino.getSinonimos()));
+        DB.root.revision().getTerminos().forEach(termino ->{
+            if( termino.getSinonimos() == null ){
+                termino.setSinonimos(new ArrayList<>());
+            }
+            DB.storageManager.store(termino.getSinonimos());
+        } );
     }
 
     private void restoreObjetivos() {

@@ -11,8 +11,7 @@
 	<ui:define name="content">
 		<h:form>
 
-			<p:barChart id="grafica"
-						model="#{referenciasYearBean.barModel}" style="height:300px" widgetVar="chart" />
+			<p:chart id="grafica" value="#{referenciasYearBean.model}" style="height:300px" widgetVar="chart" />
 
 			<p:commandButton type="button" value="#{msg.botonExportar}"
 							 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"

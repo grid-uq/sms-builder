@@ -22,7 +22,7 @@ public class ReferenciasPreguntaBean extends EstaditicaDatoDTOBaseBean {
 		setEjeY("# "+getMessage(MessageConstants.SPS));
 		setTitulo(getEjeY() + " - " + getEjeX());
 		if (getRevision() != null) {
-			setDatos(getEstadisticaService().obtenerReferenciasPregunta());
+			addSerie(getEstadisticaService().obtenerReferenciasPregunta(),getTitulo());
 			crearModelo();
 		}
 	}

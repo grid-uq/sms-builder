@@ -1,4 +1,5 @@
 package co.edu.utp.gia.sms.beans.estadisticas;
+
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos de series de datos.
  *

@@ -28,11 +28,8 @@
 						listener="#{referenciasTerminoBean.onChangeTipoGrafica}" />
 				</p:selectOneMenu>
 			</p:panelGrid>
-			<p:pieChart id="graficaPie" rendered="#{referenciasTerminoBean.tipoGrafica.equals('pie')}"
-						model="#{referenciasTerminoBean.pieModel}" style="height:300px" />
+			<p:chart id="graficas" value="#{referenciasTerminoBean.model}" style="height:300px" />
 
-			<p:barChart id="graficaBar" rendered="#{referenciasTerminoBean.tipoGrafica.equals('bar')}"
-						model="#{referenciasTerminoBean.barModel}" style="height:300px" widgetVar="chart" />
 			<p:commandButton type="button" value="#{msg.botonExportar}"
 							 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"
 							 onclick="downloadImage('chart')"/>

@@ -30,10 +30,7 @@ public class ReferenciasTipoFuenteBean extends EstaditicaDatoDTOBaseBean {
         setTitulo(getEjeY() + " - " + getEjeX());
 
         if (getRevision() != null) {
-            setDatos(getEstadisticaService().obtenerReferenciasTipoFuente());
-
-            crearModelo();
-
+            onChangeTipoFuente();
         }
     }
 
@@ -41,9 +38,9 @@ public class ReferenciasTipoFuenteBean extends EstaditicaDatoDTOBaseBean {
     public void onChangeTipoFuente() {
         getDatosSeries().clear();
         if (tipo == null) {
-            setDatos(getEstadisticaService().obtenerReferenciasTipoFuente());
+            addSerie(getEstadisticaService().obtenerReferenciasTipoFuente(),getTitulo());
         } else {
-            setDatos(getEstadisticaService().obtenerReferenciasTipoFuenteNombre(tipo));
+            addSerie(getEstadisticaService().obtenerReferenciasTipoFuenteNombre(tipo),getTitulo());
         }
         crearModelo();
     }

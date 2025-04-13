@@ -51,8 +51,10 @@ public class EstadisticaReferenciaByAny {
     public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider,
                                               Predicate<Referencia> filtro, Function<Referencia, ? > mapper,
                                               Collector<Referencia, ?, ? extends Number> collector) {
+        Predicate<Referencia> mapperNonNullResult = referencia -> mapper.apply(referencia) != null;
         return dataProvider.get().stream()
                 .filter(filtro)
+                .filter(mapperNonNullResult)
                 .collect(Collectors.groupingBy(mapper,collector))
                 .entrySet().stream()
                 .map( entry->new DatoDTO(entry.getKey(), entry.getValue()));

@@ -4,24 +4,25 @@ import co.edu.utp.gia.sms.beans.estadisticas.util.SerieDatos;
 import co.edu.utp.gia.sms.dtos.DatoDTO;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.model.charts.ChartData;
-import org.primefaces.model.charts.ChartOptions;
-import org.primefaces.model.charts.axes.cartesian.CartesianScales;
-import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
-import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearTicks;
-import org.primefaces.model.charts.bar.BarChartDataSet;
-import org.primefaces.model.charts.bar.BarChartModel;
-import org.primefaces.model.charts.bar.BarChartOptions;
-import org.primefaces.model.charts.optionconfig.animation.Animation;
-import org.primefaces.model.charts.optionconfig.legend.Legend;
-import org.primefaces.model.charts.optionconfig.legend.LegendLabel;
-import org.primefaces.model.charts.optionconfig.title.Title;
-import org.primefaces.model.charts.pie.PieChartDataSet;
-import org.primefaces.model.charts.pie.PieChartModel;
-import org.primefaces.model.charts.pie.PieChartOptions;
+import software.xdev.chartjs.model.charts.BarChart;
+import software.xdev.chartjs.model.charts.PieChart;
+import software.xdev.chartjs.model.color.RGBAColor;
+import software.xdev.chartjs.model.data.BarData;
+import software.xdev.chartjs.model.data.PieData;
+import software.xdev.chartjs.model.dataset.BackgroundBorderHoverDataset;
+import software.xdev.chartjs.model.dataset.BarDataset;
+import software.xdev.chartjs.model.dataset.PieDataset;
+import software.xdev.chartjs.model.enums.IndexAxis;
+import software.xdev.chartjs.model.options.BarOptions;
+import software.xdev.chartjs.model.options.Options;
+import software.xdev.chartjs.model.options.PieOptions;
+import software.xdev.chartjs.model.options.Plugins;
+import software.xdev.chartjs.model.options.scale.Scales;
+import software.xdev.chartjs.model.options.scale.cartesian.CartesianScaleOptions;
+import software.xdev.chartjs.model.options.scale.cartesian.CartesianTickOptions;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos.
  *
@@ -36,7 +37,7 @@ import java.util.stream.Collectors;
 public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
     @Setter
     private List<DatoDTO> datos;
-    private final Map<String, SerieDatos> datosSeries;
+    protected final Map<String, SerieDatos> datosSeries;
 
 
     public List<SerieDatos> getSeries(){
@@ -52,134 +53,77 @@ public abstract class EstaditicaDatoDTOBaseBean extends EstadisticaBean {
         datosSeries.put(etiqueta, new SerieDatos(etiqueta, datos));
     }
 
-
-    protected ChartData createData(ChartOptions options) {
-        ChartData data = new ChartData();
-
-        if (datosSeries.isEmpty()) {
-            addSerie(datos, "");
-        }
-
-        getDatosSeries().keySet().forEach(key -> {
-            if (options instanceof PieChartOptions) {
-                data.addChartDataSet(crearPieDataSet(key));
-            } else {
-                data.addChartDataSet(crearBarDataSet(key));
-            }
-        });
-
-        if (getTitulo() != null) {
-            Title title = new Title();
-            title.setDisplay(true);
-            title.setText(getTitulo());
-            options.setTitle(title);
-        }
-
-
-        if (datos != null) {
-            data.setLabels(datos.stream().map(DatoDTO::getEtiqueta).collect(Collectors.toList()));
-            data.setLabels(generateLabels());
-        }
-
-        Legend legend = new Legend();
-        legend.setDisplay(true);
-        legend.setPosition("top");
-        LegendLabel legendLabels = new LegendLabel();
-        legendLabels.setFontStyle("bold");
-        legendLabels.setFontColor("#2980B9");
-        legendLabels.setFontSize(24);
-        legend.setLabels(legendLabels);
-        options.setLegend(legend);
-
-        // disable animation
-        Animation animation = new Animation();
-        animation.setDuration(0);
-        options.setAnimation(animation);
-
-        return data;
+    protected String crearPieModel() {
+        return new PieChart()
+                .setData(new PieData()
+                        .addDataset(new PieDataset()
+                                .setData(datosToValues(datos))
+//                                .setLabel(getTitulo())
+                                .setBackgroundColor(generateColors(datos))
+                        )
+                        .setLabels(datosToLabels(datos)))
+                .setOptions(createOptions(new PieOptions()))
+                .toJson();
     }
 
-    private List<String> generateLabels() {
-        ArrayList<String> etiquetas = new ArrayList<>();
-
-        getDatosSeries().values().forEach(datos -> etiquetas.addAll( datos.getDatos().stream().map(DatoDTO::getEtiqueta).toList()));
-
-        return etiquetas.stream().distinct().toList();
+    protected String crearBarModel() {
+        var datosSerie = datosSeries.values().stream().findFirst().map(SerieDatos::getDatos).orElseThrow();
+        return new BarChart()
+                .setData(new BarData()
+                        .setDatasets(createDataSets())
+                        .setLabels(datosToLabels(datosSerie)))
+                .setOptions(createOptions(new BarOptions())).toJson();
     }
 
-    protected PieChartModel crearPieModel() {
-        PieChartModel model = new PieChartModel();
-        PieChartOptions options = new PieChartOptions();
-        //datosSeries = new HashMap<>();
-        model.setData(createData(options));
-
-        model.setOptions(options);
-        return model;
+    protected Collection<BarDataset> createDataSets() {
+        return datosSeries.values().stream().map(serie->initDataSet(new BarDataset(),serie)).toList();
     }
 
-    protected BarChartModel crearBarModel() {
-        BarChartModel model = new BarChartModel();
-        BarChartOptions options = new BarChartOptions();
-        //datosSeries = new HashMap<>();
-        datosSeries.clear();
-        model.setData(createData(options));
-
-        CartesianScales cScales = new CartesianScales();
-        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
-        linearAxes.setOffset(true);
-        CartesianLinearTicks ticks = new CartesianLinearTicks();
-
-        //ticks.setBeginAtZero(true);
-
-        linearAxes.setTicks(ticks);
-        cScales.addYAxesData(linearAxes);
-        options.setScales(cScales);
-
-        model.setOptions(options);
-        return model;
+    private <T extends BackgroundBorderHoverDataset<T,Number>> T initDataSet(T dataSet, SerieDatos serie){
+        var color = generateColor();
+        dataSet.setData(datosToValues(serie.getDatos()))
+                .setLabel(serie.getEtiqueta())
+                .setBackgroundColor(new RGBAColor(color.getR(), color.getG(), color.getB(), 0.2))
+                .setBorderColor(color)
+                .setBorderWidth(1);
+        return dataSet;
     }
 
+    private <T extends Options> T createOptions(T options){
+        options.setResponsive(true)
+            .setMaintainAspectRatio(false)
+            .setIndexAxis(IndexAxis.X)
+            .setScales(new Scales().addScale(Scales.ScaleAxis.Y, new CartesianScaleOptions()
+                    .setStacked(false)
+                    .setTicks(new CartesianTickOptions()
+                            .setAutoSkip(true)
+                            .setMirror(true)))
+            )
+            .setPlugins(new Plugins()
+                    .setTitle(new software.xdev.chartjs.model.options.Title()
+                            .setDisplay(true)
+                            .setText(getTitulo())));
+        return options;
+    }
 
-    protected PieChartDataSet crearPieDataSet(String key) {
-        PieChartDataSet serie = new PieChartDataSet();
-        List<String> bgColors = new ArrayList<>();
-        List<String> borderColors = new ArrayList<>();
+    private List<Object> generateColors(List<DatoDTO> datos) {
         Random random = new Random();
-
-        datos.forEach(d -> {
-            int r = random.nextInt(256);
-            int g = random.nextInt(256);
-            int b = random.nextInt(256);
-            bgColors.add(String.format("rgba(%d, %d, %d, 0.2)", r, g, b));
-            borderColors.add(String.format("rgb(%d, %d, %d)", r, g, b));
-        });
-
-//        serie.setLabel(label);
-        serie.setData(getDatosSeries().get(key).getDatos().stream().map(DatoDTO::getValor).collect(Collectors.toList()));
-        serie.setBackgroundColor(bgColors);
-        serie.setBorderColor(borderColors);
-        return serie;
+        return datos.stream()
+                .map(v->new RGBAColor(random.nextInt(256), random.nextInt(256), random.nextInt(256)))
+                .map(Object.class::cast)
+                .toList();
     }
 
-    private BarChartDataSet crearBarDataSet(String key) {
-        BarChartDataSet barDataSet = new BarChartDataSet();
-        barDataSet.setLabel(key);
-        barDataSet.setData(getDatosSeries().get(key).getDatos().stream().map(DatoDTO::getValor).collect(Collectors.toList()));
+    private Collection<String> datosToLabels(List<DatoDTO> datos) {
+        return datos.stream().map(DatoDTO::getEtiqueta).toList();
+    }
 
+    private Collection<Number> datosToValues(List<DatoDTO> datos) {
+        return datos.stream().map(DatoDTO::getValor).map(Number.class::cast).toList();
+    }
+
+    private RGBAColor generateColor(){
         Random random = new Random();
-        int r = random.nextInt(256);
-        int g = random.nextInt(256);
-        int b = random.nextInt(256);
-
-        String bgColor = String.format("rgba(%d, %d, %d, 0.2)", r, g, b);
-
-        barDataSet.setBackgroundColor(bgColor);
-
-        String borderColor = String.format("rgb(%d, %d, %d)", r, g, b);
-        barDataSet.setBorderColor(borderColor);
-        barDataSet.setBorderWidth(1);
-
-        return barDataSet;
+        return new RGBAColor(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
-
 }

@@ -5,9 +5,7 @@ import co.edu.utp.gia.sms.negocio.EstadisticaService;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.model.charts.ChartModel;
-import org.primefaces.model.charts.bar.BarChartModel;
-import org.primefaces.model.charts.pie.PieChartModel;
+
 
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos estadísticos.
@@ -24,9 +22,8 @@ public abstract class EstadisticaBean extends AbstractRevisionBean {
     @Getter
     private EstadisticaService estadisticaService;
 
-    @Getter
     @Setter
-    private ChartModel model;
+    private String model;
 
     @Getter
     @Setter
@@ -48,31 +45,23 @@ public abstract class EstadisticaBean extends AbstractRevisionBean {
     @Setter
     private String tipoGrafica = "pie";
 
-    protected void crearModelo() {
+
+    protected String crearModelo() {
         if (tipoGrafica.equals("bar")) {
             model = crearBarModel();
         } else {
             model = crearPieModel();
         }
+        return model;
     }
 
-    protected abstract PieChartModel crearPieModel();
+    protected abstract String crearPieModel();
 
-    protected abstract BarChartModel crearBarModel();
+    protected abstract String crearBarModel();
 
-    public BarChartModel getBarModel() {
-        if (!(model instanceof BarChartModel)) {
-            model = crearBarModel();
-        }
-        return (BarChartModel) model;
-
-    }
-
-    public PieChartModel getPieModel() {
-        if (!(model instanceof PieChartModel)) {
-            model = crearPieModel();
-        }
-        return (PieChartModel) model;
+    public String getModel() {
+        model = crearModelo();
+        return model;
     }
 
     public void onChangeTipoGrafica() {

@@ -33,8 +33,8 @@
 			</p:panelGrid>
 
 
-			<p:barChart id="grafica"
-						model="#{referenciasTopicoAtributoCalidadBean.barModel}" style="height:300px" widgetVar="chart" />
+			<p:chart id="grafica"
+						value="#{referenciasTopicoAtributoCalidadBean.model}" style="height:300px" widgetVar="chart" />
 			<p:commandButton type="button" value="#{msg.botonExportar}"
 						 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"
 						 onclick="downloadImage('chart')"/>

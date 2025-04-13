@@ -12,8 +12,7 @@
 
 		<h:form id="grafica">
 
-			<p:barChart id="graficaBar"
-						model="#{referenciasCalidadYearBean.barModel}" style="height:300px" widgetVar="chart" />
+			<p:chart id="graficas" value="#{referenciasCalidadYearBean.model}" style="height:300px" widgetVar="chart" />
 			<p:commandButton type="button" value="#{msg.botonExportar}"
 							 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"
 							 onclick="downloadImage('chart')"/>

@@ -1,7 +1,7 @@
 # 2nd stage, build the runtime image
 #FROM openjdk:21-ea-17-slim
 #FROM bellsoft/liberica-openjdk-alpine:17
-FROM bellsoft/liberica-openjre-alpine:17
+FROM bellsoft/liberica-openjre-alpine:21
 WORKDIR /app
 COPY run.sh .
 # Copy the binary built in the 1st stage

@@ -21,11 +21,8 @@
 				</p:selectOneMenu>
 			</p:panelGrid>
 
-			<p:pieChart id="graficaPie" rendered="#{referenciasTipoBean.tipoGrafica.equals('pie')}"
-					 model="#{referenciasTipoBean.pieModel}" style="height:300px" widgetVar="chart" />
+			<p:chart id="graficas" value="#{referenciasTipoBean.model}" style="height:300px" widgetVar="chart" />
 
-			<p:barChart id="graficaBar" rendered="#{referenciasTipoBean.tipoGrafica.equals('bar')}"
-					 model="#{referenciasTipoBean.barModel}" style="height:300px" widgetVar="chart" />
 			<p:commandButton type="button" value="#{msg.botonExportar}"
 							 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"
 							 onclick="downloadImage('chart')"/>

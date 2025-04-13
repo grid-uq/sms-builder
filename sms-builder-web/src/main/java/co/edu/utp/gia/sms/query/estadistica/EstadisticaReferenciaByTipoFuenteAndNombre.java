@@ -25,7 +25,7 @@ public class EstadisticaReferenciaByTipoFuenteAndNombre {
         var fuentes = FuenteGetByTipoFuente.createQuery(tipoFuente)
                 .map(Fuente::getNombre)
                 .toList();
-        Predicate<Metadato> filtro = metadato -> metadato.getIdentifier().equals(TipoMetadato.TIPO_FUENTE)
+        Predicate<Metadato> filtro = metadato -> metadato.getIdentifier().equals(TipoMetadato.FUENTE)
                 && fuentes.contains(metadato.getValue());
         return dataProvider.get().stream()
                 .flatMap(referencia -> referencia.getMetadatos().stream().filter(filtro))

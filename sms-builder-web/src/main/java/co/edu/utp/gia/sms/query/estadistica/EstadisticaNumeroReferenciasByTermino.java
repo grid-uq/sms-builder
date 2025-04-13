@@ -30,7 +30,7 @@ public class EstadisticaNumeroReferenciasByTermino {
     }
 
     private static long count(Provider<Collection<Referencia>> dataProvider, Termino termino){
-        var palabras = new LinkedList<>(termino.getSinonimos().stream().map(String::toUpperCase).toList());
+        var palabras = termino.getSinonimos() == null ? new LinkedList<String>(): new LinkedList<>(termino.getSinonimos().stream().map(String::toUpperCase).toList());
         palabras.add(termino.getDescripcion().toUpperCase());
 
         final var metadatos = List.of(TipoMetadato.KEYWORD,TipoMetadato.TITLE,TipoMetadato.ABSTRACT);

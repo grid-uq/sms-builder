@@ -11,6 +11,7 @@ import jakarta.inject.Provider;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -27,7 +28,9 @@ public class EstadisticaNumeroReferenciasBySinonimo {
     public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider) {
 
         var sinonimos = DB.root.revision().getTerminos().stream()
-                .flatMap(termino -> termino.getSinonimos().stream())
+                .map(Termino::getSinonimos)
+                .filter(Objects::nonNull)
+                .flatMap(List::stream)
                 .toList();
         var terminos = DB.root.revision().getTerminos().stream()
                 .map(Termino::getDescripcion)

@@ -38,11 +38,8 @@
 					<p:ajax event="itemUnselect" listener="#{referenciasTopicoBean.onChangePregunta}" update="grafica, tablaDatos" />
 				</p:selectManyMenu>
 			</p:panelGrid>
-			<p:pieChart id="graficaPie" rendered="#{referenciasTopicoBean.tipoGrafica.equals('pie')}"
-						model="#{referenciasTopicoBean.pieModel}" style="height:300px" />
+			<p:chart id="graficas" value="#{referenciasTopicoBean.model}" style="height:300px" />
 
-			<p:barChart id="graficaBar" rendered="#{referenciasTopicoBean.tipoGrafica.equals('bar')}"
-						model="#{referenciasTopicoBean.barModel}" style="height:300px" widgetVar="chart" />
 			<p:commandButton type="button" value="#{msg.botonExportar}"
 							 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"
 							 onclick="downloadImage('chart')"/>
