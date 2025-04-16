@@ -18,6 +18,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 /**
  * Clase controladora de interfaz web que se encarga de presentar los datos de las referencias por tópico.
@@ -95,6 +96,21 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
      */
     public EvaluacionCualitativa[] getListaValores() {
         return EvaluacionCualitativa.values();
+    }
+
+    public String referenciasTopicoYear(Topico topico,String year){
+        return referenciasSpsId(referencia -> referencia.getTopicos().contains(topico) && referencia.getYear().equals(year));
+    }
+
+    public String referenciasTopico(Topico topico){
+        return referenciasSpsId(referencia -> referencia.getTopicos().contains(topico));
+    }
+
+    private String referenciasSpsId(Predicate<ReferenciaDTO> filtro){
+        return referencias.stream()
+                .filter(filtro )
+                .map(ReferenciaDTO::getSpsid)
+                .collect(Collectors.joining(" "));
     }
 
 }

@@ -28,7 +28,7 @@
 						listener="#{referenciasTerminoBean.onChangeTipoGrafica}" />
 				</p:selectOneMenu>
 			</p:panelGrid>
-			<p:chart id="graficas" value="#{referenciasTerminoBean.model}" style="height:300px" />
+			<p:chart id="graficas" value="#{referenciasTerminoBean.model}" style="height:300px" widgetVar="chart" />
 
 			<p:commandButton type="button" value="#{msg.botonExportar}"
 							 icon="pi pi-image" styleClass="rounded-button ui-button-flat ui-button-plain"

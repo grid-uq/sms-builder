@@ -108,25 +108,16 @@
 					<h:outputText value="#{topico.descripcion}" />
 				</p:column>
 				<p:column headerText="#{msg.etiquetaSPSId} (#{msg.etiquetaReferencia})" width="#{tablaReferenciasTopicosBean.year?'35%':'75%'}" rendered="#{!tablaReferenciasTopicosBean.year}">
-					<ui:repeat value="#{tablaReferenciasTopicosBean.referencias}" var="referencia">
-
-						<h:outputText
-								value="#{(referencia.topicos.contains(topico)) ? referencia.spsid : '' } " />
-
-					</ui:repeat>
+					<h:outputText value="#{tablaReferenciasTopicosBean.referenciasTopico(topico)}" />
 				</p:column>
 
-				<p:columns value="#{tablaReferenciasTopicosBean.years}" var="year" headerText="#{msg.etiquetaSPSId} (#{msg.etiquetaReferencia})" rendered="#{tablaReferenciasTopicosBean.year}">
+				<p:columns value="#{tablaReferenciasTopicosBean.years}" var="year" headerText="#{year}" rendered="#{tablaReferenciasTopicosBean.year}">
 					<f:facet name="header">
 						<h:outputText
 								value="#{year}" />
 					</f:facet>
-					<ui:repeat value="#{tablaReferenciasTopicosBean.referencias}" var="referencia">
+					<h:outputText value="#{tablaReferenciasTopicosBean.referenciasTopicoYear(topico,year)}" />
 
-						<h:outputText
-								value="#{(referencia.topicos.contains(topico) and referencia.year.equals(year)) ? referencia.spsid : '' } " />
-
-					</ui:repeat>
 				</p:columns>
 
 			</p:dataTable>
