@@ -156,7 +156,7 @@ public class EvaluacionCalidadService extends AbstractGenericService<EvaluacionC
 
 			if (referencia.getRelevancia() == null || referencia.getRelevancia() < 3) {
 				evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.NO_CUMPLE);
-			} else if (referencia.getRelevancia() < 5) {
+			} else if (referencia.getRelevancia() < 4) {
 				evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.PARCIALMENTE);
 			} else {
 				evaluacionCalidad.setEvaluacionCualitativa(EvaluacionCualitativa.CUMPLE);
