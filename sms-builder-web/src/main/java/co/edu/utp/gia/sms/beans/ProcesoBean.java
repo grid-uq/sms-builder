@@ -117,7 +117,9 @@ public class ProcesoBean extends AbstractRevisionBean {
         DefaultSubMenu stage = DefaultSubMenu.builder().label("Stage 3 Quality analisys").build();
 
         var items = List.of( itemOf("etiquetaMenuCalidadTablaResumen","/calidad/resumenEvaluacionReferencias.xhtml"),
-                itemOf("etiquetaMenuCalidadTablaResumenAtributo","/calidad/resumenEvaluacionReferenciasAtributo.xhtml"));
+                itemOf("etiquetaMenuCalidadTablaResumenAtributo","/calidad/resumenEvaluacionReferenciasAtributo.xhtml"),
+                itemOf("etiquetaMenuCalidadTablaResumenMojores","/calidad/resumenMejorEvaluacionReferencias.xhtml")
+        );
         items.stream().map(this::createItem).forEach(stage.getElements()::add);
         stage.setExpanded(false);
         model.getElements().add(stage);

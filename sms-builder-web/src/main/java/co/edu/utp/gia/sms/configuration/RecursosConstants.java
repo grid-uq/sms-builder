@@ -49,6 +49,7 @@ public final class RecursosConstants {
             "/referencia/editar.xhtml",
             "/calidad/evaluarReferencia.xhtml",
             "/calidad/resumenEvaluacionReferencias.xhtml",
+            "/calidad/resumenMejorEvaluacionReferencias.xhtml",
             "/calidad/resumenEvaluacionReferenciasAtributo.xhtml",
             "/revision/registroReferencias.xhtml",
             "/revision/resumenReferenciasDestacadas.xhtml",

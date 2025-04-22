@@ -47,12 +47,25 @@
 			<p:dataTable id="tablaDatos" value="#{referenciasTopicoAtributoCalidadBean.topicos}"
 				var="topico">
 				<f:facet name="header">
-					<p:commandLink>
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/excel.png" width="24" />
+						<p:dataExporter type="xlsxstream" target="tablaDatos"
+										fileName="tablaDatos_#{referenciasTopicoAtributoCalidadBean.titulo}" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="tablaDatos"
+										fileName="tablaDatos_#{referenciasTopicoAtributoCalidadBean.titulo}" />
+					</h:commandLink>
+
+					<h:commandLink>
 						<p:graphicImage name="/imagenes/csv.png" width="24" />
 						<p:dataExporter type="csv" target="tablaDatos"
 										fileName="tablaDatos_#{referenciasTopicoAtributoCalidadBean.titulo}" />
-					</p:commandLink>
-					 -
+					</h:commandLink>
+
+					-
 					<h:outputText value="#{referenciasTopicoAtributoCalidadBean.titulo}" />
 				</f:facet>
 				<p:column headerText="#{referenciasTopicoAtributoCalidadBean.ejeX}">
@@ -61,6 +74,28 @@
 				<p:columns value="#{referenciasTopicoAtributoCalidadBean.series}" var="serie" headerText="#{serie.etiqueta}" >
 					<h:outputText value="#{serie.get(topico)}" />
 				</p:columns>
+
+				<f:facet name="footer">
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/excel.png" width="24" />
+						<p:dataExporter type="xlsxstream" target="tablaDatos"
+										fileName="tablaDatos_#{referenciasTopicoAtributoCalidadBean.titulo}" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="tablaDatos"
+										fileName="tablaDatos_#{referenciasTopicoAtributoCalidadBean.titulo}" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/csv.png" width="24" />
+						<p:dataExporter type="csv" target="tablaDatos"
+										fileName="tablaDatos_#{referenciasTopicoAtributoCalidadBean.titulo}" />
+					</h:commandLink>
+
+				</f:facet>
 			</p:dataTable>
 		</h:form>
 	</ui:define>

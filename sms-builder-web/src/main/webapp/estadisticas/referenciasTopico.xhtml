@@ -53,11 +53,21 @@
 
 			<p:dataTable id="tablaDatos" value="#{referenciasTopicoBean.datos}" var="dato">
 				<f:facet name="header">
-					<p:commandLink>
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/excel.png" width="24" />
+						<p:dataExporter type="xlsxstream" target="tablaDatos"
+										fileName="tablaDatos_#{referenciasTopicoBean.titulo}" />
+					</h:commandLink>
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="tablaDatos"
+										fileName="tablaDatos_#{referenciasTopicoBean.titulo}" />
+					</h:commandLink>
+					<h:commandLink>
 						<p:graphicImage name="/imagenes/csv.png" width="24" />
 						<p:dataExporter type="csv" target="tablaDatos"
 										fileName="tablaDatos_#{referenciasTopicoBean.titulo}" />
-					</p:commandLink> -
+					</h:commandLink> -
 					<h:outputText  value="#{referenciasTopicoBean.titulo}" />
 				</f:facet>
 				<p:column headerText="#{referenciasTopicoBean.ejeX}">
@@ -66,7 +76,27 @@
 				<p:column headerText="#{referenciasTopicoBean.ejeY}">
 					<h:outputText value="#{dato.valor}" />
 				</p:column>
+				<f:facet name="footer">
 
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/excel.png" width="24" />
+						<p:dataExporter type="xlsxstream" target="tablaDatos"
+										fileName="tablaDatos_#{referenciasTopicoBean.titulo}" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="tablaDatos"
+										fileName="tablaDatos_#{referenciasTopicoBean.titulo}" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/csv.png" width="24" />
+						<p:dataExporter type="csv" target="tablaDatos"
+										fileName="tablaDatos_#{referenciasTopicoBean.titulo}" />
+					</h:commandLink>
+
+				</f:facet>
 			</p:dataTable>
 		</h:form>
 	</ui:define>

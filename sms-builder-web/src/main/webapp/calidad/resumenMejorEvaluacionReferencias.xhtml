@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h:form id="tabla" enctype="multipart/form-data" prependId="false">
+			<p:growl id="mensajes" showDetail="true" />
+
+			<p:dataTable id="resumenAtributosCalidad"
+				value="#{tablaResumenMejorEvaluacionReferenciasBean.atributosCalidad}"
+				var="atributoCalidad" widgetVar="tablaResumenEvaluacion">
+				<f:facet name="header">
+
+					<h:commandLink >
+						<p:graphicImage name="/imagenes/excel.png" width="24" />
+						<p:dataExporter type="xlsxstream" target="resumenAtributosCalidad"
+							fileName="referencias" />
+					</h:commandLink>
+
+					<h:commandLink >
+						<p:graphicImage name="/imagenes/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="resumenAtributosCalidad"
+							fileName="referencias" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage name="/imagenes/csv.png" width="24" />
+						<p:dataExporter type="csv" target="resumenAtributosCalidad"
+							fileName="referencias" />
+					</h:commandLink>
+
+				</f:facet>
+
+				<p:column headerText="#{msg.etiquetaAtributoCalidad}" >
+					<h:outputText value="#{atributoCalidad.descripcion}" />
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaSPSId}">
+					<h:outputText value="#{tablaResumenMejorEvaluacionReferenciasBean.mejoresReferencias(atributoCalidad)}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
