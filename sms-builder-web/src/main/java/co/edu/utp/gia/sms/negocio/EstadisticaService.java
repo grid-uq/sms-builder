@@ -10,6 +10,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 /**
  * Clase de negocio encargada de implementar las funciones correspondientes a la
@@ -177,7 +178,9 @@ public class EstadisticaService {
      * @return List<Referencia> que contienen la keyword buscada en uno de sus metadatos
      */
     public List<Referencia> obtenerReferencias(String keyword, List<TipoMetadato> metadatos) {
-        return EstadisticaReferenciaByPalabrasClave.createQuery(revisionService.getPasoActual()::getReferencias,keyword, metadatos).toList();
+        return EstadisticaReferenciaByPalabrasClave
+                .createQuery(revisionService.getPasoActual()::getReferencias,keyword, metadatos)
+                .sorted(Comparator.comparing(Referencia::getSpsid)).toList();
     }
 
     /**
