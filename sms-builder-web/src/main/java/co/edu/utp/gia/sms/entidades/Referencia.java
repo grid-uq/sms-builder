@@ -128,6 +128,7 @@ public class Referencia implements Entidad<String> {
             case TYPE -> setTipo(metadato.getValue());
             case YEAR -> setYear(metadato.getValue());
             case CITES -> setCitas(Integer.parseInt(metadato.getValue()));
+            case TAG -> tags.add(metadato.getValue());
         }
     }
 

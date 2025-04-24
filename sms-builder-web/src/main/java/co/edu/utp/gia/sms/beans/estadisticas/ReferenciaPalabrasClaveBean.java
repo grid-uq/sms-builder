@@ -46,15 +46,19 @@ public class ReferenciaPalabrasClaveBean extends AbstractRevisionBean {
 
     @Getter
     private Integer totalResultados;
+    @Getter
+    @Setter
+    private Boolean constains;
 
     public void inicializar() {
+        constains = true;
         keyword = "";
         metadatos = new TipoMetadato[]{TipoMetadato.KEYWORD};
         consultarReferencias();
     }
 
     public void consultarReferencias() {
-        referencias = estadisticaService.obtenerReferencias(keyword, Arrays.asList(metadatos));
+        referencias = estadisticaService.obtenerReferencias(keyword, Arrays.asList(metadatos),constains);
 
 		listadoReferencias= referencias.stream()
 				.map(Referencia::getSpsid)

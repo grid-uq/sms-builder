@@ -175,11 +175,12 @@ public class EstadisticaService {
      *
      * @param keyword   Palabra a buscar
      * @param metadatos Listado de tipos de metadatos a incluir en la búsqueda.
+     * @param contains Determina si la búsqueda es una ocurrencia exacta o parcial (contenida).
      * @return List<Referencia> que contienen la keyword buscada en uno de sus metadatos
      */
-    public List<Referencia> obtenerReferencias(String keyword, List<TipoMetadato> metadatos) {
+    public List<Referencia> obtenerReferencias(String keyword, List<TipoMetadato> metadatos,boolean contains) {
         return EstadisticaReferenciaByPalabrasClave
-                .createQuery(revisionService.getPasoActual()::getReferencias,keyword, metadatos)
+                .createQuery(revisionService.getPasoActual()::getReferencias,keyword, metadatos,contains)
                 .sorted(Comparator.comparing(Referencia::getSpsid)).toList();
     }
 

@@ -233,8 +233,21 @@ public class ReferenciaService extends AbstractGenericService<Referencia, String
     public void updateTags(String id, List<String> tags) {
         Referencia referencia = findOrThrow(id);
         referencia.setTags(tags);
+        saveTags(referencia);
         update(referencia);
         DB.storageManager.store(referencia.getTags());
+        DB.storageManager.store(referencia.getMetadatos());
+    }
+
+    private void saveTags(Referencia referencia) {
+        var tags = referencia.getMetadatos().stream()
+                .filter( metadato -> metadato.getIdentifier().equals(TipoMetadato.TAG) )
+//                .map(Metadato::getValue)
+                .toList();
+        tags.forEach(referencia.getMetadatos()::remove);
+        referencia.getTags().stream()
+                .map(tag->new Metadato(TipoMetadato.TAG,tag,referencia))
+                .forEach(referencia.getMetadatos()::add);
     }
 
     public void asociciacionAutomatica() {
