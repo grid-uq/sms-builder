@@ -6,17 +6,17 @@
 	<artifactId>sms-builder-web</artifactId>
 	<packaging>war</packaging>
 	<name>SMS-Builder Web</name>
-	<version>4.2.3</version>
+	<version>4.2.4</version>
 	<properties>
 		<omnifaces.version>1.14.1</omnifaces.version>
 		<junit.jupiter.version>5.9.1</junit.jupiter.version>
-		<primefaces.version>15.0.3</primefaces.version>
+		<primefaces.version>15.0.5</primefaces.version>
 		<poi.version>5.4.0</poi.version>
 
 		<jsf-impl.version>2.3.9.SP08</jsf-impl.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<payaraVersion>6.2025.3</payaraVersion>
-		<microprofileVersion>7.0</microprofileVersion>
+		<payaraVersion>6.2025.6</payaraVersion>
+		<microprofileVersion>7.1</microprofileVersion>
 		<maven.forceversion>3.6.3</maven.forceversion>
 		<maven.compiler.target>21</maven.compiler.target>
 		<maven.compiler.source>21</maven.compiler.source>
@@ -172,7 +172,7 @@
 		<dependency>
 			<groupId>jakarta.platform</groupId>
 			<artifactId>jakarta.jakartaee-api</artifactId>
-			<version>10.0.0</version>
+			<version>11.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -339,7 +339,7 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20250107</version>
+			<version>20250517</version>
 		</dependency>
 
 		<!-- add dependencies which get shaded by PrimeFaces so IDE´s like IntelliJ can run und debug multimoduled showcase on eg Tomcat -->
@@ -462,7 +462,8 @@
 			<dependency>
 				<groupId>org.glassfish</groupId>
 				<artifactId>jakarta.faces</artifactId>
-				<version>2.3.21</version>
+				<version>4.1.3</version>
+<!--				<version>2.3.21</version>-->
 			</dependency>
 
 			<dependency>
