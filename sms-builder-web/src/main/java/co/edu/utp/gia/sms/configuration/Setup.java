@@ -39,6 +39,9 @@ public class Setup implements SetupInterface {
     private AtributosCalidadSetup atributosCalidadSetup;
     @Inject
     private FuentesSetup fuentesSetup;
+    @Inject
+    private MigrationSetup migrationSetup;
+
     @PostConstruct
     public void setup() {
         try{
@@ -83,6 +86,11 @@ public class Setup implements SetupInterface {
             log.log(Level.SEVERE,"Error en configuración inicial",e);
         }
 
+        try{
+            migrationSetup.setup();
+        }catch ( Exception e ){
+            log.log(Level.SEVERE,"Error en configuración inicial",e);
+        }
     }
 
 }
