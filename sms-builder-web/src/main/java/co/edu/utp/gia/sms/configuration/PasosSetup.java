@@ -45,7 +45,8 @@ public class PasosSetup implements SetupInterface {
                 "/revision/resumenReferenciasSeleccionadas.xhtml",
                 "/referencia/adicionarCitas.xhtml",
                 "/calidad/evaluarReferencias.xhtml",
-                "/referencia/analizar.xhtml"
+                "/referencia/analizar.xhtml",
+                "/topico/registro.xhtml"
         };
         String[] keys = {
                 "etiquetaMenuRevisionEditar",
@@ -65,7 +66,8 @@ public class PasosSetup implements SetupInterface {
                 "etiquetaMenuReferenciasSeleccionadas",
                 "etiquetaMenuReferenciaNumeroCitas",
                 "etiquetaMenuEvaluarReferencia",
-                "etiquetaMenuAnalizarReferencias"
+                "etiquetaMenuAnalizarReferencias",
+                "etiquetaTopicos"
         };
 
         var seleccionar = List.of("etiquetaMenuReferenciasSeleccionar");

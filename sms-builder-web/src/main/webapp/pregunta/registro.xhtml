@@ -93,13 +93,6 @@
 				</p:column>
 				
 				<p:column headerText="#{msg.etiquetaTopicos}">
-					<p:commandButton
-						action="#{registroPreguntaBean.adicionarTopico(pregunta.id)}"
-						icon="pi pi-plus-circle" styleClass="rounded-button ui-button-flat ui-button-plain">
-						<p:ajax event="dialogReturn"
-							listener="#{registroPreguntaBean.onTopicoCreado}" update=":tabla formulario :msgs" />
-					</p:commandButton>
-
 
 					<ui:repeat value="#{pregunta.topicos}" var="topico">
 						<div class="card">

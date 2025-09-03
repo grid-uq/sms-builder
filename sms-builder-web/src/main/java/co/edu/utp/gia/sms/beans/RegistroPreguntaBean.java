@@ -14,14 +14,10 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.DialogFrameworkOptions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de preguntas.
@@ -71,26 +67,6 @@ public class RegistroPreguntaBean extends GenericBeanNew<Pregunta,String> {
         preguntaService.remove(pregunta,topico);
         topicoService.delete(topico.getId());
         mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-    }
-
-    public void adicionarTopico(String id) {
-
-        var options = DialogFrameworkOptions.builder()
-                .resizable(false)
-                .draggable(false)
-                .modal(true)
-                .width("70%")
-//                .contentHeight("100%")
-                .contentWidth("100%")
-                .blockScroll(true)
-                .build();
-        addToSession("idPregunta", id);
-        PrimeFaces.current().dialog().openDynamic("/pregunta/registroTopico", options, null);
-    }
-
-    public void onTopicoCreado(SelectEvent<Topico> event) {
-        mostrarMensajeGeneral(getMessage(MessageConstants.OPERACION_FINALIZADA));
-        inicializar();
     }
 
     public void validate(FacesContext facesContext, UIComponent component, java.lang.Object object){

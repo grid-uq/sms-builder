@@ -6,16 +6,16 @@
 	<artifactId>sms-builder-web</artifactId>
 	<packaging>war</packaging>
 	<name>SMS-Builder Web</name>
-	<version>4.2.4</version>
+	<version>4.3.0</version>
 	<properties>
 		<omnifaces.version>1.14.1</omnifaces.version>
 		<junit.jupiter.version>5.9.1</junit.jupiter.version>
-		<primefaces.version>15.0.5</primefaces.version>
+		<primefaces.version>15.0.7</primefaces.version>
 		<poi.version>5.4.0</poi.version>
 
 		<jsf-impl.version>2.3.9.SP08</jsf-impl.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<payaraVersion>6.2025.6</payaraVersion>
+		<payaraVersion>6.2025.8</payaraVersion>
 		<microprofileVersion>7.1</microprofileVersion>
 		<maven.forceversion>3.6.3</maven.forceversion>
 		<maven.compiler.target>21</maven.compiler.target>
@@ -191,7 +191,7 @@
 		<dependency>
 			<groupId>jakarta.platform</groupId>
 			<artifactId>jakarta.jakartaee-web-api</artifactId>
-			<version>10.0.0</version>
+			<version>11.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/jakarta.faces/jakarta.faces-api -->
@@ -408,7 +408,7 @@
 		<dependency>
 			<groupId>org.eclipse.store</groupId>
 			<artifactId>storage-embedded</artifactId>
-			<version>2.1.3</version>
+			<version>3.0.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/one.microstream/microstream-storage-embedded-configuration -->
 <!--		<dependency>-->
@@ -420,7 +420,7 @@
 		<dependency>
 			<groupId>org.eclipse.store</groupId>
 			<artifactId>storage-embedded-configuration</artifactId>
-			<version>2.1.3</version>
+			<version>3.0.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/one.microstream/microstream-persistence-binary-jdk17 -->
 <!--		<dependency>-->

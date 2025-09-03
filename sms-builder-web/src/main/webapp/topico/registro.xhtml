@@ -1,0 +1,136 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="formulario">
+
+            <p:panelGrid columns="3" layout="flex">
+                <p:outputLabel value="#{msg.etiquetaNombre}: " />
+                <p:selectOneMenu id="tag" value="#{registroTopicoBean.record.descripcion}" editable="true" validator="#{registroTopicoBean.validate}" required="true">
+                    <f:selectItem itemLabel="" itemValue=""/>
+                    <f:selectItems value="#{registroTopicoBean.tags}"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="#{msg.etiquetaTags}: " />
+                <p:selectManyMenu id="advanced" value="#{registroTopicoBean.record.tags}"
+                                  var="t" filter="true" filterMatchMode="contains" filterNormalize="true"
+                                  showCheckbox="true" styleClass="manymenu-advanced">
+                    <f:selectItems value="#{registroTopicoBean.tags}" var="tag" itemLabel="#{tag}" />
+                    <p:column>
+                        <h:outputText value="#{t}"/>
+                    </p:column>
+                </p:selectManyMenu>
+                <p:outputLabel value="#{msg.etiquetaPregunta}: " />
+                <p:selectOneRadio
+                    value="#{registroTopicoBean.record.pregunta}" required="true" converter="preguntaConverter" >
+                    <f:selectItems value="#{registroPreguntaBean.records}"
+                        var="pregunta" itemLabel="#{pregunta.codigo}" itemValue="#{pregunta}" />
+                </p:selectOneRadio>
+
+                <f:facet name="footer">
+                    <p:commandButton value="#{msg.botonAceptar}"
+                        action="#{registroTopicoBean.registrar}"
+                        update=":tabla :formulario :msgs" />
+                </f:facet>
+
+            </p:panelGrid>
+		</h:form>
+		<br />
+		<h:form id="tabla">
+			<p:dataTable value="#{registroTopicoBean.records}" var="topico"
+				editable="true" widgetVar="recordsTable">
+				<p:ajax event="rowEdit" listener="#{registroTopicoBean.onRowEdit}"
+					update=":msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{registroTopicoBean.onRowCancel}" update=":msgs" />
+
+                <p:column headerText="#{msg.etiquetaPregunta}" style="width: 200px"
+                          filterMatchMode="exact" filterBy="#{topico.pregunta.codigo}" >
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('recordsTable').filter()" styleClass="ui-custom-filter">
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{registroPreguntaBean.records}" var="pregunta"
+                                           itemValue="#{pregunta.codigo}" itemLabel="#{pregunta.codigo}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{topico.pregunta.codigo}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:selectOneRadio id="basic"
+                                              value="#{topico.pregunta}" required="true" converter="preguntaConverter" >
+                                <f:selectItems value="#{registroPreguntaBean.records}"
+                                               var="pregunta" itemLabel="#{pregunta.codigo}" itemValue="#{pregunta}"  />
+                            </p:selectOneRadio>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+				<p:column headerText="#{msg.etiquetaNombre}" style="width: 200px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{topico.descripcion}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{topico.descripcion}" validator="#{registroTopicoBean.validate}" required="true" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{msg.etiquetaTags}">
+					
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{topico.tags}" />
+							
+						</f:facet>
+						<f:facet name="input">
+                            <p:selectManyMenu id="advanced" value="#{topico.tags}"
+                                              var="t" filter="true" filterMatchMode="contains" filterNormalize="true"
+                                              showCheckbox="true" styleClass="manymenu-advanced">
+                                <f:selectItems value="#{registroTopicoBean.tags}" var="tag" itemLabel="#{tag}" />
+                                <p:column>
+                                    <h:outputText value="#{t}"/>
+                                </p:column>
+                            </p:selectManyMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:35px">
+					<p:rowEditor />
+					<p:commandButton action="#{registroTopicoBean.eliminar(topico)}"
+									 immediate="true"
+									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain" update=":tabla :msgs" >
+						<p:confirm header="#{msg['dialogoConfirmacion.titulo']}"
+							message="#{msg['dialogoConfirmacion.eliminar']}"
+							icon="ui-icon ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+				<p:commandButton value="#{msg.no}" type="button"
+								 styleClass="ui-confirmdialog-no ui-button-flat"  />
+				<p:commandButton value="#{msg.si}" type="button"
+								 styleClass="ui-confirmdialog-yes"  />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

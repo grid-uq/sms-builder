@@ -25,6 +25,7 @@ public final class RecursosConstants {
             "/fuente/registro.xhtml",
             "/criterioseleccion/registro.xhtml",
             "/cadenabusqueda/registro.xhtml",
+            "/topico/registro.xhtml",
             "/revision/importarReferencias.xhtml",
             "/revision/importarReferenciasBaseDatos.xhtml",
             "/revision/importarReferenciasManual.xhtml",

@@ -1,21 +1,21 @@
 package co.edu.utp.gia.sms.beans;
 
+import co.edu.utp.gia.sms.entidades.Pregunta;
 import co.edu.utp.gia.sms.entidades.Topico;
-import co.edu.utp.gia.sms.negocio.PreguntaService;
+import co.edu.utp.gia.sms.negocio.AbstractGenericService;
 import co.edu.utp.gia.sms.negocio.TopicoService;
-import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.validator.ValidatorException;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.PrimeFaces;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Clase controladora de interfaz web que se encarga de la gestión de tópicos.
@@ -29,49 +29,56 @@ import java.util.LinkedList;
  */
 @Named
 @ViewScoped
-public class RegistroTopicoBean extends GenericBean<Topico> {
-    @Getter @Setter
-    private String descripcion;
-    @Getter @Setter
-    private String id;
-    @Getter @Setter
-    private Collection<String> tagsAsociados;
+public class RegistroTopicoBean extends GenericBeanNew<Topico,String> {
     @Inject
     private TopicoService topicoService;
-    @Inject
-    private PreguntaService preguntaService;
+    @Getter @Setter
+    private List<Pregunta> listaPreguntas;
 
     @Getter
     private Collection<String> tags;
 
-    /**
-     * Permite registrar un topico
-     */
-    public void registrar() {
-        Topico topico = null;
-        id = getAndRemoveFromSession("idPregunta").toString();
-        if (id != null) {
-            topico = new Topico();
-            topico.setDescripcion(descripcion);
-            topico.setTags(tagsAsociados);
-            topico = topicoService.save(id, topico);
-        }
-        PrimeFaces.current().dialog().closeDynamic(topico);
-    }
-
 
     @Override
     public void inicializar() {
-        // No se requiere inicializar ningún dato
         tags = topicoService.getTags().stream().distinct().toList();
-        tagsAsociados = new LinkedList<>();
+
+        setRecords(topicoService.get().stream()
+                .sorted(Comparator.comparing(topico -> topico.getPregunta().getCodigo())).toList());
+        listaPreguntas = new ArrayList<>();
     }
 
+    @Override
+    protected Topico newRecord() {
+        return new Topico();
+    }
+
+    @Override
+    protected AbstractGenericService<Topico, String> getServices() {
+        return topicoService;
+    }
+
+    @Override
+    public void registrar() {
+        super.registrar();
+        setRecords(topicoService.get().stream()
+                .sorted(Comparator.comparing(topico -> topico.getPregunta().getCodigo())).toList());
+    }
+
+    @Override
+    public void eliminar(Topico record) {
+        super.eliminar(record);
+        setRecords(topicoService.get().stream()
+                .sorted(Comparator.comparing(topico -> topico.getPregunta().getCodigo())).toList());
+    }
+
+    /**
+     * Método que permite validar que no se ingresen dos tópico con la misma descripción bajo una misma pregunta.
+     * @param facesContext Contexto de faces.
+     * @param component Componente que se está validando
+     * @param object Valor que se pretende asignar al componente.
+     */
     public void validate(FacesContext facesContext, UIComponent component, java.lang.Object object){
-        var pregunta =  preguntaService.findOrThrow((String) getFromSession("idPregunta"));
-        if ( pregunta.getTopicos().stream().map(Topico::getDescripcion).anyMatch(t->t.equals(object.toString())) ) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error "+exceptionMessage.getRegistroExistente(), "Error "+exceptionMessage.getRegistroExistente());
-            throw new ValidatorException(msg);
-        }
+        validateUnique(facesContext, component, object, record -> record.getPregunta() == this.getRecord().getPregunta() && record.getDescripcion().equals(object.toString()) );
     }
 }
