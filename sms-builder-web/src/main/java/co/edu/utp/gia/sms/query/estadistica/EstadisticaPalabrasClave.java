@@ -7,6 +7,7 @@ import co.edu.utp.gia.sms.entidades.TipoMetadato;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -23,7 +24,8 @@ public class EstadisticaPalabrasClave {
      * @return Stream<DatoDTO> que representa el resultado de la consulta
      */
     public static Stream<DatoDTO> createQuery(Provider<Collection<Referencia>> dataProvider, Integer minimo) {
-        Predicate<Metadato> filtro = metadato -> metadato.getIdentifier().equals(TipoMetadato.KEYWORD);
+        var tipos = List.of(TipoMetadato.KEYWORD, TipoMetadato.TAG);
+        Predicate<Metadato> filtro = metadato -> tipos.contains(metadato.getIdentifier());
         return dataProvider.get().stream()
                 .flatMap(referencia -> referencia.getMetadatos().stream().filter(filtro))
                 .collect(Collectors.groupingBy(Metadato::getValue,Collectors.counting()))
