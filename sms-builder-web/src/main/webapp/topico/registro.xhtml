@@ -48,7 +48,7 @@
 		<br />
 		<h:form id="tabla">
 			<p:dataTable value="#{registroTopicoBean.records}" var="topico"
-				editable="true" widgetVar="recordsTable">
+				editable="true" widgetVar="recordsTable" editMode="row">
 				<p:ajax event="rowEdit" listener="#{registroTopicoBean.onRowEdit}"
 					update=":msgs" />
 				<p:ajax event="rowEditCancel"
@@ -83,7 +83,10 @@
 							<h:outputText value="#{topico.descripcion}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{topico.descripcion}" validator="#{registroTopicoBean.validate}" required="true" />
+                            <p:selectOneMenu value="#{topico.descripcion}" editable="true" validator="#{registroTopicoBean.validate}" required="true">
+                                <f:selectItem itemLabel="" itemValue=""/>
+                                <f:selectItems value="#{registroTopicoBean.tags}"/>
+                            </p:selectOneMenu>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -96,13 +99,10 @@
 							
 						</f:facet>
 						<f:facet name="input">
-                            <p:selectManyMenu id="advanced" value="#{topico.tags}"
-                                              var="t" filter="true" filterMatchMode="contains" filterNormalize="true"
-                                              showCheckbox="true" styleClass="manymenu-advanced">
-                                <f:selectItems value="#{registroTopicoBean.tags}" var="tag" itemLabel="#{tag}" />
-                                <p:column>
-                                    <h:outputText value="#{t}"/>
-                                </p:column>
+                            <p:selectManyMenu value="#{topico.tags}"
+                                              filter="true" filterMatchMode="contains" filterNormalize="true"
+                                              showCheckbox="true" >
+                                <f:selectItems value="#{registroTopicoBean.tags}" var="tag" itemLabel="#{tag}" itemValue="#{tag}" />
                             </p:selectManyMenu>
 						</f:facet>
 					</p:cellEditor>

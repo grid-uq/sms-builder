@@ -45,8 +45,8 @@ public class ProcesoSetup implements SetupInterface{
                 "etiquetaMenuReferenciasSeleccionar",
                 "etiquetaMenuReferenciasSeleccionadas",
                 "etiquetaMenuReferenciaNumeroCitas",
-                "etiquetaMenuAnalizarReferencias",
                 "etiquetaTopicos",
+                "etiquetaMenuAnalizarReferencias",
                 "etiquetaMenuEvaluarReferencia"
         };
         var pasos = procesoService.get();
