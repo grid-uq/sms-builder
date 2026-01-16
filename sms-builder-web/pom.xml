@@ -6,22 +6,22 @@
 	<artifactId>sms-builder-web</artifactId>
 	<packaging>war</packaging>
 	<name>SMS-Builder Web</name>
-	<version>4.3.2</version>
+	<version>4.4.0</version>
 	<properties>
 		<omnifaces.version>1.14.1</omnifaces.version>
 		<junit.jupiter.version>5.9.1</junit.jupiter.version>
-		<primefaces.version>15.0.7</primefaces.version>
+		<primefaces.version>15.0.12</primefaces.version>
 		<poi.version>5.4.0</poi.version>
 
 		<jsf-impl.version>2.3.9.SP08</jsf-impl.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<payaraVersion>6.2025.8</payaraVersion>
+		<payaraVersion>7.2025.2</payaraVersion>
 		<microprofileVersion>7.1</microprofileVersion>
 		<maven.forceversion>3.6.3</maven.forceversion>
-		<maven.compiler.target>21</maven.compiler.target>
-		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>25</maven.compiler.target>
+		<maven.compiler.source>25</maven.compiler.source>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
-		<lombok.version>1.18.38</lombok.version>
+		<lombok.version>1.18.42</lombok.version>
 
 	</properties>
 	<prerequisites>
