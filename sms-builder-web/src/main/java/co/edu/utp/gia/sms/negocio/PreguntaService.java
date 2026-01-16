@@ -89,4 +89,9 @@ public class PreguntaService extends AbstractGenericService<Pregunta, String> {
         DB.storageManager.store(record.getTopicos());
     }
 
+    @Override
+    public void delete(Pregunta entidad) {
+        entidad.getTopicos().forEach(topicoService::delete);
+        super.delete(entidad);
+    }
 }

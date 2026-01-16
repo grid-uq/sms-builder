@@ -70,7 +70,7 @@ public class TablaReferenciasTopicosBean extends AbstractRevisionBean {
             referencias = referenciaService.findByPaso(getPasoActual().getId())
                     .stream().sorted( Comparator.comparing(ReferenciaDTO::getSpsid) ).collect(Collectors.toList());
             topicos = revisionService.getTopicos();
-            topicosSeleccionados = new ArrayList<>( topicos );
+            topicosSeleccionados = new ArrayList<>(topicos.stream().sorted(Comparator.comparing(o -> o.getPregunta().getCodigo())).toList());
             years = estadisticaService.obtenerYears( );
         }
     }

@@ -25,6 +25,11 @@ public class TopicoService extends AbstractGenericService<Topico, String> {
 
 	@Inject
 	private PreguntaService preguntaService;
+	@Inject
+	private RevisionService revisionService;
+	@Inject
+	private ReferenciaService referenciaService;
+
 	public TopicoService() {
 		super(DB.root.getProvider(Topico.class));
 	}
@@ -46,4 +51,12 @@ public class TopicoService extends AbstractGenericService<Topico, String> {
     public Collection<String> getTags() {
 		return ReferenciaGetTags.createQuery().toList();
     }
+
+	@Override
+	public void delete(Topico entidad) {
+		revisionService.get().getReferencias().forEach(referencia ->
+			referenciaService.removeTopico(referencia.getId(),entidad.getId())
+		);
+		super.delete(entidad);
+	}
 }

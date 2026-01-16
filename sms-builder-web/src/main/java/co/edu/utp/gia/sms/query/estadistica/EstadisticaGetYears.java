@@ -27,6 +27,6 @@ public class EstadisticaGetYears {
      * @return Stream<DatoDTO> que representa el resultado de la consulta
      */
     public static Stream<String> createQuery(Provider<Collection<Referencia>> dataProvider) {
-        return dataProvider.get().stream().map(Referencia::getYear).distinct();
+        return dataProvider.get().stream().map(Referencia::getYear).sorted().distinct();
     }
 }
