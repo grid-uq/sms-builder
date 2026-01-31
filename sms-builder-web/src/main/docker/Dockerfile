@@ -1,6 +1,6 @@
 
 # 1st stage, build the app
-FROM maven:3.6-openjdk-21 as build
+FROM maven:3.6-openjdk-25 as build
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ RUN echo "done!"
 # 2nd stage, build the runtime image
 #FROM openjdk:21-ea-17-slim
 #FROM bellsoft/liberica-openjdk-alpine:17
-FROM bellsoft/liberica-openjre-alpine:21
+FROM bellsoft/liberica-openjre-alpine:25
 WORKDIR /app
 COPY run.sh .
 # Copy the binary built in the 1st stage
