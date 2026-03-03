@@ -5,6 +5,7 @@ import co.edu.utp.gia.sms.entidades.Referencia;
 import jakarta.inject.Provider;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -27,6 +28,6 @@ public class EstadisticaGetYears {
      * @return Stream<DatoDTO> que representa el resultado de la consulta
      */
     public static Stream<String> createQuery(Provider<Collection<Referencia>> dataProvider) {
-        return dataProvider.get().stream().map(Referencia::getYear).sorted().distinct();
+        return dataProvider.get().stream().map(Referencia::getYear).filter(Objects::nonNull).sorted().distinct();
     }
 }
